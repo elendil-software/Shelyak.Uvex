@@ -37,4 +37,14 @@ public class ResponseParserShould
         Assert.Equal(propertyAttributeStatus, ((SuccessResponse<double>)response).PropertyAttributeStatus);
         Assert.Equal(value, ((SuccessResponse<double>)response).Value);
     }
+    
+    [Theory]
+    [InlineData("M01;UNKNOWN PROPERTY", MessageErrorCode.M01_UNKNOWN_PROPERTY)]
+    public void ParseErrorResponse(string responseString, MessageErrorCode messageErrorCode)
+    {
+        IResponse response = ResponseParser.Parse<int>(responseString);
+                
+        Assert.IsType<ErrorResponse>(response);
+        Assert.Equal(messageErrorCode, ((ErrorResponse)response).MessageErrorCode);
+    }
 }
