@@ -1,8 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Shelyak.Usis;
+using Shelyak.Uvex.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
+builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
+
+//Configuration
+builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
 builder.Services.AddControllers();
 
