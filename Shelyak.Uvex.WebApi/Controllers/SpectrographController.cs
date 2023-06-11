@@ -28,11 +28,9 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingAngle(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        AlpacaResponse<float> alpacaResponse = Execute<float>(
+        return Ok(Execute<float>(
             CommandType.GET, DeviceProperty.GRATING_ANGLE, PropertyAttributeType.VALUE, 
-            deviceNumber, clientId, clientTransactionId);
-        
-        return Ok(alpacaResponse);
+            deviceNumber, clientId, clientTransactionId));
     }
 
     private AlpacaResponse<T> Execute<T>(CommandType commandType, DeviceProperty gratingAngle, PropertyAttributeType propertyAttributeType,
@@ -43,11 +41,17 @@ public class SpectrographController : ControllerBase
         
         try
         {
+            _logger.LogInformation("Executing command {CommandType} {DeviceProperty} {PropertyAttributeType}", commandType, gratingAngle, propertyAttributeType);
             IResponse response = _commandFacade.ExecuteCommand<T>(commandType, gratingAngle, propertyAttributeType);
-            return AlpacaResponseBuilder.BuildAlpacaResponse<T>(clientTransactionId, serverTransactionId, response);
+            AlpacaResponse<T> alpacaResponse = AlpacaResponseBuilder.BuildAlpacaResponse<T>(clientTransactionId, serverTransactionId, response);
+            _logger.LogInformation("Command {CommandType} {DeviceProperty} {PropertyAttributeType} executed successfully, Response: {@AlpacaResponse}", 
+                commandType, gratingAngle, propertyAttributeType, alpacaResponse);
+            return alpacaResponse;
         }
         catch (Exception e)
         {
+            _logger.LogError(e, "Error while executing command {CommandType} {DeviceProperty} {PropertyAttributeType} : {ExceptionMessage}", 
+                commandType, gratingAngle, propertyAttributeType, e.Message);
             return AlpacaResponseBuilder.BuildAlpacaResponse<T>(clientTransactionId, serverTransactionId, e);
         }
     }
