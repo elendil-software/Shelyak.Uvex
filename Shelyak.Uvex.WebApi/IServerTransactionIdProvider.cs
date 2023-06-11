@@ -1,7 +1,6 @@
-﻿namespace Shelyak.Uvex.WebApi
+﻿namespace Shelyak.Uvex.WebApi;
+
+public interface IServerTransactionIdProvider
 {
-    public interface IServerTransactionIdProvider
-    {
-        uint GetServerTransactionId();
-    }
+    uint GetServerTransactionId();
 }
