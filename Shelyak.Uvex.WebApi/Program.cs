@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Shelyak.Usis;
+using Shelyak.Usis.Commands;
 using Shelyak.Uvex.WebApi;
 
 
@@ -11,6 +12,8 @@ try
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
+    builder.Services.AddSingleton<ICommandFacade, CommandFacade>();
+    builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
 
