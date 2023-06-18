@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Commands;
@@ -31,14 +33,42 @@ try
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "USIS Device API",
+            Version = "v1",
+            Description = "API to perform operations on USIS compatible device",
+            //TODO à compléter
+            TermsOfService = new Uri("https://example.com/terms"),
+            Contact = new OpenApiContact
+            {
+                Name = "Shelyak Instruments",
+                Url = new Uri("https://example.com/contact"),
+            },
+            License = new OpenApiLicense
+            {
+                Name = "License",
+                Url = new Uri("https://example.com/license"),
+            }
+        });
+        
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
+    });
+    
+    
 
     var app = builder.Build();
     
     app.UseSerilogRequestLogging();
     
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+    
+    var enableSwagger = builder.Configuration.GetValue<bool>("OpenAPI:EnableSwagger");
+    if (app.Environment.IsDevelopment() || enableSwagger)
     {
         app.UseSwagger();
         app.UseSwaggerUI();

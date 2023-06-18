@@ -25,6 +25,13 @@ public class SpectrographController : ControllerBase
 
     #region Grating
     
+    /// <summary>
+    /// Get the current grating ID, if the system can change the grating.
+    /// </summary>
+    /// <param name="deviceNumber">Zero based device number as set on the server (0 to 4294967295)</param>
+    /// <param name="clientId">Client's unique ID. (1 to 4294967295). The client should choose a value at start-up, e.g. a random value between 1 and 65535, and send this on every transaction to associate entries in device logs with this particular client. Zero is a reserved value that clients should not use.</param>
+    /// <param name="clientTransactionId">Client's transaction ID. (1 to 4294967295). The client should start this count at 1 and increment by one on each successive transaction. This will aid associating entries in device logs with corresponding entries in client side logs. Zero is a reserved value that clients should not use.</param>
+    /// <returns></returns>
     [HttpGet]
     [Route("{deviceNumber}/gratingid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
