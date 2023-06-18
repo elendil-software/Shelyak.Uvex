@@ -1,4 +1,5 @@
-﻿using Shelyak.Usis.Enums;
+﻿using System.Globalization;
+using Shelyak.Usis.Enums;
 
 namespace Shelyak.Usis.Responses;
 
@@ -50,7 +51,7 @@ public static class ResponseParser
                 DeviceProperty = (DeviceProperty)Enum.Parse(typeof(DeviceProperty), parts[1]),
                 PropertyAttributeType = (PropertyAttributeType)Enum.Parse(typeof(PropertyAttributeType), parts[2]),
                 PropertyAttributeStatus = (PropertyAttributeStatus)Enum.Parse(typeof(PropertyAttributeStatus), parts[3]),
-                Value = (T)Convert.ChangeType(parts[4], typeof(T))
+                Value = (T)Convert.ChangeType(parts[4], typeof(T), CultureInfo.InvariantCulture)
             };
             
             return response;
