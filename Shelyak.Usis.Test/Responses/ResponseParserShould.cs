@@ -6,11 +6,11 @@ namespace Shelyak.Isis.Test.Responses;
 public class ResponseParserShould
 {
     [Theory]
-    [InlineData("C01;TIMEOUT*22", CommunicationErrorCode.C01_TIMEOUT, "TIMEOUT")]
-    [InlineData("C01;TIMEOUT", CommunicationErrorCode.C01_TIMEOUT, "TIMEOUT")]
-    [InlineData("C02;BAD REQUEST", CommunicationErrorCode.C02_BAD_REQUEST, "BAD REQUEST")]
-    [InlineData("C03;BAD CHECKSUM", CommunicationErrorCode.C03_BAD_CHECKSUM, "BAD CHECKSUM")]
-    [InlineData("C04;OVERFLOW", CommunicationErrorCode.C04_OVERFLOW, "OVERFLOW")]
+    [InlineData("C01;TIMEOUT*22", CommunicationErrorCode.C01_TIMEOUT, "C01 - TIMEOUT")]
+    [InlineData("C01;TIMEOUT", CommunicationErrorCode.C01_TIMEOUT, "C01 - TIMEOUT")]
+    [InlineData("C02;BAD REQUEST", CommunicationErrorCode.C02_BAD_REQUEST, "C02 - BAD REQUEST")]
+    [InlineData("C03;BAD CHECKSUM", CommunicationErrorCode.C03_BAD_CHECKSUM, "C03 - BAD CHECKSUM")]
+    [InlineData("C04;OVERFLOW", CommunicationErrorCode.C04_OVERFLOW, "C04 - OVERFLOW")]
     public void ParseCommunicationErrorResponse(string errorString, CommunicationErrorCode errorCode, string message)
     {
         IResponse response = ResponseParser.Parse<int>(errorString);
@@ -39,12 +39,13 @@ public class ResponseParserShould
     }
     
     [Theory]
-    [InlineData("M01;UNKNOWN PROPERTY", MessageErrorCode.M01_UNKNOWN_PROPERTY)]
-    public void ParseErrorResponse(string responseString, MessageErrorCode messageErrorCode)
+    [InlineData("M01;UNKNOWN PROPERTY", MessageErrorCode.M01_UNKNOWN_PROPERTY, "M01 - UNKNOWN PROPERTY")]
+    public void ParseErrorResponse(string responseString, MessageErrorCode messageErrorCode, string expectedMessage)
     {
         IResponse response = ResponseParser.Parse<int>(responseString);
                 
         Assert.IsType<ErrorResponse>(response);
         Assert.Equal(messageErrorCode, ((ErrorResponse)response).MessageErrorCode);
+        Assert.Equal(expectedMessage, ((ErrorResponse)response).Message);
     }
 }

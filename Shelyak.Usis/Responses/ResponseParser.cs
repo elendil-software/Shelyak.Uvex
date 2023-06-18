@@ -32,7 +32,7 @@ public static class ResponseParser
         var response = new CommunicationErrorResponse
         {
             ErrorCode = (CommunicationErrorCode)int.Parse(parts[0][1..]),
-            Message = parts[1].Split('*')[0].TrimEnd('\n')
+            Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
         };
 
         return response;
@@ -60,8 +60,8 @@ public static class ResponseParser
         {
             var response = new ErrorResponse
             {
-                MessageErrorCode = (MessageErrorCode)int.Parse(parts[0][1..]), 
-                Message = parts[1].Split('*')[0].TrimEnd('\n')
+                MessageErrorCode = (MessageErrorCode)int.Parse(parts[0][1..]),
+                Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
             };
 
             return response;
