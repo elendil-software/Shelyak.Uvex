@@ -80,6 +80,14 @@ public class SpectrographController : ControllerBase
         return Ok(Execute<float>(CommandType.GET, DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/gratingdensity")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult SetGratingDensity(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(CommandType.SET, DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId, value));
+    }
+    
     #endregion
 
     #region Slit
