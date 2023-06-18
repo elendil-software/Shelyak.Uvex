@@ -22,6 +22,50 @@ public class SpectrographController : ControllerBase
         _serverTransactionIdProvider = serverTransactionIdProvider;
         _logger = logger;
     }
+    
+    #region Device
+    
+    [HttpGet]
+    [Route("{deviceNumber}/devicename")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult GetDeviceName(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute<string>(CommandType.GET, DeviceProperty.DEVICE_NAME, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/softwareversion")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult GetSoftwareVersion(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute<string>(CommandType.GET, DeviceProperty.SOFTWARE_VERSION, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/protocolversion")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult GetProtocolVersion(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute<string>(CommandType.GET, DeviceProperty.PROTOCOL_VERSION, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/temperature")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetTemperature(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute<float>(CommandType.GET, DeviceProperty.TEMPERATURE, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/humidity")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetHumidity(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute<float>(CommandType.GET, DeviceProperty.HUMIDITY, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+
+    #endregion
 
     #region Grating
     
