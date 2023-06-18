@@ -6,20 +6,17 @@ public class CommandFactory : ICommandFactory
 {
     public ICommand CreateCommand<T>(CommandType commandType, DeviceProperty deviceProperty, PropertyAttributeType attributeType)
     {
-        return CreateCommand(commandType, deviceProperty, attributeType, 0);
+        return CreateCommand(commandType, deviceProperty, attributeType, default(T));
     }
         
     public ICommand CreateCommand<T>(CommandType commandType, DeviceProperty deviceProperty, PropertyAttributeType attributeType, T value)
     {
-        if(commandType == CommandType.GET)
+        return commandType switch
         {
-            return new GetCommand(deviceProperty, attributeType);
-        }
-        else if (commandType == CommandType.SET)
-        {
-            return new SetCommand<T>(deviceProperty, attributeType, value);
-        }
-
-        throw new InvalidOperationException();
+            CommandType.GET => new GetCommand(deviceProperty, attributeType),
+            CommandType.SET => new SetCommand<T>(deviceProperty, attributeType, value),
+            CommandType.STOP => new StopCommand<T>(deviceProperty),
+            _ => throw new InvalidOperationException()
+        };
     }
 }
