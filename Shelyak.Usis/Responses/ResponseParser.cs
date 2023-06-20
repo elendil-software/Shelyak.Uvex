@@ -1,26 +1,38 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.Logging;
 using Shelyak.Usis.Enums;
 
 namespace Shelyak.Usis.Responses;
 
-public static class ResponseParser
+public class ResponseParser : IResponseParser
 {
-    public static IResponse Parse<T>(string responseString)
+    private readonly ILogger<ResponseParser> _logger;
+
+    public ResponseParser(ILogger<ResponseParser> logger)
     {
+        _logger = logger;
+    }
+
+    public IResponse Parse<T>(string responseString)
+    {
+        _logger.LogDebug("Parsing response: {Response}", responseString);
+        
         if (responseString.StartsWith('M'))
         {
+            _logger.LogDebug("Response is USIS response");
             return ParseUsisResponse<T>(responseString);
         }
 
         if (responseString.StartsWith('C'))
         {
+            _logger.LogDebug("Response is communication error response");
             return ParseCommunicationErrorResponse(responseString);
         }
 
         throw new ArgumentException("Unknown response type");
     }
 
-    private static IResponse ParseCommunicationErrorResponse(string responseString)
+    private IResponse ParseCommunicationErrorResponse(string responseString)
     {
         string[] parts = responseString.TrimEnd('\n').Split(';');
             
@@ -34,17 +46,19 @@ public static class ResponseParser
             ErrorCode = (CommunicationErrorCode)int.Parse(parts[0][1..]),
             Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
         };
+        
+        _logger.LogDebug("Parsed response: {@Response}", response);
 
         return response;
     }
 
-    private static IResponse ParseUsisResponse<T>(string responseString)
+    private IResponse ParseUsisResponse<T>(string responseString)
     {
         string[] parts = responseString.TrimEnd('\n').Split(';');
 
         if (parts[0] == "M00")
         {
-
+            _logger.LogDebug("Response is success response");
             var response = new SuccessResponse<T>
             {
                 MessageErrorCode = (MessageErrorCode)int.Parse(parts[0][1..]),
@@ -54,15 +68,20 @@ public static class ResponseParser
                 Value = (T)Convert.ChangeType(parts[4], typeof(T), CultureInfo.InvariantCulture)
             };
             
+            _logger.LogDebug("Parsed response: {@Response}", response);
+            
             return response;
         }
         else
         {
+            _logger.LogDebug("Response is error response");
             var response = new ErrorResponse
             {
                 MessageErrorCode = (MessageErrorCode)int.Parse(parts[0][1..]),
                 Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
             };
+            
+            _logger.LogDebug("Parsed response: {@Response}", response);
 
             return response;
         }

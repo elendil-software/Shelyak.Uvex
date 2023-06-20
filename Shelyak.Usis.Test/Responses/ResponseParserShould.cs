@@ -1,4 +1,5 @@
-﻿using Shelyak.Usis.Enums;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using Shelyak.Usis.Enums;
 using Shelyak.Usis.Responses;
 
 namespace Shelyak.Isis.Test.Responses;
@@ -13,7 +14,7 @@ public class ResponseParserShould
     [InlineData("C04;OVERFLOW", CommunicationErrorCode.C04_OVERFLOW, "C04 - OVERFLOW")]
     public void ParseCommunicationErrorResponse(string errorString, CommunicationErrorCode errorCode, string message)
     {
-        IResponse response = ResponseParser.Parse<int>(errorString);
+        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(errorString);
         Assert.IsType<CommunicationErrorResponse>(response);
         Assert.Equal(errorCode, ((CommunicationErrorResponse)response).ErrorCode);
         Assert.Equal(message, ((CommunicationErrorResponse)response).Message);
@@ -28,7 +29,7 @@ public class ResponseParserShould
         PropertyAttributeStatus propertyAttributeStatus, 
         double value)
     {
-        IResponse response = ResponseParser.Parse<double>(responseString);
+        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<double>(responseString);
                 
         Assert.IsType<SuccessResponse<double>>(response);
         Assert.Equal(messageErrorCode, ((SuccessResponse<double>)response).MessageErrorCode);
@@ -42,7 +43,7 @@ public class ResponseParserShould
     [InlineData("M01;UNKNOWN PROPERTY", MessageErrorCode.M01_UNKNOWN_PROPERTY, "M01 - UNKNOWN PROPERTY")]
     public void ParseErrorResponse(string responseString, MessageErrorCode messageErrorCode, string expectedMessage)
     {
-        IResponse response = ResponseParser.Parse<int>(responseString);
+        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(responseString);
                 
         Assert.IsType<ErrorResponse>(response);
         Assert.Equal(messageErrorCode, ((ErrorResponse)response).MessageErrorCode);

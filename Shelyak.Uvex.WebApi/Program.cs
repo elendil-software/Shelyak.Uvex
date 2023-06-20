@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Commands;
+using Shelyak.Usis.Responses;
 using Shelyak.Uvex.WebApi;
 
 
@@ -17,6 +18,7 @@ try
     builder.Services.AddSingleton<ICommandFacade, CommandFacade>();
     builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
+    builder.Services.AddSingleton<IResponseParser, ResponseParser>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
 
 //Configuration

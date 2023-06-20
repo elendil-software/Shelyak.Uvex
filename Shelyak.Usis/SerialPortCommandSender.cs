@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using System.Text;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
 using Shelyak.Usis.Commands;
@@ -7,11 +8,13 @@ using Shelyak.Usis.Commands;
 public class SerialPortCommandSender : ICommandSender
 {
     private readonly SerialPortSettings _settings;
+    private readonly ILogger<SerialPortCommandSender> _logger;
     private readonly object _lock = new();
 
-    public SerialPortCommandSender(IOptions<SerialPortSettings> settings)
+    public SerialPortCommandSender(IOptions<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
     {
         _settings = settings.Value;
+        _logger = logger;
     }
 
     public string SendCommand(ICommand command)
@@ -24,9 +27,14 @@ public class SerialPortCommandSender : ICommandSender
             serialPort.DtrEnable = _settings.DtrEnabled;
             serialPort.Encoding = Encoding.ASCII;
             serialPort.Open();
-            serialPort.WriteLine(command.Build());
-
-            return serialPort.ReadLine();
+            
+            string commandString = command.Build();
+            _logger.LogDebug("Sending command: {Command}", commandString);
+            serialPort.WriteLine(commandString);
+            string response = serialPort.ReadLine();
+            _logger.LogDebug("Received response: {Response}", response);
+            
+            return response;
         }
     }
 }
