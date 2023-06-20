@@ -144,6 +144,14 @@ public class SpectrographController : ControllerBase
         return Ok(Execute<string>(CommandType.GET, DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/slitid")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult SetSlitId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
+    {
+        return Ok(Execute(CommandType.SET, DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId, value));
+    }
+    
     [HttpGet]
     [Route("{deviceNumber}/slitwidth")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -152,12 +160,28 @@ public class SpectrographController : ControllerBase
         return Ok(Execute<float>(CommandType.GET, DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/slitwidth")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult SetSlitWidth(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(CommandType.SET, DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId, value));
+    }
+
     [HttpGet]
     [Route("{deviceNumber}/slitangle")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId)
     {
         return Ok(Execute<float>(CommandType.GET, DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/slitangle")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult SetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(CommandType.SET, DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE, deviceNumber, clientId, clientTransactionId, value));
     }
 
     #endregion
