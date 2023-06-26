@@ -22,5 +22,5 @@ public class AlpacaResponse<T>
     /// </summary>
     public string ErrorMessage { get; set; } = "";
 
-    public T Value { get; set; } = default!;
+    public AlpacaResponseValue<T> Value { get; set; } = default!;
 }

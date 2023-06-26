@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -24,7 +25,11 @@ try
 //Configuration
     builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(x =>
+        {
+            x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
 
     builder.Services.AddApiVersioning(options =>
     {
