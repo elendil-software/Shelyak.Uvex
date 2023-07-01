@@ -16,7 +16,7 @@ try
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
-    builder.Services.AddSingleton<ICommandFacade, CommandFacade>();
+    builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
     builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IResponseParser, ResponseParser>();
