@@ -7,6 +7,9 @@ using Shelyak.Usis;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.WebApi;
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.AppSettingsConfiguration()
+    .CreateBootstrapLogger();
 
 try
 {
