@@ -13,7 +13,7 @@ public class ResponseParser : IResponseParser
         _logger = logger;
     }
 
-    public IResponse Parse<T>(string responseString)
+    public IResponse<T> Parse<T>(string responseString)
     {
         _logger.LogDebug("Parsing response: {Response}", responseString);
         
@@ -26,13 +26,13 @@ public class ResponseParser : IResponseParser
         if (responseString.StartsWith('C'))
         {
             _logger.LogDebug("Response is communication error response");
-            return ParseCommunicationErrorResponse(responseString);
+            return ParseCommunicationErrorResponse<T>(responseString);
         }
 
         throw new ArgumentException("Unknown response type");
     }
 
-    private IResponse ParseCommunicationErrorResponse(string responseString)
+    private IResponse<T> ParseCommunicationErrorResponse<T>(string responseString)
     {
         string[] parts = responseString.TrimEnd('\n').Split(';');
             
@@ -41,7 +41,7 @@ public class ResponseParser : IResponseParser
             throw new ArgumentException("Invalid response format");
         }
             
-        var response = new CommunicationErrorResponse
+        var response = new CommunicationErrorResponse<T>
         {
             ErrorCode = (CommunicationErrorCode)int.Parse(parts[0][1..]),
             Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
@@ -52,7 +52,7 @@ public class ResponseParser : IResponseParser
         return response;
     }
 
-    private IResponse ParseUsisResponse<T>(string responseString)
+    private IResponse<T> ParseUsisResponse<T>(string responseString)
     {
         string[] parts = responseString.TrimEnd('\n').Split(';');
 
@@ -75,7 +75,7 @@ public class ResponseParser : IResponseParser
         else
         {
             _logger.LogDebug("Response is error response");
-            var response = new ErrorResponse
+            var response = new ErrorResponse<T>
             {
                 MessageErrorCode = (MessageErrorCode)int.Parse(parts[0][1..]),
                 Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"

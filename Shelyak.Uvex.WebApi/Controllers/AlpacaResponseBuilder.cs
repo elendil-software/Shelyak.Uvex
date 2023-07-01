@@ -16,7 +16,7 @@ public static class AlpacaResponseBuilder
         };
     }
 
-    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint clientTransactionId, uint serverTransactionId, IResponse response)
+    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint clientTransactionId, uint serverTransactionId, IResponse<T> response)
     {
         var alpacaResponse = new AlpacaResponse<T>
         {
@@ -34,12 +34,12 @@ public static class AlpacaResponseBuilder
             alpacaResponse.ErrorNumber = CodeConverter.ConvertMessageCode(successResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = successResponse.MessageErrorCode.ToString();
         }
-        else if(response is ErrorResponse errorResponse)
+        else if(response is ErrorResponse<T> errorResponse)
         {
             alpacaResponse.ErrorNumber = CodeConverter.ConvertMessageCode(errorResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = errorResponse.Message;
         }
-        else if (response is CommunicationErrorResponse communicationErrorResponse)
+        else if (response is CommunicationErrorResponse<T> communicationErrorResponse)
         {
             alpacaResponse.ErrorNumber = CodeConverter.ConvertErrorCode(communicationErrorResponse.ErrorCode);
             alpacaResponse.ErrorMessage = communicationErrorResponse.Message;

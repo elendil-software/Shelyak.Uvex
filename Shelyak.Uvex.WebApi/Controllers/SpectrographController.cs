@@ -29,7 +29,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetDeviceName(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetDeviceName(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetDeviceName(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -37,7 +37,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetSoftwareVersion(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetSoftwareVersion(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetSoftwareVersion(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -45,7 +45,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetProtocolVersion(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetProtocolVersion(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetProtocolVersion(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -53,7 +53,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetTemperature(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetTemperature(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetTemperature(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -61,7 +61,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetHumidity(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetHumidity(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetHumidity(), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -80,7 +80,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetGratingId(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetGratingId(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetGratingId(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -88,7 +88,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult SetGratingId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
     {
-        return Ok(Execute<string>(() => _usisDevice.SetGratingId(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetGratingId(value), deviceNumber, clientId, clientTransactionId));
     }
     
     
@@ -97,7 +97,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingAngle(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetGratingAngle(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetGratingAngle(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -105,7 +105,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetGratingAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.SetGratingAngle(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetGratingAngle(value), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -113,7 +113,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingWaveLength(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetGratingWaveLength(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetGratingWaveLength(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -121,7 +121,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetGratingWaveLength(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.SetGratingWaveLength(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetGratingWaveLength(value), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -129,7 +129,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingDensity(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetGratingDensity(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetGratingDensity(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -137,7 +137,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetGratingDensity(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetGratingDensity(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetGratingDensity(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -149,7 +149,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetSlitId(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetSlitId(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetSlitId(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -157,7 +157,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult SetSlitId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
     {
-        return Ok(Execute<string>(() => _usisDevice.SetSlitId(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetSlitId(value), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -165,7 +165,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetSlitWidth(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetSlitWidth(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetSlitWidth(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -173,7 +173,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetSlitWidth(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.SetSlitWidth(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetSlitWidth(value), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -181,7 +181,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<float>(() => _usisDevice.GetSlitAngle(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetSlitAngle(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -189,7 +189,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.SetSlitAngle(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetSlitAngle(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -201,7 +201,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetFocusPosition(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetFocusPosition(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -209,7 +209,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, float value)
     {
-        return Ok(Execute<float>(() => _usisDevice.SetFocusPosition(value), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetFocusPosition(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -221,7 +221,7 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetLightSource(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.GetLightSource(), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpPut]
@@ -229,20 +229,20 @@ public class SpectrographController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
     public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
     {
-        return Ok(Execute<string>(() => _usisDevice.GetLightSource(), deviceNumber, clientId, clientTransactionId));
+        return Ok(Execute(() => _usisDevice.SetLightSource(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
 
-    private AlpacaResponse<T> Execute<T>(Func<IResponse> usisCommand, int deviceNumber, uint clientId, uint clientTransactionId)
+    private AlpacaResponse<T> Execute<T>(Func<IResponse<T>> usisCommand, int deviceNumber, uint clientId, uint clientTransactionId)
     {
         uint serverTransactionId = _serverTransactionIdProvider.GetServerTransactionId();
         using IDisposable? scope = _logger.BeginScope(deviceNumber, clientId, clientTransactionId, serverTransactionId);
         
         try
         {
-            IResponse response = usisCommand();
-            AlpacaResponse<T> alpacaResponse = AlpacaResponseBuilder.BuildAlpacaResponse<T>(clientTransactionId, serverTransactionId, response);
+            IResponse<T> response = usisCommand();
+            AlpacaResponse<T> alpacaResponse = AlpacaResponseBuilder.BuildAlpacaResponse(clientTransactionId, serverTransactionId, response);
             return alpacaResponse;
         }
         catch (Exception e)

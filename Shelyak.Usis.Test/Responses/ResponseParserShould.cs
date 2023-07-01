@@ -14,10 +14,10 @@ public class ResponseParserShould
     [InlineData("C04;OVERFLOW", CommunicationErrorCode.C04_OVERFLOW, "C04 - OVERFLOW")]
     public void ParseCommunicationErrorResponse(string errorString, CommunicationErrorCode errorCode, string message)
     {
-        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(errorString);
-        Assert.IsType<CommunicationErrorResponse>(response);
-        Assert.Equal(errorCode, ((CommunicationErrorResponse)response).ErrorCode);
-        Assert.Equal(message, ((CommunicationErrorResponse)response).Message);
+        IResponse<int> response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(errorString);
+        Assert.IsType<CommunicationErrorResponse<int>>(response);
+        Assert.Equal(errorCode, ((CommunicationErrorResponse<int>)response).ErrorCode);
+        Assert.Equal(message, ((CommunicationErrorResponse<int>)response).Message);
     }
         
     [Theory]
@@ -29,7 +29,7 @@ public class ResponseParserShould
         PropertyAttributeStatus propertyAttributeStatus, 
         double value)
     {
-        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<double>(responseString);
+        IResponse<double> response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<double>(responseString);
                 
         Assert.IsType<SuccessResponse<double>>(response);
         Assert.Equal(messageErrorCode, ((SuccessResponse<double>)response).MessageErrorCode);
@@ -43,10 +43,10 @@ public class ResponseParserShould
     [InlineData("M01;UNKNOWN PROPERTY", MessageErrorCode.M01_UNKNOWN_PROPERTY, "M01 - UNKNOWN PROPERTY")]
     public void ParseErrorResponse(string responseString, MessageErrorCode messageErrorCode, string expectedMessage)
     {
-        IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(responseString);
+        IResponse<int> response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(responseString);
                 
-        Assert.IsType<ErrorResponse>(response);
-        Assert.Equal(messageErrorCode, ((ErrorResponse)response).MessageErrorCode);
-        Assert.Equal(expectedMessage, ((ErrorResponse)response).Message);
+        Assert.IsType<ErrorResponse<int>>(response);
+        Assert.Equal(messageErrorCode, ((ErrorResponse<int>)response).MessageErrorCode);
+        Assert.Equal(expectedMessage, ((ErrorResponse<int>)response).Message);
     }
 }

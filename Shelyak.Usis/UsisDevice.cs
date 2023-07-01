@@ -17,35 +17,35 @@ public class UsisDevice : IUsisDevice
     
     #region Device
     
-    public IResponse GetDeviceName()
+    public IResponse<string> GetDeviceName()
     {
         ICommand command = new GetCommand(DeviceProperty.DEVICE_NAME, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetSoftwareVersion()
+    public IResponse<string> GetSoftwareVersion()
     {
         ICommand command = new GetCommand(DeviceProperty.SOFTWARE_VERSION, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetProtocolVersion()
+    public IResponse<string> GetProtocolVersion()
     {
         ICommand command = new GetCommand(DeviceProperty.PROTOCOL_VERSION, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetTemperature()
+    public IResponse<string> GetTemperature()
     {
         ICommand command = new GetCommand(DeviceProperty.TEMPERATURE, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetHumidity()
+    public IResponse<string> GetHumidity()
     {
         ICommand command = new GetCommand(DeviceProperty.HUMIDITY, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
@@ -55,56 +55,56 @@ public class UsisDevice : IUsisDevice
     #endregion
 
     #region Grating
-    public IResponse GetGratingId()
+    public IResponse<string> GetGratingId()
     {
         ICommand command = new GetCommand(DeviceProperty.GRATING_ID, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse SetGratingId(string gratingId)
+    public IResponse<string> SetGratingId(string gratingId)
     {
         ICommand command = new SetCommand<string>(DeviceProperty.GRATING_ID, PropertyAttributeType.VALUE, gratingId);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetGratingAngle()
+    public IResponse<float> GetGratingAngle()
     {
         ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetGratingAngle(float gratingAngle)
+    public IResponse<float> SetGratingAngle(float gratingAngle)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.GRATING_ANGLE, PropertyAttributeType.VALUE, gratingAngle);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse GetGratingWaveLength()
+    public IResponse<float> GetGratingWaveLength()
     {
         ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetGratingWaveLength(float gratingWaveLength)
+    public IResponse<float> SetGratingWaveLength(float gratingWaveLength)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE, gratingWaveLength);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse GetGratingDensity()
+    public IResponse<float> GetGratingDensity()
     {
         ICommand command = new GetCommand(DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetGratingDensity(float gratingDensity)
+    public IResponse<float> SetGratingDensity(float gratingDensity)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE, gratingDensity);
         string response = _commandSender.SendCommand(command);
@@ -115,42 +115,42 @@ public class UsisDevice : IUsisDevice
 
     #region Slit
     
-    public IResponse GetSlitId()
+    public IResponse<string> GetSlitId()
     {
         ICommand command = new GetCommand(DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse SetSlitId(string slitId)
+    public IResponse<string> SetSlitId(string slitId)
     {
         ICommand command = new SetCommand<string>(DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE, slitId);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse GetSlitWidth()
+    public IResponse<float> GetSlitWidth()
     {
         ICommand command = new GetCommand(DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetSlitWidth(float slitWidth)
+    public IResponse<float> SetSlitWidth(float slitWidth)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE, slitWidth);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse GetSlitAngle()
+    public IResponse<float> GetSlitAngle()
     {
         ICommand command = new GetCommand(DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetSlitAngle(float slitAngle)
+    public IResponse<float> SetSlitAngle(float slitAngle)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE, slitAngle);
         string response = _commandSender.SendCommand(command);
@@ -161,14 +161,14 @@ public class UsisDevice : IUsisDevice
 
     #region Focus
 
-    public IResponse GetFocusPosition()
+    public IResponse<float> GetFocusPosition()
     {
         ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
 
-    public IResponse SetFocusPosition(float focusPosition)
+    public IResponse<float> SetFocusPosition(float focusPosition)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.FOCUS_POSITION, PropertyAttributeType.VALUE, focusPosition);
         string response = _commandSender.SendCommand(command);
@@ -179,14 +179,14 @@ public class UsisDevice : IUsisDevice
 
     #region LightSource
 
-    public IResponse GetLightSource()
+    public IResponse<string> GetLightSource()
     {
         ICommand command = new GetCommand(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
 
-    public IResponse SetLightSource(string lightSource)
+    public IResponse<string> SetLightSource(string lightSource)
     {
         ICommand command = new SetCommand<string>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
         string response = _commandSender.SendCommand(command);

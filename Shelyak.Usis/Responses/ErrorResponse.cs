@@ -2,7 +2,7 @@
 
 namespace Shelyak.Usis.Responses;
 
-public class ErrorResponse : IResponse
+public class ErrorResponse<T> : IResponse<T>
 {
     public MessageErrorCode MessageErrorCode { get; set; }
     public string Message { get; set; }

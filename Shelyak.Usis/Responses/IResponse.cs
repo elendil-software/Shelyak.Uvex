@@ -1,3 +1,3 @@
 ﻿namespace Shelyak.Usis.Responses;
 
-public interface IResponse { }
+public interface IResponse<T> { }
