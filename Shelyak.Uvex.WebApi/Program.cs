@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
-using Shelyak.Usis.Commands;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.WebApi;
 
@@ -17,7 +16,6 @@ try
 
 // Add services to the container.
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
-    builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IResponseParser, ResponseParser>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
