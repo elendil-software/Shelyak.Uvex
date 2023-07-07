@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelyak.Uvex.Ascom", "Shelyak.Uvex.Ascom\Shelyak.Uvex.Ascom.csproj", "{C708E487-E3A9-4073-A545-294B88674225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8A0CDDEE-DE81-472E-A072-56DC08D9EC73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0CDDEE-DE81-472E-A072-56DC08D9EC73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A0CDDEE-DE81-472E-A072-56DC08D9EC73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C708E487-E3A9-4073-A545-294B88674225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C708E487-E3A9-4073-A545-294B88674225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C708E487-E3A9-4073-A545-294B88674225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C708E487-E3A9-4073-A545-294B88674225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
