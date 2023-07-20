@@ -91,6 +91,22 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetGratingId(value), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/stopgratingid")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult StopGratingId(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopGratingId(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/calibrategratingid")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult CalibrateGratingId(int deviceNumber, uint clientId, uint clientTransactionId, string value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateGratingId(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
     
     [HttpGet]
     [Route("{deviceNumber}/gratingangle")]
@@ -108,6 +124,22 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetGratingAngle(value), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/stopgratingangle")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult StopGratingAngle(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopGratingAngle(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/calibrategratingangle")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult CalibrateGratingAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateGratingAngle(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
     [HttpGet]
     [Route("{deviceNumber}/gratingwavelength")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -122,6 +154,22 @@ public class SpectrographController : ControllerBase
     public IActionResult SetGratingWaveLength(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
         return Ok(Execute(() => _usisDevice.SetGratingWaveLength(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/stopgratingwavelength")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult StopGratingWaveLength(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopGratingWaveLength(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/calibrategratingwavelength")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult CalibrateGratingWaveLength(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateGratingWaveLength(value), deviceNumber, clientId, clientTransactionId));
     }
     
     [HttpGet]
@@ -160,6 +208,22 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetSlitId(value), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/stopslitid")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult StopSlitId(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopSlitId(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/calibrateslitid")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult CalibrateSlitId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateSlitId(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
     [HttpGet]
     [Route("{deviceNumber}/slitwidth")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -176,6 +240,14 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetSlitWidth(value), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/stopslitwidth")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult StopSlitWidth(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopSlitWidth(), deviceNumber, clientId, clientTransactionId));
+    }
+    
     [HttpGet]
     [Route("{deviceNumber}/slitangle")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -190,6 +262,14 @@ public class SpectrographController : ControllerBase
     public IActionResult SetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
         return Ok(Execute(() => _usisDevice.SetSlitAngle(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/stopslitangle")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult StopSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopSlitAngle(), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -210,6 +290,14 @@ public class SpectrographController : ControllerBase
     public IActionResult GetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, float value)
     {
         return Ok(Execute(() => _usisDevice.SetFocusPosition(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/stopfocusposition")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    public IActionResult StopFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.StopFocusPosition(), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion

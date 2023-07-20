@@ -68,6 +68,20 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
+    
+    public IResponse<string> StopGratingId()
+    {
+        ICommand command = new StopCommand<string>(DeviceProperty.GRATING_ID);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<string>(response);
+    }
+    
+    public IResponse<string> CalibrateGratingId(string gratingId)
+    {
+        ICommand command = new CalibrateCommand<string>(DeviceProperty.GRATING_ID, gratingId);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<string>(response);
+    }
 
     public IResponse<float> GetGratingAngle()
     {
@@ -82,6 +96,20 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
+    
+    public IResponse<float> StopGratingAngle()
+    {
+        ICommand command = new StopCommand<float>(DeviceProperty.GRATING_ANGLE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> CalibrateGratingAngle(float gratingAngle)
+    {
+        ICommand command = new CalibrateCommand<float>(DeviceProperty.GRATING_ANGLE, gratingAngle);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
 
     public IResponse<float> GetGratingWaveLength()
     {
@@ -93,6 +121,20 @@ public class UsisDevice : IUsisDevice
     public IResponse<float> SetGratingWaveLength(float gratingWaveLength)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE, gratingWaveLength);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> StopGratingWaveLength()
+    {
+        ICommand command = new StopCommand<float>(DeviceProperty.GRATING_WAVELENGTH);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> CalibrateGratingWaveLength(float gratingWaveLength)
+    {
+        ICommand command = new CalibrateCommand<float>(DeviceProperty.GRATING_WAVELENGTH, gratingWaveLength);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
@@ -128,6 +170,20 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
+    
+    public IResponse<string> StopSlitId()
+    {
+        ICommand command = new StopCommand<string>(DeviceProperty.SLIT_ID);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<string>(response);
+    }
+    
+    public IResponse<string> CalibrateSlitId(string slitId)
+    {
+        ICommand command = new CalibrateCommand<string>(DeviceProperty.SLIT_ID, slitId);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<string>(response);
+    }
 
     public IResponse<float> GetSlitWidth()
     {
@@ -142,6 +198,20 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
+    
+    public IResponse<float> StopSlitWidth()
+    {
+        ICommand command = new StopCommand<float>(DeviceProperty.SLIT_WIDTH);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> CalibrateSlitWidth(float slitWidth)
+    {
+        ICommand command = new CalibrateCommand<float>(DeviceProperty.SLIT_WIDTH, slitWidth);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
 
     public IResponse<float> GetSlitAngle()
     {
@@ -153,6 +223,20 @@ public class UsisDevice : IUsisDevice
     public IResponse<float> SetSlitAngle(float slitAngle)
     {
         ICommand command = new SetCommand<float>(DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE, slitAngle);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> StopSlitAngle()
+    {
+        ICommand command = new StopCommand<float>(DeviceProperty.SLIT_ANGLE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> CalibrateSlitAngle(float slitAngle)
+    {
+        ICommand command = new CalibrateCommand<float>(DeviceProperty.SLIT_ANGLE, slitAngle);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
@@ -175,6 +259,20 @@ public class UsisDevice : IUsisDevice
         return _responseParser.Parse<float>(response);
     }
     
+    public IResponse<float> StopFocusPosition()
+    {
+        ICommand command = new StopCommand<float>(DeviceProperty.FOCUS_POSITION);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> CalibrateFocusPosition(float focusPosition)
+    {
+        ICommand command = new CalibrateCommand<float>(DeviceProperty.FOCUS_POSITION, focusPosition);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
     #endregion
 
     #region LightSource
@@ -192,6 +290,18 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<string>(response);
     }
-    
+
+    public IResponse<string> CalibrateLightSource(string lightSource)
+    {
+        ICommand command = new CalibrateCommand<string>(DeviceProperty.LIGHT_SOURCE, lightSource);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<string>(response);
+    }
+
+    public IResponse<string> StopAll()
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }
