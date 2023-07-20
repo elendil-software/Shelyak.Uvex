@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shelyak.Usis\Shelyak.Usis.csproj" />
+    <ProjectReference Include="..\Shelyak.Uvex.Alpaca\Shelyak.Uvex.Alpaca.csproj" />
   </ItemGroup>
 
 </Project>

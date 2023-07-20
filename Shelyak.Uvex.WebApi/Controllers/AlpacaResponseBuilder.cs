@@ -1,5 +1,5 @@
 ﻿using Shelyak.Usis.Responses;
-using Shelyak.Uvex.WebApi.Alpaca;
+using Shelyak.Uvex.Alpaca;
 
 namespace Shelyak.Uvex.WebApi.Controllers;
 
