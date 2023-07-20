@@ -28,7 +28,7 @@ public static class AlpacaResponseBuilder
         {
             alpacaResponse.Value = new AlpacaResponseValue<T>
             {
-                Status = successResponse.PropertyAttributeStatus,
+                Status = (int) successResponse.PropertyAttributeStatus,
                 Value = successResponse.Value
             };
             alpacaResponse.ErrorNumber = CodeConverter.ConvertMessageCode(successResponse.MessageErrorCode);
