@@ -26,11 +26,7 @@ try
 //Configuration
     builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
-    builder.Services.AddControllers()
-        .AddJsonOptions(x =>
-        {
-            x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+    builder.Services.AddControllers();
 
     builder.Services.AddApiVersioning(options =>
     {
