@@ -1,20 +1,10 @@
-using ASCOM;
-using ASCOM.Astrometry;
-using ASCOM.Astrometry.AstroUtils;
-using ASCOM.Astrometry.NOVAS;
 using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
 using ASCOM.Utilities;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using Shelyak.Uvex.Alpaca;
 
 namespace ASCOM.ShelyakUvex.Focuser
 {

@@ -8,20 +8,10 @@
 // Author:		(XXX) Your N. Here <your@email.here>
 //
 
-using ASCOM;
-using ASCOM.Astrometry;
 using ASCOM.Astrometry.AstroUtils;
-using ASCOM.Astrometry.NOVAS;
-using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
 using ASCOM.Utilities;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
