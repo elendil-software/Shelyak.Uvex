@@ -141,7 +141,7 @@ public class SpectrographController : ControllerBase
     }
     
     [HttpGet]
-    [Route("{deviceNumber}/getgratinganglemax")]
+    [Route("{deviceNumber}/gratinganglemax")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingAngleMax(int deviceNumber, uint clientId, uint clientTransactionId)
     {
@@ -149,7 +149,7 @@ public class SpectrographController : ControllerBase
     }
     
     [HttpGet]
-    [Route("{deviceNumber}/getgratinganglemin")]
+    [Route("{deviceNumber}/gratinganglemin")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingAngleMin(int deviceNumber, uint clientId, uint clientTransactionId)
     {
@@ -157,7 +157,7 @@ public class SpectrographController : ControllerBase
     }
     
     [HttpGet]
-    [Route("{deviceNumber}/getgratingangleprec")]
+    [Route("{deviceNumber}/gratingangleprec")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingAnglePrec(int deviceNumber, uint clientId, uint clientTransactionId)
     {
