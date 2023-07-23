@@ -21,6 +21,9 @@ public enum DeviceProperty
     SLIT_ANGLE,
     
     FOCUS_POSITION,
+    FOCUS_POSITION_MAX,
+    FOCUS_POSITION_MIN,
+    FOCUS_POSITION_PREC,
     
     LIGHT_SOURCE
 }

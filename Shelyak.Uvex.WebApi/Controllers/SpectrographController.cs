@@ -324,6 +324,30 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.StopFocusPosition(), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpGet]
+    [Route("{deviceNumber}/focuspositionmax")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetFocusPositionMax(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetFocusPositionMax(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/focuspositionmin")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetFocusPositionMin(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetFocusPositionMin(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/focuspositionprec")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetFocusPositionPrec(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetFocusPositionPrec(), deviceNumber, clientId, clientTransactionId));
+    }
+    
     #endregion
     
     #region Light source

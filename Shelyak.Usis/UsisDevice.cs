@@ -294,6 +294,27 @@ public class UsisDevice : IUsisDevice
         return _responseParser.Parse<float>(response);
     }
     
+    public IResponse<float> GetFocusPositionMax()
+    {
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MAX, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> GetFocusPositionMin()
+    {
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MIN, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> GetFocusPositionPrec()
+    {
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_PREC, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
     #endregion
 
     #region LightSource

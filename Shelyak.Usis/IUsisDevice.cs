@@ -51,6 +51,9 @@ public interface IUsisDevice
     IResponse<float> SetFocusPosition(float focusPosition);
     IResponse<float> StopFocusPosition();
     IResponse<float> CalibrateFocusPosition(float focusPosition);
+    IResponse<float> GetFocusPositionMax();
+    IResponse<float> GetFocusPositionMin();
+    IResponse<float> GetFocusPositionPrec();
 
     IResponse<string> GetLightSource();
     IResponse<string> SetLightSource(string lightSource);
