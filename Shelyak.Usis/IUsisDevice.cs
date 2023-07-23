@@ -19,6 +19,9 @@ public interface IUsisDevice
     IResponse<float> SetGratingAngle(float gratingAngle);
     IResponse<float> StopGratingAngle();
     IResponse<float> CalibrateGratingAngle(float gratingAngle);
+    IResponse<float> GetGratingAngleMax();
+    IResponse<float> GetGratingAngleMin();
+    IResponse<float> GetGratingAnglePrec();
 
     IResponse<float> GetGratingWaveLength();
     IResponse<float> SetGratingWaveLength(float gratingWaveLength);

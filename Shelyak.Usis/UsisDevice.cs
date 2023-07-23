@@ -110,7 +110,28 @@ public class UsisDevice : IUsisDevice
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
-
+    
+    public IResponse<float> GetGratingAngleMax()
+    {
+        ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MAX, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> GetGratingAngleMin()
+    {
+        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_MIN, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
+    public IResponse<float> GetGratingAnglePrec()
+    {
+        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_PREC, PropertyAttributeType.VALUE);
+        string response = _commandSender.SendCommand(command);
+        return _responseParser.Parse<float>(response);
+    }
+    
     public IResponse<float> GetGratingWaveLength()
     {
         ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE);

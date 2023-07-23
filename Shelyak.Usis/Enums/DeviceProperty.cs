@@ -10,6 +10,9 @@ public enum DeviceProperty
     
     GRATING_ID,
     GRATING_ANGLE,
+    GRATING_ANGLE_MAX,
+    GRAITNG_ANGLE_MIN,
+    GRAITNG_ANGLE_PREC,
     GRATING_WAVELENGTH,
     GRATING_DENSITY,
     
