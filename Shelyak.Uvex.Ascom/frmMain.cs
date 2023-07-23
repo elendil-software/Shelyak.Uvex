@@ -9,8 +9,8 @@ namespace ASCOM.LocalServer
         public FrmMain()
         {
             InitializeComponent();
-            this.ShowInTaskbar = false;
-            this.Visible = false;
+            ShowInTaskbar = false;
+            Visible = false;
         }
 
     }

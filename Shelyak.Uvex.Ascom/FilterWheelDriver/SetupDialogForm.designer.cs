@@ -1,3 +1,6 @@
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace ASCOM.ShelyakUvex.FilterWheel
 {
     partial class SetupDialogForm
@@ -5,7 +8,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -140,12 +143,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
         #endregion
 
-        private System.Windows.Forms.Button cmdOK;
-        private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox picASCOM;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox chkTrace;
-        private System.Windows.Forms.ComboBox comboBoxComPort;
+        private Button cmdOK;
+        private Button cmdCancel;
+        private Label label1;
+        private PictureBox picASCOM;
+        private Label label2;
+        private CheckBox chkTrace;
+        private ComboBox comboBoxComPort;
     }
 }

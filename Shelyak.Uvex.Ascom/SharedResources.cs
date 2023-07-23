@@ -30,7 +30,7 @@ namespace ASCOM.LocalServer
 
         // Shared serial port. This will allow multiple drivers to use one single serial port.
         private static Serial sharedSerial = new Serial();      // Shared serial port
-        private static int serialConnectionCount = 0;     // counter for the number of connections to the serial port
+        private static int serialConnectionCount;     // counter for the number of connections to the serial port
 
         // Public access to shared resources
 

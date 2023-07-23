@@ -8,13 +8,13 @@
 // Author:		(XXX) Your N. Here <your@email.here>
 //
 
-using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
-using ASCOM.Utilities;
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.DeviceInterface;
+using ASCOM.LocalServer;
+using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
 {
@@ -56,11 +56,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             try
             {
                 // Pull the ProgID from the ProgID class attribute.
-                Attribute attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ProgIdAttribute));
+                Attribute attr = Attribute.GetCustomAttribute(GetType(), typeof(ProgIdAttribute));
                 DriverProgId = ((ProgIdAttribute)attr).Value ?? "PROGID NOT SET!";  // Get the driver ProgIDfrom the ProgID attribute.
 
                 // Pull the display name from the ServedClassName class attribute.
-                attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ServedClassNameAttribute));
+                attr = Attribute.GetCustomAttribute(GetType(), typeof(ServedClassNameAttribute));
                 DriverDescription = ((ServedClassNameAttribute)attr).DisplayName ?? "DISPLAY NAME NOT SET!";  // Get the driver description that displays in the ASCOM Chooser from the ServedClassName attribute.
 
                 // LOGGING CONFIGURATION
@@ -196,9 +196,9 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 }
                 else // Show dialogue
                 {
-                    LogMessage("SetupDialog", $"Calling SetupDialog.");
+                    LogMessage("SetupDialog", "Calling SetupDialog.");
                     FilterWheelHardware.SetupDialog();
-                    LogMessage("SetupDialog", $"Completed.");
+                    LogMessage("SetupDialog", "Completed.");
                 }
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected($"SupportedActions");
+                    CheckConnected("SupportedActions");
                     ArrayList actions = FilterWheelHardware.SupportedActions;
                     LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
                     return actions;
@@ -243,7 +243,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 CheckConnected($"Action {actionName} - {actionParameters}");
                 LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = FilterWheelHardware.Action(actionName, actionParameters);
-                LogMessage("Action", $"Completed.");
+                LogMessage("Action", "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
                 LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
                 FilterWheelHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", $"Completed.");
+                LogMessage("CommandBlind", "Completed.");
             }
             catch (Exception ex)
             {
@@ -398,7 +398,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected($"Description");
+                    CheckConnected("Description");
                     string description = FilterWheelHardware.Description;
                     LogMessage("Description", description);
                     return description;

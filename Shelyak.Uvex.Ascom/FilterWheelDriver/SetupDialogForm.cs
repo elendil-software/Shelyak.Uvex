@@ -1,8 +1,9 @@
-using ASCOM.Utilities;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
 {
@@ -32,11 +33,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             // Update the COM port variable if one has been selected
             if (comboBoxComPort.SelectedItem is null) // No COM port selected
             {
-                tl.LogMessage("Setup OK", $"New configuration values - COM Port: Not selected");
+                tl.LogMessage("Setup OK", "New configuration values - COM Port: Not selected");
             }
             else if (comboBoxComPort.SelectedItem.ToString() == NO_PORTS_MESSAGE)
             {
-                tl.LogMessage("Setup OK", $"New configuration values - NO COM ports detected on this PC.");
+                tl.LogMessage("Setup OK", "New configuration values - NO COM ports detected on this PC.");
             }
             else // A valid COM port has been selected
             {
@@ -54,7 +55,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             try
             {
-                System.Diagnostics.Process.Start("https://ascom-standards.org/");
+                Process.Start("https://ascom-standards.org/");
             }
             catch (Win32Exception noBrowser)
             {

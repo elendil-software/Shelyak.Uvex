@@ -13,17 +13,19 @@
 //
 //
 
-using ASCOM.Utilities;
-using Microsoft.Win32;
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ASCOM.Utilities;
+using Microsoft.Win32;
 
 namespace ASCOM.LocalServer
 {
@@ -34,7 +36,7 @@ namespace ASCOM.LocalServer
 
         private static uint mainThreadId; // Stores the main thread's thread id.
         private static bool startedByCOM; // True if server started by COM (-embedding)
-        private static FrmMain localServerMainForm = null; // Reference to our main form.
+        private static FrmMain localServerMainForm; // Reference to our main form.
         private static int driversInUseCount; // Keeps a count on the total number of objects alive.
         private static int serverLockCount; // Keeps a lock count on this application.
         private static ArrayList driverTypes; // Served COM object types
@@ -61,52 +63,52 @@ namespace ASCOM.LocalServer
             {
                 Enabled = true // Enable to debug local server operation (not usually required). Drivers have their own independent trace loggers.
             };
-            TL.LogMessage("Main", $"Server started");
+            TL.LogMessage("Main", "Server started");
 
             // Load driver COM assemblies and get types, ending the program if something goes wrong.
-            TL.LogMessage("Main", $"Loading drivers");
+            TL.LogMessage("Main", "Loading drivers");
             if (!PopulateListOfAscomDrivers()) return;
 
             // Process command line arguments e.g. to Register/Unregister drivers, ending the program if required.
-            TL.LogMessage("Main", $"Processing command-line arguments");
+            TL.LogMessage("Main", "Processing command-line arguments");
             if (!ProcessArguments(args)) return;
 
             // Initialize variables.
-            TL.LogMessage("Main", $"Initialising variables");
+            TL.LogMessage("Main", "Initialising variables");
             driversInUseCount = 0;
             serverLockCount = 0;
             mainThreadId = GetCurrentThreadId();
             Thread.CurrentThread.Name = "ShelyakUvex Local Server Thread";
 
             // Create and configure the local server host form that runs the Windows message loop required to support driver operation
-            TL.LogMessage("Main", $"Creating host form");
+            TL.LogMessage("Main", "Creating host form");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             localServerMainForm = new FrmMain();
             if (startedByCOM) localServerMainForm.WindowState = FormWindowState.Minimized;
 
             // Register the class factories of the served objects
-            TL.LogMessage("Main", $"Registering class factories");
+            TL.LogMessage("Main", "Registering class factories");
             RegisterClassFactories();
 
             // Start the garbage collection thread.
-            TL.LogMessage("Main", $"Starting garbage collection");
+            TL.LogMessage("Main", "Starting garbage collection");
             StartGarbageCollection(10000);
-            TL.LogMessage("Main", $"Garbage collector thread started");
+            TL.LogMessage("Main", "Garbage collector thread started");
 
             // Start the message loop to serialize incoming calls to the served driver COM objects.
             try
             {
-                TL.LogMessage("Main", $"Starting main form");
+                TL.LogMessage("Main", "Starting main form");
                 Application.Run(localServerMainForm);
-                TL.LogMessage("Main", $"Main form has ended");
+                TL.LogMessage("Main", "Main form has ended");
             }
             finally
             {
                 // Revoke the class factories immediately without waiting until the thread has stopped
-                TL.LogMessage("Main", $"Revoking class factories");
+                TL.LogMessage("Main", "Revoking class factories");
                 RevokeClassFactories();
-                TL.LogMessage("Main", $"Class factories revoked");
+                TL.LogMessage("Main", "Class factories revoked");
 
                 // No new connections are now possible and the local server is irretrievably shutting down, so release resources in the Hardware classes
                 try
@@ -167,11 +169,11 @@ namespace ASCOM.LocalServer
                 }
 
                 // Now stop the Garbage Collector thread.
-                TL.LogMessage("Main", $"Stopping garbage collector");
+                TL.LogMessage("Main", "Stopping garbage collector");
                 StopGarbageCollection();
             }
 
-            TL.LogMessage("Main", $"Local server closing");
+            TL.LogMessage("Main", "Local server closing");
             TL.Dispose();
 
         }
@@ -270,7 +272,7 @@ namespace ASCOM.LocalServer
                 {
                     if (startedByCOM)
                     {
-                        TL.LogMessage("ExitIf", $"Server started by COM so shutting down the Windows message loop on the main process to end the local server.");
+                        TL.LogMessage("ExitIf", "Server started by COM so shutting down the Windows message loop on the main process to end the local server.");
 
                         UIntPtr wParam = new UIntPtr(0);
                         IntPtr lParam = new IntPtr(0);
@@ -365,7 +367,7 @@ namespace ASCOM.LocalServer
             // Set the local server's DCOM/AppID information
             try
             {
-                TL.LogMessage("RegisterObjects", $"Setting local server's APPID");
+                TL.LogMessage("RegisterObjects", "Setting local server's APPID");
 
                 // Set HKCR\APPID\appid
                 using (RegistryKey appIdKey = Registry.ClassesRoot.CreateSubKey($"APPID\\{localServerAppId}"))
@@ -381,12 +383,12 @@ namespace ASCOM.LocalServer
                 {
                     exeNameKey.SetValue("AppID", localServerAppId);
                 }
-                TL.LogMessage("RegisterObjects", $"APPID set successfully");
+                TL.LogMessage("RegisterObjects", "APPID set successfully");
             }
             catch (Exception ex)
             {
                 TL.LogMessageCrLf("RegisterObjects", $"Setting AppID exception: {ex}");
-                MessageBox.Show("Error while registering the server:\n" + ex.ToString(), "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error while registering the server:\n" + ex, "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
@@ -448,7 +450,7 @@ namespace ASCOM.LocalServer
                 catch (Exception ex)
                 {
                     TL.LogMessageCrLf("RegisterObjects", $"Driver registration exception: {ex}");
-                    MessageBox.Show("Error while registering the server:\n" + ex.ToString(), "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Error while registering the server:\n" + ex, "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     bFail = true;
                 }
 
@@ -541,12 +543,12 @@ namespace ASCOM.LocalServer
             processStartInfo.Verb = "runas";
             try
             {
-                TL.LogMessage("IsAdministrator", $"Starting elevated process");
+                TL.LogMessage("IsAdministrator", "Starting elevated process");
                 Process.Start(processStartInfo);
             }
-            catch (System.ComponentModel.Win32Exception)
+            catch (Win32Exception)
             {
-                TL.LogMessage("IsAdministrator", $"The ASCOM.ShelyakUvex.Focuser was not " + (argument == "/register" ? "registered" : "unregistered because you did not allow it."));
+                TL.LogMessage("IsAdministrator", "The ASCOM.ShelyakUvex.Focuser was not " + (argument == "/register" ? "registered" : "unregistered because you did not allow it."));
                 MessageBox.Show("The ASCOM.ShelyakUvex.Focuser was not " + (argument == "/register" ? "registered" : "unregistered because you did not allow it.", "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Warning));
             }
             catch (Exception ex)
@@ -554,7 +556,6 @@ namespace ASCOM.LocalServer
                 TL.LogMessageCrLf("IsAdministrator", $"Exception: {ex}");
                 MessageBox.Show(ex.ToString(), "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-            return;
         }
 
         #endregion
@@ -568,7 +569,7 @@ namespace ASCOM.LocalServer
         /// <returns>True if there are no errors, otherwise false.</returns>
         private static bool RegisterClassFactories()
         {
-            TL.LogMessage("RegisterClassFactories", $"Registering class factories");
+            TL.LogMessage("RegisterClassFactories", "Registering class factories");
             classFactories = new ArrayList();
             foreach (Type driverType in driverTypes)
             {
@@ -579,16 +580,16 @@ namespace ASCOM.LocalServer
                 TL.LogMessage("RegisterClassFactories", $"  Registering class factory for: {driverType.Name}");
                 if (!factory.RegisterClassObject())
                 {
-                    TL.LogMessage("RegisterClassFactories", $"  Failed to register class factory for " + driverType.Name);
+                    TL.LogMessage("RegisterClassFactories", "  Failed to register class factory for " + driverType.Name);
                     MessageBox.Show("Failed to register class factory for " + driverType.Name, "ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return false;
                 }
                 TL.LogMessage("RegisterClassFactories", $"  Registered class factory OK for: {driverType.Name}");
             }
 
-            TL.LogMessage("RegisterClassFactories", $"Making class factories live");
+            TL.LogMessage("RegisterClassFactories", "Making class factories live");
             ClassFactory.ResumeClassObjects(); // Served objects now go live
-            TL.LogMessage("RegisterClassFactories", $"Class factories live OK");
+            TL.LogMessage("RegisterClassFactories", "Class factories live OK");
             return true;
         }
 
@@ -597,9 +598,9 @@ namespace ASCOM.LocalServer
         /// </summary>
         private static void RevokeClassFactories()
         {
-            TL.LogMessage("RevokeClassFactories", $"Suspending class factories");
+            TL.LogMessage("RevokeClassFactories", "Suspending class factories");
             ClassFactory.SuspendClassObjects(); // Prevent race conditions
-            TL.LogMessage("RevokeClassFactories", $"Class factories suspended OK");
+            TL.LogMessage("RevokeClassFactories", "Class factories suspended OK");
 
             foreach (ClassFactory factory in classFactories)
             {
@@ -657,7 +658,7 @@ namespace ASCOM.LocalServer
             else
             {
                 startedByCOM = false;
-                TL.LogMessage("ProcessArguments", $"No arguments supplied");
+                TL.LogMessage("ProcessArguments", "No arguments supplied");
             }
 
             return returnStatus;
@@ -678,24 +679,24 @@ namespace ASCOM.LocalServer
             GarbageCollection garbageCollector = new GarbageCollection(interval);
 
             // Create a cancellation token and start the garbage collection task 
-            TL.LogMessage("StartGarbageCollection", $"Starting garbage collector thread");
+            TL.LogMessage("StartGarbageCollection", "Starting garbage collector thread");
             GCTokenSource = new CancellationTokenSource();
             GCTask = Task.Factory.StartNew(() => garbageCollector.GCWatch(GCTokenSource.Token), GCTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-            TL.LogMessage("StartGarbageCollection", $"Garbage collector thread started OK");
+            TL.LogMessage("StartGarbageCollection", "Garbage collector thread started OK");
         }
 
 
         /// <summary>
         /// Stop the garbage collection task by sending it the cancellation token and wait for the task to complete
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "The program is ending at this point so the synchronous wait is justified to ensure that it completes.")]
+        [SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "The program is ending at this point so the synchronous wait is justified to ensure that it completes.")]
         private static void StopGarbageCollection()
         {
             // Signal the garbage collector thread to stop
-            TL.LogMessage("StopGarbageCollection", $"Stopping garbage collector thread");
+            TL.LogMessage("StopGarbageCollection", "Stopping garbage collector thread");
             GCTokenSource.Cancel();
             GCTask.Wait();
-            TL.LogMessage("StopGarbageCollection", $"Garbage collector thread stopped OK");
+            TL.LogMessage("StopGarbageCollection", "Garbage collector thread stopped OK");
 
             // Clean up
             GCTask = null;

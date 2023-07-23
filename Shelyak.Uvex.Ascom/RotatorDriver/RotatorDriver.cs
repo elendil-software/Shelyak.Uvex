@@ -8,13 +8,13 @@
 // Author:		(XXX) Your N. Here <your@email.here>
 //
 
-using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
-using ASCOM.Utilities;
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.DeviceInterface;
+using ASCOM.LocalServer;
+using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Rotator
 {
@@ -56,11 +56,11 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 // Pull the ProgID from the ProgID class attribute.
-                Attribute attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ProgIdAttribute));
+                Attribute attr = Attribute.GetCustomAttribute(GetType(), typeof(ProgIdAttribute));
                 DriverProgId = ((ProgIdAttribute)attr).Value ?? "PROGID NOT SET!";  // Get the driver ProgIDfrom the ProgID attribute.
 
                 // Pull the display name from the ServedClassName class attribute.
-                attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ServedClassNameAttribute));
+                attr = Attribute.GetCustomAttribute(GetType(), typeof(ServedClassNameAttribute));
                 DriverDescription = ((ServedClassNameAttribute)attr).DisplayName ?? "DISPLAY NAME NOT SET!";  // Get the driver description that displays in the ASCOM Chooser from the ServedClassName attribute.
 
                 // LOGGING CONFIGURATION
@@ -196,9 +196,9 @@ namespace ASCOM.ShelyakUvex.Rotator
                 }
                 else // Show dialogue
                 {
-                    LogMessage("SetupDialog", $"Calling SetupDialog.");
+                    LogMessage("SetupDialog", "Calling SetupDialog.");
                     RotatorHardware.SetupDialog();
-                    LogMessage("SetupDialog", $"Completed.");
+                    LogMessage("SetupDialog", "Completed.");
                 }
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected($"SupportedActions");
+                    CheckConnected("SupportedActions");
                     ArrayList actions = RotatorHardware.SupportedActions;
                     LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
                     return actions;
@@ -243,7 +243,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 CheckConnected($"Action {actionName} - {actionParameters}");
                 LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = RotatorHardware.Action(actionName, actionParameters);
-                LogMessage("Action", $"Completed.");
+                LogMessage("Action", "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
                 LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
                 RotatorHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", $"Completed.");
+                LogMessage("CommandBlind", "Completed.");
             }
             catch (Exception ex)
             {
@@ -398,7 +398,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected($"Description");
+                    CheckConnected("Description");
                     string description = RotatorHardware.Description;
                     LogMessage("Description", description);
                     return description;
@@ -536,9 +536,9 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected("Halt");
-                LogMessage("Halt", $"Calling method.");
+                LogMessage("Halt", "Calling method.");
                 RotatorHardware.Halt();
-                LogMessage("Halt", $"Completed.");
+                LogMessage("Halt", "Completed.");
             }
             catch (Exception ex)
             {
@@ -579,9 +579,9 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected("Move");
-                LogMessage("Move", $"Calling method.");
+                LogMessage("Move", "Calling method.");
                 RotatorHardware.Move(position);
-                LogMessage("Move", $"Completed.");
+                LogMessage("Move", "Completed.");
             }
             catch (Exception ex)
             {
@@ -600,9 +600,9 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected("MoveAbsolute");
-                LogMessage("MoveAbsolute", $"Calling method.");
+                LogMessage("MoveAbsolute", "Calling method.");
                 RotatorHardware.MoveAbsolute(position);
-                LogMessage("MoveAbsolute", $"Completed.");
+                LogMessage("MoveAbsolute", "Completed.");
             }
             catch (Exception ex)
             {
@@ -746,9 +746,9 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected("AbortExposure");
-                LogMessage("AbortExposure", $"Calling method.");
+                LogMessage("AbortExposure", "Calling method.");
                 RotatorHardware.MoveMechanical(position);
-                LogMessage("AbortExposure", $"Completed.");
+                LogMessage("AbortExposure", "Completed.");
             }
             catch (Exception ex)
             {
@@ -766,9 +766,9 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected("Sync");
-                LogMessage("Sync", $"Calling method.");
+                LogMessage("Sync", "Calling method.");
                 RotatorHardware.Sync(position);
-                LogMessage("Sync", $"Completed.");
+                LogMessage("Sync", "Completed.");
             }
             catch (Exception ex)
             {

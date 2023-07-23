@@ -11,7 +11,7 @@ namespace ASCOM
     /// NOTE: By default the local server code created by the template will only call the Dispose() method on static classes that have this attribute.
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public sealed class HardwareClassAttribute : Attribute
     {
         /// <summary>

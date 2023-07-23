@@ -1,10 +1,10 @@
-using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
-using ASCOM.Utilities;
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.DeviceInterface;
+using ASCOM.LocalServer;
+using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Focuser
 {
@@ -46,11 +46,11 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 // Pull the ProgID from the ProgID class attribute.
-                Attribute attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ProgIdAttribute));
+                Attribute attr = Attribute.GetCustomAttribute(GetType(), typeof(ProgIdAttribute));
                 DriverProgId = ((ProgIdAttribute)attr).Value ?? "PROGID NOT SET!";  // Get the driver ProgIDfrom the ProgID attribute.
 
                 // Pull the display name from the ServedClassName class attribute.
-                attr = Attribute.GetCustomAttribute(this.GetType(), typeof(ServedClassNameAttribute));
+                attr = Attribute.GetCustomAttribute(GetType(), typeof(ServedClassNameAttribute));
                 DriverDescription = ((ServedClassNameAttribute)attr).DisplayName ?? "DISPLAY NAME NOT SET!";  // Get the driver description that displays in the ASCOM Chooser from the ServedClassName attribute.
 
                 // LOGGING CONFIGURATION
@@ -186,9 +186,9 @@ namespace ASCOM.ShelyakUvex.Focuser
                 }
                 else // Show dialogue
                 {
-                    LogMessage("SetupDialog", $"Calling SetupDialog.");
+                    LogMessage("SetupDialog", "Calling SetupDialog.");
                     FocuserHardware.SetupDialog();
-                    LogMessage("SetupDialog", $"Completed.");
+                    LogMessage("SetupDialog", "Completed.");
                 }
             }
             catch (Exception ex)
@@ -206,7 +206,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected($"SupportedActions");
+                    CheckConnected("SupportedActions");
                     ArrayList actions = FocuserHardware.SupportedActions;
                     LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
                     return actions;
@@ -233,7 +233,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 CheckConnected($"Action {actionName} - {actionParameters}");
                 LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = FocuserHardware.Action(actionName, actionParameters);
-                LogMessage("Action", $"Completed.");
+                LogMessage("Action", "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
@@ -259,7 +259,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
                 LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
                 FocuserHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", $"Completed.");
+                LogMessage("CommandBlind", "Completed.");
             }
             catch (Exception ex)
             {
@@ -388,7 +388,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected($"Description");
+                    CheckConnected("Description");
                     string description = FocuserHardware.Description;
                     LogMessage("Description", description);
                     return description;
@@ -523,9 +523,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected("Halt");
-                LogMessage("Halt", $"Calling method.");
+                LogMessage("Halt", "Calling method.");
                 FocuserHardware.Halt();
-                LogMessage("Halt", $"Completed.");
+                LogMessage("Halt", "Completed.");
             }
             catch (Exception ex)
             {
@@ -646,9 +646,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected("Move");
-                LogMessage("Move", $"Calling method.");
+                LogMessage("Move", "Calling method.");
                 FocuserHardware.Move(position);
-                LogMessage("Move", $"Completed.");
+                LogMessage("Move", "Completed.");
             }
             catch (Exception ex)
             {

@@ -8,11 +8,12 @@
 // Author:		(XXX) Your N. Here <your@email.here>
 //
 
-using ASCOM.Astrometry.AstroUtils;
-using ASCOM.Utilities;
 using System;
 using System.Collections;
+using System.Reflection;
 using System.Windows.Forms;
+using ASCOM.Astrometry.AstroUtils;
+using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Rotator
 {
@@ -23,7 +24,7 @@ namespace ASCOM.ShelyakUvex.Rotator
     /// <summary>
     /// ASCOM Rotator hardware class for ShelyakUvex.
     /// </summary>
-    [HardwareClass()] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
+    [HardwareClass] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
     internal static class RotatorHardware
     {
         // Constants used for Profile persistence
@@ -36,7 +37,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
         internal static string comPort; // COM port name (if required)
         private static bool connectedState; // Local server's connected state
-        private static bool runOnce = false; // Flag to enable "one-off" activities only to run once.
+        private static bool runOnce; // Flag to enable "one-off" activities only to run once.
         internal static Util utilities; // ASCOM Utilities object for use as required
         internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
         internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
@@ -58,7 +59,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 // ReadProfile has to go here before anything is written to the log because it loads the TraceLogger enable / disable state.
                 ReadProfile(); // Read device configuration from the ASCOM Profile store, including the trace state
 
-                LogMessage("RotatorHardware", $"Static initialiser completed.");
+                LogMessage("RotatorHardware", "Static initialiser completed.");
             }
             catch (Exception ex)
             {
@@ -75,12 +76,12 @@ namespace ASCOM.ShelyakUvex.Rotator
         internal static void InitialiseHardware()
         {
             // This method will be called every time a new ASCOM client loads your driver
-            LogMessage("InitialiseHardware", $"Start.");
+            LogMessage("InitialiseHardware", "Start.");
 
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                LogMessage("InitialiseHardware", $"Starting one-off initialisation.");
+                LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
                 DriverDescription = Rotator.DriverDescription; // Get this device's Chooser description
 
@@ -94,7 +95,7 @@ namespace ASCOM.ShelyakUvex.Rotator
 
                 // Add your own "one off" device initialisation here e.g. validating existence of hardware and setting up communications
 
-                LogMessage("InitialiseHardware", $"One-off initialisation complete.");
+                LogMessage("InitialiseHardware", "One-off initialisation complete.");
                 runOnce = true; // Set the flag to ensure that this code is not run again
             }
         }
@@ -138,7 +139,7 @@ namespace ASCOM.ShelyakUvex.Rotator
 
         /// <summary>Invokes the specified device-specific custom action.</summary>
         /// <param name="ActionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
-        /// <param name="ActionParameters">List of required parameters or an <see cref="String.Empty">Empty String</see> if none are required.</param>
+        /// <param name="ActionParameters">List of required parameters or an <see cref="string.Empty">Empty String</see> if none are required.</param>
         /// <returns>A string response. The meaning of returned strings is set by the driver author.
         /// <para>Suppose filter wheels start to appear with automatic wheel changers; new actions could be <c>QueryWheels</c> and <c>SelectWheel</c>. The former returning a formatted list
         /// of wheel names and the second taking a wheel name and making the change, returning appropriate values to indicate success or failure.</para>
@@ -228,7 +229,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </remarks>
         public static void Dispose()
         {
-            try { LogMessage("Dispose", $"Disposing of assets and closing down."); } catch { }
+            try { LogMessage("Dispose", "Disposing of assets and closing down."); } catch { }
 
             try
             {
@@ -312,7 +313,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 // TODO customise this driver description if required
                 string driverInfo = $"Information about the driver itself. Version: {version.Major}.{version.Minor}";
                 LogMessage("DriverInfo Get", driverInfo);
@@ -327,7 +328,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverVersion = $"{version.Major}.{version.Minor}";
                 LogMessage("DriverVersion Get", driverVersion);
                 return driverVersion;
@@ -365,8 +366,8 @@ namespace ASCOM.ShelyakUvex.Rotator
 
         #region IRotator Implementation
 
-        private static float rotatorPosition = 0; // Synced or mechanical position angle of the rotator
-        private static float mechanicalPosition = 0; // Mechanical position angle of the rotator
+        private static float rotatorPosition; // Synced or mechanical position angle of the rotator
+        private static float mechanicalPosition; // Mechanical position angle of the rotator
 
         /// <summary>
         /// Indicates whether the Rotator supports the <see cref="Reverse" /> method.
@@ -571,7 +572,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 driverProfile.DeviceType = "Rotator";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, comPortProfileName, comPort.ToString());
+                driverProfile.WriteValue(DriverProgId, comPortProfileName, comPort);
             }
         }
 
