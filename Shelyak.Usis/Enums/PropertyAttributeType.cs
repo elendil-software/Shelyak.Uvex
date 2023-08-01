@@ -4,5 +4,8 @@ public enum PropertyAttributeType
 {
     NAME, 
     VALUE,
-    STATUS
+    STATUS,
+    MIN,
+    MAX,
+    PREC
 }

@@ -113,21 +113,21 @@ public class UsisDevice : IUsisDevice
     
     public IResponse<float> GetGratingAngleMax()
     {
-        ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MAX, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MAX, PropertyAttributeType.MAX);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
     
     public IResponse<float> GetGratingAngleMin()
     {
-        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_MIN, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_MIN, PropertyAttributeType.MIN);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
     
     public IResponse<float> GetGratingAnglePrec()
     {
-        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_PREC, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_PREC, PropertyAttributeType.PREC);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
@@ -296,21 +296,21 @@ public class UsisDevice : IUsisDevice
     
     public IResponse<float> GetFocusPositionMax()
     {
-        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MAX, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MAX, PropertyAttributeType.MAX);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
     
     public IResponse<float> GetFocusPositionMin()
     {
-        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MIN, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MIN, PropertyAttributeType.MIN);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
     
     public IResponse<float> GetFocusPositionPrec()
     {
-        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_PREC, PropertyAttributeType.VALUE);
+        ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_PREC, PropertyAttributeType.PREC);
         string response = _commandSender.SendCommand(command);
         return _responseParser.Parse<float>(response);
     }
