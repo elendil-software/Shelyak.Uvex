@@ -311,7 +311,7 @@ public class SpectrographController : ControllerBase
     [HttpPut]
     [Route("{deviceNumber}/focusposition")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult GetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, float value)
+    public IActionResult SetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
         return Ok(Execute(() => _usisDevice.SetFocusPosition(value), deviceNumber, clientId, clientTransactionId));
     }
