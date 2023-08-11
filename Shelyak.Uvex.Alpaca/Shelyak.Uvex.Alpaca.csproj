@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>D:\Projects\Astronomie\Shelyak\Shelyak.Uvex.WebApi\key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
 </Project>
