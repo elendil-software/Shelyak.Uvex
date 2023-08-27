@@ -2,39 +2,43 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Shelyak.Usis;
 using Shelyak.Usis.Commands;
 
-public class SerialPortCommandSender : ICommandSender
+namespace Shelyak.Usis
 {
-    private readonly SerialPortSettings _settings;
-    private readonly ILogger<SerialPortCommandSender> _logger;
-    private readonly object _lock = new();
-
-    public SerialPortCommandSender(IOptions<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
+    public class SerialPortCommandSender : ICommandSender
     {
-        _settings = settings.Value;
-        _logger = logger;
-    }
+        private readonly SerialPortSettings _settings;
+        private readonly ILogger<SerialPortCommandSender> _logger;
+        private readonly object _lock = new object();
 
-    public string SendCommand(ICommand command)
-    {
-        lock (_lock)
+        public SerialPortCommandSender(IOptions<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
         {
-            using var serialPort = new SerialPort(_settings.PortName, _settings.BaudRate, _settings.Parity, _settings.DataBits, _settings.StopBits);
-            serialPort.Handshake = _settings.Handshake;
-            serialPort.RtsEnable = _settings.RtsEnabled;
-            serialPort.DtrEnable = _settings.DtrEnabled;
-            serialPort.Encoding = Encoding.ASCII;
-            serialPort.Open();
-            
-            string commandString = command.Build();
-            _logger.LogDebug("Sending command: {Command}", commandString);
-            serialPort.WriteLine(commandString);
-            string response = serialPort.ReadLine();
-            _logger.LogDebug("Received response: {Response}", response);
-            
-            return response;
+            _settings = settings.Value;
+            _logger = logger;
+        }
+
+        public string SendCommand(ICommand command)
+        {
+            lock (_lock)
+            {
+                using (var serialPort = new SerialPort(_settings.PortName, _settings.BaudRate, _settings.Parity, _settings.DataBits, _settings.StopBits))
+                {
+                    serialPort.Handshake = _settings.Handshake;
+                    serialPort.RtsEnable = _settings.RtsEnabled;
+                    serialPort.DtrEnable = _settings.DtrEnabled;
+                    serialPort.Encoding = Encoding.ASCII;
+                    serialPort.Open();
+
+                    string commandString = command.Build();
+                    _logger.LogDebug("Sending command: {Command}", commandString);
+                    serialPort.WriteLine(commandString);
+                    string response = serialPort.ReadLine();
+                    _logger.LogDebug("Received response: {Response}", response);
+
+                    return response;
+                }
+            }
         }
     }
 }

@@ -1,20 +1,21 @@
 ﻿using Shelyak.Usis.Enums;
 
-namespace Shelyak.Usis.Commands;
-
-public class GetCommand : ICommand
+namespace Shelyak.Usis.Commands
 {
-    private readonly DeviceProperty _deviceProperty;
-    private readonly PropertyAttributeType _attributeType;
-    
-    public GetCommand(DeviceProperty deviceProperty, PropertyAttributeType attributeType)
+    public class GetCommand : ICommand
     {
-        _deviceProperty = deviceProperty;
-        _attributeType = attributeType;
-    }
+        private readonly DeviceProperty _deviceProperty;
+        private readonly PropertyAttributeType _attributeType;
     
-    public string Build()
-    {
-        return $"{CommandType.GET};{_deviceProperty};{_attributeType}";
+        public GetCommand(DeviceProperty deviceProperty, PropertyAttributeType attributeType)
+        {
+            _deviceProperty = deviceProperty;
+            _attributeType = attributeType;
+        }
+    
+        public string Build()
+        {
+            return $"{CommandType.GET};{_deviceProperty};{_attributeType}";
+        }
     }
 }

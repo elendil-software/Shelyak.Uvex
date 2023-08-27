@@ -1,8 +1,9 @@
 ﻿using Shelyak.Usis.Commands;
 
-namespace Shelyak.Usis;
-
-public interface ICommandSender
+namespace Shelyak.Usis
 {
-    string SendCommand(ICommand command);
+    public interface ICommandSender
+    {
+        string SendCommand(ICommand command);
+    }
 }

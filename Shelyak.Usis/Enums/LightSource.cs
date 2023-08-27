@@ -1,9 +1,10 @@
-﻿namespace Shelyak.Usis.Enums;
-
-public enum LightSource
+﻿namespace Shelyak.Usis.Enums
 {
-    SKY,
-    FLAT,
-    CALIB,
-    DARK
+    public enum LightSource
+    {
+        SKY,
+        FLAT,
+        CALIB,
+        DARK
+    }
 }

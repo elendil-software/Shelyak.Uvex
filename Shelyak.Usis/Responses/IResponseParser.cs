@@ -1,6 +1,7 @@
-﻿namespace Shelyak.Usis.Responses;
-
-public interface IResponseParser
+﻿namespace Shelyak.Usis.Responses
 {
-    IResponse<T> Parse<T>(string responseString);
+    public interface IResponseParser
+    {
+        IResponse<T> Parse<T>(string responseString);
+    }
 }

@@ -1,12 +1,13 @@
-﻿namespace Shelyak.Usis.Enums;
-
-public enum CommandType
+﻿namespace Shelyak.Usis.Enums
 {
-    GET,
-    SET,
-    STOP,
-    INFO,
-    CALIB,
-    FACTORY_RESET,
-    SYSTEM
+    public enum CommandType
+    {
+        GET,
+        SET,
+        STOP,
+        INFO,
+        CALIB,
+        FACTORY_RESET,
+        SYSTEM
+    }
 }

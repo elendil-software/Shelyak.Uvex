@@ -1,6 +1,7 @@
-﻿namespace Shelyak.Usis.Commands;
-
-public interface ICommand
+﻿namespace Shelyak.Usis.Commands
 {
-    string Build();
+    public interface ICommand
+    {
+        string Build();
+    }
 }

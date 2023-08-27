@@ -1,11 +1,12 @@
-﻿namespace Shelyak.Usis.Enums;
-
-public enum PropertyAttributeType
+﻿namespace Shelyak.Usis.Enums
 {
-    NAME, 
-    VALUE,
-    STATUS,
-    MIN,
-    MAX,
-    PREC
+    public enum PropertyAttributeType
+    {
+        NAME, 
+        VALUE,
+        STATUS,
+        MIN,
+        MAX,
+        PREC
+    }
 }

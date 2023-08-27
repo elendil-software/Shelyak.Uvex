@@ -1,9 +1,10 @@
-﻿namespace Shelyak.Usis.Enums;
-
-public enum PropertyAttributeStatus
+﻿namespace Shelyak.Usis.Enums
 {
-    N_A,
-    OK, 
-    BUSY,
-    ALERT
+    public enum PropertyAttributeStatus
+    {
+        N_A,
+        OK, 
+        BUSY,
+        ALERT
+    }
 }

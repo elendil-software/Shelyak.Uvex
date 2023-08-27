@@ -1,20 +1,21 @@
 ﻿using Shelyak.Usis.Enums;
 
-namespace Shelyak.Usis.Commands;
-
-public class CalibrateCommand<T> : ICommand
+namespace Shelyak.Usis.Commands
 {
-    private readonly DeviceProperty _deviceProperty;
-    private readonly T _value;
-
-    public CalibrateCommand(DeviceProperty deviceProperty, T value)
+    public class CalibrateCommand<T> : ICommand
     {
-        _deviceProperty = deviceProperty;
-        _value = value;
-    }
+        private readonly DeviceProperty _deviceProperty;
+        private readonly T _value;
 
-    public string Build()
-    {
-        return $"{CommandType.CALIB};{_deviceProperty};{_value}";
+        public CalibrateCommand(DeviceProperty deviceProperty, T value)
+        {
+            _deviceProperty = deviceProperty;
+            _value = value;
+        }
+
+        public string Build()
+        {
+            return $"{CommandType.CALIB};{_deviceProperty};{_value}";
+        }
     }
 }
