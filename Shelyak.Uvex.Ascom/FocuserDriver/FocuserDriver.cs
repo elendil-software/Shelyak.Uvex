@@ -66,9 +66,8 @@ namespace ASCOM.ShelyakUvex.Focuser
                 LogMessage("Focuser", "Starting driver initialisation");
                 LogMessage("Focuser", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
-                connectedState = false; // Initialise connected to false
-
-
+                connectedState = false;
+                
                 LogMessage("Focuser", "Completed initialisation");
             }
             catch (Exception ex)
@@ -410,7 +409,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    // This should work regardless of whether or not the driver is Connected, hence no CheckConnected method.
                     string driverInfo = FocuserHardware.DriverInfo;
                     LogMessage("DriverInfo", driverInfo);
                     return driverInfo;
