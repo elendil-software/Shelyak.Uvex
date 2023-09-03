@@ -302,7 +302,7 @@ public class SpectrographController : ControllerBase
     
     [HttpGet]
     [Route("{deviceNumber}/focusposition")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId)
     {
         return Ok(Execute(() => _usisDevice.GetFocusPosition(), deviceNumber, clientId, clientTransactionId));
@@ -310,7 +310,7 @@ public class SpectrographController : ControllerBase
     
     [HttpPut]
     [Route("{deviceNumber}/focusposition")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult SetFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
         return Ok(Execute(() => _usisDevice.SetFocusPosition(value), deviceNumber, clientId, clientTransactionId));
@@ -318,7 +318,7 @@ public class SpectrographController : ControllerBase
     
     [HttpPut]
     [Route("{deviceNumber}/stopfocusposition")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult StopFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId)
     {
         return Ok(Execute(() => _usisDevice.StopFocusPosition(), deviceNumber, clientId, clientTransactionId));
