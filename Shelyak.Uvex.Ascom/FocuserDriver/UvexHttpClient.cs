@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Net.Http.Json;
 using ASCOM.Utilities.Interfaces;
 using Shelyak.Uvex.Alpaca;
@@ -49,6 +50,37 @@ namespace ASCOM.ShelyakUvex.Focuser
             HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.StopFocusPosition, new StringContent("")).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             return response.Content.ReadFromJsonAsync<AlpacaResponse<string>>().GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<float> StopGratingAngle()
+        {
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.GratingAngle, new StringContent("")).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<float> GetGratingAngle()
+        {
+            return _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAngle).GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<float> SetGratingAngle(float newPosition)
+        {
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.GratingAngle, new StringContent(newPosition.ToString())).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<float> GetGratingAnglePrecision()
+        {
+            return _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAnglePrec).GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<float> CalibrateGratingAngle(float position)
+        {
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.CalibrateGratingAngle, new StringContent(position.ToString(CultureInfo.InvariantCulture))).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
         }
     }
 }

@@ -1,26 +1,14 @@
-﻿// TODO fill in this information for your driver, then remove this line!
-//
-// ASCOM Rotator hardware class for ShelyakUvex
-//
-// Description:	 <To be completed by driver developer>
-//
-// Implements:	ASCOM Rotator interface version: <To be completed by driver developer>
-// Author:		(XXX) Your N. Here <your@email.here>
-//
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
+using ASCOM.ShelyakUvex.Focuser;
 using ASCOM.Utilities;
+using Shelyak.Usis.Enums;
 
 namespace ASCOM.ShelyakUvex.Rotator
 {
-    //
-    // TODO Replace the not implemented exceptions with code to implement the function or throw the appropriate ASCOM exception.
-    //
-
     /// <summary>
     /// ASCOM Rotator hardware class for ShelyakUvex.
     /// </summary>
@@ -42,6 +30,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
         internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
 
+        private static UvexHttpClient _uvexHttpClient;
+        
         /// <summary>
         /// Initializes a new instance of the device Hardware class.
         /// </summary>
@@ -81,6 +71,8 @@ namespace ASCOM.ShelyakUvex.Rotator
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient();
+                
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
                 DriverDescription = Rotator.DriverDescription; // Get this device's Chooser description
@@ -162,9 +154,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         public static void CommandBlind(string command, bool raw)
         {
             CheckConnected("CommandBlind");
-            // TODO The optional CommandBlind method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandBlind must send the supplied command to the mount and return immediately without waiting for a response
-
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -183,9 +172,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         public static bool CommandBool(string command, bool raw)
         {
             CheckConnected("CommandBool");
-            // TODO The optional CommandBool method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandBool must send the supplied command to the mount, wait for a response and parse this to return a True or False value
-
             throw new MethodNotImplementedException($"CommandBool - Command:{command}, Raw: {raw}.");
         }
 
@@ -204,9 +190,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         public static string CommandString(string command, bool raw)
         {
             CheckConnected("CommandString");
-            // TODO The optional CommandString method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandString must send the supplied command to the mount and wait for a response before returning this to the client
-
             throw new MethodNotImplementedException($"CommandString - Command:{command}, Raw: {raw}.");
         }
 
@@ -276,17 +259,11 @@ namespace ASCOM.ShelyakUvex.Rotator
                 if (value)
                 {
                     LogMessage("Connected Set", $"Connecting to port {comPort}");
-
-                    // TODO insert connect to the device code here
-
                     connectedState = true;
                 }
                 else
                 {
                     LogMessage("Connected Set", $"Disconnecting from port {comPort}");
-
-                    // TODO insert disconnect from the device code here
-
                     connectedState = false;
                 }
             }
@@ -297,8 +274,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </summary>
         /// <value>The description.</value>
         public static string Description
-        {
-            // TODO customise this device description if required
+        { 
             get
             {
                 LogMessage("Description Get", DriverDescription);
@@ -314,8 +290,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
-                // TODO customise this driver description if required
-                string driverInfo = $"Information about the driver itself. Version: {version.Major}.{version.Minor}";
+                string driverInfo = $"Shelyak UVEX. Version: {version.Major}.{version.Minor}";
                 LogMessage("DriverInfo Get", driverInfo);
                 return driverInfo;
             }
@@ -353,10 +328,9 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </summary>
         public static string Name
         {
-            // TODO customise this device name as required
             get
             {
-                string name = "Short driver name - please customise";
+                string name = "Shelyak UVEX";
                 LogMessage("Name Get", name);
                 return name;
             }
@@ -389,8 +363,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </summary>
         internal static void Halt()
         {
+            _uvexHttpClient.StopGratingAngle();
             LogMessage("Halt", "Not implemented");
-            throw new MethodNotImplementedException("Halt");
         }
 
         /// <summary>
@@ -401,7 +375,15 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("IsMoving Get", false.ToString()); // This rotator has instantaneous movement
+                var gratingAngle = _uvexHttpClient.GetGratingAngle();
+                bool isMoving = gratingAngle.Value.Status == (int)PropertyAttributeStatus.BUSY;
+                LogMessage("IsMoving Get", false.ToString());
+
+                if (isMoving)
+                {
+                    return true;
+                }
+
                 return false;
             }
         }
@@ -412,9 +394,10 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Relative position to move in degrees from current <see cref="Position" />.</param>
         internal static void Move(float Position)
         {
-            LogMessage("Move", Position.ToString()); // Move by this amount
-            rotatorPosition += Position;
-            rotatorPosition = (float)astroUtilities.Range(rotatorPosition, 0.0, true, 360.0, false); // Ensure value is in the range 0.0..359.9999...
+            float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
+            float newPosition = (float)astroUtilities.Range(gratingAngle + Position, 0.0, true, 360.0, false);
+            LogMessage("Move", $"Move by {Position.ToString()}, new position {newPosition}");
+            _uvexHttpClient.SetGratingAngle(newPosition);
         }
 
 
@@ -424,9 +407,10 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Absolute position in degrees.</param>
         internal static void MoveAbsolute(float Position)
         {
-            LogMessage("MoveAbsolute", Position.ToString()); // Move to this position
-            rotatorPosition = Position;
-            rotatorPosition = (float)astroUtilities.Range(rotatorPosition, 0.0, true, 360.0, false); // Ensure value is in the range 0.0..359.9999...
+            LogMessage("MoveAbsolute", $"Move to position {Position.ToString()}"); // Move to this position
+            
+            float newPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
+            _uvexHttpClient.SetGratingAngle(newPosition);
         }
 
         /// <summary>
@@ -436,8 +420,9 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("Position Get", rotatorPosition.ToString()); // This rotator has instantaneous movement
-                return rotatorPosition;
+                float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
+                LogMessage("Position Get", gratingAngle.ToString());
+                return gratingAngle;
             }
         }
 
@@ -465,8 +450,9 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("StepSize Get", "Not implemented");
-                throw new PropertyNotImplementedException("StepSize", false);
+                float stepSize = _uvexHttpClient.GetGratingAnglePrecision().Value.Value;
+                LogMessage("StepSize Get", stepSize.ToString());
+                return stepSize;
             }
         }
 
@@ -477,7 +463,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("TargetPosition Get", rotatorPosition.ToString()); // This rotator has instantaneous movement
+                LogMessage("TargetPosition Get", rotatorPosition.ToString());
                 return rotatorPosition;
             }
         }
@@ -491,8 +477,9 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("MechanicalPosition Get", mechanicalPosition.ToString());
-                return mechanicalPosition;
+                float position = Position;
+                LogMessage("MechanicalPosition Get", position.ToString());
+                return position;
             }
         }
 
@@ -502,11 +489,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Mechanical rotator position angle.</param>
         internal static void MoveMechanical(float Position)
         {
-            LogMessage("MoveMechanical", Position.ToString()); // Move to this position
-
-            // TODO: Implement correct sync behaviour. i.e. if the rotator has been synced the mechanical and rotator positions won't be the same
-            mechanicalPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false); // Ensure value is in the range 0.0..359.9999...
-            rotatorPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false); // Ensure value is in the range 0.0..359.9999...
+            LogMessage("MoveMechanical", Position.ToString());
+            MoveAbsolute(Position); 
         }
 
         /// <summary>
@@ -515,10 +499,9 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Synchronised rotator position angle.</param>
         internal static void Sync(float Position)
         {
-            LogMessage("Sync", Position.ToString()); // Sync to this position
-
-            // TODO: Implement correct sync behaviour. i.e. the rotator mechanical and rotator positions may not be the same
-            rotatorPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false); // Ensure value is in the range 0.0..359.9999...
+            LogMessage("Sync", Position.ToString());
+            Position = rotatorPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
+            _uvexHttpClient.CalibrateGratingAngle(Position); 
         }
 
         #endregion
@@ -533,7 +516,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                // TODO check that the driver hardware connection exists and is connected to the hardware
                 return connectedState;
             }
         }

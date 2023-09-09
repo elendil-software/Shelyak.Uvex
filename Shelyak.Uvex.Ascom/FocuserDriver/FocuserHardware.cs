@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
-using System.Net.Http;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
@@ -74,10 +73,8 @@ namespace ASCOM.ShelyakUvex.Focuser
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                var httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(UvexApiParameter.Url);
-                _uvexHttpClient = new UvexHttpClient(httpClient, tl);
-                
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient();
+
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
                 DriverDescription = Focuser.DriverDescription; // Get this device's Chooser description
