@@ -320,25 +320,25 @@ namespace Shelyak.Usis
 
         #region LightSource
 
-        public IResponse<string> GetLightSource()
+        public IResponse<LightSource> GetLightSource()
         {
             ICommand command = new GetCommand(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
+            return _responseParser.Parse<LightSource>(response);
         }
 
-        public IResponse<string> SetLightSource(string lightSource)
+        public IResponse<LightSource> SetLightSource(LightSource lightSource)
         {
-            ICommand command = new SetCommand<string>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
+            ICommand command = new SetCommand<LightSource>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
             string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
+            return _responseParser.Parse<LightSource>(response);
         }
 
-        public IResponse<string> CalibrateLightSource(string lightSource)
+        public IResponse<LightSource> CalibrateLightSource(LightSource lightSource)
         {
-            ICommand command = new CalibrateCommand<string>(DeviceProperty.LIGHT_SOURCE, lightSource);
+            ICommand command = new CalibrateCommand<LightSource>(DeviceProperty.LIGHT_SOURCE, lightSource);
             string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
+            return _responseParser.Parse<LightSource>(response);
         }
 
         public IResponse<string> StopAll()

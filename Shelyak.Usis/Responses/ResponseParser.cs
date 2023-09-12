@@ -52,7 +52,7 @@ namespace Shelyak.Usis.Responses
 
             return response;
         }
-
+        
         private IResponse<T> ParseUsisResponse<T>(string responseString)
         {
             string[] parts = responseString.TrimEnd('\n').Split(';');
@@ -66,7 +66,7 @@ namespace Shelyak.Usis.Responses
                     DeviceProperty = (DeviceProperty)Enum.Parse(typeof(DeviceProperty), parts[1]),
                     PropertyAttributeType = (PropertyAttributeType)Enum.Parse(typeof(PropertyAttributeType), parts[2]),
                     PropertyAttributeStatus = (PropertyAttributeStatus)Enum.Parse(typeof(PropertyAttributeStatus), parts[3]),
-                    Value = (T)Convert.ChangeType(parts[4], typeof(T), CultureInfo.InvariantCulture)
+                    Value = ConvertTo<T>(parts[4])
                 };
             
                 _logger.LogDebug("Parsed response: {@Response}", response);
@@ -86,6 +86,22 @@ namespace Shelyak.Usis.Responses
 
                 return response;
             }
+        }
+        
+        private static T ConvertTo<T>(string value)
+        {
+            if (typeof(T).IsEnum)
+            {
+                return (T)Enum.Parse(typeof(T), value);
+            }
+
+            Type nullableType = Nullable.GetUnderlyingType(typeof(T));
+            if (nullableType != null)
+            {
+                return (T) Convert.ChangeType(value, nullableType, CultureInfo.InvariantCulture);
+            }
+
+            return (T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Shelyak.Usis.Responses;
+﻿using Shelyak.Usis.Enums;
+using Shelyak.Usis.Responses;
 
 namespace Shelyak.Usis
 {
@@ -55,9 +56,9 @@ namespace Shelyak.Usis
         IResponse<float> GetFocusPositionMin();
         IResponse<float> GetFocusPositionPrec();
 
-        IResponse<string> GetLightSource();
-        IResponse<string> SetLightSource(string lightSource);
-        IResponse<string> CalibrateLightSource(string lightSource);
+        IResponse<LightSource> GetLightSource();
+        IResponse<LightSource> SetLightSource(LightSource lightSource);
+        IResponse<LightSource> CalibrateLightSource(LightSource lightSource);
     
 
         IResponse<string> StopAll();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shelyak.Usis;
+using Shelyak.Usis.Enums;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
 
@@ -354,7 +355,7 @@ public class SpectrographController : ControllerBase
     
     [HttpGet]
     [Route("{deviceNumber}/lightsource")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<LightSource>))]
     public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId)
     {
         return Ok(Execute(() => _usisDevice.GetLightSource(), deviceNumber, clientId, clientTransactionId));
@@ -362,8 +363,8 @@ public class SpectrographController : ControllerBase
     
     [HttpPut]
     [Route("{deviceNumber}/lightsource")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<LightSource>))]
+    public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
     {
         return Ok(Execute(() => _usisDevice.SetLightSource(value), deviceNumber, clientId, clientTransactionId));
     }
