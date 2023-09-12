@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using ASCOM.Utilities.Interfaces;
+using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
 
@@ -81,6 +82,18 @@ namespace ASCOM.ShelyakUvex.Focuser
             HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.CalibrateGratingAngle, new StringContent(position.ToString(CultureInfo.InvariantCulture))).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             return response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<LightSource> GetLightSource()
+        {
+            return _httpClient.GetFromJsonAsync<AlpacaResponse<LightSource>>(ApiRoutes.LightSource).GetAwaiter().GetResult();
+        }
+
+        public AlpacaResponse<LightSource> SetLightSource(LightSource lightSource)
+        {
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.LightSource, new StringContent(lightSource.ToString())).GetAwaiter().GetResult();
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsync<AlpacaResponse<LightSource>>().GetAwaiter().GetResult();
         }
     }
 }

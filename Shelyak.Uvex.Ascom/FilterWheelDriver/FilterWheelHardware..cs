@@ -1,19 +1,11 @@
-﻿// TODO fill in this information for your driver, then remove this line!
-//
-// ASCOM FilterWheel hardware class for ShelyakUvex
-//
-// Description:	 <To be completed by driver developer>
-//
-// Implements:	ASCOM FilterWheel interface version: <To be completed by driver developer>
-// Author:		(XXX) Your N. Here <your@email.here>
-//
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
+using ASCOM.ShelyakUvex.Focuser;
 using ASCOM.Utilities;
+using Shelyak.Usis.Enums;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
 {
@@ -42,6 +34,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
         internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
 
+        private static UvexHttpClient _uvexHttpClient;
+        
         /// <summary>
         /// Initializes a new instance of the device Hardware class.
         /// </summary>
@@ -81,6 +75,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient();
+                
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
                 DriverDescription = FilterWheel.DriverDescription; // Get this device's Chooser description
@@ -162,9 +158,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         public static void CommandBlind(string command, bool raw)
         {
             CheckConnected("CommandBlind");
-            // TODO The optional CommandBlind method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandBlind must send the supplied command to the mount and return immediately without waiting for a response
-
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -182,10 +175,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </returns>
         public static bool CommandBool(string command, bool raw)
         {
-            CheckConnected("CommandBool");
-            // TODO The optional CommandBool method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandBool must send the supplied command to the mount, wait for a response and parse this to return a True or False value
-
+            CheckConnected("CommandBool"); 
             throw new MethodNotImplementedException($"CommandBool - Command:{command}, Raw: {raw}.");
         }
 
@@ -204,9 +194,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         public static string CommandString(string command, bool raw)
         {
             CheckConnected("CommandString");
-            // TODO The optional CommandString method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandString must send the supplied command to the mount and wait for a response before returning this to the client
-
             throw new MethodNotImplementedException($"CommandString - Command:{command}, Raw: {raw}.");
         }
 
@@ -276,17 +263,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 if (value)
                 {
                     LogMessage("Connected Set", $"Connecting to port {comPort}");
-
-                    // TODO insert connect to the device code here
-
                     connectedState = true;
                 }
                 else
                 {
                     LogMessage("Connected Set", $"Disconnecting from port {comPort}");
-
-                    // TODO insert disconnect from the device code here
-
                     connectedState = false;
                 }
             }
@@ -298,7 +279,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// <value>The description.</value>
         public static string Description
         {
-            // TODO customise this device description if required
             get
             {
                 LogMessage("Description Get", DriverDescription);
@@ -314,8 +294,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             get
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
-                // TODO customise this driver description if required
-                string driverInfo = $"Information about the driver itself. Version: {version.Major}.{version.Minor}";
+                string driverInfo = $"Shelyak UVEX. Version: {version.Major}.{version.Minor}";
                 LogMessage("DriverInfo Get", driverInfo);
                 return driverInfo;
             }
@@ -353,10 +332,9 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </summary>
         public static string Name
         {
-            // TODO customise this device name as required
             get
             {
-                string name = "Short driver name - please customise";
+                string name = "Shelyak UVEX";
                 LogMessage("Name Get", name);
                 return name;
             }
@@ -365,8 +343,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         #endregion
 
         #region IFilerWheel Implementation
-        private static int[] fwOffsets = new int[4] { 0, 0, 0, 0 }; //class level variable to hold focus offsets
-        private static string[] fwNames = new string[4] { "Red", "Green", "Blue", "Clear" }; //class level variable to hold the filter names
+        
+        private static string[] fwNames = new string[4] { LightSource.SKY.ToString(), LightSource.DARK.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString() };
         private static short fwPosition; // class level variable to retain the current filter wheel position
 
         /// <summary>
@@ -376,12 +354,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                foreach (int fwOffset in fwOffsets) // Write filter offsets to the log
-                {
-                    LogMessage("FocusOffsets Get", fwOffset.ToString());
-                }
-
-                return fwOffsets;
+                LogMessage("FocusOffsets Get", "This device doesn't support FocusOffsets, returning 0 for all filters");
+                return new int[4] { 0, 0, 0, 0 };
             }
         }
 
@@ -392,7 +366,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                foreach (string fwName in fwNames) // Write filter names to the log
+                foreach (string fwName in fwNames)
                 {
                     LogMessage("Names Get", fwName);
                 }
@@ -408,17 +382,20 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("Position Get", fwPosition.ToString());
-                return fwPosition;
+                LightSource lightSource = _uvexHttpClient.GetLightSource().Value.Value;
+                LogMessage("Position Get", lightSource.ToString());
+                return (short)lightSource;
             }
             set
             {
                 LogMessage("Position Set", value.ToString());
-                if ((value < 0) | (value > fwNames.Length - 1))
+                if ((value < 0) || (value > fwNames.Length - 1))
                 {
                     LogMessage("", "Throwing InvalidValueException - Position: " + value + ", Range: 0 to " + (fwNames.Length - 1));
                     throw new InvalidValueException("Position", value.ToString(), "0 to " + (fwNames.Length - 1));
                 }
+                
+                _uvexHttpClient.SetLightSource((LightSource)value);
                 fwPosition = value;
             }
         }
@@ -435,7 +412,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                // TODO check that the driver hardware connection exists and is connected to the hardware
                 return connectedState;
             }
         }
