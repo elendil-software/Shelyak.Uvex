@@ -349,6 +349,14 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.StopFocusPosition(), deviceNumber, clientId, clientTransactionId));
     }
     
+    [HttpPut]
+    [Route("{deviceNumber}/calibratefocusposition")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult CalibrateFocusPosition(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateFocusPosition(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
     [HttpGet]
     [Route("{deviceNumber}/focuspositionmax")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -391,6 +399,14 @@ public class SpectrographController : ControllerBase
     public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
     {
         return Ok(Execute(() => _usisDevice.SetLightSource(value), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpPut]
+    [Route("{deviceNumber}/calibratelightsource")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<LightSource>))]
+    public IActionResult CalibrateLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
+    {
+        return Ok(Execute(() => _usisDevice.CalibrateLightSource(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
