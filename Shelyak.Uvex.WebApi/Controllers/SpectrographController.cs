@@ -103,7 +103,7 @@ public class SpectrographController : ControllerBase
     [HttpPut]
     [Route("{deviceNumber}/calibrategratingid")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult CalibrateGratingId(int deviceNumber, uint clientId, uint clientTransactionId, string value)
+    public IActionResult CalibrateGratingId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
     {
         return Ok(Execute(() => _usisDevice.CalibrateGratingId(value), deviceNumber, clientId, clientTransactionId));
     }
