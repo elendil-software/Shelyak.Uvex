@@ -1,0 +1,158 @@
+﻿### 
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/devicename
+
+### 
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/softwareversion
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/protocolversion
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/protocolversion
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/humidity
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingid
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingid
+Content-Type: application/json
+
+"0"
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/stopgratingid
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibrategratingid
+Content-Type: application/json
+
+"0"
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingangle
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingangle
+Content-Type: application/json
+
+0
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/stopgratingangle
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibrategratingangle
+Content-Type: application/json
+
+0
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratinganglemin
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratinganglemax
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingangleprec
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingwavelength
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingwavelength
+Content-Type: application/json
+
+0
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/stopgratingwavelength
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibrategratingwavelength
+Content-Type: application/json
+
+0
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingwavelengthmin
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingwavelengthmax
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingwavelengthprec
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingdensity
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/gratingdensity
+Content-Type: application/json
+
+0
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/slitid
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/slitid
+Content-Type: application/json
+
+"0"
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/stopslitid
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibrateslitid
+Content-Type: application/json
+
+"0"
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/focusposition
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/focusposition
+Content-Type: application/json
+
+0
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/focusposition
+Content-Type: application/json
+
+0
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibratefocusposition
+Content-Type: application/json
+
+0
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/focuspositionmin
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/focuspositionmax
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/
+
+###
+GET https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/lightsource
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/lightsource
+Content-Type: application/json
+
+0
+
+###
+PUT https://localhost:7172/api/v1.0/Spectrograph/{{deviceNumber}}/calibratelightsource
+Content-Type: application/json
+
+0
