@@ -198,6 +198,30 @@ public class SpectrographController : ControllerBase
     }
     
     [HttpGet]
+    [Route("{deviceNumber}/gratingwavelengthmax")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetGratingWaveLengthMax(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetGratingWaveLengthMax(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/gratingwavelengthmin")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetGratingWaveLengthMin(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetGratingWaveLengthMin(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
+    [Route("{deviceNumber}/gratingwavelengthprec")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
+    public IActionResult GetGratingWaveLengthPrec(int deviceNumber, uint clientId, uint clientTransactionId)
+    {
+        return Ok(Execute(() => _usisDevice.GetGratingWaveLengthPrec(), deviceNumber, clientId, clientTransactionId));
+    }
+    
+    [HttpGet]
     [Route("{deviceNumber}/gratingdensity")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
     public IActionResult GetGratingDensity(int deviceNumber, uint clientId, uint clientTransactionId)

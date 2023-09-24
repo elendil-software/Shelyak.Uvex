@@ -27,7 +27,10 @@ namespace Shelyak.Usis
         IResponse<float> GetGratingWaveLength();
         IResponse<float> SetGratingWaveLength(float gratingWaveLength);
         IResponse<float> StopGratingWaveLength();
-        IResponse<float> CalibrateGratingWaveLength(float gratingWaveLength); 
+        IResponse<float> CalibrateGratingWaveLength(float gratingWaveLength);
+        IResponse<float> GetGratingWaveLengthMax();
+        IResponse<float> GetGratingWaveLengthMin();
+        IResponse<float> GetGratingWaveLengthPrec();
 
         IResponse<float> GetGratingDensity();
         IResponse<float> SetGratingDensity(float gratingDensity);
