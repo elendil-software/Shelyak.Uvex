@@ -31,8 +31,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         internal static string DriverProgId; // ASCOM DeviceID (COM ProgID) for this driver, the value is retrieved from the ServedClassName attribute in the class initialiser.
         internal static string DriverDescription; // The value is retrieved from the ServedClassName attribute in the class initialiser.
 
-        // connectedState holds the connection state from this driver instance's perspective, as opposed to the local server's perspective, which may be different because of other client connections.
-        internal bool connectedState; // The connected state from this driver's perspective)
         internal TraceLogger tl; // Trace logger object to hold diagnostic information just for this instance of the driver, as opposed to the local server's log, which includes activity from all driver instances.
         private bool disposedValue;
 
@@ -65,8 +63,6 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 LogMessage("Focuser", "Starting driver initialisation");
                 LogMessage("Focuser", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
-
-                connectedState = false;
                 
                 LogMessage("Focuser", "Completed initialisation");
             }
@@ -179,7 +175,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             try
             {
-                if (connectedState) // Don't show if already connected
+                if (FocuserHardware.Connected) // Don't show if already connected
                 {
                     MessageBox.Show("Already connected, just press OK");
                 }
@@ -337,8 +333,8 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     // Returns the driver's connection state rather than the local server's connected state, which could be different because there may be other client connections still active.
-                    LogMessage("Connected Get", connectedState.ToString());
-                    return connectedState;
+                    LogMessage("Connected Get", FocuserHardware.Connected.ToString());
+                    return FocuserHardware.Connected;
                 }
                 catch (Exception ex)
                 {
@@ -350,7 +346,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    if (value == connectedState)
+                    if (value == FocuserHardware.Connected)
                     {
                         LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
                         return;
@@ -358,13 +354,11 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                     if (value)
                     {
-                        connectedState = true;
                         LogMessage("Connected Set", "Connecting to device");
                         FocuserHardware.Connected = true;
                     }
                     else
                     {
-                        connectedState = false;
                         LogMessage("Connected Set", "Disconnecting from device");
                         FocuserHardware.Connected = false;
                     }
@@ -563,7 +557,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Link Get");
                     bool link = FocuserHardware.Link;
                     LogMessage("Link Get", link.ToString());
                     return link;
@@ -578,7 +571,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Link Set");
                     LogMessage("Link Set", value.ToString());
                     FocuserHardware.Link = value;
                 }
@@ -791,7 +783,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// <param name="message"></param>
         private void CheckConnected(string message)
         {
-            if (!connectedState)
+            if (!FocuserHardware.Connected)
             {
                 throw new NotConnectedException($"{DriverDescription} ({DriverProgId}) is not connected: {message}");
             }
