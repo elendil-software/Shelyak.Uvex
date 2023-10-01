@@ -3,7 +3,6 @@ using System.Collections;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
-using ASCOM.ShelyakUvex.Focuser;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 
@@ -344,7 +343,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
         #region IFilerWheel Implementation
         
-        private static string[] fwNames = new string[4] { LightSource.SKY.ToString(), LightSource.DARK.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString() };
+        private static string[] fwNames = new string[4] { LightSource.SKY.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString(), LightSource.DARK.ToString() };
         private static short fwPosition; // class level variable to retain the current filter wheel position
 
         /// <summary>
