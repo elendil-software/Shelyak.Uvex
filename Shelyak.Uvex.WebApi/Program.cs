@@ -70,7 +70,10 @@ try
     
 
     var app = builder.Build();
-    
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMiddleware<RequestLoggingMiddleware>();
+    }
     app.UseSerilogRequestLogging();
     
     // Configure the HTTP request pipeline.
