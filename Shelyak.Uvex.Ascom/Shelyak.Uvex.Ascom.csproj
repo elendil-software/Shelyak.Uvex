@@ -142,7 +142,6 @@
     <Compile Include="FocuserDriver\FocuserDriver.cs" />
     <Compile Include="FocuserDriver\FocuserHardware.cs" />
     <Compile Include="FocuserDriver\UvexApiParameter.cs" />
-    <Compile Include="FocuserDriver\UvexHttpClient.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +151,7 @@
     <Compile Include="GarbageCollection.cs" />
     <Compile Include="LocalServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UvexHttpClient.cs" />
     <Compile Include="UvexHttpClientHelper.cs" />
     <EmbeddedResource Include="FilterWheelDriver\SetupDialogForm.resx">
       <DependentUpon>SetupDialogForm.cs</DependentUpon>

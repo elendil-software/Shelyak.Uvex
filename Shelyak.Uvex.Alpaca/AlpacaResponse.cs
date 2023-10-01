@@ -1,4 +1,6 @@
-﻿namespace Shelyak.Uvex.Alpaca
+﻿using System;
+
+namespace Shelyak.Uvex.Alpaca
 {
 
     public class AlpacaResponse<T>
@@ -24,5 +26,25 @@
         public string ErrorMessage { get; set; } = "";
 
         public AlpacaResponseValue<T> Value { get; set; } = default;
+
+        public void EnsureSuccess()
+        {
+            if (ErrorNumber != AlpacaError.NoError)
+            {
+                throw new AlpacaException(ErrorNumber, ErrorMessage);
+            }
+        }
     }
+
+    //write the AlpacaException class that inherits from Exception and extends its constructor and add a constructor that takes an AlpacaError and a string message
+    public class AlpacaException : Exception
+    {
+        public AlpacaError ErrorNumber { get; }
+
+        public AlpacaException(AlpacaError errorNumber, string message) : base(message)
+        {
+            ErrorNumber = errorNumber;
+        }
+    }
+    
 }
