@@ -170,7 +170,7 @@
       <DependentUpon>SetupDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RotatorDriver\RotatorDriver.cs" />
-    <Compile Include="RotatorDriver\RotatorHardware..cs" />
+    <Compile Include="RotatorDriver\RotatorHardware.cs" />
     <Compile Include="RotatorDriver\SetupDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
