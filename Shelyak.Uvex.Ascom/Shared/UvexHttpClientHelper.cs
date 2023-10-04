@@ -2,7 +2,7 @@
 using System.Net.Http;
 using ASCOM.ShelyakUvex.Focuser;
 
-namespace ASCOM.ShelyakUvex
+namespace ASCOM.ShelyakUvex.Shared
 {
     internal static class UvexHttpClientHelper
     {

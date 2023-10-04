@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
 using ASCOM.ShelyakUvex.Focuser;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 

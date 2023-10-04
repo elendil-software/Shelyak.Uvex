@@ -1,4 +1,4 @@
-﻿namespace ASCOM.ShelyakUvex.Focuser
+﻿namespace ASCOM.ShelyakUvex.Shared
 {
     public static class UvexApiParameter
     {

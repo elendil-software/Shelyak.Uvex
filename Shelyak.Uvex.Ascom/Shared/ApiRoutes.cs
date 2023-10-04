@@ -1,4 +1,4 @@
-﻿namespace ASCOM.ShelyakUvex
+﻿namespace ASCOM.ShelyakUvex.Shared
 {
     internal class ApiRoutes
     {

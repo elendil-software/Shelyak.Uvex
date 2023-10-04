@@ -6,7 +6,7 @@ using ASCOM.Utilities.Interfaces;
 using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace ASCOM.ShelyakUvex
+namespace ASCOM.ShelyakUvex.Shared
 {
     public class UvexHttpClient
     {
