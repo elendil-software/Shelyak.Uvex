@@ -19,15 +19,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
     [HardwareClass] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
     internal static class FilterWheelHardware
     {
-        // Constants used for Profile persistence
-        internal const string comPortProfileName = "COM Port";
-        internal const string comPortDefault = "COM1";
         internal const string traceStateProfileName = "Trace Level";
         internal const string traceStateDefault = "true";
 
         private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
         private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
-        internal static string comPort; // COM port name (if required)
         internal static string uvexApiUrl;
         private static bool connectedState; // Local server's connected state
         private static bool runOnce; // Flag to enable "one-off" activities only to run once.
@@ -263,12 +259,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
                 if (value)
                 {
-                    LogMessage("Connected Set", $"Connecting to port {comPort}");
+                    LogMessage("Connected Set", $"Connecting to {uvexApiUrl}");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage("Connected Set", $"Disconnecting from port {comPort}");
+                    LogMessage("Connected Set", $"Disconnecting from port {uvexApiUrl}");
                     connectedState = false;
                 }
             }
