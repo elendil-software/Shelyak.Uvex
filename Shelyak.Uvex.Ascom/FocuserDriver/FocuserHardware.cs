@@ -28,6 +28,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
         private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
         internal static string comPort; // COM port name (if required)
+        internal static string uvexApiUrl;
         private static bool connectedState; // Local server's connected state
         private static bool runOnce; // Flag to enable "one-off" activities only to run once.
         internal static Util utilities; // ASCOM Utilities object for use as required
@@ -539,7 +540,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 driverProfile.DeviceType = "Focuser";
                 tl.Enabled = Convert.ToBoolean(driverProfile.GetValue(DriverProgId, traceStateProfileName, string.Empty, traceStateDefault));
-                comPort = driverProfile.GetValue(DriverProgId, comPortProfileName, string.Empty, comPortDefault);
+                uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.UvexApiUrlDefault);
             }
         }
 
@@ -552,7 +553,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 driverProfile.DeviceType = "Focuser";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, comPortProfileName, comPort);
+                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, uvexApiUrl);
             }
         }
 
