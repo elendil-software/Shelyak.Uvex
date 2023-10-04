@@ -448,7 +448,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 driverProfile.DeviceType = "FilterWheel";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, uvexApiUrl);
+                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl));
             }
         }
 

@@ -550,7 +550,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 driverProfile.DeviceType = "Focuser";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, uvexApiUrl);
+                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl));
             }
         }
 

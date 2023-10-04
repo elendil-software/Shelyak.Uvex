@@ -12,5 +12,15 @@ namespace ASCOM.ShelyakUvex.Shared
             httpClient.BaseAddress = new Uri(UvexApiParameter.Url);
             return new UvexHttpClient(httpClient, FocuserHardware.tl);
         }
+
+        public static string BuildUvexUrl(string uvexUrlFromConfigDialog)
+        {
+            if (!uvexUrlFromConfigDialog.Contains(UvexApiParameter.defaultApiPath.Trim('/')))
+            {
+                return $"{uvexUrlFromConfigDialog.TrimEnd('/')}{UvexApiParameter.defaultApiPath.Trim('/')}/";
+            }
+
+            return $"{uvexUrlFromConfigDialog.TrimEnd('/')}/";
+        }
     }
 }
