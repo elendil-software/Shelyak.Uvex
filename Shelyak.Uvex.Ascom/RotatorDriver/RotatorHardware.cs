@@ -69,7 +69,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient();
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(uvexApiUrl);
                 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 

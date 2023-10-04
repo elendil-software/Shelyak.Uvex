@@ -6,10 +6,10 @@ namespace ASCOM.ShelyakUvex.Shared
 {
     internal static class UvexHttpClientHelper
     {
-        public static UvexHttpClient CreateUvexHttpClient()
+        public static UvexHttpClient CreateUvexHttpClient(string uvexUrl)
         {
             var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(UvexApiParameter.Url);
+            httpClient.BaseAddress = new Uri(uvexUrl);
             return new UvexHttpClient(httpClient, FocuserHardware.tl);
         }
 
@@ -23,4 +23,5 @@ namespace ASCOM.ShelyakUvex.Shared
             return $"{uvexUrlFromConfigDialog.TrimEnd('/')}/";
         }
     }
+    
 }
