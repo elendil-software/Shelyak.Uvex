@@ -10,7 +10,7 @@ namespace ASCOM.ShelyakUvex.Shared
         {
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(uvexUrl);
-            return new UvexHttpClient(httpClient, FocuserHardware.tl);
+            return new UvexHttpClient(httpClient);
         }
 
         public static string BuildUvexUrl(string uvexUrlFromConfigDialog)

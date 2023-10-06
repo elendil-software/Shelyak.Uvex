@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
-using ASCOM.Utilities.Interfaces;
 using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
@@ -11,12 +10,10 @@ namespace ASCOM.ShelyakUvex.Shared
     public class UvexHttpClient
     {
         private readonly HttpClient _httpClient;
-        private readonly ITraceLoggerExtra _traceLogger;
 
-        public UvexHttpClient(HttpClient httpClient, ITraceLoggerExtra traceLogger)
+        public UvexHttpClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _traceLogger = traceLogger;
         }
         
         public AlpacaResponse<float> GetTemperature()
