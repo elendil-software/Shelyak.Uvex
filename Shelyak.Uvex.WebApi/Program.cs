@@ -26,6 +26,7 @@ try
 //Configuration
     builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
+    builder.Services.AddRazorPages();
     builder.Services.AddControllers();
     //    .AddJsonOptions(x =>
     //    {
@@ -66,13 +67,15 @@ try
         string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
         c.IncludeXmlComments(xmlPath);
     });
-    
-    
 
     var app = builder.Build();
     if (app.Environment.IsDevelopment())
     {
         app.UseMiddleware<RequestLoggingMiddleware>();
+        
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
     }
     app.UseSerilogRequestLogging();
     
@@ -85,10 +88,16 @@ try
         app.UseSwaggerUI();
     }
     
+    //app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
     app.UseAuthorization();
 
+    app.MapRazorPages();
     app.MapControllers();
-
+    
     app.Run();
 }
 catch (Exception ex)
