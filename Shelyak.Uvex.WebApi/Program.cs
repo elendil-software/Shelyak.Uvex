@@ -16,7 +16,9 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
-
+    
+    builder.Configuration.AddJsonFile("appsettings-uvex.json", optional: false, reloadOnChange: true);
+    
 // Add services to the container.
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
