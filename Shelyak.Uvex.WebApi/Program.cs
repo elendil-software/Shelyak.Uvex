@@ -6,6 +6,7 @@ using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.WebApi;
+using Shelyak.Uvex.WebApi.Settings;
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.AppSettingsConfiguration()
@@ -16,14 +17,16 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
-    
-    builder.Configuration.AddJsonFile("appsettings-uvex.json", optional: false, reloadOnChange: true);
+
+    var appsettingsUvexFilePath = "./appsettings-uvex.json";
+    builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: false, reloadOnChange: true);
     
 // Add services to the container.
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IResponseParser, ResponseParser>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
+    builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(appsettingsUvexFilePath));
 
 //Configuration
     builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
