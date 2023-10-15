@@ -121,14 +121,14 @@ namespace Shelyak.Usis
     
         public IResponse<float> GetGratingAngleMin()
         {
-            ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_MIN, PropertyAttributeType.MIN);
+            ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MIN, PropertyAttributeType.MIN);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
         public IResponse<float> GetGratingAnglePrec()
         {
-            ICommand command = new GetCommand(DeviceProperty.GRAITNG_ANGLE_PREC, PropertyAttributeType.PREC);
+            ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_PREC, PropertyAttributeType.PREC);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
