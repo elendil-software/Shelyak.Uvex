@@ -12,7 +12,7 @@ namespace Shelyak.Usis
         private readonly ILogger<SerialPortCommandSender> _logger;
         private readonly object _lock = new object();
 
-        public SerialPortCommandSender(IOptions<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
+        public SerialPortCommandSender(IOptionsSnapshot<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
         {
             _settings = settings.Value;
             _logger = logger;
