@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
+using ASCOM.ShelyakUvex.FocuserDriver;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
@@ -410,8 +411,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 float maxPosition = _uvexHttpClient.GetFocusPositionMax().Value.Value;
-                float precision = _uvexHttpClient.GetFocusPositionPrecision().Value.Value;
-                var maxIncrement = (int)Math.Round(maxPosition / precision);
+                var maxIncrement = maxPosition.ToAscomPosition();
                 LogMessage("MaxStep Get", maxIncrement.ToString(CultureInfo.InvariantCulture));
                 return maxIncrement;
             }
@@ -423,8 +423,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// <param name="Position">Step distance or absolute position, depending on the value of the <see cref="Absolute" /> property.</param>
         internal static void Move(int Position)
         {
-            var precision = _uvexHttpClient.GetFocusPositionPrecision().Value.Value;
-            var position = Position * precision;
+            var position = Position.ToUvexPosition();
             LogMessage("Move", position.ToString(CultureInfo.InvariantCulture));
             _uvexHttpClient.MoveFocus(position);
         }
@@ -437,8 +436,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 float position = _uvexHttpClient.GetFocusPosition().Value.Value;
-                float precision = _uvexHttpClient.GetFocusPositionPrecision().Value.Value;
-                var focuserPosition = (int)Math.Round(position / precision);
+                var focuserPosition = position.ToAscomPosition();
                 LogMessage("Position Get", focuserPosition.ToString(CultureInfo.InvariantCulture));
                 return focuserPosition;
             }

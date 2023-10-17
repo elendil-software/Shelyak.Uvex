@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="FocuserDriver\FocuserDriver.cs" />
     <Compile Include="FocuserDriver\FocuserHardware.cs" />
+    <Compile Include="FocuserDriver\PositionConverter.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
