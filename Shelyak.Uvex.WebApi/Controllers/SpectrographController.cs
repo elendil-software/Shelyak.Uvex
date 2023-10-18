@@ -92,23 +92,6 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetGratingId(value), deviceNumber, clientId, clientTransactionId));
     }
     
-    [HttpPut]
-    [Route("{deviceNumber}/stopgratingid")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult StopGratingId(int deviceNumber, uint clientId, uint clientTransactionId)
-    {
-        return Ok(Execute(() => _usisDevice.StopGratingId(), deviceNumber, clientId, clientTransactionId));
-    }
-    
-    [HttpPut]
-    [Route("{deviceNumber}/calibrategratingid")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult CalibrateGratingId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
-    {
-        return Ok(Execute(() => _usisDevice.CalibrateGratingId(value), deviceNumber, clientId, clientTransactionId));
-    }
-    
-    
     [HttpGet]
     [Route("{deviceNumber}/gratingangle")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -257,22 +240,6 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetSlitId(value), deviceNumber, clientId, clientTransactionId));
     }
     
-    [HttpPut]
-    [Route("{deviceNumber}/stopslitid")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult StopSlitId(int deviceNumber, uint clientId, uint clientTransactionId)
-    {
-        return Ok(Execute(() => _usisDevice.StopSlitId(), deviceNumber, clientId, clientTransactionId));
-    }
-    
-    [HttpPut]
-    [Route("{deviceNumber}/calibrateslitid")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<string>))]
-    public IActionResult CalibrateSlitId(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] string value)
-    {
-        return Ok(Execute(() => _usisDevice.CalibrateSlitId(value), deviceNumber, clientId, clientTransactionId));
-    }
-    
     [HttpGet]
     [Route("{deviceNumber}/slitwidth")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -289,14 +256,6 @@ public class SpectrographController : ControllerBase
         return Ok(Execute(() => _usisDevice.SetSlitWidth(value), deviceNumber, clientId, clientTransactionId));
     }
     
-    [HttpPut]
-    [Route("{deviceNumber}/stopslitwidth")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
-    public IActionResult StopSlitWidth(int deviceNumber, uint clientId, uint clientTransactionId)
-    {
-        return Ok(Execute(() => _usisDevice.StopSlitWidth(), deviceNumber, clientId, clientTransactionId));
-    }
-    
     [HttpGet]
     [Route("{deviceNumber}/slitangle")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
@@ -311,14 +270,6 @@ public class SpectrographController : ControllerBase
     public IActionResult SetSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] float value)
     {
         return Ok(Execute(() => _usisDevice.SetSlitAngle(value), deviceNumber, clientId, clientTransactionId));
-    }
-    
-    [HttpPut]
-    [Route("{deviceNumber}/stopslitangle")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<float>))]
-    public IActionResult StopSlitAngle(int deviceNumber, uint clientId, uint clientTransactionId)
-    {
-        return Ok(Execute(() => _usisDevice.StopSlitAngle(), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
@@ -399,14 +350,6 @@ public class SpectrographController : ControllerBase
     public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
     {
         return Ok(Execute(() => _usisDevice.SetLightSource(value), deviceNumber, clientId, clientTransactionId));
-    }
-    
-    [HttpPut]
-    [Route("{deviceNumber}/calibratelightsource")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<LightSource>))]
-    public IActionResult CalibrateLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
-    {
-        return Ok(Execute(() => _usisDevice.CalibrateLightSource(value), deviceNumber, clientId, clientTransactionId));
     }
     
     #endregion
