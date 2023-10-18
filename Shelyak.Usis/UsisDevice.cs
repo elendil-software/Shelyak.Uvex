@@ -69,20 +69,6 @@ namespace Shelyak.Usis
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
-    
-        public IResponse<string> StopGratingId()
-        {
-            ICommand command = new StopCommand<string>(DeviceProperty.GRATING_ID);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
-        }
-    
-        public IResponse<string> CalibrateGratingId(string gratingId)
-        {
-            ICommand command = new CalibrateCommand<string>(DeviceProperty.GRATING_ID, gratingId);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
-        }
 
         public IResponse<float> GetGratingAngle()
         {
@@ -213,20 +199,6 @@ namespace Shelyak.Usis
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
-    
-        public IResponse<string> StopSlitId()
-        {
-            ICommand command = new StopCommand<string>(DeviceProperty.SLIT_ID);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
-        }
-    
-        public IResponse<string> CalibrateSlitId(string slitId)
-        {
-            ICommand command = new CalibrateCommand<string>(DeviceProperty.SLIT_ID, slitId);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<string>(response);
-        }
 
         public IResponse<float> GetSlitWidth()
         {
@@ -238,20 +210,6 @@ namespace Shelyak.Usis
         public IResponse<float> SetSlitWidth(float slitWidth)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE, slitWidth);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<float>(response);
-        }
-    
-        public IResponse<float> StopSlitWidth()
-        {
-            ICommand command = new StopCommand<float>(DeviceProperty.SLIT_WIDTH);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<float>(response);
-        }
-    
-        public IResponse<float> CalibrateSlitWidth(float slitWidth)
-        {
-            ICommand command = new CalibrateCommand<float>(DeviceProperty.SLIT_WIDTH, slitWidth);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
@@ -351,13 +309,6 @@ namespace Shelyak.Usis
         public IResponse<LightSource> SetLightSource(LightSource lightSource)
         {
             ICommand command = new SetCommand<LightSource>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
-            string response = _commandSender.SendCommand(command);
-            return _responseParser.Parse<LightSource>(response);
-        }
-
-        public IResponse<LightSource> CalibrateLightSource(LightSource lightSource)
-        {
-            ICommand command = new CalibrateCommand<LightSource>(DeviceProperty.LIGHT_SOURCE, lightSource);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<LightSource>(response);
         }

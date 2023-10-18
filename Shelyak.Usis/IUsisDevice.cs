@@ -13,8 +13,6 @@ namespace Shelyak.Usis
 
         IResponse<string> GetGratingId();
         IResponse<string> SetGratingId(string gratingId);
-        IResponse<string> StopGratingId();
-        IResponse<string> CalibrateGratingId(string gratingId);
 
         IResponse<float> GetGratingAngle();
         IResponse<float> SetGratingAngle(float gratingAngle);
@@ -38,18 +36,12 @@ namespace Shelyak.Usis
     
         IResponse<string> GetSlitId();
         IResponse<string> SetSlitId(string slitId);
-        IResponse<string> StopSlitId();
-        IResponse<string> CalibrateSlitId(string slitId);
 
         IResponse<float> GetSlitWidth();
         IResponse<float> SetSlitWidth(float slitWidth);
-        IResponse<float> StopSlitWidth();
-        IResponse<float> CalibrateSlitWidth(float slitWidth);
 
         IResponse<float> GetSlitAngle();
         IResponse<float> SetSlitAngle(float slitAngle);
-        IResponse<float> StopSlitAngle();
-        IResponse<float> CalibrateSlitAngle(float slitAngle);
 
         IResponse<float> GetFocusPosition();
         IResponse<float> SetFocusPosition(float focusPosition);
@@ -61,9 +53,7 @@ namespace Shelyak.Usis
 
         IResponse<LightSource> GetLightSource();
         IResponse<LightSource> SetLightSource(LightSource lightSource);
-        IResponse<LightSource> CalibrateLightSource(LightSource lightSource);
-    
-
+        
         IResponse<string> StopAll();
     }
 }
