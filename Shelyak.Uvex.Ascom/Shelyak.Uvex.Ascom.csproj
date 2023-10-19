@@ -191,6 +191,8 @@
   <ItemGroup>
     <Content Include="ASCOM.ico" />
     <Content Include="ASCOM.png" />
+    <Content Include="Documentation\README.txt" />
+    <Content Include="InnoSetup\Setup.iss" />
     <Content Include="ReadMe.htm" />
   </ItemGroup>
   <ItemGroup>
