@@ -18,7 +18,7 @@ try
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
-    var appsettingsUvexFilePath = "./appsettings-uvex.json";
+    var appsettingsUvexFilePath = "appsettings-uvex.json";
     builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: false, reloadOnChange: true);
     
 // Add services to the container.
