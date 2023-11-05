@@ -7,13 +7,13 @@ AppID={{7f9c1d87-6d1e-4553-bf58-97897317bf99}
 AppName=ASCOM ShelyakUvex Focuser Driver
 AppVerName=ASCOM ShelyakUvex Focuser Driver 0.1.0
 AppVersion=0.1.0
-AppPublisher=Shelyak <uvex@shelyak.com>
-AppPublisherURL=mailto:uvex@shelyak.com
-AppSupportURL=https://ascomtalk.groups.io/g/Help
-AppUpdatesURL=https://ascom-standards.org/
+AppPublisher=Shelyak
+AppPublisherURL=https://www.shelyak.com
+AppSupportURL=https://www.shelyak.com
+AppUpdatesURL=https://www.shelyak.com
 VersionInfoVersion=1.0.0
 MinVersion=6.1.7601
-DefaultDirName="{cf}\ASCOM\Focuser"
+DefaultDirName="{commonpf32}/Shelyak/ASCOM/Uvex"
 DisableDirPage=yes
 DisableProgramGroupPage=yes
 OutputDir="."
@@ -21,25 +21,39 @@ OutputBaseFilename="ShelyakUvex Setup"
 Compression=lzma
 SolidCompression=yes
 ; Put there by Platform if Driver Installer Support selected
-WizardImageFile="C:\Program Files (x86)\ASCOM\Platform 6 Developer Components\Installer Generator\Resources\WizardImage.bmp"
-LicenseFile="C:\Program Files (x86)\ASCOM\Platform 6 Developer Components\Installer Generator\Resources\CreativeCommons.txt"
+WizardImageFile="WizardImage.bmp"
+LicenseFile="../Documentation/License.txt"
 ; {cf}\ASCOM\Uninstall\Focuser folder created by Platform, always
-UninstallFilesDir="{cf}\ASCOM\Uninstall\Focuser\ShelyakUvex"
+UninstallFilesDir="{app}\Uninstall"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Dirs]
-Name: "{cf}\ASCOM\Uninstall\Focuser\ShelyakUvex"
-; TODO: Add subfolders below {app} as needed (e.g. Name: "{app}\MyFolder")
+Name: "{app}\Uninstall"
 
 [Files]
-Source: "D:\Projects\Astronomie\Shelyak\Shelyak.Uvex.WebApi\Shelyak.Uvex.Ascom\bin\Release\ASCOM.ShelyakUvex.exe"; DestDir: "{app}"
-; TODO: Add driver assemblies into the ServedClasses folder
-; Require a read-me HTML to appear after installation, maybe driver's Help doc
-Source: "D:\Projects\Astronomie\Shelyak\Shelyak.Uvex.WebApi\Shelyak.Uvex.Ascom\README.txt"; DestDir: "{app}"; Flags: isreadme
-; TODO: Add other files needed by your driver here (add subfolders above)
+Source: "../ASCOM.ShelyakUvex.exe"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../ASCOM.ShelyakUvex.exe.config"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Microsoft.Extensions.DependencyInjection.Abstractions.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Microsoft.Extensions.Logging.Abstractions.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Microsoft.Extensions.Options.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Microsoft.Extensions.Primitives.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Shelyak.Usis.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Shelyak.Uvex.Alpaca.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Buffers.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Memory.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Net.Http.Json.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Text.Encodings.Web.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Text.Json.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../System.ValueTuple.dll"; DestDir: "{app}"; Flags: replacesameversion 
 
+Source: "../Documentation/README.txt"; DestDir: "{app}"; Flags: replacesameversion
+Source: "../Documentation/LICENSE.txt"; DestDir: "{app}"; Flags: replacesameversion
 
 ; Only if driver is .NET
 [Run]
