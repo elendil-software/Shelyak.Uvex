@@ -28,4 +28,16 @@
     <ProjectReference Include="..\Shelyak.Uvex.Alpaca\Shelyak.Uvex.Alpaca.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Documentation\Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Documentation\License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="InnoSetup\Setup.iss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
