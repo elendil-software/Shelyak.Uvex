@@ -4,6 +4,20 @@ using Shelyak.Usis.Enums;
 
 namespace Shelyak.Usis.Commands
 {
+
+    public class SetCommandEnum<T> : SetCommand<T> where T : Enum
+    {
+        public SetCommandEnum(DeviceProperty deviceProperty, PropertyAttributeType attributeType, T value) : 
+            base(deviceProperty, attributeType, value)
+        {
+        }
+        
+        protected override string SerializeValue(T value)
+        {
+            return value.ToString();
+        }
+    }
+
     public class SetCommand<T> : ICommand
     {
         private readonly DeviceProperty _deviceProperty;
@@ -22,7 +36,7 @@ namespace Shelyak.Usis.Commands
             return $"{CommandType.SET};{_deviceProperty};{_attributeType};{SerializeValue(_value)}";
         }
         
-        private string SerializeValue(T value)
+        protected virtual string SerializeValue(T value)
         {
             switch (value)
             {

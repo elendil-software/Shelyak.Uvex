@@ -308,7 +308,7 @@ namespace Shelyak.Usis
 
         public IResponse<LightSource> SetLightSource(LightSource lightSource)
         {
-            ICommand command = new SetCommand<LightSource>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
+            ICommand command = new SetCommandEnum<LightSource>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<LightSource>(response);
         }
