@@ -18,8 +18,8 @@ try
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
-    var appsettingsUvexFilePath = "appsettings-uvex.json";
-    builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: false, reloadOnChange: true);
+    var appsettingsUvexFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
+    builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: true, reloadOnChange: true);
     
 // Add services to the container.
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();

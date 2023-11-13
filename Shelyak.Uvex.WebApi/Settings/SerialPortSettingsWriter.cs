@@ -15,7 +15,18 @@ public class SerialPortSettingsWriter : ISerialPortSettingsWriter
 
     public void Write(SerialPortSettings serialPortSettings)
     {
+        CreateFolderIfNotExists();
         string json = "{\"SerialPortSettings\":" + JsonSerializer.Serialize(serialPortSettings) + "}";
         File.WriteAllText(_settingsFilePath, json, Encoding.UTF8);
+    }
+
+    private void CreateFolderIfNotExists()
+    {
+        var path = Path.GetDirectoryName(_settingsFilePath);
+        
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
     }
 }
