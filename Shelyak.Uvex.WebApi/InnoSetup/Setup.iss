@@ -35,7 +35,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "..\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\*.json"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Excludes: appsettings-uvex.json,appsettings.Development.json,http-client.env.json,libman.json
-Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Flags: ignoreversion onlyifdoesntexist 
+Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Permissions: users-modify; Flags: ignoreversion onlyifdoesntexist 
 Source: "..\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\*.xml"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: ignoreversion recursesubdirs createallsubdirs
