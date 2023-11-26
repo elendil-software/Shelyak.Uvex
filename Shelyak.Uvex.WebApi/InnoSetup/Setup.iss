@@ -8,7 +8,7 @@
 AppId={{020118E7-FD44-46C9-9566-EE1D8DD84D0B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -17,10 +17,8 @@ DefaultDirName={autopf64}\Shelyak\Uvex
 DisableDirPage=yes
 DisableProgramGroupPage=yes
 LicenseFile=..\Documentation\License.txt
-; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
 OutputDir=.\
-OutputBaseFilename=Shelyak Uvex Setup - {#MyAppVersion}
+OutputBaseFilename=Shelyak Uvex Setup - v{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
