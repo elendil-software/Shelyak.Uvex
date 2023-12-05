@@ -1,3 +1,4 @@
+using Shelyak.Uvex.Web.Components;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,24 +21,27 @@ try
 
     var appsettingsUvexFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
     builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: true, reloadOnChange: true);
-    
+
+    //Configuration
+    builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
+
 // Add services to the container.
+    builder.Services.AddRazorComponents()
+        .AddInteractiveServerComponents();
+
+    builder.Services.AddControllers();
+    //    .AddJsonOptions(x =>
+    //    {
+    //        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    //    });
+
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IResponseParser, ResponseParser>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
     builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(appsettingsUvexFilePath));
 
-//Configuration
-    builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
-    builder.Services.AddRazorPages();
-    builder.Services.AddControllers();
-    //    .AddJsonOptions(x =>
-    //    {
-    //        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    //    });
-    
     builder.Services.AddApiVersioning(options =>
     {
         options.ReportApiVersions = true;
@@ -67,42 +71,46 @@ try
                 Url = new Uri("https://example.com/license"),
             }
         });
-        
+
         var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
         c.IncludeXmlComments(xmlPath);
     });
 
+
     var app = builder.Build();
-    if (app.Environment.IsDevelopment())
+    app.UseSerilogRequestLogging();
+
+// Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error", createScopeForErrors: true);
+        // app.UseHsts();
+    }
+    else
     {
         app.UseMiddleware<RequestLoggingMiddleware>();
-        
-        app.UseExceptionHandler("/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
     }
-    app.UseSerilogRequestLogging();
-    
-    // Configure the HTTP request pipeline.
-    
+
+
+// Configure the HTTP request pipeline.
     var enableSwagger = builder.Configuration.GetValue<bool>("OpenAPI:EnableSwagger");
     if (app.Environment.IsDevelopment() || enableSwagger)
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    
-    //app.UseHttpsRedirection();
+
+
     app.UseStaticFiles();
-
     app.UseRouting();
+    app.UseAntiforgery();
+//     app.UseAuthorization();
 
-    app.UseAuthorization();
-
-    app.MapRazorPages();
+    app.MapRazorComponents<App>()
+        .AddInteractiveServerRenderMode();
     app.MapControllers();
-    
+
     app.Run();
 }
 catch (Exception ex)
