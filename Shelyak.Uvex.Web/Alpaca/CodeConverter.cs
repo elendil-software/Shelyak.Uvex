@@ -1,7 +1,7 @@
 ﻿using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.WebApi.Controllers;
+namespace Shelyak.Uvex.Web.Alpaca;
 
 public static class CodeConverter
 {

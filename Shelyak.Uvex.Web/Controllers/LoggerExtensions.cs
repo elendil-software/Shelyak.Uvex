@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.WebApi.Controllers;
+﻿namespace Shelyak.Uvex.Web.Controllers;
 
 public static class LoggerExtensions
 {

@@ -4,7 +4,7 @@ using Shelyak.Usis.Enums;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.WebApi.Controllers;
+namespace Shelyak.Uvex.Web.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]

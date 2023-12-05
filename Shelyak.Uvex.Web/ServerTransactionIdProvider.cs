@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.WebApi;
+﻿namespace Shelyak.Uvex.Web;
 
 public class ServerTransactionIdProvider : IServerTransactionIdProvider
 {

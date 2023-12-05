@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+namespace Shelyak.Uvex.Web;
+
 public class RequestLoggingMiddleware
 {
     private readonly RequestDelegate _next;

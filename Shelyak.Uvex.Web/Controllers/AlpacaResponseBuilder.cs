@@ -1,7 +1,8 @@
 ﻿using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
+using Shelyak.Uvex.Web.Alpaca;
 
-namespace Shelyak.Uvex.WebApi.Controllers;
+namespace Shelyak.Uvex.Web.Controllers;
 
 public static class AlpacaResponseBuilder
 {

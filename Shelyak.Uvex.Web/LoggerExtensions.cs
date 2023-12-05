@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Configuration;
 
-namespace Shelyak.Uvex.WebApi;
+namespace Shelyak.Uvex.Web;
 
 public static class LoggerExtensions
 {

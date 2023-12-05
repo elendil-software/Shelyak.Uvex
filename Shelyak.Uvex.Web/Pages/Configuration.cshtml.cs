@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
-using Shelyak.Uvex.WebApi.Settings;
+using Shelyak.Uvex.Web.Settings;
 
-namespace Shelyak.Uvex.WebApi.Pages;
+namespace Shelyak.Uvex.Web.Pages;
 
 public class Configuration : PageModel
 {

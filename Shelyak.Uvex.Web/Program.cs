@@ -6,8 +6,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Responses;
-using Shelyak.Uvex.WebApi;
-using Shelyak.Uvex.WebApi.Settings;
+using Shelyak.Uvex.Web;
+using Shelyak.Uvex.Web.Settings;
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.AppSettingsConfiguration()
