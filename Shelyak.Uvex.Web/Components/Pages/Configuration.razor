@@ -1,0 +1,32 @@
+﻿@page "/Configuration"
+@rendermode InteractiveServer
+
+<h3>Configuration</h3>
+
+@if(!string.IsNullOrEmpty(Message))
+{
+    <div class="alert alert-@MessageType alert-dismissible" role="alert">
+        <div>@Message</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label asp-for="@Model.ComPorts">COM Port List</label>
+            <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select">
+                <option value=""></option>
+                @foreach (var port in Model.ComPorts)
+                {
+                    <option value="@port">@port</option>
+                }
+            </InputSelect>
+            <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
+        </div>
+    </div>
+
+    <button class="btn btn-primary">Enregistrer</button>
+</EditForm>
