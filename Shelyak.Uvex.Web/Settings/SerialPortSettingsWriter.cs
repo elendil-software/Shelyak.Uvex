@@ -13,11 +13,11 @@ public class SerialPortSettingsWriter : ISerialPortSettingsWriter
         _settingsFilePath = settingsFilePath;
     }
 
-    public void Write(SerialPortSettings serialPortSettings)
+    public async Task Write(SerialPortSettings serialPortSettings)
     {
         CreateFolderIfNotExists();
         string json = "{\"SerialPortSettings\":" + JsonSerializer.Serialize(serialPortSettings) + "}";
-        File.WriteAllText(_settingsFilePath, json, Encoding.UTF8);
+        await File.WriteAllTextAsync(_settingsFilePath, json, Encoding.UTF8);
     }
 
     private void CreateFolderIfNotExists()

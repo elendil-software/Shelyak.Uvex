@@ -4,5 +4,5 @@ namespace Shelyak.Uvex.Web.Settings;
 
 public interface ISerialPortSettingsWriter
 {
-    void Write(SerialPortSettings serialPortSettings);
+    Task Write(SerialPortSettings serialPortSettings);
 }
