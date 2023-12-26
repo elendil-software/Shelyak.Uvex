@@ -32,6 +32,12 @@ h1:focus {
     outline: 1px solid #e50000;
 }
 
+
+.invalid ~ .invalid-feedback,
+.invalid ~ .invalid-tooltip {
+    display: block;
+}
+
 .validation-message {
     color: #e50000;
 }
