@@ -4,25 +4,21 @@ using Shelyak.Uvex.Web.HttpClients;
 
 namespace Shelyak.Uvex.Web.Components.Uvex;
 
-
-
-public partial class FocusControl
+public partial class FocusControl : UvexComponentBase
 {
-    [Inject]
-    private IUvexHttpClient UvexHttpClient { get; set; }
-    
     public float MinFocusPosition { get; set; }
     public float MaxFocusPosition { get; set; }
     private float CurrentFocusPosition { get; set; }
     public FocusControlModel Model { get; set; } = new();
     
+
     protected override async Task OnInitializedAsync()
     {
         MinFocusPosition = (await UvexHttpClient.GetFocusPositionMin()).Value.Value;
         MaxFocusPosition = (await UvexHttpClient.GetFocusPositionMax()).Value.Value;
     }
     
-    private async Task LoadDataAsync()
+    protected override async Task LoadData()
     {
         var focusPosition = await UvexHttpClient.GetFocusPosition();
         CurrentFocusPosition = focusPosition.Value.Value;

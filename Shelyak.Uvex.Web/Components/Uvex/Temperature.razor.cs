@@ -1,20 +1,26 @@
-﻿using Shelyak.Uvex.Alpaca;
+﻿using System;
+using System.Security.Cryptography;
+using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.HttpClients;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Shelyak.Uvex.Web.Components.Uvex;
 
-public partial class Temperature
+public partial class Temperature : UvexComponentBase
 {
-    [Inject]
-    private IUvexHttpClient UvexHttpClient { get; set; }
+    
     
     public float CurrentTemperature { get; set; }
   
     protected override async Task OnInitializedAsync()
     {
-        CurrentTemperature = (await UvexHttpClient.GetTemperature()).Value.Value;
+        await LoadData();
         await base.OnInitializedAsync();
+    }
+    
+    protected override async Task LoadData()
+    { 
+        CurrentTemperature = (await UvexHttpClient.GetTemperature()).Value.Value;
     }
 }
