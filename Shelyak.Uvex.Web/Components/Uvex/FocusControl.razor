@@ -1,0 +1,37 @@
+﻿@using System.Linq.Expressions
+@rendermode InteractiveServer
+
+<h3>FocusControl</h3>
+
+<EditForm Model="@Model" FormName="focus-control-form" OnSubmit="@ExecuteFocusControlAction">
+    <div class="row mb-3">
+        <div class="col-sm-2">Position actuelle</div>
+        <div class="col-sm-10">@CurrentFocusPosition</div>
+    </div>
+    <div class="row mb-3">
+        <label for="step-size" class="col-sm-2 col-form-label">Step size</label>
+        <div class="col-sm-1">
+            <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="step-size" class="form-control"/>
+        </div>
+        <div class="col-sm-9">
+            <button @onclick="@(() => Model.Action = FocusControlAction.FocusOut)" class="btn btn-primary">+</button>
+            <button @onclick="@(() => Model.Action = FocusControlAction.FocusIn)" class="btn btn-primary">-</button>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="position" class="col-sm-2 col-form-label">Step size</label>
+        <div class="col-sm-1">
+            <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="position" class="form-control"/>
+        </div>
+        <div class="col-sm-9">
+            <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">GoTo</button>
+            <button @onclick="@(() => Model.Action = FocusControlAction.Calibrate)" class="btn btn-secondary">Calibrate</button>
+        </div>
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-auto">
+            <button @onclick="@(() => Model.Action = FocusControlAction.Abort)" class="btn btn-danger">Abort</button>
+        </div>
+    </div>
+
+</EditForm>
