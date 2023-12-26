@@ -6,7 +6,9 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Responses;
+using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web;
+using Shelyak.Uvex.Web.HttpClients;
 using Shelyak.Uvex.Web.Settings;
 
 Log.Logger = new LoggerConfiguration()
@@ -41,7 +43,12 @@ try
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
     builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(appsettingsUvexFilePath));
 
-
+    builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
+    {
+        var config = provider.GetRequiredService<IConfiguration>();
+        var baseAddress = config.GetSection("WebApi:Url").Value;
+        client.BaseAddress = new Uri(baseAddress);
+    });
     builder.Services.AddApiVersioning(options =>
     {
         options.ReportApiVersions = true;
