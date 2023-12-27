@@ -1,24 +1,25 @@
-﻿#define MyAppName "Shelyak Uvex"
-#define MyAppVersion "0.1.0"
-#define MyAppPublisher "Shelyak"
-#define MyAppURL "https://www.shelyak.com"
-#define MyAppExeName "Shelyak.Uvex.WebApi.exe"
+﻿#define AppName "Shelyak Uvex"
+#define AppVersion "0.1.0"
+#define AppPublisher "Shelyak"
+#define AppURL "https://www.shelyak.com"
+#define AppExeName "Shelyak.Uvex.Web.exe"
 
 [Setup]
 AppId={{020118E7-FD44-46C9-9566-EE1D8DD84D0B}
-AppName={#MyAppName}
-AppVersion={#MyAppVersion}
-AppVerName={#MyAppName} {#MyAppVersion}
-AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
+AppName={#AppName}
+AppVersion={#AppVersion}
+AppVerName={#AppName} {#AppVersion}
+AppPublisher={#AppPublisher}
+AppPublisherURL={#AppURL}
+AppSupportURL={#AppURL}
+AppUpdatesURL={#AppURL}
 DefaultDirName={autopf64}\Shelyak\Uvex
+DefaultGroupName=Shelyak
 DisableDirPage=yes
 DisableProgramGroupPage=yes
 LicenseFile=..\Documentation\License.txt
 OutputDir=.\
-OutputBaseFilename=Shelyak Uvex Setup - v{#MyAppVersion}
+OutputBaseFilename=Shelyak Uvex Web Setup v{#AppVersion}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -28,7 +29,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
 Source: "..\*.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -36,19 +37,21 @@ Source: "..\*.json"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; E
 Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Permissions: users-modify; Flags: ignoreversion onlyifdoesntexist 
 Source: "..\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\*.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: ignoreversion 
-Source: "..\wwwroot\css\*"; DestDir: "{app}\wwwroot\css\"; Flags: ignoreversion  
-Source: "..\wwwroot\js\*"; DestDir: "{app}\wwwroot\js\"; Flags: ignoreversion  
+Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: ignoreversion  
 Source: "..\wwwroot\lib\*.min.js"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
 Source: "..\wwwroot\lib\*.min.css"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
 Source: "..\wwwroot\lib\*.json"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
+Source: "..\Documentation\*"; DestDir: "{app}\Documentation\"; Flags: ignoreversion;
 
 ;recursesubdirs createallsubdirs 
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+;Name: "{autoprograms}\{#AppPublisher}\{#AppName}"; Filename: "{app}\{#AppExeName}"
+Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}";
+Name: "{group}\Read Me"; Filename: "{app}\Documentation\Readme.txt";
+Name: "{group}\License"; Filename: "{app}\Documentation\License.txt";
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 

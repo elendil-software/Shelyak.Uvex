@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelyak.Uvex.Ascom", "Shely
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelyak.Uvex.Alpaca", "Shelyak.Uvex.Alpaca\Shelyak.Uvex.Alpaca.csproj", "{0825250B-B7EF-4F6F-A858-E53488DCA50A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{14151EBF-8E63-408B-8795-AC10A839EE7E}"
+	ProjectSection(SolutionItems) = preProject
+		InnoSetup\Setup.iss = InnoSetup\Setup.iss
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
