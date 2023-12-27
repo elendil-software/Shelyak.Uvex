@@ -154,6 +154,7 @@
     <Compile Include="Shared\UvexApiParameter.cs" />
     <Compile Include="Shared\UvexHttpClient.cs" />
     <Compile Include="Shared\UvexHttpClientHelper.cs" />
+    <Compile Include="UvexServerState.cs" />
     <EmbeddedResource Include="FilterWheelDriver\SetupDialogForm.resx">
       <DependentUpon>SetupDialogForm.cs</DependentUpon>
       <SubType>Designer</SubType>

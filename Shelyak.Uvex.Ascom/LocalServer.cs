@@ -63,6 +63,11 @@ namespace ASCOM.LocalServer
             {
                 Enabled = true // Enable to debug local server operation (not usually required). Drivers have their own independent trace loggers.
             };
+            
+            var uvexServerState = new UvexServerState(TL);
+            uvexServerState.CheckAndStartUvexServer();
+            
+            
             TL.LogMessage("Main", "Server started");
 
             // Load driver COM assemblies and get types, ending the program if something goes wrong.
@@ -172,6 +177,8 @@ namespace ASCOM.LocalServer
                 TL.LogMessage("Main", "Stopping garbage collector");
                 StopGarbageCollection();
             }
+            
+            uvexServerState.CheckAndStopUvexServer();
 
             TL.LogMessage("Main", "Local server closing");
             TL.Dispose();
