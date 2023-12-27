@@ -12,7 +12,7 @@ namespace Shelyak.Usis
         public Handshake Handshake { get; set; } = Handshake.None;
         public bool RtsEnabled { get; set; } = true;
         public bool DtrEnabled { get; set; } = true;
-        public int ReadTimeout { get; set; } = SerialPort.InfiniteTimeout;
-        public int WriteTimeout { get; set; } = SerialPort.InfiniteTimeout;
+        public int ReadTimeout { get; set; } = 1000;
+        public int WriteTimeout { get; set; } = 1000;
     }
 }

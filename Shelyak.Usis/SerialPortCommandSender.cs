@@ -34,6 +34,8 @@ namespace Shelyak.Usis
                     serialPort.RtsEnable = _settings.RtsEnabled;
                     serialPort.DtrEnable = _settings.DtrEnabled;
                     serialPort.Encoding = Encoding.ASCII;
+                    serialPort.ReadTimeout = _settings.ReadTimeout;
+                    serialPort.WriteTimeout = _settings.WriteTimeout;
                     serialPort.Open();
 
                     string commandString = command.Build();
