@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>Shelyak.Uvex.Web</RootNamespace>
+    <ApplicationIcon>..\Images\uvex_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -38,6 +39,9 @@
     </None>
     <None Update="InnoSetup\Setup.iss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Images\uvex_icon.ico">
+      <Link>uvex_icon.ico</Link>
     </None>
   </ItemGroup>
 
