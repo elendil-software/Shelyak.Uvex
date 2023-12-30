@@ -347,7 +347,7 @@ public class SpectrographController : ControllerBase
     [HttpPut]
     [Route("{deviceNumber}/lightsource")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlpacaResponse<LightSource>))]
-    public IActionResult GetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
+    public IActionResult SetLightSource(int deviceNumber, uint clientId, uint clientTransactionId, [FromBody] LightSource value)
     {
         return Ok(Execute(() => _usisDevice.SetLightSource(value), deviceNumber, clientId, clientTransactionId));
     }
