@@ -14,253 +14,147 @@ namespace Shelyak.Uvex.Web.HttpClients
             _httpClient = httpClient;
         }
 
-        public async Task<AlpacaResponse<string>> GetDeviceName()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<string>>(ApiRoutes.DeviceName);
-            return ReturnResponseIfSuccess(response);
-        }
+        #region Device
+        
+        public async Task<AlpacaResponse<string>> GetDeviceName() 
+            => await GetAsync<string>(ApiRoutes.DeviceName);
+        public async Task<AlpacaResponse<string>> GetSoftwareVersion() 
+            => await GetAsync<string>(ApiRoutes.SoftwareVersion);
+        public async Task<AlpacaResponse<string>> GetProtocolVersion() 
+            => await GetAsync<string>(ApiRoutes.ProtocolVersion);
+        public async Task<AlpacaResponse<float>> GetTemperature() 
+            => await GetAsync<float>(ApiRoutes.Temperature);
+        public async Task<AlpacaResponse<float>> GetHumidity() 
+            => await GetAsync<float>(ApiRoutes.Humidity);
 
-        public async Task<AlpacaResponse<string>> GetSoftwareVersion()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<string>>(ApiRoutes.SoftwareVersion);
-            return ReturnResponseIfSuccess(response);
-        }
+        #endregion
+        
+        #region Grating
+        
+        public async Task<AlpacaResponse<string>> GetGratingId() 
+            => await GetAsync<string>(ApiRoutes.GratingId);
+        
+        public async Task<AlpacaResponse<string>> SetGratingId(string gratingId) 
+            => await PutAsync<string>(ApiRoutes.GratingId, gratingId);
+        
+        public async Task<AlpacaResponse<float>> GetGratingAngle() 
+            => await GetAsync<float>(ApiRoutes.GratingAngle);
 
-        public async Task<AlpacaResponse<string>> GetProtocolVersion()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<string>>(ApiRoutes.ProtocolVersion);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> SetGratingAngle(float newPosition) 
+            => await PutAsync<float>(ApiRoutes.GratingAngle, newPosition.ToString(CultureInfo.InvariantCulture));
+        
+        public async Task<AlpacaResponse<float>> StopGratingAngle() 
+            => await PutEmptyBodyAsync<float>(ApiRoutes.StopGratingAngle);
+        
+        public async Task<AlpacaResponse<float>> CalibrateGratingAngle(float gratingAngle) 
+            => await PutAsync<float>(ApiRoutes.CalibrateGratingAngle, gratingAngle.ToString(CultureInfo.InvariantCulture));
+        
+        public async Task<AlpacaResponse<float>> GetGratingAngleMax() 
+            => await GetAsync<float>(ApiRoutes.GratingAngleMax);
 
-        public async Task<AlpacaResponse<float>> GetTemperature()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.Temperature);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> GetGratingAngleMin() 
+            => await GetAsync<float>(ApiRoutes.GratingAngleMin);
 
-        public async Task<AlpacaResponse<float>> GetHumidity()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.Humidity);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> GetGratingAnglePrec() 
+            => await GetAsync<float>(ApiRoutes.GratingAnglePrec);
 
-        public async Task<AlpacaResponse<string>> GetGratingId()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<string>>(ApiRoutes.GratingId);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<string>> SetGratingId(string gratingId)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.GratingId, new StringContent(gratingId, Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<string>>();
-        }
-
-        public async Task<AlpacaResponse<float>> GetGratingAngle()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAngle);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> SetGratingAngle(float newPosition)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.GratingAngle, new StringContent(newPosition.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
-
-        public async Task<AlpacaResponse<float>> StopGratingAngle()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.StopGratingAngle);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> CalibrateGratingAngle(float gratingAngle)
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.CalibrateGratingAngle);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> GetGratingAngleMax()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAngleMax);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> GetGratingAngleMin()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAngleMin);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> GetGratingAnglePrec()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingAnglePrec);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> GetGratingWaveLength()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingWaveLength);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> GetGratingWaveLength() 
+            => await GetAsync<float>(ApiRoutes.GratingWaveLength);
 
         public async Task<AlpacaResponse<float>> SetGratingWaveLength(float gratingWaveLength)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.GratingWaveLength, new StringContent(gratingWaveLength.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
+            => await PutAsync<float>(ApiRoutes.GratingWaveLength, gratingWaveLength.ToString(CultureInfo.InvariantCulture));
 
-        public async Task<AlpacaResponse<float>> StopGratingWaveLength()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.StopGratingWaveLength);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> CalibrateGratingWaveLength(float gratingWaveLength)
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.CalibrateGratingWaveLength);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> StopGratingWaveLength() 
+            => await PutEmptyBodyAsync<float>(ApiRoutes.StopGratingWaveLength);
+        
+        public async Task<AlpacaResponse<float>> CalibrateGratingWaveLength(float gratingWaveLength) 
+            => await PutAsync<float>(ApiRoutes.CalibrateGratingWaveLength, gratingWaveLength.ToString(CultureInfo.InvariantCulture));
 
         public async Task<AlpacaResponse<float>> GetGratingWaveLengthMax()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingWaveLengthMax);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.GratingWaveLengthMax);
 
         public async Task<AlpacaResponse<float>> GetGratingWaveLengthMin()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingWaveLengthMin);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.GratingWaveLengthMin);
 
         public async Task<AlpacaResponse<float>> GetGratingWaveLengthPrec()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingWaveLengthPrec);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.GratingWaveLengthPrec);
 
         public async Task<AlpacaResponse<float>> GetGratingDensity()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.GratingDensity);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.GratingDensity);
 
         public async Task<AlpacaResponse<float>> SetGratingDensity(float gratingDensity)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.GratingDensity, new StringContent(gratingDensity.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
+            => await PutAsync<float>(ApiRoutes.GratingDensity, gratingDensity.ToString(CultureInfo.InvariantCulture));
 
+        #endregion
+
+        #region Slit
+        
         public async Task<AlpacaResponse<string>> GetSlitId()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<string>>(ApiRoutes.SlitId);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<string>(ApiRoutes.SlitId);
 
         public async Task<AlpacaResponse<string>> SetSlitId(string slitId)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.SlitId, new StringContent(slitId, Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<string>>();
-        }
+            => await PutAsync<string>(ApiRoutes.SlitId, slitId);
 
         public async Task<AlpacaResponse<float>> GetSlitWidth()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.SlitWidth);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.SlitWidth);
 
         public async Task<AlpacaResponse<float>> SetSlitWidth(float slitWidth)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.SlitWidth, new StringContent(slitWidth.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
+            => await PutAsync<float>(ApiRoutes.SlitWidth, slitWidth.ToString(CultureInfo.InvariantCulture));
 
         public async Task<AlpacaResponse<float>> GetSlitAngle()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.SlitAngle);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.SlitAngle);
 
         public async Task<AlpacaResponse<float>> SetSlitAngle(float slitAngle)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.SlitAngle, new StringContent(slitAngle.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
+            => await PutAsync<float>(ApiRoutes.SlitAngle, slitAngle.ToString(CultureInfo.InvariantCulture));
+        
+        #endregion
+        
+        #region Focus
 
         public async Task<AlpacaResponse<float>> GetFocusPosition()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.FocusPosition);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<float>(ApiRoutes.FocusPosition);
 
         public async Task<AlpacaResponse<float>> SetFocusPosition(float focusPosition)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.FocusPosition, new StringContent(focusPosition.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
+            => await PutAsync<float>(ApiRoutes.FocusPosition, focusPosition.ToString(CultureInfo.InvariantCulture));
 
         public async Task<AlpacaResponse<float>> StopFocusPosition()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.StopFocusPosition);
-            return ReturnResponseIfSuccess(response);
-        }
-
-        public async Task<AlpacaResponse<float>> CalibrateFocusPosition(float focusPosition)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.CalibrateFocusPosition, new StringContent(focusPosition.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<float>>();
-        }
-
+            => await PutEmptyBodyAsync<float>(ApiRoutes.StopFocusPosition);
+        
+        public async Task<AlpacaResponse<float>> CalibrateFocusPosition(float focusPosition) => 
+            await PutAsync<float>(ApiRoutes.CalibrateFocusPosition, focusPosition.ToString(CultureInfo.InvariantCulture));
+        
         public async Task<AlpacaResponse<float>> GetFocusPositionMax()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.FocusPositionMax);
-            return ReturnResponseIfSuccess(response);
-        }
+        => await GetAsync<float>(ApiRoutes.FocusPositionMax);
 
-        public async Task<AlpacaResponse<float>> GetFocusPositionMin()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.FocusPositionMin);
-            return ReturnResponseIfSuccess(response);
-        }
+        public async Task<AlpacaResponse<float>> GetFocusPositionMin() 
+            => await GetAsync<float>(ApiRoutes.FocusPositionMin);
 
         public async Task<AlpacaResponse<float>> GetFocusPositionPrec()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.FocusPositionPrec);
-            return ReturnResponseIfSuccess(response);
-        }
+        => await GetAsync<float>(ApiRoutes.FocusPositionPrec);
 
         public async Task<AlpacaResponse<LightSource>> GetLightSource()
-        {
-            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<LightSource>>(ApiRoutes.LightSource);
-            return ReturnResponseIfSuccess(response);
-        }
+            => await GetAsync<LightSource>(ApiRoutes.LightSource);
 
         public async Task<AlpacaResponse<LightSource>> SetLightSource(LightSource lightSource)
+            => await PutAsync<LightSource>(ApiRoutes.LightSource, lightSource.ToString());
+        
+        #endregion
+        
+        private async Task<AlpacaResponse<T>> GetAsync<T>(string route)
         {
-            HttpResponseMessage response = await _httpClient.PutAsync(ApiRoutes.LightSource, new StringContent(lightSource.ToString(), Encoding.UTF8, "application/json"));
-            
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<AlpacaResponse<LightSource>>();
+            var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<T>>(route);
+            return ReturnResponseIfSuccess(response);
         }
+        
+        private async Task<AlpacaResponse<T>> PutAsync<T>(string route, string body)
+        {
+            HttpResponseMessage response = await _httpClient.PutAsync(route, new StringContent(body, Encoding.UTF8, "application/json"));
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<AlpacaResponse<T>>();
+            return ReturnResponseIfSuccess(result);
+        }
+        
+        private Task<AlpacaResponse<T>> PutEmptyBodyAsync<T>(string route) => PutAsync<T>(route, string.Empty);
         
         private static AlpacaResponse<T> ReturnResponseIfSuccess<T>(AlpacaResponse<T> response)
         {
