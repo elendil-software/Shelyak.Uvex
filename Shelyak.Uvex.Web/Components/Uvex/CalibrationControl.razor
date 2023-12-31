@@ -1,0 +1,30 @@
+﻿@inherits UvexComponentBase
+@using System.Linq.Expressions
+@using Shelyak.Usis.Enums
+@using Shelyak.Uvex.Web.HttpClients
+@rendermode InteractiveServer
+
+
+<Card Class="mb-4">
+    <CardBody>
+        <CardTitle>Calibration</CardTitle>
+        <div class="row">
+            <div class="form-check form-switch">
+                <InputCheckbox @bind-Value="@Model.Sky" class="form-check-input" type="checkbox" role="switch" id="skySwitch" @onclick="EnableSky"/>
+                <label class="form-check-label" for="skySwitch">Sky</label>
+            </div>
+            <div class="form-check form-switch">
+                <InputCheckbox @bind-Value="@Model.Flat" class="form-check-input" type="checkbox" role="switch" id="flatSwitch" @onclick="EnableFlat"/>
+                <label class="form-check-label" for="flatSwitch">Flat</label>
+            </div>
+            <div class="form-check form-switch">
+                <InputCheckbox @bind-Value="@Model.Calibration" class="form-check-input" type="checkbox" role="switch" id="calibrationSwitch" @onclick="EnableCalibration"/>
+                <label class="form-check-label" for="calibrationSwitch">Calibration</label>
+            </div>
+            <div class="form-check form-switch">
+                <InputCheckbox @bind-Value="@Model.Dark" class="form-check-input" type="checkbox" role="switch" id="darkSwitch" @onclick="EnableDark"/>
+                <label class="form-check-label" for="darkSwitch">Dark</label>
+            </div>
+        </div>
+    </CardBody>
+</Card>

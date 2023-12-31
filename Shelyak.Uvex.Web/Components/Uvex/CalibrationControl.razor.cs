@@ -2,7 +2,7 @@
 
 namespace Shelyak.Uvex.Web.Components.Uvex;
 
-public partial class Calibration : UvexComponentBase
+public partial class CalibrationControl : UvexComponentBase
 {
     private CalibrationControlModel Model { get; set; } = new();
     

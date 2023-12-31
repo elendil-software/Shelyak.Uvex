@@ -1,37 +1,39 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
 
-<h3>Wavelength</h3>
-
-<EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
-    <div class="row mb-3">
-        <div class="col-sm-2">Position actuelle</div>
-        <div class="col-sm-10">@CurrentWavelength</div>
-    </div>
-    <div class="row mb-3">
-        <label for="step-size" class="col-sm-2 col-form-label">Step size</label>
-        <div class="col-sm-1">
-            <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinWavelength" max="@MaxWavelength" id="step-size" class="form-control"/>
-        </div>
-        <div class="col-sm-9">
-            <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveOut)" class="btn btn-primary">+</button>
-            <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveIn)" class="btn btn-primary">-</button>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label for="position" class="col-sm-2 col-form-label">Step size</label>
-        <div class="col-sm-1">
-            <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="position" class="form-control"/>
-        </div>
-        <div class="col-sm-9">
-            <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">GoTo</button>
-            <button @onclick="@(() => Model.Action = WavelengthControlAction.Calibrate)" class="btn btn-secondary">Calibrate</button>
-        </div>
-    </div>
-    <div class="form-row mb-3">
-        <div class="col-auto">
-            <button @onclick="@(() => Model.Action = WavelengthControlAction.Abort)" class="btn btn-danger">Abort</button>
-        </div>
-    </div>
-
-</EditForm>
+<Card Class="mb-4">
+    <CardBody>
+        <CardTitle>Longueur d'onde</CardTitle>
+        <EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
+            <div class="row mb-3">
+                <div class="col-sm-2">Longueur d'onde actuelle</div>
+                <div class="col-sm-10">@CurrentWavelength</div>
+            </div>
+            <div class="row mb-3">
+                <label for="step-size" class="col-sm-2 col-form-label">Taille de pas</label>
+                <div class="col-sm-1">
+                    <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinWavelength" max="@MaxWavelength" id="step-size" class="form-control"/>
+                </div>
+                <div class="col-sm-9">
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveOut)" class="btn btn-primary">+</button>
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveIn)" class="btn btn-primary">-</button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="position" class="col-sm-2 col-form-label">Longueur d'onde cible</label>
+                <div class="col-sm-1">
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="position" class="form-control"/>
+                </div>
+                <div class="col-sm-9">
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">Aller à</button>
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.Calibrate)" class="btn btn-secondary">Calibrer</button>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-auto">
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.Abort)" class="btn btn-danger">Interrompre</button>
+                </div>
+            </div>
+        </EditForm>
+    </CardBody>
+</Card>
