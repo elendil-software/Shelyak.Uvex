@@ -60,7 +60,7 @@ namespace ASCOM.LocalServer
             try
             {
                 _logger.LogMessage(nameof(UvexServerState), "Starting Uvex server");
-                Process.Start("C:/Program Files/Shelyak/Uvex/Shelyak.Uvex.Web.exe");
+                Process.Start("C:/Program Files/Shelyak/Uvex/Shelyak.Uvex.Web.exe", "--ascom");
             }
             catch (Exception ex)
             {
