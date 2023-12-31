@@ -6,6 +6,7 @@ public partial class Home : IDisposable
 {
     private Temperature TemperatureChildComponent { get; set; }
     private FocusControl FocusControlChildComponent { get; set; }
+    private WaveLengthControl WavelengthControlChildComponent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -26,6 +27,7 @@ public partial class Home : IDisposable
     private async Task LoadDataAsync()
     {
         await TemperatureChildComponent.Refresh();
+        await WavelengthControlChildComponent.Refresh();
         await FocusControlChildComponent.Refresh();
     }
 
