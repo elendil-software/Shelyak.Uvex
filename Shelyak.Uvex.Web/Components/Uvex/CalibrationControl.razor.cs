@@ -1,4 +1,6 @@
-﻿using Shelyak.Usis.Enums;
+﻿using BlazorBootstrap;
+using Microsoft.AspNetCore.Components;
+using Shelyak.Usis.Enums;
 
 namespace Shelyak.Uvex.Web.Components.Uvex;
 
@@ -19,42 +21,51 @@ public partial class CalibrationControl : UvexComponentBase
     private async Task LoadCurrentLightSource()
     {
         var currentLightSource = (await UvexHttpClient.GetLightSource()).Value.Value;
-        Model.Sky = currentLightSource == LightSource.SKY;
-        Model.Flat = currentLightSource == LightSource.FLAT;
-        Model.Calibration = currentLightSource == LightSource.CALIB;
-        Model.Dark = currentLightSource == LightSource.DARK;
+        SetSwitchesState(currentLightSource);
     }
 
     private async Task EnableSky()
     {
-        Model.Flat = false;
-        Model.Calibration = false;
-        Model.Dark = false;
-        await UvexHttpClient.SetLightSource(LightSource.SKY);
+        await ExecuteAndHandleException(async () =>
+        {
+            SetSwitchesState(LightSource.SKY);
+            await UvexHttpClient.SetLightSource(LightSource.SKY);
+        });
     }
 
     private async Task EnableFlat()
     {
-        Model.Sky = false;
-        Model.Calibration = false;
-        Model.Dark = false;
-        await UvexHttpClient.SetLightSource(LightSource.FLAT);
+        await ExecuteAndHandleException(async () =>
+        {
+            SetSwitchesState(LightSource.FLAT);
+            await UvexHttpClient.SetLightSource(LightSource.FLAT);
+        });
     }
 
     private async Task EnableCalibration()
     {
-        Model.Sky = false;
-        Model.Flat = false;
-        Model.Dark = false;
-        await UvexHttpClient.SetLightSource(LightSource.CALIB);
+        await ExecuteAndHandleException(async () =>
+        {
+            SetSwitchesState(LightSource.CALIB);
+            await UvexHttpClient.SetLightSource(LightSource.CALIB);
+        });
     }
 
     private async Task EnableDark()
     {
-        Model.Sky = false;
-        Model.Flat = false;
-        Model.Calibration = false;
-        await UvexHttpClient.SetLightSource(LightSource.DARK);
+        await ExecuteAndHandleException(async () =>
+        {
+            SetSwitchesState(LightSource.DARK);
+            await UvexHttpClient.SetLightSource(LightSource.DARK);
+        });
+    }
+    
+    private void SetSwitchesState(LightSource activeLightSource)
+    {
+        Model.Sky = activeLightSource == LightSource.SKY;
+        Model.Flat = activeLightSource == LightSource.FLAT;
+        Model.Calibration = activeLightSource == LightSource.CALIB;
+        Model.Dark = activeLightSource == LightSource.DARK;
     }
 
     public class CalibrationControlModel

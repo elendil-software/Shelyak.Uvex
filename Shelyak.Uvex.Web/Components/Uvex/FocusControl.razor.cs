@@ -45,27 +45,27 @@ public partial class FocusControl : UvexComponentBase
     
     private async Task FocusOut()
     {
-        await UvexHttpClient.SetFocusPosition(CurrentFocusPosition + Model.StepSize);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(CurrentFocusPosition + Model.StepSize); });
     }
 
     private async Task FocusIn()
     {
-        await UvexHttpClient.SetFocusPosition(CurrentFocusPosition - Model.StepSize);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(CurrentFocusPosition - Model.StepSize); });
     }
     
     private async Task GoTo()
     {
-        await UvexHttpClient.SetFocusPosition(Model.AbsolutePosition);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(Model.AbsolutePosition); });
     }
     
     private async Task Abort()
     {
-        await UvexHttpClient.StopFocusPosition();
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.StopFocusPosition(); });
     }
-    
+
     private async Task Calibrate()
     {
-        await UvexHttpClient.CalibrateFocusPosition(Model.AbsolutePosition);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.CalibrateFocusPosition(Model.AbsolutePosition); });
     }
     
     public enum FocusControlAction

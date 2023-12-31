@@ -39,27 +39,27 @@ public partial class WaveLengthControl : UvexComponentBase
     
     private async Task Calibrate()
     {
-        await UvexHttpClient.CalibrateGratingWaveLength(Model.AbsolutePosition);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.CalibrateGratingWaveLength(Model.AbsolutePosition); });
     }
     
     private async Task GoTo()
     {
-        await UvexHttpClient.SetGratingWaveLength(Model.AbsolutePosition);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(Model.AbsolutePosition); });
     }
 
     private async Task MoveIn()
     {
-        await UvexHttpClient.SetGratingWaveLength(CurrentWavelength - Model.StepSize);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(CurrentWavelength - Model.StepSize); });
     }
 
     private async Task MoveOut()
     {
-        await UvexHttpClient.SetGratingWaveLength(CurrentWavelength + Model.StepSize);
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(CurrentWavelength + Model.StepSize); });
     }
     
     private async Task Abort()
     {
-        await UvexHttpClient.StopGratingWaveLength();
+        await ExecuteAndHandleException(async () => { await UvexHttpClient.StopGratingWaveLength(); });
     }
 
 
