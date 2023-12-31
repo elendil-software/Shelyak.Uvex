@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Shelyak.Uvex.Web.Components;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -17,6 +18,8 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
+    bool isStartedFromAscom = args.Contains("--ascom");
+    
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
@@ -48,7 +51,7 @@ try
     builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
     {
         var config = provider.GetRequiredService<IConfiguration>();
-        var baseAddress = config.GetSection("WebApi:Url").Value;
+        var baseAddress = config.GetSection("Urls:Api").Value;
         client.BaseAddress = new Uri(baseAddress);
     });
     builder.Services.AddApiVersioning(options =>
@@ -119,6 +122,17 @@ try
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
     app.MapControllers();
+    
+    
+    
+    if (!isStartedFromAscom)
+    {
+        Process.Start(new ProcessStartInfo()
+        {
+            FileName = builder.Configuration.GetSection("Urls:Web").Value,
+            UseShellExecute = true
+        });
+    }
 
     app.Run();
 }
