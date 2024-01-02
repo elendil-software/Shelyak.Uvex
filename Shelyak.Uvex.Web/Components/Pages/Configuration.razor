@@ -4,7 +4,8 @@
 <PageTitle>Configuration</PageTitle>
 <h3>Configuration</h3>
 
-@if(!string.IsNullOrEmpty(Message))
+
+@if (!string.IsNullOrEmpty(Message))
 {
     <div class="alert alert-@MessageType alert-dismissible" role="alert">
         <div>@Message</div>
@@ -13,11 +14,11 @@
 }
 
 <EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
-    <DataAnnotationsValidator />
-    
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label asp-for="@Model.ComPorts">COM Port List</label>
+    <DataAnnotationsValidator/>
+
+    <div class="row mb-4">
+        <label asp-for="@Model.ComPorts" class="col-sm-2 col-form-label">COM Port List</label>
+        <div class="col-sm-4">
             <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select">
                 <option value=""></option>
                 @foreach (var port in Model.ComPorts)
@@ -28,6 +29,6 @@
             <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
         </div>
     </div>
-
+    
     <button class="btn btn-primary">Enregistrer</button>
 </EditForm>
