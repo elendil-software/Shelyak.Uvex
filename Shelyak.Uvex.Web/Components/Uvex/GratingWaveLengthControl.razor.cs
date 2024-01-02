@@ -1,6 +1,6 @@
 ﻿namespace Shelyak.Uvex.Web.Components.Uvex;
 
-public partial class WaveLengthControl : UvexComponentBase
+public partial class GratingWaveLengthControl : UvexComponentBase
 {
     public float CurrentWavelength { get; set; }
     public float MinWavelength { get; set; } = 0.0f;
