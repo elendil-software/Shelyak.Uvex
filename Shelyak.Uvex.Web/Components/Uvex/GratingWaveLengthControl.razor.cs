@@ -22,8 +22,6 @@ public partial class GratingWaveLengthControl : UvexComponentBase
     {
         switch (Model.Action)
         {
-            case WavelengthControlAction.Calibrate:
-                return Calibrate();
             case WavelengthControlAction.GoTo:
                 return GoTo();
             case WavelengthControlAction.MoveIn:
@@ -35,11 +33,6 @@ public partial class GratingWaveLengthControl : UvexComponentBase
             default:
                 throw new InvalidOperationException($"{Model.Action} is not a supported action");
         }
-    }
-    
-    private async Task Calibrate()
-    {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.CalibrateGratingWaveLength(Model.AbsolutePosition); });
     }
     
     private async Task GoTo()
@@ -61,8 +54,7 @@ public partial class GratingWaveLengthControl : UvexComponentBase
     {
         await ExecuteAndHandleException(async () => { await UvexHttpClient.StopGratingWaveLength(); });
     }
-
-
+    
     public class WavelengthControlModel
     {
         public WavelengthControlAction Action { get; set; }
@@ -72,7 +64,6 @@ public partial class GratingWaveLengthControl : UvexComponentBase
 
     public enum WavelengthControlAction
     {
-        Calibrate,
         GoTo,
         MoveIn,
         MoveOut,
