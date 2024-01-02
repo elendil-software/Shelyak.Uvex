@@ -7,6 +7,7 @@ public partial class Home : IDisposable
     private Temperature TemperatureChildComponent { get; set; }
     private FocusControl FocusControlChildComponent { get; set; }
     private GratingWaveLengthControl GratingWaveLengthControlChildComponent { get; set; }
+    public GratingAngleControl GratingAngleControlChildComponent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -28,6 +29,7 @@ public partial class Home : IDisposable
     {
         await TemperatureChildComponent.Refresh();
         await GratingWaveLengthControlChildComponent.Refresh();
+        await GratingAngleControlChildComponent.Refresh();
         await FocusControlChildComponent.Refresh();
     }
 

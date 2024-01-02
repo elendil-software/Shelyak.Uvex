@@ -1,0 +1,39 @@
+﻿@inherits UvexComponentBase
+@rendermode InteractiveServer
+
+<Card Class="mb-4">
+    <CardBody>
+        <CardTitle>Angle du réseau</CardTitle>
+        <EditForm Model="@Model" FormName="angle-control-form" OnSubmit="@ExecuteAngleControlAction">
+            <div class="row mb-3">
+                <div class="col-sm-2">Angle actuel</div>
+                <div class="col-sm-10">@CurrentAngle</div>
+            </div>
+            <div class="row mb-3">
+                <label for="step-size" class="col-sm-2 col-form-label">Taille de pas</label>
+                <div class="col-sm-1">
+                    <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinAngle" max="@MaxAngle" id="step-size" class="form-control"/>
+                </div>
+                <div class="col-sm-9">
+                    <button @onclick="@(() => Model.Action = AngleControlAction.MoveCw)" class="btn btn-primary">+</button>
+                    <button @onclick="@(() => Model.Action = AngleControlAction.MoveCcw)" class="btn btn-primary">-</button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="position" class="col-sm-2 col-form-label">Angle cible</label>
+                <div class="col-sm-1">
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="position" class="form-control"/>
+                </div>
+                <div class="col-sm-9">
+                    <button @onclick="@(() => Model.Action = AngleControlAction.GoTo)" class="btn btn-primary">Aller à</button>
+                    <button @onclick="@(() => Model.Action = AngleControlAction.Calibrate)" class="btn btn-secondary">Calibrer</button>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-auto">
+                    <button @onclick="@(() => Model.Action = AngleControlAction.Abort)" class="btn btn-danger">Interrompre</button>
+                </div>
+            </div>
+        </EditForm>
+    </CardBody>
+</Card>
