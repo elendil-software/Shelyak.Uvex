@@ -4,14 +4,7 @@
 <PageTitle>Configuration</PageTitle>
 <h3>Configuration</h3>
 
-
-@if (!string.IsNullOrEmpty(Message))
-{
-    <div class="alert alert-@MessageType alert-dismissible" role="alert">
-        <div>@Message</div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+<Toasts class="p-3" AutoHide="true" Delay="4000" Placement="ToastsPlacement.TopRight" />
 
 <EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
     <DataAnnotationsValidator/>

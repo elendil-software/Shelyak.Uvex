@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.IO.Ports;
+using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
@@ -9,19 +10,14 @@ namespace Shelyak.Uvex.Web.Components.Pages;
 
 public partial class Configuration
 {
-    [Inject] 
-    private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; }
-    [Inject] 
-    private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
-    [Inject]
-    private ILogger<Configuration> Logger { get; set; }
-    
-    [SupplyParameterFromForm] 
+    [Inject] protected ToastService ToastService { get; set; }
+    [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; }
+    [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
+    [Inject] private ILogger<Configuration> Logger { get; set; }
+
     private EditConfigurationModel Model { get; set; } = new();
-
-    private string Message { get; set; } = string.Empty;
-    private string MessageType { get; set; } = string.Empty;
-
+    
+    
     protected override void OnInitialized()
     {
         Model = new EditConfigurationModel
@@ -29,11 +25,6 @@ public partial class Configuration
             SelectedComPort = SerialPortSettingsOptions.Value.PortName,
             ComPorts = SerialPort.GetPortNames().ToList()
         };
-        
-        Model.ComPorts.Add("COM1");
-        Model.ComPorts.Add("COM2");
-        
-        base.OnInitialized();
     }
 
     private async Task SubmitForm()
@@ -43,14 +34,12 @@ public partial class Configuration
             var serialPortSettings = SerialPortSettingsOptions.Value;
             serialPortSettings.PortName = Model.SelectedComPort;
             await SerialPortSettingsWriter.Write(serialPortSettings);
-            Message = "Paramètres enregistrés";
-            MessageType = "success";
+            ToastService.Notify(new(ToastType.Success, "Paramètres enregistrés"));
             Logger.LogInformation("Serial port settings saved");
         }
         catch (Exception e)
         {
-            Message = "Une erreur est survenue";
-            MessageType = "danger";
+            ToastService.Notify(new(ToastType.Danger, "Une erreur est survenue"));
             Logger.LogError(e, "Error while saving serial port settings");
         }
     }
