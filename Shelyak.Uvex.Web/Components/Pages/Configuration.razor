@@ -9,19 +9,24 @@
 <EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
     <DataAnnotationsValidator/>
 
-    <div class="row mb-4">
-        <label asp-for="@Model.ComPorts" class="col-sm-2 col-form-label">COM Port List</label>
-        <div class="col-sm-4">
-            <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select">
-                <option value=""></option>
-                @foreach (var port in Model.ComPorts)
-                {
-                    <option value="@port">@port</option>
-                }
-            </InputSelect>
-            <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
-        </div>
-    </div>
-    
-    <button class="btn btn-primary">Enregistrer</button>
+    <Card Class="mb-4">
+        <CardBody>
+            <CardTitle>Uvex</CardTitle>
+            <div class="row mb-4">
+                <label asp-for="@Model.ComPorts" class="col-sm-2 col-form-label">COM Port List</label>
+                <div class="col-sm-4">
+                    <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select">
+                        <option value=""></option>
+                        @foreach (var port in Model.ComPorts)
+                        {
+                            <option value="@port">@port</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
+                </div>
+            </div>
+            <button class="btn btn-primary">Enregistrer</button>
+        </CardBody>
+    </Card>
 </EditForm>
+
