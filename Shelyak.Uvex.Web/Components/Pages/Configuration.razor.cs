@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
 using Shelyak.Uvex.Web.Settings;
+using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace Shelyak.Uvex.Web.Components.Pages;
 
@@ -14,6 +15,8 @@ public partial class Configuration
     [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; }
     [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
     [Inject] private ILogger<Configuration> Logger { get; set; }
+    
+    [Inject] private IApplicationLifetime ApplicationLifetime { get; set; }
 
     private EditConfigurationModel Model { get; set; } = new();
     
@@ -49,6 +52,11 @@ public partial class Configuration
         public List<string> ComPorts { get; set; } = new();
 
         [Required] public string SelectedComPort { get; set; } = string.Empty;
+    }
+
+    private void ShutdownApp()
+    {
+        ApplicationLifetime.StopApplication();
     }
 }
 

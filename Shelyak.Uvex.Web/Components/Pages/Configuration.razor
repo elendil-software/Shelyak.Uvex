@@ -13,7 +13,7 @@
         <CardBody>
             <CardTitle>Uvex</CardTitle>
             <div class="row mb-4">
-                <label asp-for="@Model.ComPorts" class="col-sm-2 col-form-label">COM Port List</label>
+                <label asp-for="@Model.ComPorts" class="col-sm-2 col-form-label">Port COM</label>
                 <div class="col-sm-4">
                     <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select">
                         <option value=""></option>
@@ -29,4 +29,14 @@
         </CardBody>
     </Card>
 </EditForm>
+
+<Card Class="mb-4">
+    <CardBody>
+        <CardTitle>Serveur</CardTitle>
+        <div>
+            <p>Arrêter le serveur</p>
+            <button class="btn btn-secondary" @onclick="ShutdownApp">Shutdown</button>
+        </div>
+    </CardBody>
+</Card>
 
