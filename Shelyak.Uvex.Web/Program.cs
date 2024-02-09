@@ -54,6 +54,13 @@ try
         var baseAddress = config.GetSection("Urls:Api").Value;
         client.BaseAddress = new Uri(baseAddress);
     });
+
+    builder.Services.AddOutputCache(options =>
+    {
+        options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(1);
+        options.AddBasePolicy(build => build.Cache());
+    });
+    
     builder.Services.AddApiVersioning(options =>
     {
         options.ReportApiVersions = true;
@@ -92,6 +99,8 @@ try
 
     var app = builder.Build();
     app.UseSerilogRequestLogging();
+
+    app.UseOutputCache(); 
 
 // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
