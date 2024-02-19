@@ -346,6 +346,9 @@ namespace ASCOM.ShelyakUvex.Focuser
 
         //private static int focuserPosition; // Class level variable to hold the current focuser position
         private static UvexHttpClient _uvexHttpClient;
+        private static int _lastTargetPosition;
+        private static float _focusPrecision = -1;
+
         /// <summary>
         /// True if the focuser is capable of absolute position; that is, being commanded to a specific step location.
         /// </summary>
@@ -423,6 +426,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// <param name="Position">Step distance or absolute position, depending on the value of the <see cref="Absolute" /> property.</param>
         internal static void Move(int Position)
         {
+            _lastTargetPosition = Position;
             var position = Position.ToUvexPosition();
             LogMessage("Move", position.ToString(CultureInfo.InvariantCulture));
             _uvexHttpClient.MoveFocus(position);
@@ -435,11 +439,31 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                float position = _uvexHttpClient.GetFocusPosition().Value.Value;
-                var focuserPosition = position.ToAscomPosition();
+                var position = _uvexHttpClient.GetFocusPosition().Value;
+                int focuserPosition;
+
+                if (_lastTargetPosition > 0 && position.Status == (int)PropertyAttributeStatus.OK && Math.Abs(_lastTargetPosition.ToUvexPosition() - position.Value) < GetFocusPrecision())
+                {
+                    focuserPosition = _lastTargetPosition;
+                }
+                else
+                {
+                    focuserPosition = position.Value.ToAscomPosition();
+                }
+                
                 LogMessage("Position Get", focuserPosition.ToString(CultureInfo.InvariantCulture));
                 return focuserPosition;
             }
+        }
+
+        private static float GetFocusPrecision()
+        {
+            if (_focusPrecision < 0)
+            {
+                _focusPrecision = _uvexHttpClient.GetFocusPositionPrecision().Value.Value;
+            }
+
+            return _focusPrecision;
         }
 
 
