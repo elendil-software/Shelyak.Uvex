@@ -15,7 +15,8 @@ Uninstallable=no
 DisableDirPage=yes
 
 [Files]
-Source: "./*.exe"; DestDir: "{tmp}"; Flags: nocompression deleteafterinstall
+Source: "../Shelyak.Uvex.Web/bin/Release/Publish/InnoSetup/*.exe"; DestDir: "{tmp}"; Flags: nocompression deleteafterinstall
+Source: "../Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe"; DestDir: "{tmp}"; Flags: nocompression deleteafterinstall
 
 [Run]
 Filename: "{tmp}\Shelyak Uvex Web Setup v{#AppVersion}.exe"; Parameters: "/SILENT"; Flags: waituntilterminated skipifdoesntexist; StatusMsg: "Shelyak Uvex installation. Please Wait..."
