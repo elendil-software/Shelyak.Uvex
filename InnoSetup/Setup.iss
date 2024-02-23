@@ -20,4 +20,13 @@ Source: "../Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe"; DestDir: "{tmp}"; F
 
 [Run]
 Filename: "{tmp}\Shelyak Uvex Web Setup v{#AppVersion}.exe"; Parameters: "/SILENT"; Flags: waituntilterminated skipifdoesntexist; StatusMsg: "Shelyak Uvex installation. Please Wait..."
-Filename: "{tmp}\Shelyak Uvex ASCOM Setup v{#AppVersion}.exe"; Parameters: "/SILENT"; Flags: waituntilterminated skipifdoesntexist; StatusMsg: "Shelyak Uvex ASCOM installation. Please wait..."
+Filename: "{tmp}\Shelyak Uvex ASCOM Setup v{#AppVersion}.exe"; Parameters: "/SILENT"; Flags: waituntilterminated skipifdoesntexist; StatusMsg: "Shelyak Uvex ASCOM installation. Please wait..."; AfterInstall: TaskKill
+
+[Code]
+procedure TaskKill();
+var
+  ResultCode: Integer;
+begin
+  Sleep(5000);
+  Exec(ExpandConstant('{sys}\taskkill.exe'), '/f /im "Shelyak.Uvex.Web.exe"', ExpandConstant('{sys}'), SW_HIDE, ewWaitUntilTerminated, ResultCode);
+end;
