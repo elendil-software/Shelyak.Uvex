@@ -142,8 +142,11 @@ try
             UseShellExecute = true
         });
     }
-
-    app.Run();
+    
+    if (!Array.Exists(Process.GetProcesses(), p => p.ProcessName.Contains("Shelyak.Uvex.Web")))
+    {
+        app.Run();
+    }
 }
 catch (Exception ex)
 {
