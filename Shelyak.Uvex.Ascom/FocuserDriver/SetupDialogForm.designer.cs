@@ -35,14 +35,17 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.cmdCancel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.chkTrace = new System.Windows.Forms.CheckBox();
-            this.textBoxUvexWebApi = new System.Windows.Forms.TextBox();
+            this.textBoxUvexWebApiUrl = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpPort = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpPort)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(295, 91);
+            this.cmdOK.Location = new System.Drawing.Point(289, 111);
             this.cmdOK.Margin = new System.Windows.Forms.Padding(4);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(79, 30);
@@ -55,7 +58,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(382, 90);
+            this.cmdCancel.Location = new System.Drawing.Point(376, 109);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(79, 31);
@@ -67,17 +70,18 @@ namespace ASCOM.ShelyakUvex.Focuser
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 15);
+            this.label2.Location = new System.Drawing.Point(13, 11);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 17);
+            this.label2.Size = new System.Drawing.Size(119, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Uvex Web API";
+            this.label2.Text = "Uvex Web API Url";
             // 
             // chkTrace
             // 
+            this.chkTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkTrace.AutoSize = true;
-            this.chkTrace.Location = new System.Drawing.Point(20, 96);
+            this.chkTrace.Location = new System.Drawing.Point(16, 119);
             this.chkTrace.Margin = new System.Windows.Forms.Padding(4);
             this.chkTrace.Name = "chkTrace";
             this.chkTrace.Size = new System.Drawing.Size(87, 21);
@@ -85,19 +89,43 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.chkTrace.Text = "Trace on";
             this.chkTrace.UseVisualStyleBackColor = true;
             // 
-            // textBoxUvexWebApi
+            // textBoxUvexWebApiUrl
             // 
-            this.textBoxUvexWebApi.Location = new System.Drawing.Point(124, 12);
-            this.textBoxUvexWebApi.Name = "textBoxUvexWebApi";
-            this.textBoxUvexWebApi.Size = new System.Drawing.Size(337, 22);
-            this.textBoxUvexWebApi.TabIndex = 8;
+            this.textBoxUvexWebApiUrl.Location = new System.Drawing.Point(207, 8);
+            this.textBoxUvexWebApiUrl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxUvexWebApiUrl.Name = "textBoxUvexWebApiUrl";
+            this.textBoxUvexWebApiUrl.Size = new System.Drawing.Size(250, 22);
+            this.textBoxUvexWebApiUrl.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 38);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Uvex Web API Port";
+            // 
+            // numericUpPort
+            // 
+            this.numericUpPort.Location = new System.Drawing.Point(207, 36);
+            this.numericUpPort.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            this.numericUpPort.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            this.numericUpPort.Name = "numericUpPort";
+            this.numericUpPort.Size = new System.Drawing.Size(100, 22);
+            this.numericUpPort.TabIndex = 10;
+            this.numericUpPort.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // SetupDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 130);
-            this.Controls.Add(this.textBoxUvexWebApi);
+            this.ClientSize = new System.Drawing.Size(469, 150);
+            this.Controls.Add(this.numericUpPort);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxUvexWebApiUrl);
             this.Controls.Add(this.chkTrace);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdCancel);
@@ -111,11 +139,15 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShelyakUvex Setup";
             this.Load += new System.EventHandler(this.SetupDialogForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.TextBox textBoxUvexWebApi;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numericUpPort;
+
+        private System.Windows.Forms.TextBox textBoxUvexWebApiUrl;
 
         #endregion
 

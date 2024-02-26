@@ -22,6 +22,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
         private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
         internal static string uvexApiUrl;
+        internal static int uvexApiPort;
         private static bool connectedState; // Local server's connected state
         private static bool runOnce; // Flag to enable "one-off" activities only to run once.
         internal static Util utilities; // ASCOM Utilities object for use as required
@@ -69,7 +70,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(uvexApiUrl);
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl, uvexApiPort));
                 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
@@ -538,7 +539,8 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 driverProfile.DeviceType = "Rotator";
                 tl.Enabled = Convert.ToBoolean(driverProfile.GetValue(DriverProgId, traceStateProfileName, string.Empty, traceStateDefault));
-                uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.UvexApiUrlDefault);
+                uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.defaultBaseUrl);
+                uvexApiPort = Convert.ToInt32(driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, string.Empty, UvexApiParameter.defaultPort));
             }
         }
 
@@ -551,7 +553,8 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 driverProfile.DeviceType = "Rotator";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl));
+                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, uvexApiUrl);
+                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, uvexApiPort.ToString());
             }
         }
 

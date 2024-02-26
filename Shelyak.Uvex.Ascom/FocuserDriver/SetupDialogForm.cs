@@ -20,7 +20,8 @@ namespace ASCOM.ShelyakUvex.Focuser
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            FocuserHardware.uvexApiUrl = textBoxUvexWebApi.Text;
+            FocuserHardware.uvexApiUrl = textBoxUvexWebApiUrl.Text;
+            FocuserHardware.uvexApiPort = (int)numericUpPort.Value;
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -31,7 +32,8 @@ namespace ASCOM.ShelyakUvex.Focuser
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = FocuserHardware.uvexApiUrl;
+            textBoxUvexWebApiUrl.Text = FocuserHardware.uvexApiUrl;
+            numericUpPort.Value = FocuserHardware.uvexApiPort;
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)

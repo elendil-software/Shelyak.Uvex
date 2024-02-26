@@ -21,6 +21,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             tl.Enabled = chkTrace.Checked;
             RotatorHardware.uvexApiUrl = textBoxUvexWebApi.Text;
+            RotatorHardware.uvexApiPort = (int)numericUpPort.Value;
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -31,7 +32,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = RotatorHardware.uvexApiUrl; 
+            textBoxUvexWebApi.Text = RotatorHardware.uvexApiUrl;
+            numericUpPort.Value = RotatorHardware.uvexApiPort;
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)

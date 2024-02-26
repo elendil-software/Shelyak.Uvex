@@ -13,14 +13,9 @@ namespace ASCOM.ShelyakUvex.Shared
             return new UvexHttpClient(httpClient);
         }
 
-        public static string BuildUvexUrl(string uvexUrlFromConfigDialog)
+        public static string BuildUvexUrl(string uvexUrl, int port)
         {
-            if (!uvexUrlFromConfigDialog.Contains(UvexApiParameter.defaultApiPath.Trim('/')))
-            {
-                return $"{uvexUrlFromConfigDialog.TrimEnd('/')}{UvexApiParameter.defaultApiPath.Trim('/')}/";
-            }
-
-            return $"{uvexUrlFromConfigDialog.TrimEnd('/')}/";
+            return $"{uvexUrl.TrimEnd('/')}{port}{UvexApiParameter.defaultApiPath.Trim('/')}/";
         }
     }
     

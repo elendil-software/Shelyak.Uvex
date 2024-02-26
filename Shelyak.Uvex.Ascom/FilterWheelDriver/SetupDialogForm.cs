@@ -21,6 +21,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             tl.Enabled = chkTrace.Checked;
             FilterWheelHardware.uvexApiUrl = textBoxUvexWebApi.Text;
+            FilterWheelHardware.uvexApiPort = (int)numericUpPort.Value;
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -31,7 +32,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = FilterWheelHardware.uvexApiUrl; 
+            textBoxUvexWebApi.Text = FilterWheelHardware.uvexApiUrl;
+            numericUpPort.Value = FilterWheelHardware.uvexApiPort;
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)
