@@ -143,7 +143,7 @@ try
         });
     }
     
-    if (!Array.Exists(Process.GetProcesses(), p => p.ProcessName.Contains("Shelyak.Uvex.Web")))
+    if (Process.GetProcesses().Count(p => p.ProcessName.Contains("Shelyak.Uvex.Web")) == 1)
     {
         app.Run();
     }
