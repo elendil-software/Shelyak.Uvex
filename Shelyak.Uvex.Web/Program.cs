@@ -1,13 +1,11 @@
 using System.Diagnostics;
 using Shelyak.Uvex.Web.Components;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Responses;
-using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web;
 using Shelyak.Uvex.Web.HttpClients;
 using Shelyak.Uvex.Web.Settings;
@@ -37,10 +35,6 @@ try
     builder.Services.AddBlazorBootstrap();
 
     builder.Services.AddControllers();
-    //    .AddJsonOptions(x =>
-    //    {
-    //        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    //    });
 
     builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
@@ -102,7 +96,6 @@ try
 
     app.UseOutputCache(); 
 
-// Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -113,8 +106,7 @@ try
         app.UseMiddleware<RequestLoggingMiddleware>();
     }
 
-
-// Configure the HTTP request pipeline.
+    // Configure the HTTP request pipeline.
     var enableSwagger = builder.Configuration.GetValue<bool>("OpenAPI:EnableSwagger");
     if (app.Environment.IsDevelopment() || enableSwagger)
     {
@@ -126,7 +118,6 @@ try
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAntiforgery();
-//     app.UseAuthorization();
 
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
