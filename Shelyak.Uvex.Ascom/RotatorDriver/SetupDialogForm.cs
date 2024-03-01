@@ -1,12 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Rotator
 {
     [ComVisible(false)] // Form not registered for COM!
-    public partial class SetupDialogForm : Form
+    public partial class SetupDialogForm : SetupDialogFormBase
     {
         TraceLogger tl;
 
@@ -14,14 +15,19 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             InitializeComponent();
             tl = tlDriver;
+            
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort);
+            
             InitUI();
         }
 
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            RotatorHardware.uvexApiUrl = textBoxUvexWebApi.Text;
-            RotatorHardware.uvexApiPort = (int)numericUpPort.Value;
+            RotatorHardwareSettings.uvexApiUrl = textBoxUvexWebApi.Text;
+            RotatorHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
+            UpdateApiPort();
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -32,8 +38,10 @@ namespace ASCOM.ShelyakUvex.Rotator
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = RotatorHardware.uvexApiUrl;
-            numericUpPort.Value = RotatorHardware.uvexApiPort;
+            textBoxUvexWebApi.Text = RotatorHardwareSettings.uvexApiUrl;
+            numericUpPort.Value = RotatorHardwareSettings.uvexApiPort;
+            
+            ReloadComPorts();
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)

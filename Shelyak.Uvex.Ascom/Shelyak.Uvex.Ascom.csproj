@@ -152,6 +152,7 @@
     <Compile Include="GarbageCollection.cs" />
     <Compile Include="LocalServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RotatorDriver\RotatorHardwareSettings.cs" />
     <Compile Include="Shared\ApiRoutes.cs" />
     <Compile Include="Shared\SetupDialogFormBase.cs" />
     <Compile Include="Shared\UvexApiParameter.cs" />
