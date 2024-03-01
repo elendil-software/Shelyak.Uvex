@@ -74,7 +74,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl, uvexApiPort));
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl, uvexApiPort, UvexApiParameter.defaultApiPath));
                 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 

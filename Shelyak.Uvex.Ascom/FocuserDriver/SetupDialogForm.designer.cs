@@ -38,6 +38,8 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.textBoxUvexWebApiUrl = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpPort = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxComPort = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpPort)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,10 +47,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(289, 111);
-            this.cmdOK.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdOK.Location = new System.Drawing.Point(219, 99);
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(79, 30);
+            this.cmdOK.Size = new System.Drawing.Size(59, 24);
             this.cmdOK.TabIndex = 0;
             this.cmdOK.Text = "OK";
             this.cmdOK.UseVisualStyleBackColor = true;
@@ -58,10 +59,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(376, 109);
-            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdCancel.Location = new System.Drawing.Point(284, 98);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(79, 31);
+            this.cmdCancel.Size = new System.Drawing.Size(59, 25);
             this.cmdCancel.TabIndex = 1;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
@@ -70,10 +70,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 11);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 17);
+            this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Uvex Web API Url";
             // 
@@ -81,48 +80,66 @@ namespace ASCOM.ShelyakUvex.Focuser
             // 
             this.chkTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkTrace.AutoSize = true;
-            this.chkTrace.Location = new System.Drawing.Point(16, 119);
-            this.chkTrace.Margin = new System.Windows.Forms.Padding(4);
+            this.chkTrace.Location = new System.Drawing.Point(12, 106);
             this.chkTrace.Name = "chkTrace";
-            this.chkTrace.Size = new System.Drawing.Size(87, 21);
+            this.chkTrace.Size = new System.Drawing.Size(69, 17);
             this.chkTrace.TabIndex = 6;
             this.chkTrace.Text = "Trace on";
             this.chkTrace.UseVisualStyleBackColor = true;
             // 
             // textBoxUvexWebApiUrl
             // 
-            this.textBoxUvexWebApiUrl.Location = new System.Drawing.Point(207, 8);
-            this.textBoxUvexWebApiUrl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxUvexWebApiUrl.Location = new System.Drawing.Point(155, 6);
+            this.textBoxUvexWebApiUrl.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxUvexWebApiUrl.Name = "textBoxUvexWebApiUrl";
-            this.textBoxUvexWebApiUrl.Size = new System.Drawing.Size(250, 22);
+            this.textBoxUvexWebApiUrl.Size = new System.Drawing.Size(188, 20);
             this.textBoxUvexWebApiUrl.TabIndex = 8;
+            this.textBoxUvexWebApiUrl.Leave += new System.EventHandler(this.textBoxUvexWebApiUrl_Leave);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 38);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 17);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "Uvex Web API Port";
             // 
             // numericUpPort
             // 
-            this.numericUpPort.Location = new System.Drawing.Point(207, 36);
-            this.numericUpPort.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpPort.Location = new System.Drawing.Point(155, 31);
             this.numericUpPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
             this.numericUpPort.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numericUpPort.Name = "numericUpPort";
-            this.numericUpPort.Size = new System.Drawing.Size(100, 22);
+            this.numericUpPort.Size = new System.Drawing.Size(75, 20);
             this.numericUpPort.TabIndex = 10;
             this.numericUpPort.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
+            // comboBoxComPort
+            // 
+            this.comboBoxComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxComPort.FormattingEnabled = true;
+            this.comboBoxComPort.Location = new System.Drawing.Point(155, 57);
+            this.comboBoxComPort.Name = "comboBoxComPort";
+            this.comboBoxComPort.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxComPort.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Uvex COM Port";
+            // 
             // SetupDialogForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 150);
+            this.ClientSize = new System.Drawing.Size(354, 131);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxComPort);
             this.Controls.Add(this.numericUpPort);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxUvexWebApiUrl);
@@ -131,7 +148,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetupDialogForm";
@@ -143,6 +159,9 @@ namespace ASCOM.ShelyakUvex.Focuser
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ComboBox comboBoxComPort;
+        private System.Windows.Forms.Label label3;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpPort;

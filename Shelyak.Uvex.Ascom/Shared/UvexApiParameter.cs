@@ -5,6 +5,7 @@
         internal const string defaultBaseUrl = "http://localhost";
         internal const string defaultPort = "6562";
         internal const string defaultApiPath = "/api/v1/Spectrograph/0/";
+        internal const string defaultApiConfigPath = "/api/v1/Config/";
         internal const string UvexApiUrlProfileName = "uvexApiUrl";
         internal const string UvexApiPortProfileName = "uvexApiPort";
     }

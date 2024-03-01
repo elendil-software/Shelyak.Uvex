@@ -12,10 +12,17 @@ namespace ASCOM.ShelyakUvex.Shared
             httpClient.BaseAddress = new Uri(uvexUrl);
             return new UvexHttpClient(httpClient);
         }
-
-        public static string BuildUvexUrl(string uvexUrl, int port)
+        
+        public static ConfigHttpClient CreateConfigHttpClient(string uvexUrl)
         {
-            return $"{uvexUrl.TrimEnd('/')}{port}{UvexApiParameter.defaultApiPath.Trim('/')}/";
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(uvexUrl);
+            return new ConfigHttpClient(httpClient);
+        }
+
+        public static string BuildUvexUrl(string uvexUrl, int port, string path)
+        {
+            return $"{uvexUrl.TrimEnd('/')}:{port}/{path.Trim('/')}/";
         }
     }
     

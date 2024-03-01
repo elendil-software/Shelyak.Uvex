@@ -1,12 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Focuser
 {
     [ComVisible(false)] // Form not registered for COM!
-    public partial class SetupDialogForm : Form
+    public partial class SetupDialogForm : SetupDialogFormBase
     {
         TraceLogger tl;
 
@@ -14,16 +15,21 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             InitializeComponent();
             tl = tlDriver;
+            
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort);
+            
             InitUI();
-        }
+       }
 
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            FocuserHardware.uvexApiUrl = textBoxUvexWebApiUrl.Text;
-            FocuserHardware.uvexApiPort = (int)numericUpPort.Value;
+            FocuserHardwareSettings.uvexApiUrl = textBoxUvexWebApiUrl.Text;
+            FocuserHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
+            UpdateApiPort();
         }
-
+        
         private void CmdCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -32,8 +38,10 @@ namespace ASCOM.ShelyakUvex.Focuser
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApiUrl.Text = FocuserHardware.uvexApiUrl;
-            numericUpPort.Value = FocuserHardware.uvexApiPort;
+            textBoxUvexWebApiUrl.Text = FocuserHardwareSettings.uvexApiUrl;
+            numericUpPort.Value = FocuserHardwareSettings.uvexApiPort;
+            
+            ReloadComPorts();
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)
@@ -49,6 +57,25 @@ namespace ASCOM.ShelyakUvex.Focuser
                 BringToFront();
                 TopMost = false;
             }
+        }
+
+        private void textBoxUvexWebApiUrl_Leave(object sender, EventArgs e)
+        {
+            if (!textBoxUvexWebApiUrl.Text.StartsWith("http"))
+            {
+                textBoxUvexWebApiUrl.Text = "http://" + textBoxUvexWebApiUrl.Text;
+            }
+            
+            //check if the URL is valid
+            if (!Uri.IsWellFormedUriString(textBoxUvexWebApiUrl.Text, UriKind.Absolute))
+            {
+                MessageBox.Show("Invalid URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxUvexWebApiUrl.Focus();
+            }
+            
+            InitHttpClient(textBoxUvexWebApiUrl.Text, (int)numericUpPort.Value);
+            
+            ReloadComPorts();
         }
     }
 }
