@@ -16,7 +16,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             InitializeComponent(); 
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort);
+            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApi, numericUpPort);
             InitHttpClient(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort);
             
             InitUI();
@@ -57,6 +57,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 BringToFront();
                 TopMost = false;
             }
+        }
+
+        private void textBoxUvexWebApi_Leave(object sender, EventArgs e)
+        {
+            OnUvexWebApiUrlChange();
         }
     }
 }

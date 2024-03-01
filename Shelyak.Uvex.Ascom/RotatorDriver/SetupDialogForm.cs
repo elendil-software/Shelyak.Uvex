@@ -16,7 +16,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             InitializeComponent();
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort);
+            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApi, numericUpPort);
             InitHttpClient(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort);
             
             InitUI();
@@ -57,6 +57,11 @@ namespace ASCOM.ShelyakUvex.Rotator
                 BringToFront();
                 TopMost = false;
             }
+        }
+
+        private void textBoxUvexWebApi_Leave(object sender, EventArgs e)
+        {
+            OnUvexWebApiUrlChange();
         }
     }
 }

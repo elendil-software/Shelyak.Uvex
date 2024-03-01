@@ -16,7 +16,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             InitializeComponent();
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort);
+            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApiUrl, numericUpPort);
             InitHttpClient(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort);
             
             InitUI();
@@ -61,21 +61,7 @@ namespace ASCOM.ShelyakUvex.Focuser
 
         private void textBoxUvexWebApiUrl_Leave(object sender, EventArgs e)
         {
-            if (!textBoxUvexWebApiUrl.Text.StartsWith("http"))
-            {
-                textBoxUvexWebApiUrl.Text = "http://" + textBoxUvexWebApiUrl.Text;
-            }
-            
-            //check if the URL is valid
-            if (!Uri.IsWellFormedUriString(textBoxUvexWebApiUrl.Text, UriKind.Absolute))
-            {
-                MessageBox.Show("Invalid URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBoxUvexWebApiUrl.Focus();
-            }
-            
-            InitHttpClient(textBoxUvexWebApiUrl.Text, (int)numericUpPort.Value);
-            
-            ReloadComPorts();
+            OnUvexWebApiUrlChange();
         }
     }
 }

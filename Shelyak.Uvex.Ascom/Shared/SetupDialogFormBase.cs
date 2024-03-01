@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using ASCOM.ShelyakUvex.Shared;
 
@@ -8,15 +9,19 @@ namespace ASCOM.ShelyakUvex.Shared
     {
         private ConfigHttpClient _httpClient;
         private ComboBox _comboBoxComPort;
+        private TextBox _textBoxUvexWebApiUrl;
+        private NumericUpDown _numericUpPort;
         
         protected SetupDialogFormBase()
         {
             
         }
         
-        protected void SetComPortComboBox(ComboBox comboBoxComPort)
+        protected void SetComPortComboBox(ComboBox comboBoxComPort, TextBox textBoxUvexWebApiUrl, NumericUpDown numericUpPort)
         {
             _comboBoxComPort = comboBoxComPort;
+            _textBoxUvexWebApiUrl = textBoxUvexWebApiUrl;
+            _numericUpPort = numericUpPort;
         }
 
         protected void InitHttpClient(string uvexApiUrl, int uvexApiPort)
@@ -41,6 +46,32 @@ namespace ASCOM.ShelyakUvex.Shared
             if (ports.Contains(configuredPort))
             {
                 _comboBoxComPort.SelectedItem = configuredPort;
+            }
+        }
+        
+        protected void OnUvexWebApiUrlChange()
+        {
+            if (!_textBoxUvexWebApiUrl.Text.StartsWith("http"))
+            {
+                _textBoxUvexWebApiUrl.Text = "http://" + _textBoxUvexWebApiUrl.Text;
+            }
+            
+            //check if the URL is valid
+            if (!Uri.IsWellFormedUriString(_textBoxUvexWebApiUrl.Text, UriKind.Absolute))
+            {
+                MessageBox.Show("Invalid URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _textBoxUvexWebApiUrl.Focus();
+            }
+            
+            InitHttpClient(_textBoxUvexWebApiUrl.Text, (int)_numericUpPort.Value);
+
+            try
+            {   
+                ReloadComPorts();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

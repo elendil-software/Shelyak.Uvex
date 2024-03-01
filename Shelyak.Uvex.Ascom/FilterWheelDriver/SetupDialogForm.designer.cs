@@ -85,6 +85,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             this.textBoxUvexWebApi.Name = "textBoxUvexWebApi";
             this.textBoxUvexWebApi.Size = new System.Drawing.Size(188, 20);
             this.textBoxUvexWebApi.TabIndex = 10;
+            this.textBoxUvexWebApi.Leave += new System.EventHandler(this.textBoxUvexWebApi_Leave);
             // 
             // label1
             // 
