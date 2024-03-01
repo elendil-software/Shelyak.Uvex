@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO.Ports;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
 using Shelyak.Uvex.Web.Settings;
@@ -18,21 +19,27 @@ public class ConfigController : ControllerBase
         _serialPortSettingsWriter = serialPortSettingsWriter;
         SerialPortSettingsOptions = serialPortSettingsOptions;
     }
-    
-    [HttpGet("GetPort")]
+
+    [HttpGet("Port")]
     public IActionResult GetPort()
     {
         return Ok(SerialPortSettingsOptions.Value.PortName);
     }
 
 
-    [HttpPut("UpdatePort")]
-    public async Task<IActionResult> UpdatePort(string portName)
+    [HttpPut("Port")]
+    public async Task<IActionResult> UpdatePort([FromBody] string portName)
     {
         var serialPortSettings = SerialPortSettingsOptions.Value;
         serialPortSettings.PortName = portName;
-        
+
         await _serialPortSettingsWriter.Write(serialPortSettings);
         return Ok();
+    }
+
+    [HttpGet("Ports")]
+    public IActionResult GetPorts()
+    {
+        return Ok(SerialPort.GetPortNames());
     }
 }

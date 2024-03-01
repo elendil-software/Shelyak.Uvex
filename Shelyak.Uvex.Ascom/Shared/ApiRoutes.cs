@@ -2,6 +2,13 @@
 {
     internal class ApiRoutes
     {
+        #region Config
+        
+        public const string ConfigPort = "Port";
+        public const string ConfigPorts = "Ports";
+        
+        #endregion
+        
     
         #region Device
         public const string DeviceName = "devicename";
