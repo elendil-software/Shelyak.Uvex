@@ -136,7 +136,7 @@ namespace Shelyak.Uvex.Web.HttpClients
             => await GetAsync<LightSource>(ApiRoutes.LightSource);
 
         public async Task<AlpacaResponse<LightSource>> SetLightSource(LightSource lightSource)
-            => await PutAsync<LightSource>(ApiRoutes.LightSource, lightSource.ToString());
+            => await PutAsync<LightSource>(ApiRoutes.LightSource, ((int)lightSource).ToString());
         
         #endregion
         
