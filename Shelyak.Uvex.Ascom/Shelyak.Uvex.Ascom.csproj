@@ -132,6 +132,7 @@
     <Compile Include="ClassFactory.cs" />
     <Compile Include="FilterWheelDriver\FilterWheelDriver.cs" />
     <Compile Include="FilterWheelDriver\FilterWheelHardware..cs" />
+    <Compile Include="FilterWheelDriver\FilterWheelHardwareSettings.cs" />
     <Compile Include="FilterWheelDriver\SetupDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>

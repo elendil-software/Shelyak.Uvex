@@ -1,12 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
 {
     [ComVisible(false)] // Form not registered for COM!
-    public partial class SetupDialogForm : Form
+    public partial class SetupDialogForm : SetupDialogFormBase
     {
         TraceLogger tl;
 
@@ -14,14 +15,19 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             InitializeComponent(); 
             tl = tlDriver;
+            
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort);
+            
             InitUI();
         }
 
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            FilterWheelHardware.uvexApiUrl = textBoxUvexWebApi.Text;
-            FilterWheelHardware.uvexApiPort = (int)numericUpPort.Value;
+            FilterWheelHardwareSettings.uvexApiUrl = textBoxUvexWebApi.Text;
+            FilterWheelHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
+            UpdateApiPort();
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -32,8 +38,10 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = FilterWheelHardware.uvexApiUrl;
-            numericUpPort.Value = FilterWheelHardware.uvexApiPort;
+            textBoxUvexWebApi.Text = FilterWheelHardwareSettings.uvexApiUrl;
+            numericUpPort.Value = FilterWheelHardwareSettings.uvexApiPort;
+            
+            ReloadComPorts();
         }
 
         private void SetupDialogForm_Load(object sender, EventArgs e)
