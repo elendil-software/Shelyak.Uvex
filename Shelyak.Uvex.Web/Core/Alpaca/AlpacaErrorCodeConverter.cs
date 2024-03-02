@@ -1,9 +1,9 @@
 ﻿using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.Alpaca;
+namespace Shelyak.Uvex.Web.Core.Alpaca;
 
-public static class CodeConverter
+public static class AlpacaErrorCodeConverter
 {
     public static AlpacaError ConvertMessageCode(MessageErrorCode successResponseMessageErrorCode)
     {

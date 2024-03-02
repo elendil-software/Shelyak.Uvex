@@ -3,6 +3,7 @@ using Shelyak.Usis;
 using Shelyak.Usis.Enums;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
+using Shelyak.Uvex.Web.Core;
 
 namespace Shelyak.Uvex.Web.Controllers;
 

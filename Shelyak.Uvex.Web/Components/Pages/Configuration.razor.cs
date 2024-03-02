@@ -4,7 +4,7 @@ using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
-using Shelyak.Uvex.Web.Settings;
+using Shelyak.Uvex.Web.Core.Settings;
 using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
 namespace Shelyak.Uvex.Web.Components.Pages;

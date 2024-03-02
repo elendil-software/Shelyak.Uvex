@@ -1,6 +1,6 @@
 ﻿using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.Alpaca;
+using Shelyak.Uvex.Web.Core.Alpaca;
 
 namespace Shelyak.Uvex.Web.Controllers;
 
@@ -32,17 +32,17 @@ public static class AlpacaResponseBuilder
                 Status = (int) successResponse.PropertyAttributeStatus,
                 Value = successResponse.Value
             };
-            alpacaResponse.ErrorNumber = CodeConverter.ConvertMessageCode(successResponse.MessageErrorCode);
+            alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertMessageCode(successResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = successResponse.MessageErrorCode.ToString();
         }
         else if(response is ErrorResponse<T> errorResponse)
         {
-            alpacaResponse.ErrorNumber = CodeConverter.ConvertMessageCode(errorResponse.MessageErrorCode);
+            alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertMessageCode(errorResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = errorResponse.Message;
         }
         else if (response is CommunicationErrorResponse<T> communicationErrorResponse)
         {
-            alpacaResponse.ErrorNumber = CodeConverter.ConvertErrorCode(communicationErrorResponse.ErrorCode);
+            alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertErrorCode(communicationErrorResponse.ErrorCode);
             alpacaResponse.ErrorMessage = communicationErrorResponse.Message;
         }
 

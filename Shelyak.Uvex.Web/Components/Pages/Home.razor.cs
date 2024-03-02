@@ -20,8 +20,8 @@ public partial class Home : IDisposable
     {
         while (await _periodicTimer.WaitForNextTickAsync())
         {
-            await LoadDataAsync();
-            await InvokeAsync(StateHasChanged);
+            //await LoadDataAsync();
+            //await InvokeAsync(StateHasChanged);
         }
     }
 

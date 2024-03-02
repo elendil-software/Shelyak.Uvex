@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Shelyak.Uvex.Web;
+namespace Shelyak.Uvex.Web.Middleware;
 
 public class RequestLoggingMiddleware
 {

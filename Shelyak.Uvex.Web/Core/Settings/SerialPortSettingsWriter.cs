@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Shelyak.Usis;
 
-namespace Shelyak.Uvex.Web.Settings;
+namespace Shelyak.Uvex.Web.Core.Settings;
 
 public class SerialPortSettingsWriter : ISerialPortSettingsWriter
 {

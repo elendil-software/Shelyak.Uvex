@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
-using Shelyak.Uvex.Web.Settings;
+using Shelyak.Uvex.Web.Core.Settings;
 
 namespace Shelyak.Uvex.Web.Controllers;
 

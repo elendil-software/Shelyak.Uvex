@@ -7,8 +7,11 @@ using Serilog;
 using Shelyak.Usis;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Web;
+using Shelyak.Uvex.Web.Configuration;
+using Shelyak.Uvex.Web.Core;
+using Shelyak.Uvex.Web.Core.Settings;
 using Shelyak.Uvex.Web.HttpClients;
-using Shelyak.Uvex.Web.Settings;
+using Shelyak.Uvex.Web.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.AppSettingsConfiguration()
