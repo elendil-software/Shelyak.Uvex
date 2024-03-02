@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shelyak.Uvex.Alpaca
+﻿namespace Shelyak.Uvex.Alpaca
 {
 
     public class AlpacaResponse<T>
@@ -35,16 +33,4 @@ namespace Shelyak.Uvex.Alpaca
             }
         }
     }
-
-    //write the AlpacaException class that inherits from Exception and extends its constructor and add a constructor that takes an AlpacaError and a string message
-    public class AlpacaException : Exception
-    {
-        public AlpacaError ErrorNumber { get; }
-
-        public AlpacaException(AlpacaError errorNumber, string message) : base(message)
-        {
-            ErrorNumber = errorNumber;
-        }
-    }
-    
 }

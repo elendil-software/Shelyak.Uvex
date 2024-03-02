@@ -153,6 +153,7 @@
     <Compile Include="LocalServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RotatorDriver\RotatorHardwareSettings.cs" />
+    <Compile Include="Shared\ConfigHttpClient.cs" />
     <Compile Include="Shared\SetupDialogFormBase.cs" />
     <Compile Include="Shared\UvexApiParameter.cs" />
     <Compile Include="Shared\UvexHttpClient.cs" />
