@@ -20,8 +20,9 @@ public partial class CalibrationControl : UvexComponentBase
 
     private async Task LoadCurrentLightSource()
     {
-        var currentLightSource = (await UvexHttpClient.GetLightSource()).Value.Value;
-        SetSwitchesState(currentLightSource);
+        var currentLightSource = (await UvexHttpClient.GetLightSource());
+        RedirectToConfigurationIfNotConnected(currentLightSource);
+        SetSwitchesState(currentLightSource.Value.Value);
     }
 
     private async Task EnableSky()

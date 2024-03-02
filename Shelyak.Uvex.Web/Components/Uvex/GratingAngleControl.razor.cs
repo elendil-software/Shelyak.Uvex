@@ -15,7 +15,9 @@ public partial class GratingAngleControl : UvexComponentBase
     
     protected override async Task LoadData()
     {
-        CurrentAngle = (await UvexHttpClient.GetGratingAngle()).Value.Value;
+        var response = await UvexHttpClient.GetGratingAngle();
+        RedirectToConfigurationIfNotConnected(response);
+        CurrentAngle = response.Value.Value;
     }
     
     private Task ExecuteAngleControlAction()

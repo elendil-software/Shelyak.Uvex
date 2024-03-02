@@ -21,6 +21,7 @@ public partial class FocusControl : UvexComponentBase
     protected override async Task LoadData()
     {
         var focusPosition = await UvexHttpClient.GetFocusPosition();
+        RedirectToConfigurationIfNotConnected(focusPosition);
         CurrentFocusPosition = focusPosition.Value.Value;
     }
     

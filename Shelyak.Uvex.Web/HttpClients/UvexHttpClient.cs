@@ -143,7 +143,7 @@ namespace Shelyak.Uvex.Web.HttpClients
         private async Task<AlpacaResponse<T>> GetAsync<T>(string route)
         {
             var response = await _httpClient.GetFromJsonAsync<AlpacaResponse<T>>(route);
-            return ReturnResponseIfSuccess(response);
+            return response;
         }
         
         private async Task<AlpacaResponse<T>> PutAsync<T>(string route, string body)
@@ -151,15 +151,9 @@ namespace Shelyak.Uvex.Web.HttpClients
             HttpResponseMessage response = await _httpClient.PutAsync(route, new StringContent(body, Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<AlpacaResponse<T>>();
-            return ReturnResponseIfSuccess(result);
+            return result;
         }
         
         private Task<AlpacaResponse<T>> PutEmptyBodyAsync<T>(string route) => PutAsync<T>(route, string.Empty);
-        
-        private static AlpacaResponse<T> ReturnResponseIfSuccess<T>(AlpacaResponse<T> response)
-        {
-            response.EnsureSuccess();
-            return response;
-        }
     }
 }
