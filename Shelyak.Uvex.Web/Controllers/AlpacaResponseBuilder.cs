@@ -12,8 +12,18 @@ public static class AlpacaResponseBuilder
         {
             ClientTransactionID = clientTransactionId,
             ServerTransactionID = serverTransactionId,
-            ErrorNumber = AlpacaError.InvalidOperation,
+            ErrorNumber = GetAlpacaError(e),
             ErrorMessage = e.Message
+        };
+    }
+    
+    private static AlpacaError GetAlpacaError(Exception e)
+    {
+        return e switch
+        {
+            FileNotFoundException => AlpacaError.NotConnected,
+            InvalidOperationException => AlpacaError.InvalidOperation,
+            _ => AlpacaError.InvalidOperation
         };
     }
 
