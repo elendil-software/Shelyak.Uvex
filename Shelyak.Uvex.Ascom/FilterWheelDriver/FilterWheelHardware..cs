@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
 using ASCOM.ShelyakUvex.Focuser;
@@ -393,6 +394,13 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 }
                 
                 _uvexHttpClient.SetLightSource((LightSource)value);
+                int count = 0;
+                do
+                {
+                    count++;
+                    Task.Delay(500);
+                } while (count < 10 && _uvexHttpClient.GetLightSource().Value.Value != (LightSource)value);
+                
                 fwPosition = value;
             }
         }
