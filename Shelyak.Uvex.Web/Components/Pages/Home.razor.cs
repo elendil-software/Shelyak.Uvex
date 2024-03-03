@@ -8,6 +8,7 @@ public partial class Home : IDisposable
     private FocusControl FocusControlChildComponent { get; set; }
     private GratingWaveLengthControl GratingWaveLengthControlChildComponent { get; set; }
     public GratingAngleControl GratingAngleControlChildComponent { get; set; }
+    public CalibrationControl CalibrationControlChildComponent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,6 +28,7 @@ public partial class Home : IDisposable
 
     private async Task LoadDataAsync()
     {
+        await CalibrationControlChildComponent.Refresh();
         await TemperatureChildComponent.Refresh();
         await GratingWaveLengthControlChildComponent.Refresh();
         await GratingAngleControlChildComponent.Refresh();
