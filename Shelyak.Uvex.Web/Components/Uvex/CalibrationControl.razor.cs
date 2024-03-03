@@ -21,7 +21,7 @@ public partial class CalibrationControl : UvexComponentBase
     private async Task LoadCurrentLightSource()
     {
         var currentLightSource = (await UvexHttpClient.GetLightSource());
-        RedirectToConfigurationIfNotConnected(currentLightSource);
+        HandleAlpacaError(currentLightSource);
         SetSwitchesState(currentLightSource.Value.Value);
     }
 

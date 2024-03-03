@@ -4,6 +4,14 @@
 <Card Class="mb-4">
     <CardBody>
         <CardTitle>Angle du réseau</CardTitle>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <Callout Type="CalloutType.Danger" HideHeading="true">
+                <p>@ErrorMessage</p>
+            </Callout>
+        }
+        
         <EditForm Model="@Model" FormName="angle-control-form" OnSubmit="@ExecuteAngleControlAction">
             <div class="row mb-3">
                 <div class="col-sm-2">Angle actuel</div>

@@ -16,7 +16,7 @@ public partial class GratingWaveLengthControl : UvexComponentBase
     protected override async Task LoadData()
     {
         var response = await UvexHttpClient.GetGratingWaveLength();
-        RedirectToConfigurationIfNotConnected(response);
+        HandleAlpacaError(response);
         CurrentWavelength = response.Value.Value;
     }
     

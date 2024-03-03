@@ -22,7 +22,7 @@ public partial class Temperature : UvexComponentBase
     protected override async Task LoadData()
     {
         var response = await UvexHttpClient.GetTemperature();
-        RedirectToConfigurationIfNotConnected(response);
+        HandleAlpacaError(response);
         CurrentTemperature = response.Value.Value;
     }
 }

@@ -8,6 +8,14 @@
 <Card Class="mb-4">
     <CardBody>
         <CardTitle>Calibration</CardTitle>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <Callout Type="CalloutType.Danger" HideHeading="true">
+                <p>@ErrorMessage</p>
+            </Callout>
+        }
+        
         <div class="row">
             <div class="form-check form-switch">
                 <InputCheckbox @bind-Value="@Model.Sky" class="form-check-input" type="checkbox" role="switch" id="skySwitch" @onclick="EnableSky"/>

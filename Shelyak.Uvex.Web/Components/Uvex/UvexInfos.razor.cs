@@ -18,16 +18,15 @@ public partial class UvexInfos : UvexComponentBase
     protected override async Task LoadData()
     {
         var response = await UvexHttpClient.GetDeviceName();
-        RedirectToConfigurationIfNotConnected(response);
+        HandleAlpacaError(response);
         SpectrographName = response.Value.Value;
 
         var softwareVersion = await UvexHttpClient.GetSoftwareVersion();
-        RedirectToConfigurationIfNotConnected(softwareVersion);
+        HandleAlpacaError(softwareVersion);
         Firmware = softwareVersion.Value.Value;
 
         var protocolVersion = await UvexHttpClient.GetProtocolVersion();
-        RedirectToConfigurationIfNotConnected(protocolVersion);
+        HandleAlpacaError(protocolVersion);
         UsisProtocolVersion = protocolVersion.Value.Value;
-        
     }
 }

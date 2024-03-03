@@ -11,6 +11,7 @@ public partial class FocusControl : UvexComponentBase
     private float CurrentFocusPosition { get; set; }
     public FocusControlModel Model { get; set; } = new();
     
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -21,9 +22,10 @@ public partial class FocusControl : UvexComponentBase
     protected override async Task LoadData()
     {
         var focusPosition = await UvexHttpClient.GetFocusPosition();
-        RedirectToConfigurationIfNotConnected(focusPosition);
+        HandleAlpacaError(focusPosition);
         CurrentFocusPosition = focusPosition.Value.Value;
     }
+
     
     public Task ExecuteFocusControlAction()
     {

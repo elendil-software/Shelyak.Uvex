@@ -4,6 +4,14 @@
 <Card Class="mb-4">
     <CardBody>
         <CardTitle>Sondes</CardTitle>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <Callout Type="CalloutType.Danger" HideHeading="true">
+                <p>@ErrorMessage</p>
+            </Callout>
+        }
+        
         <dl class="row">
             <dt class="col-sm-2">Température</dt>
             <dd class="col-sm-10">@CurrentTemperature °C</dd>

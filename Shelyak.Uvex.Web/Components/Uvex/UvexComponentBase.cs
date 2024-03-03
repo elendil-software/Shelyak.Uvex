@@ -9,8 +9,10 @@ public abstract class UvexComponentBase : ComponentBase
 {
     [Inject] protected IUvexHttpClient UvexHttpClient { get; set; }
     [Inject] protected ToastService ToastService { get; set; }
-    
     [Inject] protected NavigationManager NavigationManager { get; set; }
+
+    public string ErrorMessage { get; set; } = "";
+    
     
     protected abstract Task LoadData();
   
@@ -37,6 +39,19 @@ public abstract class UvexComponentBase : ComponentBase
         }
     }
 
+    protected void HandleAlpacaError<T>(AlpacaResponse<T> response)
+    {
+        RedirectToConfigurationIfNotConnected(response);
+    
+        if (response.ErrorNumber == AlpacaError.NoError)
+        {
+            ErrorMessage = "";
+            return;
+        }
+        
+        ErrorMessage = response.ErrorMessage;
+    }
+    
     protected void RedirectToConfigurationIfNotConnected<T>(AlpacaResponse<T> response)
     {
         if (response.ErrorNumber == AlpacaError.NotConnected)
