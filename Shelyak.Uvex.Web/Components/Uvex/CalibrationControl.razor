@@ -9,12 +9,7 @@
     <CardBody>
         <CardTitle>Calibration</CardTitle>
 
-        @if (!string.IsNullOrEmpty(ErrorMessage))
-        {
-            <Callout Type="CalloutType.Danger" HideHeading="true">
-                <p>@ErrorMessage</p>
-            </Callout>
-        }
+        <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <div class="row">
             <div class="form-check form-switch">

@@ -1,0 +1,12 @@
+﻿<h3>ErrorCallout</h3>
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <Callout Type="CalloutType.Danger" HideHeading="true">
+        <p>@ErrorMessage</p>
+    </Callout>
+}
+
+@code {
+    [Parameter]
+    public string? ErrorMessage { get; set; }
+}
