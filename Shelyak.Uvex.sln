@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{14151EBF-8E63-408B-8795-AC10A839EE7E}"
 	ProjectSection(SolutionItems) = preProject
 		InnoSetup\Setup.iss = InnoSetup\Setup.iss
+		InnoSetup\Build.ps1 = InnoSetup\Build.ps1
 	EndProjectSection
 EndProject
 Global
