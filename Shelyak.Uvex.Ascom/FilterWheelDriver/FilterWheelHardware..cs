@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
@@ -398,7 +399,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 do
                 {
                     count++;
-                    Task.Delay(500);
+                    Thread.Sleep(500);
                 } while (count < 10 && _uvexHttpClient.GetLightSource().Value.Value != (LightSource)value);
                 
                 fwPosition = value;
