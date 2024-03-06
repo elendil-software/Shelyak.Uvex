@@ -7,17 +7,6 @@ public partial class GratingWaveLengthControl : UvexComponentBase
     public float MaxWavelength { get; set; } = 1000.0f;
     public WavelengthControlModel Model { get; set; } = new();
     
-    protected override async Task OnInitializedAsync()
-    {
-        var gratingWaveLengthMin = await UvexHttpClient.GetGratingWaveLengthMin();
-        HandleAlpacaError(gratingWaveLengthMin);
-        MinWavelength = gratingWaveLengthMin.Value.Value;
-
-        var gratingWaveLengthMax = await UvexHttpClient.GetGratingWaveLengthMax();
-        HandleAlpacaError(gratingWaveLengthMax);
-        MinWavelength = gratingWaveLengthMax.Value.Value;
-    }
-    
     protected override async Task LoadData()
     {
         var response = await UvexHttpClient.GetGratingWaveLength();
