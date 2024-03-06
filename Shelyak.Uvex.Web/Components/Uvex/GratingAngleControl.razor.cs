@@ -9,8 +9,13 @@ public partial class GratingAngleControl : UvexComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        MinAngle = (await UvexHttpClient.GetGratingAngleMin()).Value.Value;
-        MaxAngle = (await UvexHttpClient.GetGratingAngleMax()).Value.Value;
+        var gratingAngleMin = await UvexHttpClient.GetGratingAngleMin();
+        HandleAlpacaError(gratingAngleMin);
+        MinAngle = gratingAngleMin.Value.Value;
+
+        var gratingAngleMax = await UvexHttpClient.GetGratingAngleMax();
+        HandleAlpacaError(gratingAngleMax);
+        MaxAngle = gratingAngleMax.Value.Value;
     }
     
     protected override async Task LoadData()

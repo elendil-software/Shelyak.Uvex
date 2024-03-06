@@ -15,8 +15,13 @@ public partial class FocusControl : UvexComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        MinFocusPosition = (await UvexHttpClient.GetFocusPositionMin()).Value.Value;
-        MaxFocusPosition = (await UvexHttpClient.GetFocusPositionMax()).Value.Value;
+        var focusPositionMin = await UvexHttpClient.GetFocusPositionMin();
+        HandleAlpacaError(focusPositionMin);
+        MinFocusPosition = focusPositionMin.Value.Value;
+
+        var focusPositionMax = await UvexHttpClient.GetFocusPositionMax();
+        HandleAlpacaError(focusPositionMax);
+        MaxFocusPosition = focusPositionMax.Value.Value;
     }
     
     protected override async Task LoadData()
