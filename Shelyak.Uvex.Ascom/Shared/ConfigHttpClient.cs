@@ -1,11 +1,12 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using Shelyak.Uvex.Alpaca;
 
 namespace ASCOM.ShelyakUvex.Shared
 {
-    public class ConfigHttpClient
+    public sealed class ConfigHttpClient : IDisposable
     {
         private readonly HttpClient _httpClient;
         
@@ -27,6 +28,11 @@ namespace ASCOM.ShelyakUvex.Shared
         public string[] GetAvailablePorts()
         {
             return _httpClient.GetFromJsonAsync<string[]>(ApiRoutes.ConfigPorts).GetAwaiter().GetResult();
+        }
+
+        public void Dispose()
+        {
+            _httpClient.Dispose();
         }
     }
 }

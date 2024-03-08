@@ -259,6 +259,14 @@ namespace ASCOM.ShelyakUvex.Focuser
                 if (value == IsConnected)
                     return;
 
+                using (ComPortChecker comPortChecker = new ComPortChecker(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort))
+                {
+                    if (!comPortChecker.CheckConnection())
+                    {
+                        throw new NotConnectedException("The focuser is not connected to the hardware");
+                    }
+                }
+                
                 if (value)
                 {
                     LogMessage("Connected Set", $"Connecting to port {FocuserHardwareSettings.uvexApiUrl}");

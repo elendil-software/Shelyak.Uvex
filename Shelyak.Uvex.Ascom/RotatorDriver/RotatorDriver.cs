@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Rotator
@@ -365,6 +366,14 @@ namespace ASCOM.ShelyakUvex.Rotator
                     {
                         LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
                         return;
+                    }
+                    
+                    using (ComPortChecker comPortChecker = new ComPortChecker(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort))
+                    {
+                        if (!comPortChecker.CheckConnection())
+                        {
+                            throw new NotConnectedException("The focuser is not connected to the hardware");
+                        }
                     }
 
                     if (value)

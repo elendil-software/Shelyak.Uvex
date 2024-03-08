@@ -14,6 +14,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
+using ASCOM.ShelyakUvex.Focuser;
+using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.FilterWheel
@@ -365,6 +367,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                     {
                         LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
                         return;
+                    }
+                    
+                    using (ComPortChecker comPortChecker = new ComPortChecker(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort))
+                    {
+                        if (!comPortChecker.CheckConnection())
+                        {
+                            throw new NotConnectedException("The focuser is not connected to the hardware");
+                        }
                     }
 
                     if (value)
