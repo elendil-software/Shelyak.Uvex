@@ -1,11 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
-using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.HttpClients;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-
-namespace Shelyak.Uvex.Web.Components.Uvex;
+﻿namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public partial class Temperature : UvexComponentBase
 {

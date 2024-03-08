@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.HttpClients;
 
-namespace Shelyak.Uvex.Web.Components.Uvex;
+namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public abstract class UvexComponentBase : ComponentBase
 {

@@ -7,14 +7,14 @@ using Shelyak.Usis;
 using Shelyak.Uvex.Web.Core.Settings;
 using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 
-namespace Shelyak.Uvex.Web.Components.Pages;
+namespace Shelyak.Uvex.Web.Components.Configuration;
 
-public partial class Configuration
+public partial class ConfigurationPage
 {
     [Inject] protected ToastService ToastService { get; set; }
     [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; }
     [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
-    [Inject] private ILogger<Configuration> Logger { get; set; }
+    [Inject] private ILogger<ConfigurationPage> Logger { get; set; }
     
     [Inject] private IApplicationLifetime ApplicationLifetime { get; set; }
 

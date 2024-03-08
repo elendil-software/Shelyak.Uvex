@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.Web.Components.Uvex;
+﻿namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public partial class GratingAngleControl : UvexComponentBase
 {

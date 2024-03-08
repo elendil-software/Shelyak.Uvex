@@ -1,8 +1,6 @@
-﻿using Shelyak.Uvex.Web.Components.Uvex;
+﻿namespace Shelyak.Uvex.Web.Components.UvexControls;
 
-namespace Shelyak.Uvex.Web.Components.Pages;
-
-public partial class Home : IDisposable
+public partial class UvexControlsPage : IDisposable
 {
     private Temperature TemperatureChildComponent { get; set; }
     private FocusControl FocusControlChildComponent { get; set; }

@@ -1,8 +1,6 @@
-﻿using BlazorBootstrap;
-using Microsoft.AspNetCore.Components;
-using Shelyak.Usis.Enums;
+﻿using Shelyak.Usis.Enums;
 
-namespace Shelyak.Uvex.Web.Components.Uvex;
+namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public partial class CalibrationControl : UvexComponentBase
 {
