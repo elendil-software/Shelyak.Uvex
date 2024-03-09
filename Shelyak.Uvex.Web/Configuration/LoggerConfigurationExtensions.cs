@@ -3,9 +3,9 @@ using Serilog.Configuration;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
-public static class LoggerSettingsConfiguration
+public static class LoggerConfigurationExtensions
 {
-    public static LoggerConfiguration AppSettingsConfiguration(this Serilog.Configuration.LoggerSettingsConfiguration settingConfiguration)
+    public static LoggerConfiguration AppSettingsConfiguration(this LoggerSettingsConfiguration settingConfiguration)
     {
         string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 
@@ -15,5 +15,11 @@ public static class LoggerSettingsConfiguration
             .AddEnvironmentVariables();
 
         return settingConfiguration.Configuration(config.Build());
+    }
+    
+    public static WebApplicationBuilder UseSerilog(this WebApplicationBuilder builder)
+    {
+        builder.Host.UseSerilog();
+        return builder;
     }
 }

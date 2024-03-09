@@ -13,10 +13,11 @@ using Shelyak.Uvex.Web.Core.Alpaca;
 using Shelyak.Uvex.Web.Core.HttpClients;
 using Shelyak.Uvex.Web.Core.Settings;
 using Shelyak.Uvex.Web.Middleware;
+using LoggerConfiguration = Serilog.LoggerConfiguration;
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.AppSettingsConfiguration()
-    .CreateBootstrapLogger();
+    .CreateLogger();
 
 try
 {
@@ -24,7 +25,7 @@ try
     
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-    builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+    builder.UseSerilog();
 
     var appsettingsUvexFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
     builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: true, reloadOnChange: true);
