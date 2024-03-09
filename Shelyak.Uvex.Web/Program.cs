@@ -29,7 +29,6 @@ try
     
     builder.AddConfiguration();
     
-// Add services to the container.
     builder.Services.AddRazorComponents()
         .AddInteractiveServerComponents();
     
@@ -49,14 +48,12 @@ try
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error", createScopeForErrors: true);
-        // app.UseHsts();
     }
     else
     {
         app.UseMiddleware<RequestLoggingMiddleware>();
     }
-
-    // Configure the HTTP request pipeline.
+    
     app.UseSwagger(builder);
     
     app.UseStaticFiles();
