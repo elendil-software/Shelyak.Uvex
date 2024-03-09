@@ -1,7 +1,7 @@
 ﻿using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.HttpClients;
+namespace Shelyak.Uvex.Web.Core.HttpClients;
 
 public interface IUvexHttpClient
 {

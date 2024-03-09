@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.Web.Core;
+﻿namespace Shelyak.Uvex.Web.Core.Alpaca;
 
 public interface IServerTransactionIdProvider
 {

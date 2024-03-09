@@ -1,7 +1,7 @@
 ﻿using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.HttpClients;
+using Shelyak.Uvex.Web.Core.HttpClients;
 
 namespace Shelyak.Uvex.Web.Components.UvexControls;
 
