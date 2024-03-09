@@ -26,12 +26,9 @@ try
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.UseSerilog();
+    
+    builder.AddConfiguration();
 
-    var appsettingsUvexFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
-    builder.Configuration.AddJsonFile(appsettingsUvexFilePath, optional: true, reloadOnChange: true);
-
-    //Configuration
-    builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
 
 // Add services to the container.
     builder.Services.AddRazorComponents()
@@ -45,7 +42,7 @@ try
     builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
     builder.Services.AddSingleton<IResponseParser, ResponseParser>();
     builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
-    builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(appsettingsUvexFilePath));
+    builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(UvexSettingsFilePathProvider.UvexSettingsFilePath));
 
     builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
     {
