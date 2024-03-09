@@ -38,32 +38,8 @@ try
 
     builder.Services.AddControllers();
 
-    builder.Services.AddSingleton<IUsisDevice, UsisDevice>();
-    builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
-    builder.Services.AddSingleton<IResponseParser, ResponseParser>();
-    builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
-    builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(UvexSettingsFilePathProvider.UvexSettingsFilePath));
-
-    builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
-    {
-        var config = provider.GetRequiredService<IConfiguration>();
-        var baseAddress = config.GetSection("Urls:Api").Value;
-        client.BaseAddress = new Uri(baseAddress);
-    });
-
-    builder.Services.AddOutputCache(options =>
-    {
-        options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(1);
-        options.AddBasePolicy(build => build.Cache());
-    });
+    builder.AddServices();
     
-    builder.Services.AddApiVersioning(options =>
-    {
-        options.ReportApiVersions = true;
-        options.AssumeDefaultVersionWhenUnspecified = true;
-        options.DefaultApiVersion = new ApiVersion(1, 0);
-    });
-
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
