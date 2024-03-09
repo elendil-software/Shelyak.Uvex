@@ -22,7 +22,7 @@ try
 {
     bool isStartedFromAscom = args.Contains("--ascom");
     
-    var builder = WebApplication.CreateBuilder(args);
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
@@ -127,16 +127,7 @@ try
         .AddInteractiveServerRenderMode();
     app.MapControllers();
     
-    
-    
-    if (!isStartedFromAscom)
-    {
-        Process.Start(new ProcessStartInfo()
-        {
-            FileName = builder.Configuration.GetSection("Urls:Web").Value,
-            UseShellExecute = true
-        });
-    }
+    builder.StartBrowser(isStartedFromAscom);
     
     if (Process.GetProcesses().Count(p => p.ProcessName.Contains("Shelyak.Uvex.Web")) == 1)
     {
