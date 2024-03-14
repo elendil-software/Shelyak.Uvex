@@ -8,10 +8,15 @@ public static class BrowserStarter
     {
         if (!isStartedFromAscom)
         {
-            Process.Start(new ProcessStartInfo()
+            Task.Run(async () =>
             {
-                FileName = builder.Configuration.GetSection("Urls:Web").Value,
-                UseShellExecute = true
+                await Task.Delay(TimeSpan.FromSeconds(3));
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = builder.Configuration.GetSection("Urls:Web").Value,
+                    UseShellExecute = true
+                });
             });
         }
     }
