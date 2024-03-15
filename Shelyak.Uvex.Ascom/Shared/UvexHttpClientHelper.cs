@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using ASCOM.ShelyakUvex.Focuser;
 
 namespace ASCOM.ShelyakUvex.Shared
 {

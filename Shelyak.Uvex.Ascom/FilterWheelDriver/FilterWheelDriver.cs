@@ -14,7 +14,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
-using ASCOM.ShelyakUvex.Focuser;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 

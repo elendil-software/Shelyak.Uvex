@@ -1,6 +1,5 @@
 ﻿using Shelyak.Usis.Commands;
 using Shelyak.Usis.Enums;
-using Xunit;
 
 namespace Shelyak.Isis.Test.Commands;
 

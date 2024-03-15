@@ -1,17 +1,7 @@
 using System.Diagnostics;
 using Shelyak.Uvex.Web.Components;
-using System.Reflection;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
 using Serilog;
-using Shelyak.Usis;
-using Shelyak.Usis.Responses;
-using Shelyak.Uvex.Web;
 using Shelyak.Uvex.Web.Configuration;
-using Shelyak.Uvex.Web.Core;
-using Shelyak.Uvex.Web.Core.Alpaca;
-using Shelyak.Uvex.Web.Core.HttpClients;
-using Shelyak.Uvex.Web.Core.Settings;
 using Shelyak.Uvex.Web.Middleware;
 using LoggerConfiguration = Serilog.LoggerConfiguration;
 
