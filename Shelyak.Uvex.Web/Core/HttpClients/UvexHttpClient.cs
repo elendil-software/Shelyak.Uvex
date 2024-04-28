@@ -148,7 +148,7 @@ namespace Shelyak.Uvex.Web.Core.HttpClients
         
         private async Task<AlpacaResponse<T>> PutAsync<T>(string route, string body)
         {
-            HttpResponseMessage response = await _httpClient.PutAsync(route, new StringContent(body, Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await _httpClient.PutAsync(route, new StringContent($"{{\"value\": {body}}}" , Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<AlpacaResponse<T>>();
             return result;

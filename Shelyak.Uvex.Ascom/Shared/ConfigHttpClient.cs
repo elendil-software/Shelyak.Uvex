@@ -17,12 +17,13 @@ namespace ASCOM.ShelyakUvex.Shared
         
         public string GetConfiguredPort()
         {
-            return _httpClient.GetStringAsync(ApiRoutes.ConfigPort).GetAwaiter().GetResult();
+            var port = _httpClient.GetStringAsync(ApiRoutes.ConfigPort).GetAwaiter().GetResult();
+            return port.Trim('"');
         }
         
         public void UpdatePort(string portName)
         {
-            _httpClient.PutAsync(ApiRoutes.ConfigPort, new StringContent($"\"{portName}\"", Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+            _httpClient.PutAsync(ApiRoutes.ConfigPort, new StringContent($"{{\"portName\":  \"{portName}\"}}", Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
         }
         
         public string[] GetAvailablePorts()

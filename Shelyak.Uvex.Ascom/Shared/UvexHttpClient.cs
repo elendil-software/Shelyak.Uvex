@@ -39,11 +39,13 @@ namespace ASCOM.ShelyakUvex.Shared
             var response = _httpClient.GetFromJsonAsync<AlpacaResponse<float>>(ApiRoutes.FocusPositionPrec).GetAwaiter().GetResult();
             return ReturnResponseIfSuccess(response);
         }
+
+        
         
         public AlpacaResponse<float> MoveFocus(float position)
         {
             HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.FocusPosition, 
-                new StringContent(position.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                BuildStringContent(position.ToString(CultureInfo.InvariantCulture))).GetAwaiter().GetResult();
             
             response.EnsureSuccessStatusCode();
             AlpacaResponse<float> alpacaResponse = response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
@@ -74,7 +76,8 @@ namespace ASCOM.ShelyakUvex.Shared
 
         public AlpacaResponse<float> SetGratingAngle(float newPosition)
         {
-            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.GratingAngle, new StringContent(newPosition.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.GratingAngle, 
+                BuildStringContent(newPosition.ToString(CultureInfo.InvariantCulture))).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             var alpacaResponse = response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
             return ReturnResponseIfSuccess(alpacaResponse);
@@ -88,7 +91,8 @@ namespace ASCOM.ShelyakUvex.Shared
 
         public AlpacaResponse<float> CalibrateGratingAngle(float position)
         {
-            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.CalibrateGratingAngle, new StringContent(position.ToString(CultureInfo.InvariantCulture), Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.CalibrateGratingAngle, 
+                BuildStringContent(position.ToString(CultureInfo.InvariantCulture))).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             var alpacaResponse = response.Content.ReadFromJsonAsync<AlpacaResponse<float>>().GetAwaiter().GetResult();
             return ReturnResponseIfSuccess(alpacaResponse);
@@ -102,7 +106,7 @@ namespace ASCOM.ShelyakUvex.Shared
 
         public AlpacaResponse<LightSource> SetLightSource(LightSource lightSource)
         {
-            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.LightSource, new StringContent(((int)lightSource).ToString(), Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+            HttpResponseMessage response = _httpClient.PutAsync(ApiRoutes.LightSource, BuildStringContent(((int)lightSource).ToString())).GetAwaiter().GetResult();
             response.EnsureSuccessStatusCode();
             var alpacaResponse = response.Content.ReadFromJsonAsync<AlpacaResponse<LightSource>>().GetAwaiter().GetResult();
             return ReturnResponseIfSuccess(alpacaResponse);
@@ -112,6 +116,11 @@ namespace ASCOM.ShelyakUvex.Shared
         {
             response.EnsureSuccess();
             return response;
+        }
+        
+        private StringContent BuildStringContent(string value)
+        {
+            return new StringContent($"{{\"value\": {value}}}", Encoding.UTF8, "application/json");
         }
     }
 }

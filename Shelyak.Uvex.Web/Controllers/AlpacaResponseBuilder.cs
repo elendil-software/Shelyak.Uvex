@@ -6,11 +6,11 @@ namespace Shelyak.Uvex.Web.Controllers;
 
 public static class AlpacaResponseBuilder
 {
-    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint clientTransactionId, uint serverTransactionId, Exception e)
+    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint? clientTransactionId, uint serverTransactionId, Exception e)
     {
         return new AlpacaResponse<T>
         {
-            ClientTransactionID = clientTransactionId,
+            ClientTransactionID = clientTransactionId ?? 0,
             ServerTransactionID = serverTransactionId,
             ErrorNumber = GetAlpacaError(e),
             ErrorMessage = e.Message
@@ -27,11 +27,11 @@ public static class AlpacaResponseBuilder
         };
     }
 
-    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint clientTransactionId, uint serverTransactionId, IResponse<T> response)
+    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint? clientTransactionId, uint serverTransactionId, IResponse<T> response)
     {
         var alpacaResponse = new AlpacaResponse<T>
         {
-            ClientTransactionID = clientTransactionId,
+            ClientTransactionID = clientTransactionId ?? 0,
             ServerTransactionID = serverTransactionId
         };
 

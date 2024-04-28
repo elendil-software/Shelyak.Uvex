@@ -24,10 +24,8 @@ try
     
     builder.Services.AddBlazorBootstrap();
 
-    builder.Services.AddControllers();
-
     builder.AddServices();
-    builder.AddSwagger();
+    builder.AddFastEndpoints();
 
 
     WebApplication app = builder.Build();
@@ -44,15 +42,14 @@ try
         app.UseMiddleware<RequestLoggingMiddleware>();
     }
     
-    app.UseSwagger(builder);
-    
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAntiforgery();
 
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
-    app.MapControllers();
+    
+    app.UseFastEndpoints();
     
     builder.StartBrowser(isStartedFromAscom);
     

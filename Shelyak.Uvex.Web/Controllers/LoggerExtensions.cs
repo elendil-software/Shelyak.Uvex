@@ -2,13 +2,13 @@
 
 public static class LoggerExtensions
 {
-    public static IDisposable? BeginScope(this ILogger logger, int deviceNumber, uint clientId, uint clientTransactionId, uint serverTransactionId)
+    public static IDisposable? BeginScope(this ILogger logger, int deviceNumber, uint? clientId, uint? clientTransactionId, uint serverTransactionId)
     {
         return logger.BeginScope(new Dictionary<string, object>
         {
             ["deviceNumber"] = deviceNumber,
-            ["clientId"] = clientId,
-            ["clientTransactionId"] = clientTransactionId,
+            ["clientId"] = clientId ?? 0,
+            ["clientTransactionId"] = clientTransactionId ?? 0,
             ["serverTransactionId"] = serverTransactionId,
         });
     }
