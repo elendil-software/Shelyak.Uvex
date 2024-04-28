@@ -1,6 +1,6 @@
 using FastEndpoints;
 
-namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Device;
+namespace Shelyak.Uvex.Web.Endpoints.Spectrograph;
 
 public abstract class SpectrographSummary<TEndpoint> : Summary<TEndpoint> where TEndpoint : IEndpoint
 {

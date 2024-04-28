@@ -1,7 +1,6 @@
 ﻿using FastEndpoints;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.Controllers;
 using Shelyak.Uvex.Web.Core.Alpaca;
 
 namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;

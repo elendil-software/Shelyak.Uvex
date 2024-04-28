@@ -2,7 +2,7 @@
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.Core.Alpaca;
 
-namespace Shelyak.Uvex.Web.Controllers;
+namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 public static class AlpacaResponseBuilder
 {

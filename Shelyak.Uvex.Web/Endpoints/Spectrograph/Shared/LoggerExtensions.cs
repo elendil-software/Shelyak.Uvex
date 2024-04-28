@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.Web.Controllers;
+﻿namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 public static class LoggerExtensions
 {
