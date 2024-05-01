@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shelyak Instruments")]
 [assembly: AssemblyProduct("ASCOM Drivers for Shelyak Uvex device")]
-[assembly: AssemblyCopyright("Copyright © 2023 Shelyak Instruments")]
+[assembly: AssemblyCopyright("Copyright © 2024 Shelyak Instruments")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
