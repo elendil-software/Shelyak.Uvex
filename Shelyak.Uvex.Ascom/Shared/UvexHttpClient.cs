@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -7,7 +8,7 @@ using Shelyak.Uvex.Alpaca;
 
 namespace ASCOM.ShelyakUvex.Shared
 {
-    public class UvexHttpClient
+    public sealed class UvexHttpClient : IDisposable
     {
         private readonly HttpClient _httpClient;
 
@@ -121,6 +122,12 @@ namespace ASCOM.ShelyakUvex.Shared
         private StringContent BuildStringContent(string value)
         {
             return new StringContent($"{{\"value\": {value}}}", Encoding.UTF8, "application/json");
+        }
+
+
+        public void Dispose()
+        {
+            _httpClient?.Dispose();
         }
     }
 }

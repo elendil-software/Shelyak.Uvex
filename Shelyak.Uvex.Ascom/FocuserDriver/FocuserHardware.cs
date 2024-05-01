@@ -219,6 +219,15 @@ namespace ASCOM.ShelyakUvex.Focuser
 
             try
             {
+                _uvexHttpClient?.Dispose();
+            }
+            catch (Exception e)
+            {
+                LogMessage(nameof(Dispose), "Error while disposing UvexHttpClient: {0}", e.Message);
+            }
+            
+            try
+            {
                 // Clean up the trace logger and utility objects
                 tl.Enabled = false;
                 tl.Dispose();
