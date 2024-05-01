@@ -7,11 +7,11 @@ namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public abstract class UvexComponentBase : ComponentBase
 {
-    [Inject] protected IUvexHttpClient UvexHttpClient { get; set; }
-    [Inject] protected ToastService ToastService { get; set; }
-    [Inject] protected NavigationManager NavigationManager { get; set; }
+    [Inject] protected IUvexHttpClient UvexHttpClient { get; set; } = null!;
+    [Inject] protected ToastService ToastService { get; set; } = null!;
+    [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
 
-    public string ErrorMessage { get; set; } = "";
+    protected string ErrorMessage { get; set; } = "";
     
     
     protected abstract Task LoadData();

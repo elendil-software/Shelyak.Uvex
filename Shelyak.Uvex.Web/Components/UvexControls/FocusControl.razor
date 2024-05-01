@@ -44,10 +44,10 @@
 
 @code 
 {
-    public float MinFocusPosition { get; set; }
-    public float MaxFocusPosition { get; set; }
+    private float MinFocusPosition { get; set; }
+    private float MaxFocusPosition { get; set; }
     private float CurrentFocusPosition { get; set; }
-    public FocusControlModel Model { get; set; } = new();
+    private FocusControlModel Model { get; set; } = new();
     
     
 
@@ -69,8 +69,8 @@
         CurrentFocusPosition = focusPosition.Value.Value;
     }
 
-    
-    public Task ExecuteFocusControlAction()
+
+    private Task ExecuteFocusControlAction()
     {
         switch (Model.Action)
         {

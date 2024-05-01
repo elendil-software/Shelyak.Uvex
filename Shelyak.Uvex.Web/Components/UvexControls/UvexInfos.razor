@@ -17,9 +17,9 @@
 
 @code
 {
-    public string SpectrographName { get; set; }
-    public string Firmware { get; set; }
-    public string UsisProtocolVersion { get; set; }
+    private string SpectrographName { get; set; } = null!;
+    private string Firmware { get; set; } = null!;
+    private string UsisProtocolVersion { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {

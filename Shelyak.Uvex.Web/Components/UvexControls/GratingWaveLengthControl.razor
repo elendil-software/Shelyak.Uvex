@@ -1,5 +1,4 @@
-﻿@using Shelyak.Uvex.Web.Components.Shared
-@inherits UvexComponentBase
+﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
 
 <Card Class="mb-4">
@@ -43,10 +42,10 @@
 
 @code
 {
-    public float CurrentWavelength { get; set; }
-    public float MinWavelength { get; set; } = 0.0f;
-    public float MaxWavelength { get; set; } = 1000.0f;
-    public WavelengthControlModel Model { get; set; } = new();
+    private float CurrentWavelength { get; set; }
+    private float MinWavelength { get; set; } = 0.0f;
+    private float MaxWavelength { get; set; } = 1000.0f;
+    private WavelengthControlModel Model { get; set; } = new();
     
     protected override async Task LoadData()
     {

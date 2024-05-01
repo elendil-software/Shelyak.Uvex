@@ -43,10 +43,10 @@
 
 @code
 {
-    public float CurrentAngle { get; set; }
-    public float MinAngle { get; set; } = 0.0f;
-    public float MaxAngle { get; set; } = 1000.0f;
-    public AngleControlModel Model { get; set; } = new();
+    private float CurrentAngle { get; set; }
+    private float MinAngle { get; set; } = 0.0f;
+    private float MaxAngle { get; set; } = 1000.0f;
+    private AngleControlModel Model { get; set; } = new();
     
     protected override async Task OnInitializedAsync()
     {

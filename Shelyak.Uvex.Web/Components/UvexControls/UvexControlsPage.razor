@@ -14,15 +14,16 @@
 
 @code
 {
-    private Temperature TemperatureChildComponent { get; set; }
-    private FocusControl FocusControlChildComponent { get; set; }
-    private GratingWaveLengthControl GratingWaveLengthControlChildComponent { get; set; }
-    public GratingAngleControl GratingAngleControlChildComponent { get; set; }
-    public CalibrationControl CalibrationControlChildComponent { get; set; }
+    private Temperature TemperatureChildComponent { get; set; } = null!;
+    private FocusControl FocusControlChildComponent { get; set; } = null!;
+    private GratingWaveLengthControl GratingWaveLengthControlChildComponent { get; set; } = null!;
+    private GratingAngleControl GratingAngleControlChildComponent { get; set; } = null!;
+    private CalibrationControl CalibrationControlChildComponent { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         RunTimer();
+        return Task.CompletedTask;
     }
 
     private readonly PeriodicTimer _periodicTimer = new(TimeSpan.FromSeconds(2));
