@@ -44,14 +44,14 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 FocuserHardware.InitialiseHardware();
 
-                LogMessage("Focuser", "Starting driver initialisation");
-                LogMessage("Focuser", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(Focuser), "Starting driver initialisation");
+                LogMessage(nameof(Focuser), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
                 
-                LogMessage("Focuser", "Completed initialisation");
+                LogMessage(nameof(Focuser), "Completed initialisation");
             }
             catch (Exception ex)
             {
-                LogMessage("Focuser", $"Initialisation exception: {ex}");
+                LogMessage(nameof(Focuser), $"Initialisation exception: {ex}");
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -144,14 +144,14 @@ namespace ASCOM.ShelyakUvex.Focuser
                 }
                 else
                 {
-                    LogMessage("SetupDialog", "Calling SetupDialog.");
+                    LogMessage(nameof(SetupDialog), "Calling SetupDialog.");
                     FocuserHardware.SetupDialog();
-                    LogMessage("SetupDialog", "Completed.");
+                    LogMessage(nameof(SetupDialog), "Completed.");
                 }
             }
             catch (Exception ex)
             {
-                LogMessage("SetupDialog", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(SetupDialog), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -164,22 +164,22 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("SupportedActions");
+                    CheckConnected(nameof(SupportedActions));
                     ArrayList actions = FocuserHardware.SupportedActions;
-                    LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
+                    LogMessage(nameof(SupportedActions), $"Returning {actions.Count} actions.");
                     return actions;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("SupportedActions", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(SupportedActions), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
         }
 
         /// <summary>Invokes the specified device-specific custom action.</summary>
-        /// <param name="ActionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
-        /// <param name="ActionParameters">List of required parameters or an <see cref="String.Empty">Empty String</see> if none are required.</param>
+        /// <param name="actionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
+        /// <param name="actionParameters">List of required parameters or an <see cref="String.Empty">Empty String</see> if none are required.</param>
         /// <returns>A string response. The meaning of returned strings is set by the driver author.
         /// <para>Suppose filter wheels start to appear with automatic wheel changers; new actions could be <c>QueryWheels</c> and <c>SelectWheel</c>. The former returning a formatted list
         /// of wheel names and the second taking a wheel name and making the change, returning appropriate values to indicate success or failure.</para>
@@ -189,14 +189,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected($"Action {actionName} - {actionParameters}");
-                LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
+                LogMessage(nameof(Action), $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = FocuserHardware.Action(actionName, actionParameters);
-                LogMessage("Action", "Completed.");
+                LogMessage(nameof(Action), "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("Action", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Action), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -215,13 +215,13 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBlind), $"Calling method - Command: {command}, Raw: {raw}");
                 FocuserHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", "Completed.");
+                LogMessage(nameof(CommandBlind), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBlind", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBlind), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -243,14 +243,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected($"CommandBool: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBool), $"Calling method - Command: {command}, Raw: {raw}");
                 bool commandBoolResponse = FocuserHardware.CommandBool(command, raw);
-                LogMessage("CommandBlind", $"Returning: {commandBoolResponse}.");
+                LogMessage(nameof(CommandBool), $"Returning: {commandBoolResponse}.");
                 return commandBoolResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBool", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBool), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -272,14 +272,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 CheckConnected($"CommandString: {command}, Raw: {raw}");
-                LogMessage("CommandString", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandString), $"Calling method - Command: {command}, Raw: {raw}");
                 string commandStringResponse = FocuserHardware.CommandString(command, raw);
-                LogMessage("CommandString", $"Returning: {commandStringResponse}.");
+                LogMessage(nameof(CommandString), $"Returning: {commandStringResponse}.");
                 return commandStringResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandString", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandString), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -295,12 +295,12 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    LogMessage("Connected Get", FocuserHardware.Connected.ToString());
+                    LogMessage(nameof(Connected) + " Get", FocuserHardware.Connected.ToString());
                     return FocuserHardware.Connected;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -310,24 +310,24 @@ namespace ASCOM.ShelyakUvex.Focuser
                 {
                     if (value == FocuserHardware.Connected)
                     {
-                        LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
+                        LogMessage(nameof(Connected) + " Set", "Device already connected, ignoring Connected Set = true");
                         return;
                     }
 
                     if (value)
                     {
-                        LogMessage("Connected Set", "Connecting to device");
+                        LogMessage(nameof(Connected) + " Set", "Connecting to device");
                         FocuserHardware.Connected = true;
                     }
                     else
                     {
-                        LogMessage("Connected Set", "Disconnecting from device");
+                        LogMessage(nameof(Connected) + " Set", "Disconnecting from device");
                         FocuserHardware.Connected = false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -343,14 +343,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Description");
+                    CheckConnected(nameof(Description));
                     string description = FocuserHardware.Description;
-                    LogMessage("Description", description);
+                    LogMessage(nameof(Description), description);
                     return description;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Description", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Description), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -366,12 +366,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     string driverInfo = FocuserHardware.DriverInfo;
-                    LogMessage("DriverInfo", driverInfo);
+                    LogMessage(nameof(DriverInfo), driverInfo);
                     return driverInfo;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverInfo", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverInfo), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -387,12 +387,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     string driverVersion = FocuserHardware.DriverVersion;
-                    LogMessage("DriverVersion", driverVersion);
+                    LogMessage(nameof(DriverVersion), driverVersion);
                     return driverVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -408,12 +408,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     short interfaceVersion = FocuserHardware.InterfaceVersion;
-                    LogMessage("InterfaceVersion", interfaceVersion.ToString());
+                    LogMessage(nameof(InterfaceVersion), interfaceVersion.ToString());
                     return interfaceVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("InterfaceVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(InterfaceVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -429,12 +429,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     string name = FocuserHardware.Name;
-                    LogMessage("Name Get", name);
+                    LogMessage(nameof(Name) + " Get", name);
                     return name;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Name", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Name), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -453,14 +453,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Absolute");
+                    CheckConnected(nameof(Absolute));
                     bool absolute = FocuserHardware.Absolute;
-                    LogMessage("Absolute", absolute.ToString());
+                    LogMessage(nameof(Absolute), absolute.ToString());
                     return absolute;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Absolute", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Absolute), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -473,14 +473,14 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             try
             {
-                CheckConnected("Halt");
-                LogMessage("Halt", "Calling method.");
+                CheckConnected(nameof(Halt));
+                LogMessage(nameof(Halt), "Calling method.");
                 FocuserHardware.Halt();
-                LogMessage("Halt", "Completed.");
+                LogMessage(nameof(Halt), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("Halt", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Halt), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -494,14 +494,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("IsMoving");
+                    CheckConnected(nameof(IsMoving));
                     bool isMoving = FocuserHardware.IsMoving;
-                    LogMessage("IsMoving", isMoving.ToString());
+                    LogMessage(nameof(IsMoving), isMoving.ToString());
                     return isMoving;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("IsMoving", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(IsMoving), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -517,12 +517,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 try
                 {
                     bool link = FocuserHardware.Link;
-                    LogMessage("Link Get", link.ToString());
+                    LogMessage(nameof(Link) + " Get", link.ToString());
                     return link;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Link Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Link) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -530,12 +530,12 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    LogMessage("Link Set", value.ToString());
+                    LogMessage(nameof(Link) + " Set", value.ToString());
                     FocuserHardware.Link = value;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Link Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Link) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -551,14 +551,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("MaxIncrement");
+                    CheckConnected(nameof(MaxIncrement));
                     int maxIncrement = FocuserHardware.MaxIncrement;
-                    LogMessage("MaxIncrement", maxIncrement.ToString());
+                    LogMessage(nameof(MaxIncrement), maxIncrement.ToString());
                     return maxIncrement;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("MaxIncrement", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(MaxIncrement), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -573,14 +573,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("MaxStep");
+                    CheckConnected(nameof(MaxStep));
                     int maxStep = FocuserHardware.MaxStep;
-                    LogMessage("MaxStep", maxStep.ToString());
+                    LogMessage(nameof(MaxStep), maxStep.ToString());
                     return maxStep;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("MaxStep", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(MaxStep), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -594,14 +594,14 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             try
             {
-                CheckConnected("Move");
-                LogMessage("Move", "Calling method.");
+                CheckConnected(nameof(Move));
+                LogMessage(nameof(Move), "Calling method.");
                 FocuserHardware.Move(position);
-                LogMessage("Move", "Completed.");
+                LogMessage(nameof(Move), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("Move", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Move), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -615,14 +615,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Position");
+                    CheckConnected(nameof(Position));
                     int position = FocuserHardware.Position;
-                    LogMessage("Position", position.ToString());
+                    LogMessage(nameof(Position), position.ToString());
                     return position;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Position", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Position), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -638,14 +638,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("StepSize");
+                    CheckConnected(nameof(StepSize));
                     double stepSize = FocuserHardware.StepSize;
-                    LogMessage("StepSize", stepSize.ToString());
+                    LogMessage(nameof(StepSize), stepSize.ToString());
                     return stepSize;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("StepSize", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(StepSize), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -660,14 +660,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("TempComp Get");
+                    CheckConnected(nameof(TempComp) + " Get");
                     bool tempComp = FocuserHardware.TempComp;
-                    LogMessage("TempComp Get", tempComp.ToString());
+                    LogMessage(nameof(TempComp) + " Get", tempComp.ToString());
                     return tempComp;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("TempComp Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(TempComp) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -675,13 +675,13 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("TempComp Set");
-                    LogMessage("TempComp Set", value.ToString());
+                    CheckConnected(nameof(TempComp) + " Set");
+                    LogMessage(nameof(TempComp) + " Set", value.ToString());
                     FocuserHardware.TempComp = value;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("TempComp Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(TempComp) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -696,14 +696,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("TempCompAvailable");
+                    CheckConnected(nameof(TempCompAvailable));
                     bool tempCompAvailable = FocuserHardware.TempCompAvailable;
-                    LogMessage("TempCompAvailable", tempCompAvailable.ToString());
+                    LogMessage(nameof(TempCompAvailable), tempCompAvailable.ToString());
                     return tempCompAvailable;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("TempCompAvailable", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(TempCompAvailable), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -718,14 +718,14 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 try
                 {
-                    CheckConnected("Temperature");
+                    CheckConnected(nameof(Temperature));
                     double temperature = FocuserHardware.Temperature;
-                    LogMessage("Temperature", temperature.ToString());
+                    LogMessage(nameof(Temperature), temperature.ToString());
                     return temperature;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Temperature", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Temperature), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }

@@ -46,16 +46,16 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 
                 FilterWheelHardware.InitialiseHardware();
 
-                LogMessage("FilterWheel", "Starting driver initialisation");
-                LogMessage("FilterWheel", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(FilterWheel), "Starting driver initialisation");
+                LogMessage(nameof(FilterWheel), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
                 
-                LogMessage("FilterWheel", "Completed initialisation");
+                LogMessage(nameof(FilterWheel), "Completed initialisation");
             }
             catch (Exception ex)
             {
-                LogMessage("FilterWheel", $"Initialisation exception: {ex}");
+                LogMessage(nameof(FilterWheel), $"Initialisation exception: {ex}");
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.FilterWheel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -148,14 +148,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 }
                 else
                 {
-                    LogMessage("SetupDialog", "Calling SetupDialog.");
+                    LogMessage(nameof(SetupDialog), "Calling SetupDialog.");
                     FilterWheelHardware.SetupDialog();
-                    LogMessage("SetupDialog", "Completed.");
+                    LogMessage(nameof(SetupDialog), "Completed.");
                 }
             }
             catch (Exception ex)
             {
-                LogMessage("SetupDialog", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(SetupDialog), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -168,14 +168,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("SupportedActions");
+                    CheckConnected(nameof(SupportedActions));
                     ArrayList actions = FilterWheelHardware.SupportedActions;
-                    LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
+                    LogMessage(nameof(SupportedActions), $"Returning {actions.Count} actions.");
                     return actions;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("SupportedActions", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(SupportedActions), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -193,14 +193,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             try
             {
                 CheckConnected($"Action {actionName} - {actionParameters}");
-                LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
+                LogMessage(nameof(Action), $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = FilterWheelHardware.Action(actionName, actionParameters);
-                LogMessage("Action", "Completed.");
+                LogMessage(nameof(Action), "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("Action", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Action), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -219,13 +219,13 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             try
             {
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBlind), $"Calling method - Command: {command}, Raw: {raw}");
                 FilterWheelHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", "Completed.");
+                LogMessage(nameof(CommandBlind), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBlind", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBlind), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -247,14 +247,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             try
             {
                 CheckConnected($"CommandBool: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBool), $"Calling method - Command: {command}, Raw: {raw}");
                 bool commandBoolResponse = FilterWheelHardware.CommandBool(command, raw);
-                LogMessage("CommandBlind", $"Returning: {commandBoolResponse}.");
+                LogMessage(nameof(CommandBool), $"Returning: {commandBoolResponse}.");
                 return commandBoolResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBool", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBool), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -276,14 +276,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             try
             {
                 CheckConnected($"CommandString: {command}, Raw: {raw}");
-                LogMessage("CommandString", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandString), $"Calling method - Command: {command}, Raw: {raw}");
                 string commandStringResponse = FilterWheelHardware.CommandString(command, raw);
-                LogMessage("CommandString", $"Returning: {commandStringResponse}.");
+                LogMessage(nameof(CommandString), $"Returning: {commandStringResponse}.");
                 return commandStringResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandString", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandString), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -299,12 +299,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    LogMessage("Connected Get", connectedState.ToString());
+                    LogMessage(nameof(Connected) + " Get", connectedState.ToString());
                     return connectedState;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -314,7 +314,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 {
                     if (value == connectedState)
                     {
-                        LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
+                        LogMessage(nameof(Connected) + " Set", "Device already connected, ignoring Connected Set = true");
                         return;
                     }
                     
@@ -329,19 +329,19 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                     if (value)
                     {
                         connectedState = true;
-                        LogMessage("Connected Set", "Connecting to device");
+                        LogMessage(nameof(Connected) + " Set", "Connecting to device");
                         FilterWheelHardware.Connected = true;
                     }
                     else
                     {
                         connectedState = false;
-                        LogMessage("Connected Set", "Disconnecting from device");
+                        LogMessage(nameof(Connected) + " Set", "Disconnecting from device");
                         FilterWheelHardware.Connected = false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -357,14 +357,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("Description");
+                    CheckConnected(nameof(Description));
                     string description = FilterWheelHardware.Description;
-                    LogMessage("Description", description);
+                    LogMessage(nameof(Description), description);
                     return description;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Description", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Description), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -380,12 +380,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 try
                 {
                     string driverInfo = FilterWheelHardware.DriverInfo;
-                    LogMessage("DriverInfo", driverInfo);
+                    LogMessage(nameof(DriverInfo), driverInfo);
                     return driverInfo;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverInfo", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverInfo), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -401,12 +401,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 try
                 {
                     string driverVersion = FilterWheelHardware.DriverVersion;
-                    LogMessage("DriverVersion", driverVersion);
+                    LogMessage(nameof(DriverVersion), driverVersion);
                     return driverVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -422,12 +422,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 try
                 {
                     short interfaceVersion = FilterWheelHardware.InterfaceVersion;
-                    LogMessage("InterfaceVersion", interfaceVersion.ToString());
+                    LogMessage(nameof(InterfaceVersion), interfaceVersion.ToString());
                     return interfaceVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("InterfaceVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(InterfaceVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -443,12 +443,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 try
                 {
                     string name = FilterWheelHardware.Name;
-                    LogMessage("Name Get", name);
+                    LogMessage(nameof(Name), name);
                     return name;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Name", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Name), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -467,14 +467,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("FocusOffsets");
+                    CheckConnected(nameof(FocusOffsets));
                     int[] focusoffsets = FilterWheelHardware.FocusOffsets;
-                    LogMessage("FocusOffsets", focusoffsets.ToString());
+                    LogMessage(nameof(FocusOffsets), focusoffsets.ToString());
                     return focusoffsets;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("FocusOffsets", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(FocusOffsets), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -489,14 +489,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("Names");
+                    CheckConnected(nameof(Names));
                     string[] names = FilterWheelHardware.Names;
-                    LogMessage("Names", names.ToString());
+                    LogMessage(nameof(Names), names.ToString());
                     return names;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Names", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Names), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -511,14 +511,14 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("Position Get");
+                    CheckConnected(nameof(Position) + " Get");
                     short position = FilterWheelHardware.Position;
-                    LogMessage("Position Get", position.ToString());
+                    LogMessage(nameof(Position) + " Get", position.ToString());
                     return position;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Position Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Position) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -526,13 +526,13 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    CheckConnected("Position Set");
-                    LogMessage("Position Set", value.ToString());
+                    CheckConnected(nameof(Position) + " Set");
+                    LogMessage(nameof(Position) + " Set", value.ToString());
                     FilterWheelHardware.Position = value;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Position Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Position) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }

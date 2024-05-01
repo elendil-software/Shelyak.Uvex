@@ -39,11 +39,11 @@ namespace ASCOM.ShelyakUvex.Rotator
                 DriverProgId = Rotator.DriverProgId;
                 ReadProfile();
 
-                LogMessage("RotatorHardware", "Static initialiser completed.");
+                LogMessage(nameof(RotatorHardware), "Static initialiser completed.");
             }
             catch (Exception ex)
             {
-                try { LogMessage("RotatorHardware", $"Initialisation exception: {ex}"); } catch { }
+                try { LogMessage(nameof(RotatorHardware), $"Initialisation exception: {ex}"); } catch { }
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.Rotator", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
@@ -55,24 +55,24 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            LogMessage("InitialiseHardware", "Start.");
+            LogMessage(nameof(InitialiseHardware), "Start.");
 
             if (runOnce == false)
             {
                 _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
                 
-                LogMessage("InitialiseHardware", "Starting one-off initialisation.");
+                LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
                 DriverDescription = Rotator.DriverDescription;
 
-                LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
                 astroUtilities = new AstroUtils();
 
-                LogMessage("InitialiseHardware", "Completed basic initialisation");
+                LogMessage(nameof(InitialiseHardware), "Completed basic initialisation");
                 
-                LogMessage("InitialiseHardware", "One-off initialisation complete.");
+                LogMessage(nameof(InitialiseHardware), "One-off initialisation complete.");
                 runOnce = true;
             }
         }
@@ -108,7 +108,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("SupportedActions Get", "Returning empty ArrayList");
+                LogMessage(nameof(SupportedActions) + " Get", "Returning empty ArrayList");
                 return new ArrayList();
             }
         }
@@ -122,7 +122,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </returns>
         public static string Action(string actionName, string actionParameters)
         {
-            LogMessage("Action", $"Action {actionName}, parameters {actionParameters} is not implemented");
+            LogMessage(nameof(Action), $"Action {actionName}, parameters {actionParameters} is not implemented");
             throw new ActionNotImplementedException("Action " + actionName + " is not implemented by this driver");
         }
 
@@ -137,7 +137,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </param>
         public static void CommandBlind(string command, bool raw)
         {
-            CheckConnected("CommandBlind");
+            CheckConnected(nameof(CommandBlind));
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -155,7 +155,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </returns>
         public static bool CommandBool(string command, bool raw)
         {
-            CheckConnected("CommandBool");
+            CheckConnected(nameof(CommandBool));
             throw new MethodNotImplementedException($"CommandBool - Command:{command}, Raw: {raw}.");
         }
 
@@ -173,7 +173,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </returns>
         public static string CommandString(string command, bool raw)
         {
-            CheckConnected("CommandString");
+            CheckConnected(nameof(CommandString));
             throw new MethodNotImplementedException($"CommandString - Command:{command}, Raw: {raw}.");
         }
 
@@ -195,7 +195,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </remarks>
         public static void Dispose()
         {
-            try { LogMessage("Dispose", "Disposing of assets and closing down."); } catch { }
+            try { LogMessage(nameof(Dispose), "Disposing of assets and closing down."); } catch { }
 
             try
             {
@@ -231,24 +231,24 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("Connected", $"Get {IsConnected}");
+                LogMessage(nameof(Connected), $"Get {IsConnected}");
                 return IsConnected;
             }
             set
             {
                 //TODO Add ComPortChecker like in FocuserHardware
-                LogMessage("Connected", $"Set {value}");
+                LogMessage(nameof(Connected), $"Set {value}");
                 if (value == IsConnected)
                     return;
 
                 if (value)
                 {
-                    LogMessage("Connected Set", $"Connecting to port {RotatorHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Connecting to port {RotatorHardwareSettings.uvexApiUrl}");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage("Connected Set", $"Disconnecting from port {RotatorHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {RotatorHardwareSettings.uvexApiUrl}");
                     connectedState = false;
                 }
             }
@@ -262,7 +262,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         { 
             get
             {
-                LogMessage("Description Get", DriverDescription);
+                LogMessage(nameof(Description) + " Get", DriverDescription);
                 return DriverDescription;
             }
         }
@@ -276,7 +276,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverInfo = $"Shelyak UVEX. Version: {version.Major}.{version.Minor}";
-                LogMessage("DriverInfo Get", driverInfo);
+                LogMessage(nameof(DriverInfo) + " Get", driverInfo);
                 return driverInfo;
             }
         }
@@ -290,7 +290,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverVersion = $"{version.Major}.{version.Minor}";
-                LogMessage("DriverVersion Get", driverVersion);
+                LogMessage(nameof(DriverVersion) + " Get", driverVersion);
                 return driverVersion;
             }
         }
@@ -303,7 +303,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             // set by the driver wizard
             get
             {
-                LogMessage("InterfaceVersion Get", "3");
+                LogMessage(nameof(InterfaceVersion) + " Get", "3");
                 return Convert.ToInt16("3");
             }
         }
@@ -316,7 +316,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 string name = "Shelyak UVEX";
-                LogMessage("Name Get", name);
+                LogMessage(nameof(Name) + " Get", name);
                 return name;
             }
         }
@@ -337,7 +337,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("CanReverse Get", false.ToString());
+                LogMessage(nameof(CanReverse) + " Get", false.ToString());
                 return false;
             }
         }
@@ -348,7 +348,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         internal static void Halt()
         {
             _uvexHttpClient.StopGratingAngle();
-            LogMessage("Halt", "Not implemented");
+            LogMessage(nameof(Halt), "Not implemented");
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 var gratingAngle = _uvexHttpClient.GetGratingAngle();
                 bool isMoving = gratingAngle.Value.Status == (int)PropertyAttributeStatus.BUSY;
-                LogMessage("IsMoving Get", false.ToString());
+                LogMessage(nameof(IsMoving) + " Get", false.ToString());
 
                 if (isMoving)
                 {
@@ -380,7 +380,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
             float newPosition = (float)astroUtilities.Range(gratingAngle + Position, 0.0, true, 360.0, false);
-            LogMessage("Move", $"Move by {Position.ToString()}, new position {newPosition}");
+            LogMessage(nameof(Move), $"Move by {Position.ToString()}, new position {newPosition}");
             _uvexHttpClient.SetGratingAngle(newPosition);
         }
 
@@ -391,7 +391,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Absolute position in degrees.</param>
         internal static void MoveAbsolute(float Position)
         {
-            LogMessage("MoveAbsolute", $"Move to position {Position.ToString()}");
+            LogMessage(nameof(MoveAbsolute), $"Move to position {Position.ToString()}");
             
             float newPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
             _uvexHttpClient.SetGratingAngle(newPosition);
@@ -405,7 +405,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
-                LogMessage("Position Get", gratingAngle.ToString());
+                LogMessage(nameof(Position) + " Get", gratingAngle.ToString());
                 return gratingAngle;
             }
         }
@@ -417,12 +417,12 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("Reverse Get", "Not implemented");
+                LogMessage(nameof(Reverse) + " Get", "Not implemented");
                 throw new PropertyNotImplementedException("Reverse", false);
             }
             set
             {
-                LogMessage("Reverse Set", "Not implemented");
+                LogMessage(nameof(Reverse) + " Set", "Not implemented");
                 throw new PropertyNotImplementedException("Reverse", true);
             }
         }
@@ -435,7 +435,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float stepSize = _uvexHttpClient.GetGratingAnglePrecision().Value.Value;
-                LogMessage("StepSize Get", stepSize.ToString());
+                LogMessage(nameof(StepSize) + " Get", stepSize.ToString());
                 return stepSize;
             }
         }
@@ -447,7 +447,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage("TargetPosition Get", rotatorPosition.ToString());
+                LogMessage(nameof(TargetPosition) + " Get", rotatorPosition.ToString());
                 return rotatorPosition;
             }
         }
@@ -462,7 +462,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float position = Position;
-                LogMessage("MechanicalPosition Get", position.ToString());
+                LogMessage(nameof(MechanicalPosition) + " Get", position.ToString());
                 return position;
             }
         }
@@ -473,7 +473,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Mechanical rotator position angle.</param>
         internal static void MoveMechanical(float Position)
         {
-            LogMessage("MoveMechanical", Position.ToString());
+            LogMessage(nameof(MoveMechanical), Position.ToString());
             MoveAbsolute(Position); 
         }
 
@@ -483,7 +483,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Synchronised rotator position angle.</param>
         internal static void Sync(float Position)
         {
-            LogMessage("Sync", Position.ToString());
+            LogMessage(nameof(Sync), Position.ToString());
             Position = rotatorPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
             _uvexHttpClient.CalibrateGratingAngle(Position); 
         }

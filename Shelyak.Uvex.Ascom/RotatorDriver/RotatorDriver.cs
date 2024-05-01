@@ -47,16 +47,16 @@ namespace ASCOM.ShelyakUvex.Rotator
                 
                 RotatorHardware.InitialiseHardware();
 
-                LogMessage("Rotator", "Starting driver initialisation");
-                LogMessage("Rotator", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(Rotator), "Starting driver initialisation");
+                LogMessage(nameof(Rotator), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
                 
-                LogMessage("Rotator", "Completed initialisation");
+                LogMessage(nameof(Rotator), "Completed initialisation");
             }
             catch (Exception ex)
             {
-                LogMessage("Rotator", $"Initialisation exception: {ex}");
+                LogMessage(nameof(Rotator), $"Initialisation exception: {ex}");
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.Rotator", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -149,14 +149,14 @@ namespace ASCOM.ShelyakUvex.Rotator
                 }
                 else
                 {
-                    LogMessage("SetupDialog", "Calling SetupDialog.");
+                    LogMessage(nameof(SetupDialog), "Calling SetupDialog.");
                     RotatorHardware.SetupDialog();
-                    LogMessage("SetupDialog", "Completed.");
+                    LogMessage(nameof(SetupDialog), "Completed.");
                 }
             }
             catch (Exception ex)
             {
-                LogMessage("SetupDialog", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(SetupDialog), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -169,14 +169,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("SupportedActions");
+                    CheckConnected(nameof(SupportedActions));
                     ArrayList actions = RotatorHardware.SupportedActions;
-                    LogMessage("SupportedActions", $"Returning {actions.Count} actions.");
+                    LogMessage(nameof(SupportedActions), $"Returning {actions.Count} actions.");
                     return actions;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("SupportedActions", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(SupportedActions), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -194,14 +194,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected($"Action {actionName} - {actionParameters}");
-                LogMessage("", $"Calling Action: {actionName} with parameters: {actionParameters}");
+                LogMessage(nameof(Action), $"Calling Action: {actionName} with parameters: {actionParameters}");
                 string actionResponse = RotatorHardware.Action(actionName, actionParameters);
-                LogMessage("Action", "Completed.");
+                LogMessage(nameof(Action), "Completed.");
                 return actionResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("Action", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Action), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -220,13 +220,13 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected($"CommandBlind: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBlind), $"Calling method - Command: {command}, Raw: {raw}");
                 RotatorHardware.CommandBlind(command, raw);
-                LogMessage("CommandBlind", "Completed.");
+                LogMessage(nameof(CommandBlind), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBlind", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBlind), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -248,14 +248,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected($"CommandBool: {command}, Raw: {raw}");
-                LogMessage("CommandBlind", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandBool), $"Calling method - Command: {command}, Raw: {raw}");
                 bool commandBoolResponse = RotatorHardware.CommandBool(command, raw);
-                LogMessage("CommandBlind", $"Returning: {commandBoolResponse}.");
+                LogMessage(nameof(CommandBool), $"Returning: {commandBoolResponse}.");
                 return commandBoolResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandBool", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandBool), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -277,14 +277,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             try
             {
                 CheckConnected($"CommandString: {command}, Raw: {raw}");
-                LogMessage("CommandString", $"Calling method - Command: {command}, Raw: {raw}");
+                LogMessage(nameof(CommandString), $"Calling method - Command: {command}, Raw: {raw}");
                 string commandStringResponse = RotatorHardware.CommandString(command, raw);
-                LogMessage("CommandString", $"Returning: {commandStringResponse}.");
+                LogMessage(nameof(CommandString), $"Returning: {commandStringResponse}.");
                 return commandStringResponse;
             }
             catch (Exception ex)
             {
-                LogMessage("CommandString", $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
+                LogMessage(nameof(CommandString), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -301,12 +301,12 @@ namespace ASCOM.ShelyakUvex.Rotator
                 try
                 {
                     // Returns the driver's connection state rather than the local server's connected state, which could be different because there may be other client connections still active.
-                    LogMessage("Connected Get", connectedState.ToString());
+                    LogMessage(nameof(Connected) + " Get", connectedState.ToString());
                     return connectedState;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -316,7 +316,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     if (value == connectedState)
                     {
-                        LogMessage("Connected Set", "Device already connected, ignoring Connected Set = true");
+                        LogMessage(nameof(Connected) + " Set", "Device already connected, ignoring Connected Set = true");
                         return;
                     }
                     
@@ -331,19 +331,19 @@ namespace ASCOM.ShelyakUvex.Rotator
                     if (value)
                     {
                         connectedState = true;
-                        LogMessage("Connected Set", "Connecting to device");
+                        LogMessage(nameof(Connected) + " Set", "Connecting to device");
                         RotatorHardware.Connected = true;
                     }
                     else
                     {
                         connectedState = false;
-                        LogMessage("Connected Set", "Disconnecting from device");
+                        LogMessage(nameof(Connected) + " Set", "Disconnecting from device");
                         RotatorHardware.Connected = false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Connected Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Connected) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -359,14 +359,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("Description");
+                    CheckConnected(nameof(Description));
                     string description = RotatorHardware.Description;
-                    LogMessage("Description", description);
+                    LogMessage(nameof(Description), description);
                     return description;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Description", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Description), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -382,12 +382,12 @@ namespace ASCOM.ShelyakUvex.Rotator
                 try
                 {
                     string driverInfo = RotatorHardware.DriverInfo;
-                    LogMessage("DriverInfo", driverInfo);
+                    LogMessage(nameof(DriverInfo), driverInfo);
                     return driverInfo;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverInfo", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverInfo), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -403,12 +403,12 @@ namespace ASCOM.ShelyakUvex.Rotator
                 try
                 {
                     string driverVersion = RotatorHardware.DriverVersion;
-                    LogMessage("DriverVersion", driverVersion);
+                    LogMessage(nameof(DriverVersion), driverVersion);
                     return driverVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("DriverVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(DriverVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -424,12 +424,12 @@ namespace ASCOM.ShelyakUvex.Rotator
                 try
                 {
                     short interfaceVersion = RotatorHardware.InterfaceVersion;
-                    LogMessage("InterfaceVersion", interfaceVersion.ToString());
+                    LogMessage(nameof(InterfaceVersion), interfaceVersion.ToString());
                     return interfaceVersion;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("InterfaceVersion", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(InterfaceVersion), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -445,12 +445,12 @@ namespace ASCOM.ShelyakUvex.Rotator
                 try
                 {
                     string name = RotatorHardware.Name;
-                    LogMessage("Name Get", name);
+                    LogMessage(nameof(Name) + " Get", name);
                     return name;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Name", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Name), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -472,14 +472,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("CanReverse");
+                    CheckConnected(nameof(CanReverse));
                     bool canReverse = RotatorHardware.CanReverse;
-                    LogMessage("CanReverse", canReverse.ToString());
+                    LogMessage(nameof(CanReverse), canReverse.ToString());
                     return canReverse;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("CanReverse", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(CanReverse), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -492,14 +492,14 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                CheckConnected("Halt");
-                LogMessage("Halt", "Calling method.");
+                CheckConnected(nameof(Halt));
+                LogMessage(nameof(Halt), "Calling method.");
                 RotatorHardware.Halt();
-                LogMessage("Halt", "Completed.");
+                LogMessage(nameof(Halt), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("Halt", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Halt), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -514,14 +514,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("IsMoving");
+                    CheckConnected(nameof(IsMoving));
                     bool isMoving = RotatorHardware.IsMoving;
-                    LogMessage("IsMoving", isMoving.ToString());
+                    LogMessage(nameof(IsMoving), isMoving.ToString());
                     return isMoving;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("IsMoving", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(IsMoving), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -535,14 +535,14 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                CheckConnected("Move");
-                LogMessage("Move", "Calling method.");
+                CheckConnected(nameof(Move));
+                LogMessage(nameof(Move), "Calling method.");
                 RotatorHardware.Move(position);
-                LogMessage("Move", "Completed.");
+                LogMessage(nameof(Move), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("Move", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Move), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -556,14 +556,14 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                CheckConnected("MoveAbsolute");
-                LogMessage("MoveAbsolute", "Calling method.");
+                CheckConnected(nameof(MoveAbsolute));
+                LogMessage(nameof(MoveAbsolute), "Calling method.");
                 RotatorHardware.MoveAbsolute(position);
-                LogMessage("MoveAbsolute", "Completed.");
+                LogMessage(nameof(MoveAbsolute), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("MoveAbsolute", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(MoveAbsolute), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -577,14 +577,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("Position");
+                    CheckConnected(nameof(Position));
                     float position = RotatorHardware.Position;
-                    LogMessage("Position", position.ToString());
+                    LogMessage(nameof(Position), position.ToString());
                     return position;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Position", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Position), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -599,14 +599,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("Reverse Get");
+                    CheckConnected(nameof(Reverse) + " Get");
                     bool canReverse = RotatorHardware.Reverse;
-                    LogMessage("Reverse Get", canReverse.ToString());
+                    LogMessage(nameof(Reverse) + " Get", canReverse.ToString());
                     return canReverse;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Reverse Get", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Reverse) + " Get", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -614,13 +614,13 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("Reverse Set");
-                    LogMessage("Reverse Set", value.ToString());
+                    CheckConnected(nameof(Reverse) + " Set");
+                    LogMessage(nameof(Reverse) + " Set", value.ToString());
                     RotatorHardware.Reverse = value;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("Reverse Set", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(Reverse) + " Set", $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -635,14 +635,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("StepSize");
+                    CheckConnected(nameof(StepSize));
                     float stepSize = RotatorHardware.StepSize;
-                    LogMessage("StepSize", stepSize.ToString());
+                    LogMessage(nameof(StepSize), stepSize.ToString());
                     return stepSize;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("StepSize", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(StepSize), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -657,14 +657,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("TargetPosition");
+                    CheckConnected(nameof(TargetPosition));
                     float targetPosition = RotatorHardware.TargetPosition;
-                    LogMessage("TargetPosition", targetPosition.ToString());
+                    LogMessage(nameof(TargetPosition), targetPosition.ToString());
                     return targetPosition;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("TargetPosition", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(TargetPosition), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -681,14 +681,14 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    CheckConnected("MechanicalPosition");
+                    CheckConnected(nameof(MechanicalPosition));
                     float mechanicalPosition = RotatorHardware.MechanicalPosition;
-                    LogMessage("MechanicalPosition", mechanicalPosition.ToString());
+                    LogMessage(nameof(MechanicalPosition), mechanicalPosition.ToString());
                     return mechanicalPosition;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage("MechanicalPosition", $"Threw an exception: \r\n{ex}");
+                    LogMessage(nameof(MechanicalPosition), $"Threw an exception: \r\n{ex}");
                     throw;
                 }
             }
@@ -702,14 +702,14 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                CheckConnected("AbortExposure");
-                LogMessage("AbortExposure", "Calling method.");
+                CheckConnected(nameof(MoveMechanical));
+                LogMessage(nameof(MoveMechanical), "Calling method.");
                 RotatorHardware.MoveMechanical(position);
-                LogMessage("AbortExposure", "Completed.");
+                LogMessage(nameof(MoveMechanical), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("MoveMechanical", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(MoveMechanical), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }
@@ -722,14 +722,14 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                CheckConnected("Sync");
-                LogMessage("Sync", "Calling method.");
+                CheckConnected(nameof(Sync));
+                LogMessage(nameof(Sync), "Calling method.");
                 RotatorHardware.Sync(position);
-                LogMessage("Sync", "Completed.");
+                LogMessage(nameof(Sync), "Completed.");
             }
             catch (Exception ex)
             {
-                LogMessage("Sync", $"Threw an exception: \r\n{ex}");
+                LogMessage(nameof(Sync), $"Threw an exception: \r\n{ex}");
                 throw;
             }
         }

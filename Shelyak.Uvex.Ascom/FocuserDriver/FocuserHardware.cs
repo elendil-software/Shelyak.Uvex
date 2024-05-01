@@ -35,11 +35,11 @@ namespace ASCOM.ShelyakUvex.Focuser
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
                 DriverProgId = Focuser.DriverProgId;
                 ReadProfile();
-                LogMessage("FocuserHardware", "Static initialiser completed.");
+                LogMessage(nameof(FocuserHardware), "Static initialiser completed.");
             }
             catch (Exception ex)
             {
-                try { LogMessage("FocuserHardware", $"Initialisation exception: {ex}"); } catch { }
+                try { LogMessage(nameof(FocuserHardware), $"Initialisation exception: {ex}"); } catch { }
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.Focuser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
@@ -51,26 +51,26 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            LogMessage("InitialiseHardware", "Start.");
+            LogMessage(nameof(InitialiseHardware), "Start.");
 
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
                 _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
 
-                LogMessage("InitialiseHardware", "Starting one-off initialisation.");
+                LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
                 DriverDescription = Focuser.DriverDescription;
 
-                LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
 
-                LogMessage("InitialiseHardware", "Completed basic initialisation");
+                LogMessage(nameof(InitialiseHardware), "Completed basic initialisation");
                 
                 //TODO vérifier existance port COM ?
 
-                LogMessage("InitialiseHardware", "One-off initialisation complete.");
+                LogMessage(nameof(InitialiseHardware), "One-off initialisation complete.");
                 runOnce = true;
             }
         }
@@ -106,7 +106,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("SupportedActions Get", "Returning empty ArrayList");
+                LogMessage(nameof(SupportedActions) + " Get", "Returning empty ArrayList");
                 return new ArrayList();
             }
         }
@@ -120,7 +120,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </returns>
         public static string Action(string actionName, string actionParameters)
         {
-            LogMessage("Action", $"Action {actionName}, parameters {actionParameters} is not implemented");
+            LogMessage(nameof(Action), $"Action {actionName}, parameters {actionParameters} is not implemented");
             throw new ActionNotImplementedException("Action " + actionName + " is not implemented by this driver");
         }
 
@@ -135,7 +135,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </param>
         public static void CommandBlind(string command, bool raw)
         {
-            CheckConnected("CommandBlind");
+            CheckConnected(nameof(CommandBlind));
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -153,7 +153,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </returns>
         public static bool CommandBool(string command, bool raw)
         {
-            CheckConnected("CommandBool");
+            CheckConnected(nameof(CommandBool));
             throw new MethodNotImplementedException($"CommandBool - Command:{command}, Raw: {raw}.");
         }
 
@@ -171,7 +171,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </returns>
         public static string CommandString(string command, bool raw)
         {
-            CheckConnected("CommandString");
+            CheckConnected(nameof(CommandString));
             throw new MethodNotImplementedException($"CommandString - Command:{command}, Raw: {raw}.");
         }
 
@@ -193,7 +193,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </remarks>
         public static void Dispose()
         {
-            try { LogMessage("Dispose", "Disposing of assets and closing down."); } catch { }
+            try { LogMessage(nameof(Dispose), "Disposing of assets and closing down."); } catch { }
 
             try
             {
@@ -222,12 +222,12 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("Connected", $"Get {IsConnected}");
+                LogMessage(nameof(Connected), $"Get {IsConnected}");
                 return IsConnected;
             }
             set
             {
-                LogMessage("Connected", $"Set {value}");
+                LogMessage(nameof(Connected), $"Set {value}");
                 if (value == IsConnected)
                     return;
 
@@ -241,12 +241,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 
                 if (value)
                 {
-                    LogMessage("Connected Set", $"Connecting to port {FocuserHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Connecting to port {FocuserHardwareSettings.uvexApiUrl}");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage("Connected Set", $"Disconnecting from port {FocuserHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {FocuserHardwareSettings.uvexApiUrl}");
                     connectedState = false;
                 }
             }
@@ -260,7 +260,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("Description Get", DriverDescription);
+                LogMessage(nameof(Description) + " Get", DriverDescription);
                 return DriverDescription;
             }
         }
@@ -274,7 +274,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverInfo = $"Shelyak UVEX. Version: {version.Major}.{version.Minor}";
-                LogMessage("DriverInfo Get", driverInfo);
+                LogMessage(nameof(DriverInfo) + " Get", driverInfo);
                 return driverInfo;
             }
         }
@@ -288,7 +288,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverVersion = $"{version.Major}.{version.Minor}";
-                LogMessage("DriverVersion Get", driverVersion);
+                LogMessage(nameof(DriverVersion) + " Get", driverVersion);
                 return driverVersion;
             }
         }
@@ -300,7 +300,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("InterfaceVersion Get", "3");
+                LogMessage(nameof(InterfaceVersion) + " Get", "3");
                 return Convert.ToInt16("3");
             }
         }
@@ -313,7 +313,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 string name = "Shelyak UVEX";
-                LogMessage("Name Get", name);
+                LogMessage(nameof(Name) + " Get", name);
                 return name;
             }
         }
@@ -333,7 +333,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("Absolute Get", true.ToString());
+                LogMessage(nameof(Absolute) + " Get", true.ToString());
                 return true;
             }
         }
@@ -344,7 +344,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         internal static void Halt()
         {
             _uvexHttpClient.StopFocus();
-            LogMessage("Halt", "Halt command issued");
+            LogMessage(nameof(Halt), "Halt command issued");
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 bool isMoving = _uvexHttpClient.GetFocusPosition().Value.Status == (int)PropertyAttributeStatus.BUSY;
-                LogMessage("IsMoving Get", isMoving.ToString());
+                LogMessage(nameof(IsMoving) + " Get", isMoving.ToString());
                 return isMoving;
             }
         }
@@ -378,7 +378,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 int maxStep = MaxStep;
-                LogMessage("MaxIncrement Get", maxStep.ToString());
+                LogMessage(nameof(MaxIncrement) + " Get", maxStep.ToString());
                 return maxStep;
             }
         }
@@ -392,7 +392,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 float maxPosition = _uvexHttpClient.GetFocusPositionMax().Value.Value;
                 var maxIncrement = maxPosition.ToAscomPosition();
-                LogMessage("MaxStep Get", maxIncrement.ToString(CultureInfo.InvariantCulture));
+                LogMessage(nameof(MaxStep) + " Get", maxIncrement.ToString(CultureInfo.InvariantCulture));
                 return maxIncrement;
             }
         }
@@ -405,7 +405,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             _lastTargetPosition = Position;
             var position = Position.ToUvexPosition();
-            LogMessage("Move", position.ToString(CultureInfo.InvariantCulture));
+            LogMessage(nameof(Move), position.ToString(CultureInfo.InvariantCulture));
             _uvexHttpClient.MoveFocus(position);
         }
 
@@ -428,7 +428,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                     focuserPosition = position.Value.ToAscomPosition();
                 }
                 
-                LogMessage("Position Get", focuserPosition.ToString(CultureInfo.InvariantCulture));
+                LogMessage(nameof(Position) + " Get", focuserPosition.ToString(CultureInfo.InvariantCulture));
                 return focuserPosition;
             }
         }
@@ -451,7 +451,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("StepSize Get", "Not implemented");
+                LogMessage(nameof(StepSize) + " Get", "Not implemented");
                 throw new PropertyNotImplementedException("StepSize", false);
             }
         }
@@ -463,12 +463,12 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("TempComp Get", false.ToString());
+                LogMessage(nameof(TempComp) + " Get", false.ToString());
                 return false;
             }
             set
             {
-                LogMessage("TempComp Set", "Not implemented");
+                LogMessage(nameof(TempComp) + " Set", "Not implemented");
                 throw new PropertyNotImplementedException("TempComp", false);
             }
         }
@@ -480,7 +480,7 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                LogMessage("TempCompAvailable Get", false.ToString());
+                LogMessage(nameof(TempCompAvailable) + " Get", false.ToString());
                 return false;
             }
         }
@@ -493,7 +493,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             get
             {
                 float temperature = _uvexHttpClient.GetTemperature().Value.Value;
-                LogMessage("Temperature Get", temperature.ToString(CultureInfo.InvariantCulture));
+                LogMessage(nameof(Temperature) + " Get", temperature.ToString(CultureInfo.InvariantCulture));
                 return temperature;
             }
         }

@@ -36,11 +36,11 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
                 DriverProgId = FilterWheel.DriverProgId;
                 ReadProfile();
-                LogMessage("FilterWheelHardware", "Static initialiser completed.");
+                LogMessage(nameof(FilterWheelHardware), "Static initialiser completed.");
             }
             catch (Exception ex)
             {
-                try { LogMessage("FilterWheelHardware", $"Initialisation exception: {ex}"); } catch { }
+                try { LogMessage(nameof(FilterWheelHardware), $"Initialisation exception: {ex}"); } catch { }
                 MessageBox.Show($"{ex.Message}", "Exception creating ASCOM.ShelyakUvex.FilterWheel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
@@ -52,27 +52,27 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            LogMessage("InitialiseHardware", "Start.");
+            LogMessage(nameof(InitialiseHardware), "Start.");
 
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
                 _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
                 
-                LogMessage("InitialiseHardware", "Starting one-off initialisation.");
+                LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
                 DriverDescription = FilterWheel.DriverDescription;
 
-                LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
+                LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
 
 
-                LogMessage("InitialiseHardware", "Completed basic initialisation");
+                LogMessage(nameof(InitialiseHardware), "Completed basic initialisation");
 
                 //TODO vérifier existance port COM ?
 
-                LogMessage("InitialiseHardware", "One-off initialisation complete.");
+                LogMessage(nameof(InitialiseHardware), "One-off initialisation complete.");
                 runOnce = true;
             }
         }
@@ -108,7 +108,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("SupportedActions Get", "Returning empty ArrayList");
+                LogMessage(nameof(SupportedActions) + " Get", "Returning empty ArrayList");
                 return new ArrayList();
             }
         }
@@ -122,7 +122,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </returns>
         public static string Action(string actionName, string actionParameters)
         {
-            LogMessage("Action", $"Action {actionName}, parameters {actionParameters} is not implemented");
+            LogMessage(nameof(Action), $"Action {actionName}, parameters {actionParameters} is not implemented");
             throw new ActionNotImplementedException("Action " + actionName + " is not implemented by this driver");
         }
 
@@ -137,7 +137,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </param>
         public static void CommandBlind(string command, bool raw)
         {
-            CheckConnected("CommandBlind");
+            CheckConnected(nameof(CommandBlind));
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -155,7 +155,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </returns>
         public static bool CommandBool(string command, bool raw)
         {
-            CheckConnected("CommandBool"); 
+            CheckConnected(nameof(CommandBool)); 
             throw new MethodNotImplementedException($"CommandBool - Command:{command}, Raw: {raw}.");
         }
 
@@ -173,7 +173,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </returns>
         public static string CommandString(string command, bool raw)
         {
-            CheckConnected("CommandString");
+            CheckConnected(nameof(CommandString));
             throw new MethodNotImplementedException($"CommandString - Command:{command}, Raw: {raw}.");
         }
 
@@ -195,7 +195,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </remarks>
         public static void Dispose()
         {
-            try { LogMessage("Dispose", "Disposing of assets and closing down."); } catch { }
+            try { LogMessage(nameof(Dispose), "Disposing of assets and closing down."); } catch { }
 
             try
             {
@@ -224,23 +224,23 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("Connected", $"Get {IsConnected}");
+                LogMessage(nameof(Connected), $"Get {IsConnected}");
                 return IsConnected;
             }
             set
             {
-                LogMessage("Connected", $"Set {value}");
+                LogMessage(nameof(Connected), $"Set {value}");
                 if (value == IsConnected)
                     return;
                 //TODO Add ComPortChecker like in FocuserHardware
                 if (value)
                 {
-                    LogMessage("Connected Set", $"Connecting to {FilterWheelHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Connecting to {FilterWheelHardwareSettings.uvexApiUrl}");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage("Connected Set", $"Disconnecting from port {FilterWheelHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {FilterWheelHardwareSettings.uvexApiUrl}");
                     connectedState = false;
                 }
             }
@@ -254,7 +254,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("Description Get", DriverDescription);
+                LogMessage(nameof(Description) + " Get", DriverDescription);
                 return DriverDescription;
             }
         }
@@ -268,7 +268,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverInfo = $"Shelyak UVEX. Version: {version.Major}.{version.Minor}";
-                LogMessage("DriverInfo Get", driverInfo);
+                LogMessage(nameof(DriverInfo) + " Get", driverInfo);
                 return driverInfo;
             }
         }
@@ -282,7 +282,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
                 string driverVersion = $"{version.Major}.{version.Minor}";
-                LogMessage("DriverVersion Get", driverVersion);
+                LogMessage(nameof(DriverVersion) + " Get", driverVersion);
                 return driverVersion;
             }
         }
@@ -294,7 +294,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("InterfaceVersion Get", "2");
+                LogMessage(nameof(InterfaceVersion) + " Get", "2");
                 return Convert.ToInt16("2");
             }
         }
@@ -307,7 +307,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             get
             {
                 string name = "Shelyak UVEX";
-                LogMessage("Name Get", name);
+                LogMessage(nameof(Name) + " Get", name);
                 return name;
             }
         }
@@ -326,7 +326,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             get
             {
-                LogMessage("FocusOffsets Get", "This device doesn't support FocusOffsets, returning 0 for all filters");
+                LogMessage(nameof(FocusOffsets) + " Get", "This device doesn't support FocusOffsets, returning 0 for all filters");
                 return new int[4] { 0, 0, 0, 0 };
             }
         }
@@ -340,7 +340,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 foreach (string fwName in fwNames)
                 {
-                    LogMessage("Names Get", fwName);
+                    LogMessage(nameof(Names) + " Get", fwName);
                 }
 
                 return fwNames;
@@ -355,15 +355,15 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             get
             {
                 LightSource lightSource = _uvexHttpClient.GetLightSource().Value.Value;
-                LogMessage("Position Get", lightSource.ToString());
+                LogMessage(nameof(Position) + " Get", lightSource.ToString());
                 return (short)lightSource;
             }
             set
             {
-                LogMessage("Position Set", value.ToString());
+                LogMessage(nameof(Position) + " Set", value.ToString());
                 if ((value < 0) || (value > fwNames.Length - 1))
                 {
-                    LogMessage("", "Throwing InvalidValueException - Position: " + value + ", Range: 0 to " + (fwNames.Length - 1));
+                    LogMessage(nameof(Position), "Throwing InvalidValueException - Position: " + value + ", Range: 0 to " + (fwNames.Length - 1));
                     throw new InvalidValueException("Position", value.ToString(), "0 to " + (fwNames.Length - 1));
                 }
                 
