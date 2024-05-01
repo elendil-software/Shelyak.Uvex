@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using ASCOM.ShelyakUvex;
 using ASCOM.Utilities;
 
 namespace ASCOM.LocalServer
@@ -52,7 +54,7 @@ namespace ASCOM.LocalServer
 
         private bool IsUvexServerRunning()
         {
-            return Process.GetProcesses().Any(p => p.ProcessName.Contains("Shelyak.Uvex.Web"));
+            return Process.GetProcesses().Any(p => p.ProcessName.Contains(UvexConst.UvexProcess));
         }
 
         private void StartUvexServer()
@@ -60,7 +62,10 @@ namespace ASCOM.LocalServer
             try
             {
                 _logger.LogMessage(nameof(UvexServerState), "Starting Uvex server");
-                Process.Start("C:/Program Files/Shelyak/Uvex/Shelyak.Uvex.Web.exe", "--ascom");
+                var shelyakUvexPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Shelyak", "Uvex", UvexConst.UvexProcess + ".exe");
+                Process.Start(shelyakUvexPath, "--ascom");
+                
+                
             }
             catch (Exception ex)
             {
