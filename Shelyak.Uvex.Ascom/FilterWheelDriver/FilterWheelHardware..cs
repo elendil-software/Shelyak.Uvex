@@ -3,7 +3,6 @@ using System.Collections;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using ASCOM.Astrometry.AstroUtils;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
@@ -23,8 +22,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         private static string DriverDescription = "";
         private static bool connectedState;
         private static bool runOnce;
-        internal static Util utilities;
-        internal static AstroUtils astroUtilities;
         internal static TraceLogger tl;
 
         private static UvexHttpClient _uvexHttpClient;
@@ -64,13 +61,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
-                DriverDescription = FilterWheel.DriverDescription; // Get this device's Chooser description
+                DriverDescription = FilterWheel.DriverDescription;
 
                 LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
-                connectedState = false; // Initialise connected to false
-                utilities = new Util(); //Initialise ASCOM Utilities object
-                astroUtilities = new AstroUtils(); // Initialise ASCOM Astronomy Utilities object
+                connectedState = false;
+
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
 
@@ -215,20 +211,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
-            }
-            catch { }
-
-            try
-            {
-                utilities.Dispose();
-                utilities = null;
-            }
-            catch { }
-
-            try
-            {
-                astroUtilities.Dispose();
-                astroUtilities = null;
             }
             catch { }
         }

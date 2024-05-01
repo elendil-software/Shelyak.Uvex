@@ -22,7 +22,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         private static string DriverDescription = "";
         private static bool connectedState;
         private static bool runOnce;
-        internal static Util utilities;
         internal static AstroUtils astroUtilities;
         internal static TraceLogger tl;
 
@@ -69,7 +68,6 @@ namespace ASCOM.ShelyakUvex.Rotator
                 LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
-                utilities = new Util();
                 astroUtilities = new AstroUtils();
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
@@ -213,13 +211,6 @@ namespace ASCOM.ShelyakUvex.Rotator
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
-            }
-            catch { }
-
-            try
-            {
-                utilities.Dispose();
-                utilities = null;
             }
             catch { }
 

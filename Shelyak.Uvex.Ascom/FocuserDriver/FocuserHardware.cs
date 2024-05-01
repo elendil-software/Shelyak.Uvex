@@ -3,7 +3,6 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
-using ASCOM.Astrometry.AstroUtils;
 using ASCOM.ShelyakUvex.FocuserDriver;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
@@ -24,8 +23,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         private static string DriverDescription = "";
         private static bool connectedState;
         private static bool runOnce;
-        internal static Util utilities;
-        internal static AstroUtils astroUtilities;
         internal static TraceLogger tl;
 
         /// <summary>
@@ -63,13 +60,11 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
-                DriverDescription = Focuser.DriverDescription; // Get this device's Chooser description
+                DriverDescription = Focuser.DriverDescription;
 
                 LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
                 connectedState = false;
-                utilities = new Util();
-                astroUtilities = new AstroUtils();
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
                 
@@ -214,20 +209,6 @@ namespace ASCOM.ShelyakUvex.Focuser
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
-            }
-            catch { }
-
-            try
-            {
-                utilities.Dispose();
-                utilities = null;
-            }
-            catch { }
-
-            try
-            {
-                astroUtilities.Dispose();
-                astroUtilities = null;
             }
             catch { }
         }
