@@ -11,10 +11,6 @@ using Shelyak.Usis.Enums;
 
 namespace ASCOM.ShelyakUvex.Focuser
 {
-    //
-    // TODO Replace the not implemented exceptions with code to implement the function or throw the appropriate ASCOM exception.
-    //
-
     /// <summary>
     /// ASCOM Focuser hardware class for ShelyakUvex.
     /// </summary>
@@ -154,9 +150,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         public static void CommandBlind(string command, bool raw)
         {
             CheckConnected("CommandBlind");
-            // TODO The optional CommandBlind method should either be implemented OR throw a MethodNotImplementedException
-            // If implemented, CommandBlind must send the supplied command to the mount and return immediately without waiting for a response
-
             throw new MethodNotImplementedException($"CommandBlind - Command:{command}, Raw: {raw}.");
         }
 
@@ -200,7 +193,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// Deterministically release both managed and unmanaged resources that are used by this class.
         /// </summary>
         /// <remarks>
-        /// TODO: Release any managed or unmanaged resources that are used in this class.
         /// 
         /// Do not call this method from the Dispose method in your driver class.
         ///
@@ -549,7 +541,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             get
             {
-                // TODO check that the driver hardware connection exists and is connected to the hardware
                 return connectedState;
             }
         }

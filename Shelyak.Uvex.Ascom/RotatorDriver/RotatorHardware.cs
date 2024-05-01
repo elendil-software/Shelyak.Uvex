@@ -193,7 +193,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Deterministically release both managed and unmanaged resources that are used by this class.
         /// </summary>
         /// <remarks>
-        /// TODO: Release any managed or unmanaged resources that are used in this class.
         /// 
         /// Do not call this method from the Dispose method in your driver class.
         ///

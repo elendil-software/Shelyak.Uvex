@@ -39,7 +39,6 @@ namespace ASCOM.LocalServer
         /// Deterministically release both managed and unmanaged resources that are used by this class.
         /// </summary>
         /// <remarks>
-        /// TODO: Release any managed or unmanaged resources that are used in this class.
         /// 
         /// Do not call this method from the FocuserHardware.Dispose() method in your hardware class.
         ///
@@ -109,7 +108,6 @@ namespace ASCOM.LocalServer
         /// </remarks>
         public static string SendMessage(string message)
         {
-            // TODO update this with your requirements
             lock (lockObject)
             {
                 SharedSerial.Transmit(message);

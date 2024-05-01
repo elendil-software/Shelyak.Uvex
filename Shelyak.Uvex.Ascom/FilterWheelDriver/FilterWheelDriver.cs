@@ -1,13 +1,3 @@
-// TODO fill in this information for your driver, then remove this line!
-//
-// ASCOM FilterWheel driver for ShelyakUvex
-//
-// Description:	 <To be completed by driver developer>
-//
-// Implements:	ASCOM FilterWheel interface version: <To be completed by driver developer>
-// Author:		(XXX) Your N. Here <your@email.here>
-//
-
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
