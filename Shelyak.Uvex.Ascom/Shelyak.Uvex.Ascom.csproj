@@ -210,7 +210,6 @@
     <Content Include="InnoSetup\WizardImage.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ReadMe.htm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
