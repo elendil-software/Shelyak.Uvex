@@ -18,13 +18,13 @@ namespace ASCOM.ShelyakUvex.Rotator
         internal const string traceStateProfileName = "Trace Level";
         internal const string traceStateDefault = "true";
 
-        private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
-        private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
-        private static bool connectedState; // Local server's connected state
-        private static bool runOnce; // Flag to enable "one-off" activities only to run once.
-        internal static Util utilities; // ASCOM Utilities object for use as required
-        internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
-        internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
+        private static string DriverProgId = "";
+        private static string DriverDescription = "";
+        private static bool connectedState;
+        private static bool runOnce;
+        internal static Util utilities;
+        internal static AstroUtils astroUtilities;
+        internal static TraceLogger tl;
 
         private static UvexHttpClient _uvexHttpClient;
         
@@ -35,15 +35,10 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                // Create the hardware trace logger in the static initialiser.
-                // All other initialisation should go in the InitialiseHardware method.
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
 
-                // DriverProgId has to be set here because it used by ReadProfile to get the TraceState flag.
-                DriverProgId = Rotator.DriverProgId; // Get this device's ProgID so that it can be used to read the Profile configuration values
-
-                // ReadProfile has to go here before anything is written to the log because it loads the TraceLogger enable / disable state.
-                ReadProfile(); // Read device configuration from the ASCOM Profile store, including the trace state
+                DriverProgId = Rotator.DriverProgId;
+                ReadProfile();
 
                 LogMessage("RotatorHardware", "Static initialiser completed.");
             }
@@ -61,30 +56,26 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            // This method will be called every time a new ASCOM client loads your driver
             LogMessage("InitialiseHardware", "Start.");
 
-            // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
                 _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
                 
                 LogMessage("InitialiseHardware", "Starting one-off initialisation.");
 
-                DriverDescription = Rotator.DriverDescription; // Get this device's Chooser description
+                DriverDescription = Rotator.DriverDescription;
 
                 LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
-                connectedState = false; // Initialise connected to false
-                utilities = new Util(); //Initialise ASCOM Utilities object
-                astroUtilities = new AstroUtils(); // Initialise ASCOM Astronomy Utilities object
+                connectedState = false;
+                utilities = new Util();
+                astroUtilities = new AstroUtils();
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
-
-                // Add your own "one off" device initialisation here e.g. validating existence of hardware and setting up communications
-
+                
                 LogMessage("InitialiseHardware", "One-off initialisation complete.");
-                runOnce = true; // Set the flag to ensure that this code is not run again
+                runOnce = true;
             }
         }
 
@@ -100,7 +91,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </summary>
         public static void SetupDialog()
         {
-            // Don't permit the setup dialogue if already connected
             if (IsConnected)
                 MessageBox.Show("Already connected, just press OK");
 
@@ -109,7 +99,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 var result = F.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    WriteProfile(); // Persist device configuration values to the ASCOM Profile store
+                    WriteProfile();
                 }
             }
         }
@@ -126,8 +116,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         }
 
         /// <summary>Invokes the specified device-specific custom action.</summary>
-        /// <param name="ActionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
-        /// <param name="ActionParameters">List of required parameters or an <see cref="string.Empty">Empty String</see> if none are required.</param>
+        /// <param name="actionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
+        /// <param name="actionParameters">List of required parameters or an <see cref="string.Empty">Empty String</see> if none are required.</param>
         /// <returns>A string response. The meaning of returned strings is set by the driver author.
         /// <para>Suppose filter wheels start to appear with automatic wheel changers; new actions could be <c>QueryWheels</c> and <c>SelectWheel</c>. The former returning a formatted list
         /// of wheel names and the second taking a wheel name and making the change, returning appropriate values to indicate success or failure.</para>
@@ -142,8 +132,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and does not wait for a response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -157,8 +147,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and waits for a boolean response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -175,8 +165,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and waits for a string response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -220,7 +210,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             
             try
             {
-                // Clean up the trace logger and utility objects
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
@@ -345,7 +334,7 @@ namespace ASCOM.ShelyakUvex.Rotator
 
         #region IRotator Implementation
 
-        private static float rotatorPosition; // Synced or mechanical position angle of the rotator
+        private static float rotatorPosition;
 
         /// <summary>
         /// Indicates whether the Rotator supports the <see cref="Reverse" /> method.
@@ -411,7 +400,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Absolute position in degrees.</param>
         internal static void MoveAbsolute(float Position)
         {
-            LogMessage("MoveAbsolute", $"Move to position {Position.ToString()}"); // Move to this position
+            LogMessage("MoveAbsolute", $"Move to position {Position.ToString()}");
             
             float newPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
             _uvexHttpClient.SetGratingAngle(newPosition);
@@ -511,7 +500,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         #endregion
 
         #region Private properties and methods
-        // Useful methods that can be used as required to help with driver development
 
         /// <summary>
         /// Returns true if there is a valid connection to the driver hardware

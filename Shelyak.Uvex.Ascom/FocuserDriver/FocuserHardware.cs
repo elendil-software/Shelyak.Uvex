@@ -14,19 +14,19 @@ namespace ASCOM.ShelyakUvex.Focuser
     /// <summary>
     /// ASCOM Focuser hardware class for ShelyakUvex.
     /// </summary>
-    [HardwareClass] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
+    [HardwareClass]
     internal static class FocuserHardware
     {
         internal const string traceStateProfileName = "Trace Level";
         internal const string traceStateDefault = "true";
 
-        private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
-        private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
-        private static bool connectedState; // Local server's connected state
-        private static bool runOnce; // Flag to enable "one-off" activities only to run once.
-        internal static Util utilities; // ASCOM Utilities object for use as required
-        internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
-        internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
+        private static string DriverProgId = "";
+        private static string DriverDescription = "";
+        private static bool connectedState;
+        private static bool runOnce;
+        internal static Util utilities;
+        internal static AstroUtils astroUtilities;
+        internal static TraceLogger tl;
 
         /// <summary>
         /// Initializes a new instance of the device Hardware class.
@@ -35,16 +35,9 @@ namespace ASCOM.ShelyakUvex.Focuser
         {
             try
             {
-                // Create the hardware trace logger in the static initialiser.
-                // All other initialisation should go in the InitialiseHardware method.
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
-
-                // DriverProgId has to be set here because it used by ReadProfile to get the TraceState flag.
-                DriverProgId = Focuser.DriverProgId; // Get this device's ProgID so that it can be used to read the Profile configuration values
-
-                // ReadProfile has to go here before anything is written to the log because it loads the TraceLogger enable / disable state.
-                ReadProfile(); // Read device configuration from the ASCOM Profile store, including the trace state
-
+                DriverProgId = Focuser.DriverProgId;
+                ReadProfile();
                 LogMessage("FocuserHardware", "Static initialiser completed.");
             }
             catch (Exception ex)
@@ -61,7 +54,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            // This method will be called every time a new ASCOM client loads your driver
             LogMessage("InitialiseHardware", "Start.");
 
             // Make sure that "one off" activities are only undertaken once
@@ -75,16 +67,16 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 LogMessage("InitialiseHardware", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
-                connectedState = false; // Initialise connected to false
-                utilities = new Util(); //Initialise ASCOM Utilities object
-                astroUtilities = new AstroUtils(); // Initialise ASCOM Astronomy Utilities object
+                connectedState = false;
+                utilities = new Util();
+                astroUtilities = new AstroUtils();
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
-
-                // Add your own "one off" device initialisation here e.g. validating existence of hardware and setting up communications
+                
+                //TODO vérifier existance port COM ?
 
                 LogMessage("InitialiseHardware", "One-off initialisation complete.");
-                runOnce = true; // Set the flag to ensure that this code is not run again
+                runOnce = true;
             }
         }
 
@@ -100,7 +92,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </summary>
         public static void SetupDialog()
         {
-            // Don't permit the setup dialogue if already connected
             if (IsConnected)
                 MessageBox.Show("Already connected, just press OK");
 
@@ -109,7 +100,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 var result = F.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    WriteProfile(); // Persist device configuration values to the ASCOM Profile store
+                    WriteProfile();
                 }
             }
         }
@@ -142,8 +133,8 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// Transmits an arbitrary string to the device and does not wait for a response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -157,8 +148,8 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// Transmits an arbitrary string to the device and waits for a boolean response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -175,8 +166,8 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// Transmits an arbitrary string to the device and waits for a string response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -220,7 +211,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             
             try
             {
-                // Clean up the trace logger and utility objects
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
@@ -327,7 +317,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         /// </summary>
         public static short InterfaceVersion
         {
-            // set by the driver wizard
             get
             {
                 LogMessage("InterfaceVersion Get", "3");
@@ -352,7 +341,6 @@ namespace ASCOM.ShelyakUvex.Focuser
 
         #region IFocuser Implementation
 
-        //private static int focuserPosition; // Class level variable to hold the current focuser position
         private static UvexHttpClient _uvexHttpClient;
         private static int _lastTargetPosition;
         private static float _focusPrecision = -1;
@@ -532,7 +520,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         #endregion
 
         #region Private properties and methods
-        // Useful methods that can be used as required to help with driver development
 
         /// <summary>
         /// Returns true if there is a valid connection to the driver hardware

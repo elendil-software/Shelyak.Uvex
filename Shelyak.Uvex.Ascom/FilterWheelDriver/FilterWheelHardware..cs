@@ -13,19 +13,19 @@ namespace ASCOM.ShelyakUvex.FilterWheel
     /// <summary>
     /// ASCOM FilterWheel hardware class for ShelyakUvex.
     /// </summary>
-    [HardwareClass] // Class attribute flag this as a device hardware class that needs to be disposed by the local server when it exits.
+    [HardwareClass]
     internal static class FilterWheelHardware
     {
         internal const string traceStateProfileName = "Trace Level";
         internal const string traceStateDefault = "true";
 
-        private static string DriverProgId = ""; // ASCOM DeviceID (COM ProgID) for this driver, the value is set by the driver's class initialiser.
-        private static string DriverDescription = ""; // The value is set by the driver's class initialiser.
-        private static bool connectedState; // Local server's connected state
-        private static bool runOnce; // Flag to enable "one-off" activities only to run once.
-        internal static Util utilities; // ASCOM Utilities object for use as required
-        internal static AstroUtils astroUtilities; // ASCOM AstroUtilities object for use as required
-        internal static TraceLogger tl; // Local server's trace logger object for diagnostic log with information that you specify
+        private static string DriverProgId = "";
+        private static string DriverDescription = "";
+        private static bool connectedState;
+        private static bool runOnce;
+        internal static Util utilities;
+        internal static AstroUtils astroUtilities;
+        internal static TraceLogger tl;
 
         private static UvexHttpClient _uvexHttpClient;
         
@@ -36,16 +36,9 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             try
             {
-                // Create the hardware trace logger in the static initialiser.
-                // All other initialisation should go in the InitialiseHardware method.
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
-
-                // DriverProgId has to be set here because it used by ReadProfile to get the TraceState flag.
-                DriverProgId = FilterWheel.DriverProgId; // Get this device's ProgID so that it can be used to read the Profile configuration values
-
-                // ReadProfile has to go here before anything is written to the log because it loads the TraceLogger enable / disable state.
-                ReadProfile(); // Read device configuration from the ASCOM Profile store, including the trace state
-
+                DriverProgId = FilterWheel.DriverProgId;
+                ReadProfile();
                 LogMessage("FilterWheelHardware", "Static initialiser completed.");
             }
             catch (Exception ex)
@@ -62,7 +55,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// <remarks>Called every time a new instance of the driver is created.</remarks>
         internal static void InitialiseHardware()
         {
-            // This method will be called every time a new ASCOM client loads your driver
             LogMessage("InitialiseHardware", "Start.");
 
             // Make sure that "one off" activities are only undertaken once
@@ -82,10 +74,10 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
                 LogMessage("InitialiseHardware", "Completed basic initialisation");
 
-                // Add your own "one off" device initialisation here e.g. validating existence of hardware and setting up communications
+                //TODO vérifier existance port COM ?
 
                 LogMessage("InitialiseHardware", "One-off initialisation complete.");
-                runOnce = true; // Set the flag to ensure that this code is not run again
+                runOnce = true;
             }
         }
 
@@ -101,7 +93,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </summary>
         public static void SetupDialog()
         {
-            // Don't permit the setup dialogue if already connected
             if (IsConnected)
                 MessageBox.Show("Already connected, just press OK");
 
@@ -110,7 +101,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 var result = F.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    WriteProfile(); // Persist device configuration values to the ASCOM Profile store
+                    WriteProfile();
                 }
             }
         }
@@ -127,8 +118,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         }
 
         /// <summary>Invokes the specified device-specific custom action.</summary>
-        /// <param name="ActionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
-        /// <param name="ActionParameters">List of required parameters or an <see cref="string.Empty">Empty String</see> if none are required.</param>
+        /// <param name="actionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
+        /// <param name="actionParameters">List of required parameters or an <see cref="string.Empty">Empty String</see> if none are required.</param>
         /// <returns>A string response. The meaning of returned strings is set by the driver author.
         /// <para>Suppose filter wheels start to appear with automatic wheel changers; new actions could be <c>QueryWheels</c> and <c>SelectWheel</c>. The former returning a formatted list
         /// of wheel names and the second taking a wheel name and making the change, returning appropriate values to indicate success or failure.</para>
@@ -143,8 +134,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// Transmits an arbitrary string to the device and does not wait for a response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -158,8 +149,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// Transmits an arbitrary string to the device and waits for a boolean response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -176,8 +167,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// Transmits an arbitrary string to the device and waits for a string response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -221,7 +212,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             
             try
             {
-                // Clean up the trace logger and utility objects
                 tl.Enabled = false;
                 tl.Dispose();
                 tl = null;
@@ -320,7 +310,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// </summary>
         public static short InterfaceVersion
         {
-            // set by the driver wizard
             get
             {
                 LogMessage("InterfaceVersion Get", "2");
@@ -346,7 +335,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         #region IFilerWheel Implementation
         
         private static string[] fwNames = new string[4] { LightSource.SKY.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString(), LightSource.DARK.ToString() };
-        private static short fwPosition; // class level variable to retain the current filter wheel position
+        private static short fwPosition;
 
         /// <summary>
         /// Focus offset of each filter in the wheel
@@ -411,7 +400,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         #endregion
 
         #region Private properties and methods
-        // Useful methods that can be used as required to help with driver development
 
         /// <summary>
         /// Returns true if there is a valid connection to the driver hardware

@@ -9,32 +9,22 @@ using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.Rotator
 {
-    //
-    // This code is mostly a presentation layer for the functionality in the RotatorHardware class. You should not need to change the contents of this file very much, if at all.
-    // Most customisation will be in the RotatorHardware class, which is shared by all instances of the driver, and which must handle all aspects of communicating with your device.
-    //
-    // Your driver's DeviceID is ASCOM.ShelyakUvex.Rotator
-    //
-    // The COM Guid attribute sets the CLSID for ASCOM.ShelyakUvex.Rotator
-    // The COM ClassInterface/None attribute prevents an empty interface called _ShelyakUvex from being created and used as the [default] interface
-    //
-
     /// <summary>
     /// ASCOM Rotator Driver for ShelyakUvex.
     /// </summary>
     [ComVisible(true)]
     [Guid("4cc4e64d-8781-4c86-89d5-9c1aa4c9e10c")]
     [ProgId("ASCOM.ShelyakUvex.Rotator")]
-    [ServedClassName("Shelyak Uvex")] // Driver description that appears in the Chooser, customise as required
+    [ServedClassName("Shelyak Uvex")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Rotator : ReferenceCountedObjectBase, IRotatorV3, IDisposable
     {
-        internal static string DriverProgId; // ASCOM DeviceID (COM ProgID) for this driver, the value is retrieved from the ServedClassName attribute in the class initialiser.
-        internal static string DriverDescription; // The value is retrieved from the ServedClassName attribute in the class initialiser.
+        
+        internal static string DriverProgId;
+        internal static string DriverDescription;
 
-        // connectedState holds the connection state from this driver instance's perspective, as opposed to the local server's perspective, which may be different because of other client connections.
-        internal bool connectedState; // The connected state from this driver's perspective)
-        internal TraceLogger tl; // Trace logger object to hold diagnostic information just for this instance of the driver, as opposed to the local server's log, which includes activity from all driver instances.
+        internal bool connectedState;
+        internal TraceLogger tl; 
         private bool disposedValue;
 
         #region Initialisation and Dispose
@@ -46,30 +36,22 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                // Pull the ProgID from the ProgID class attribute.
                 Attribute attr = Attribute.GetCustomAttribute(GetType(), typeof(ProgIdAttribute));
-                DriverProgId = ((ProgIdAttribute)attr).Value ?? "PROGID NOT SET!";  // Get the driver ProgIDfrom the ProgID attribute.
+                DriverProgId = ((ProgIdAttribute)attr).Value ?? "PROGID NOT SET!";
 
-                // Pull the display name from the ServedClassName class attribute.
                 attr = Attribute.GetCustomAttribute(GetType(), typeof(ServedClassNameAttribute));
-                DriverDescription = ((ServedClassNameAttribute)attr).DisplayName ?? "DISPLAY NAME NOT SET!";  // Get the driver description that displays in the ASCOM Chooser from the ServedClassName attribute.
+                DriverDescription = ((ServedClassNameAttribute)attr).DisplayName ?? "DISPLAY NAME NOT SET!";  
 
-                // LOGGING CONFIGURATION
-                // By default all driver logging will appear in Hardware log file
-                // If you would like each instance of the driver to have its own log file as well, uncomment the lines below
-
-                tl = new TraceLogger("", "ShelyakUvex.Driver"); // Remove the leading ASCOM. from the ProgId because this will be added back by TraceLogger.
+                tl = new TraceLogger("", "ShelyakUvex.Driver");
                 SetTraceState();
-
-                // Initialise the hardware if required
+                
                 RotatorHardware.InitialiseHardware();
 
                 LogMessage("Rotator", "Starting driver initialisation");
                 LogMessage("Rotator", $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
-                connectedState = false; // Initialise connected to false
-
-
+                connectedState = false;
+                
                 LogMessage("Rotator", "Completed initialisation");
             }
             catch (Exception ex)
@@ -85,9 +67,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <remarks>See the Dispose(bool disposing) remarks for further information.</remarks>
         ~Rotator()
         {
-            // Please do not change this code.
-            // The Dispose(false) method is called here just to release unmanaged resources. Managed resources will be dealt with automatically by the .NET runtime.
-
             Dispose(false);
         }
 
@@ -99,11 +78,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// </remarks>
         public void Dispose()
         {
-            // Please do not change the code in this method.
-
-            // Release resources now.
             Dispose(disposing: true);
-
             // Do not add GC.SuppressFinalize(this); here because it breaks the ReferenceCountedObjectBase COM connection counting mechanic
         }
 
@@ -135,9 +110,6 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     try
                     {
-                        // Dispose of managed objects here
-
-                        // Clean up the trace logger object
                         if (!(tl is null))
                         {
                             tl.Enabled = false;
@@ -150,17 +122,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                         // Any exception is not re-thrown because Microsoft's best practice says not to return exceptions from the Dispose method. 
                     }
                 }
-
-                try
-                {
-                    // Dispose of unmanaged objects, if any, here (OS handles etc.)
-                }
-                catch (Exception)
-                {
-                    // Any exception is not re-thrown because Microsoft's best practice says not to return exceptions from the Dispose method. 
-                }
-
-                // Flag that Dispose() has already run and disposed of all resources
+                
                 disposedValue = true;
             }
         }
@@ -181,11 +143,11 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                if (connectedState) // Don't show if already connected
+                if (connectedState)
                 {
                     MessageBox.Show("Already connected, just press OK");
                 }
-                else // Show dialogue
+                else
                 {
                     LogMessage("SetupDialog", "Calling SetupDialog.");
                     RotatorHardware.SetupDialog();
@@ -221,8 +183,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         }
 
         /// <summary>Invokes the specified device-specific custom action.</summary>
-        /// <param name="ActionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
-        /// <param name="ActionParameters">List of required parameters or an <see cref="String.Empty">Empty String</see> if none are required.</param>
+        /// <param name="actionName">A well known name agreed by interested parties that represents the action to be carried out.</param>
+        /// <param name="actionParameters">List of required parameters or an <see cref="String.Empty">Empty String</see> if none are required.</param>
         /// <returns>A string response. The meaning of returned strings is set by the driver author.
         /// <para>Suppose filter wheels start to appear with automatic wheel changers; new actions could be <c>QueryWheels</c> and <c>SelectWheel</c>. The former returning a formatted list
         /// of wheel names and the second taking a wheel name and making the change, returning appropriate values to indicate success or failure.</para>
@@ -248,8 +210,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and does not wait for a response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -273,8 +235,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and waits for a boolean response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -302,8 +264,8 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// Transmits an arbitrary string to the device and waits for a string response.
         /// Optionally, protocol framing characters may be added to the string before transmission.
         /// </summary>
-        /// <param name="Command">The literal command string to be transmitted.</param>
-        /// <param name="Raw">
+        /// <param name="command">The literal command string to be transmitted.</param>
+        /// <param name="raw">
         /// if set to <c>true</c> the string is transmitted 'as-is'.
         /// If set to <c>false</c> then protocol framing characters may be added prior to transmission.
         /// </param>
@@ -419,7 +381,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    // This should work regardless of whether or not the driver is Connected, hence no CheckConnected method.
                     string driverInfo = RotatorHardware.DriverInfo;
                     LogMessage("DriverInfo", driverInfo);
                     return driverInfo;
@@ -441,7 +402,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    // This should work regardless of whether or not the driver is Connected, hence no CheckConnected method.
                     string driverVersion = RotatorHardware.DriverVersion;
                     LogMessage("DriverVersion", driverVersion);
                     return driverVersion;
@@ -463,7 +423,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    // This should work regardless of whether or not the driver is Connected, hence no CheckConnected method.
                     short interfaceVersion = RotatorHardware.InterfaceVersion;
                     LogMessage("InterfaceVersion", interfaceVersion.ToString());
                     return interfaceVersion;
@@ -485,7 +444,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    // This should work regardless of whether or not the driver is Connected, hence no CheckConnected method.
                     string name = RotatorHardware.Name;
                     LogMessage("Name Get", name);
                     return name;
@@ -779,7 +737,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         #endregion
 
         #region Private properties and methods
-        // Useful properties and methods that can be used as required to help with driver development
 
         /// <summary>
         /// Use this function to throw an exception if we aren't connected to the hardware
@@ -800,16 +757,12 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="message">Message to be logged.</param>
         private void LogMessage(string identifier, string message)
         {
-            // This code is currently set to write messages to an individual driver log AND to the shared hardware log.
-
-            // Write to the individual log for this specific instance (if enabled by the driver having a TraceLogger instance)
             if (tl != null)
             {
-                tl.LogMessageCrLf(identifier, message); // Write to the individual driver log
+                tl.LogMessageCrLf(identifier, message);
             }
 
-            // Write to the common hardware log shared by all running instances of the driver.
-            RotatorHardware.LogMessage(identifier, message); // Write to the local server logger
+            RotatorHardware.LogMessage(identifier, message);
         }
 
         /// <summary>
