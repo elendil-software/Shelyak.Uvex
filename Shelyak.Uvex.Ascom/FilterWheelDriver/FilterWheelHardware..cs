@@ -260,7 +260,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 LogMessage("Connected", $"Set {value}");
                 if (value == IsConnected)
                     return;
-
+                //TODO Add ComPortChecker like in FocuserHardware
                 if (value)
                 {
                     LogMessage("Connected Set", $"Connecting to {FilterWheelHardwareSettings.uvexApiUrl}");

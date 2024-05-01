@@ -256,6 +256,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             }
             set
             {
+                //TODO Add ComPortChecker like in FocuserHardware
                 LogMessage("Connected", $"Set {value}");
                 if (value == IsConnected)
                     return;
