@@ -13,3 +13,21 @@
         </dl>
     </CardBody>
 </Card>
+
+@code
+{
+    public float CurrentTemperature { get; set; }
+  
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
+    
+    protected override async Task LoadData()
+    {
+        var response = await UvexHttpClient.GetTemperature();
+        HandleAlpacaError(response);
+        CurrentTemperature = response.Value.Value;
+    }
+}
