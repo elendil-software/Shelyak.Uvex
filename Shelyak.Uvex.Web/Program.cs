@@ -19,6 +19,8 @@ try
     
     builder.AddConfiguration();
     
+    builder.Services.AddLocalization();
+    
     builder.Services.AddRazorComponents()
         .AddInteractiveServerComponents();
     
@@ -31,6 +33,8 @@ try
     WebApplication app = builder.Build();
     app.UseSerilogRequestLogging();
 
+    app.UseLocalization();
+    
     app.UseOutputCache(); 
 
     if (!app.Environment.IsDevelopment())

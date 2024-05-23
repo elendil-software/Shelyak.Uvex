@@ -24,6 +24,7 @@
     <PackageReference Include="FastEndpoints" Version="5.23.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.23.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.5" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.2" />
@@ -53,6 +54,21 @@
     <Content Update="appsettings.Development.json">
       <DependentUpon>appsettings.json</DependentUpon>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Locales\LocalizationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizationResoures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Locales\LocalizationResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LocalizationResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,16 @@
 ﻿@page "/Configuration"
 @using System.ComponentModel.DataAnnotations
 @using System.IO.Ports
+@using Microsoft.Extensions.Localization
 @using Microsoft.Extensions.Options
 @using Shelyak.Usis
 @using Shelyak.Uvex.Web.Core.Settings
 @using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime
 @rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
 
-<PageTitle>Configuration</PageTitle>
-<h3>Configuration</h3>
+<PageTitle>@Loc["Configuration_Title"]</PageTitle>
+<h3>@Loc["Configuration_Title"]</h3>
 
 <Toasts class="p-3" AutoHide="true" Delay="4000" Placement="ToastsPlacement.TopRight" />
 
