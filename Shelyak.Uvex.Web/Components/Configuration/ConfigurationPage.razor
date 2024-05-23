@@ -19,9 +19,9 @@
 
     <Card Class="mb-4">
         <CardBody>
-            <CardTitle>Uvex</CardTitle>
+            <CardTitle>@Loc["Configuration_CardTitle_UVEX"]</CardTitle>
             <div class="row mb-4">
-                <label for="comPorts" class="col-sm-2 col-form-label">Port COM</label>
+                <label for="comPorts" class="col-sm-2 col-form-label">@Loc["Configuration_Label_COM Port"]</label>
                 <div class="col-sm-4">
                     <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select" id="comPorts">
                         <option value=""></option>
@@ -33,17 +33,17 @@
                     <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
                 </div>
             </div>
-            <button class="btn btn-primary">Enregistrer</button>
+            <button class="btn btn-primary">@Loc["Button_Save"]</button>
         </CardBody>
     </Card>
 </EditForm>
 
 <Card Class="mb-4">
     <CardBody>
-        <CardTitle>Serveur</CardTitle>
+        <CardTitle>@Loc["Configuration_CardTitle_Server"]</CardTitle>
         <div>
-            <p>Arrêter le serveur</p>
-            <button class="btn btn-secondary" @onclick="ShutdownApp">Shutdown</button>
+            <p>@Loc["Configuration_Shutdown server"]</p>
+            <button class="btn btn-secondary" @onclick="ShutdownApp">@Loc["Button_Shutdown"]</button>
         </div>
     </CardBody>
 </Card>

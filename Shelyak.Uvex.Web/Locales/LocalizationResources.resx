@@ -21,4 +21,22 @@
     <data name="Configuration_Title" xml:space="preserve">
         <value>Configuration</value>
     </data>
+    <data name="Button_Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="Button_Shutdown" xml:space="preserve">
+        <value>Shutdown</value>
+    </data>
+    <data name="Configuration_Shutdown server" xml:space="preserve">
+        <value>Shutdown the server</value>
+    </data>
+    <data name="Configuration_Label_COM Port" xml:space="preserve">
+        <value>COM port</value>
+    </data>
+    <data name="Configuration_CardTitle_UVEX" xml:space="preserve">
+        <value>UVEX</value>
+    </data>
+    <data name="Configuration_CardTitle_Server" xml:space="preserve">
+        <value>Server</value>
+    </data>
 </root>
