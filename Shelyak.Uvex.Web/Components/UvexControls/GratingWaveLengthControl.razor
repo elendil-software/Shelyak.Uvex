@@ -1,19 +1,20 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="mb-4">
     <CardBody>
-        <CardTitle>Longueur d'onde</CardTitle>
+        <CardTitle>@Loc["UvexControl_GratingWavelength_CardTitle"]</CardTitle>
 
         <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
             <div class="row mb-3">
-                <div class="col-sm-2">Longueur d'onde actuelle</div>
+                <div class="col-sm-2">@Loc["UvexControl_GratingWavelength_Label_Current wavelength"]</div>
                 <div class="col-sm-10">@CurrentWavelength</div>
             </div>
             <div class="row mb-3">
-                <label for="step-size" class="col-sm-2 col-form-label">Taille de pas</label>
+                <label for="step-size" class="col-sm-2 col-form-label">@Loc["UvexControl_GratingWavelength_Label_Step size"]</label>
                 <div class="col-sm-1">
                     <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinWavelength" max="@MaxWavelength" id="step-size" class="form-control"/>
                 </div>
@@ -23,17 +24,17 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="position" class="col-sm-2 col-form-label">Longueur d'onde cible</label>
+                <label for="position" class="col-sm-2 col-form-label">@Loc["UvexControl_GratingWavelength_Label_Target wavelength"]</label>
                 <div class="col-sm-1">
                     <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="position" class="form-control"/>
                 </div>
                 <div class="col-sm-9">
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">Aller à</button>
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
                 </div>
             </div>
             <div class="form-row mb-3">
                 <div class="col-auto">
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.Abort)" class="btn btn-danger">Interrompre</button>
+                    <button @onclick="@(() => Model.Action = WavelengthControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>
                 </div>
             </div>
         </EditForm>

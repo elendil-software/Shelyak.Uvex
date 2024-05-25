@@ -1,29 +1,29 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
-
+@inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="mb-4">
     <CardBody>
-        <CardTitle>Calibration</CardTitle>
+        <CardTitle>@Loc["UvexControl_Calibration_CardTitle"]</CardTitle>
 
         <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <div class="row">
             <div class="form-check form-switch">
                 <InputCheckbox @bind-Value="@Model.Sky" class="form-check-input" type="checkbox" role="switch" id="skySwitch" @onclick="EnableSky"/>
-                <label class="form-check-label" for="skySwitch">Sky</label>
+                <label class="form-check-label" for="skySwitch">@Loc["UvexControl_Calibration_Switch_Sky"]</label>
             </div>
             <div class="form-check form-switch">
                 <InputCheckbox @bind-Value="@Model.Flat" class="form-check-input" type="checkbox" role="switch" id="flatSwitch" @onclick="EnableFlat"/>
-                <label class="form-check-label" for="flatSwitch">Flat</label>
+                <label class="form-check-label" for="flatSwitch">@Loc["UvexControl_Calibration_Switch_Flat"]</label>
             </div>
             <div class="form-check form-switch">
                 <InputCheckbox @bind-Value="@Model.Calibration" class="form-check-input" type="checkbox" role="switch" id="calibrationSwitch" @onclick="EnableCalibration"/>
-                <label class="form-check-label" for="calibrationSwitch">Calibration</label>
+                <label class="form-check-label" for="calibrationSwitch">@Loc["UvexControl_Calibration_Switch_Calibration"]</label>
             </div>
             <div class="form-check form-switch">
                 <InputCheckbox @bind-Value="@Model.Dark" class="form-check-input" type="checkbox" role="switch" id="darkSwitch" @onclick="EnableDark"/>
-                <label class="form-check-label" for="darkSwitch">Dark</label>
+                <label class="form-check-label" for="darkSwitch">@Loc["UvexControl_Calibration_Switch_Dark"]</label>
             </div>
         </div>
     </CardBody>

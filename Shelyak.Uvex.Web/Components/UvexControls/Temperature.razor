@@ -1,14 +1,15 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="mb-4">
     <CardBody>
-        <CardTitle>Sondes</CardTitle>
+        <CardTitle>@Loc["UvexControl_Sensors_CardTitle"]</CardTitle>
 
         <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <dl class="row">
-            <dt class="col-sm-2">Température</dt>
+            <dt class="col-sm-2">@Loc["UvexControl_Sensors_Label_Temperature"]</dt>
             <dd class="col-sm-10">@CurrentTemperature °C</dd>
         </dl>
     </CardBody>

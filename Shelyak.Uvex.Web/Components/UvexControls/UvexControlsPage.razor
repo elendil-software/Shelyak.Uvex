@@ -1,9 +1,10 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
 
-<PageTitle>Contrôles UVEX</PageTitle>
+<PageTitle>@Loc["UvexControl_Title"]</PageTitle>
+<h3>@Loc["UvexControl_Title"]</h3>
 
-<h3>Contrôles UVEX</h3>
 <Toasts class="p-3" AutoHide="true" Delay="4000" Placement="ToastsPlacement.TopRight" />
 <UvexInfos/>
 <Temperature @ref="TemperatureChildComponent" />

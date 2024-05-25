@@ -32,4 +32,94 @@
     <data name="Configuration_CardTitle_Server" xml:space="preserve">
         <value>Serveur</value>
     </data>
+    <data name="UvexControl_Title" xml:space="preserve">
+        <value>Contrôle de l'UVEX</value>
+    </data>
+    <data name="UvexControl_Informations_CardTitle" xml:space="preserve">
+        <value>Informations</value>
+    </data>
+    <data name="UvexControl_Informations_Label_Firmware" xml:space="preserve">
+        <value>Firmware</value>
+    </data>
+    <data name="UvexControl_Informations_Label_Protocol version" xml:space="preserve">
+        <value>Version du protocole</value>
+    </data>
+    <data name="UvexControl_Informations_Label_Spectrograph name" xml:space="preserve">
+        <value>Spectrographe</value>
+    </data>
+    <data name="UvexControl_Sensors_Label_Temperature" xml:space="preserve">
+        <value>Température</value>
+    </data>
+    <data name="UvexControl_Sensors_CardTitle" xml:space="preserve">
+        <value>Sondes</value>
+    </data>
+    <data name="UvexControl_GratingWavelength_Label_Current wavelength" xml:space="preserve">
+        <value>Longueur d'onde actuelle</value>
+    </data>
+    <data name="UvexControl_GratingWavelength_Label_Step size" xml:space="preserve">
+        <value>Taille de pas</value>
+    </data>
+    <data name="UvexControl_GratingWavelength_Label_Target wavelength" xml:space="preserve">
+        <value>Longueur d'onde cible</value>
+    </data>
+    <data name="Button_Go to" xml:space="preserve">
+        <value>Aller à</value>
+    </data>
+    <data name="Button_Halt" xml:space="preserve">
+        <value>Interrompre</value>
+    </data>
+    <data name="UvexControl_GratingWavelength_CardTitle" xml:space="preserve">
+        <value>Longueur d'onde</value>
+    </data>
+    <data name="UvexControl_GratingAngle_CardTitle" xml:space="preserve">
+        <value>Angle du réseau</value>
+    </data>
+    <data name="UvexControl_GratingAngle_Label_Current angle" xml:space="preserve">
+        <value>Angle actuel</value>
+    </data>
+    <data name="UvexControl_GratingAngle_Label_Step size" xml:space="preserve">
+        <value>Taille de pas</value>
+    </data>
+    <data name="UvexControl_GratingAngle_Label_Target angle" xml:space="preserve">
+        <value>Angle cible</value>
+    </data>
+    <data name="Button_Calibrate" xml:space="preserve">
+        <value>Calibrer</value>
+    </data>
+    <data name="UvexControl_Focus_Label_Target position" xml:space="preserve">
+        <value>Position cible</value>
+    </data>
+    <data name="UvexControl_Focus_Label_Step size" xml:space="preserve">
+        <value>Taille de pas</value>
+    </data>
+    <data name="UvexControl_Focus_CardTitle" xml:space="preserve">
+        <value>Focalisation</value>
+    </data>
+    <data name="UvexControl_Focus_Label_Current position" xml:space="preserve">
+        <value>Position actuelle</value>
+    </data>
+    <data name="UvexControl_Calibration_CardTitle" xml:space="preserve">
+        <value>Calibration</value>
+    </data>
+    <data name="UvexControl_Calibration_Switch_Calibration" xml:space="preserve">
+        <value>Calibration</value>
+    </data>
+    <data name="UvexControl_Calibration_Switch_Sky" xml:space="preserve">
+        <value>Sky</value>
+    </data>
+    <data name="UvexControl_Calibration_Switch_Flat" xml:space="preserve">
+        <value>Flat</value>
+    </data>
+    <data name="UvexControl_Calibration_Switch_Dark" xml:space="preserve">
+        <value>Dark</value>
+    </data>
+    <data name="NavMenu_Controls" xml:space="preserve">
+        <value>Contrôles</value>
+    </data>
+    <data name="NavMenu_Configuration" xml:space="preserve">
+        <value>Configuration</value>
+    </data>
+    <data name="NavMenu_API" xml:space="preserve">
+        <value>Swagger</value>
+    </data>
 </root>
