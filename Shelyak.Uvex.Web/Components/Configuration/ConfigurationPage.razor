@@ -4,7 +4,6 @@
 @using Microsoft.Extensions.Options
 @using Shelyak.Usis
 @using Shelyak.Uvex.Web.Core.Settings
-@using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
 
@@ -55,7 +54,7 @@
     [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
     [Inject] private ILogger<ConfigurationPage> Logger { get; set; }
     
-    [Inject] private IApplicationLifetime ApplicationLifetime { get; set; }
+    [Inject] private IHostApplicationLifetime ApplicationLifetime { get; set; }
 
     private EditConfigurationModel Model { get; set; } = new();
     
