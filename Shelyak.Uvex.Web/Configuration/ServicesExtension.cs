@@ -29,14 +29,7 @@ public static class ServicesExtension
             options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(1);
             options.AddBasePolicy(build => build.Cache());
         });
-    
-        builder.Services.AddApiVersioning(options =>
-        {
-            options.ReportApiVersions = true;
-            options.AssumeDefaultVersionWhenUnspecified = true;
-            options.DefaultApiVersion = new ApiVersion(1, 0);
-        });
-
+        
         return builder;
     }
 }
