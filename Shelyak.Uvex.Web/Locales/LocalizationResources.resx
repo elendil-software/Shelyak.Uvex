@@ -129,4 +129,7 @@
     <data name="NavMenu_API" xml:space="preserve">
         <value>Swagger</value>
     </data>
+    <data name="UvexControl_Informations_Label_COM port" xml:space="preserve">
+        <value>COM port</value>
+    </data>
 </root>

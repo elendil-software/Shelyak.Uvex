@@ -1,6 +1,7 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
+@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
 
 <Card Class="mb-4">
     <CardBody>
@@ -12,6 +13,8 @@
             <dd class="col-sm-10">@Firmware</dd>
             <dt class="col-sm-2">@Loc["UvexControl_Informations_Label_Protocol version"]</dt>
             <dd class="col-sm-10">@UsisProtocolVersion</dd>
+            <dt class="col-sm-2">@Loc["UvexControl_Informations_Label_COM port"]</dt>
+            <dd class="col-sm-10">@ComPort</dd>
         </dl>
     </CardBody>
 </Card>
@@ -21,7 +24,7 @@
     private string SpectrographName { get; set; } = null!;
     private string Firmware { get; set; } = null!;
     private string UsisProtocolVersion { get; set; } = null!;
-
+    private string ComPort { get; set; } = null!;
     protected override async Task OnInitializedAsync()
     {
         await LoadData();
@@ -40,5 +43,7 @@
         var protocolVersion = await UvexHttpClient.GetProtocolVersion();
         HandleAlpacaError(protocolVersion);
         UsisProtocolVersion = protocolVersion.Value.Value;
+
+        ComPort = SerialPortSettingsOptions.Value.PortName;
     }
 }
