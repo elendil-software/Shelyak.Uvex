@@ -8,12 +8,12 @@ namespace Shelyak.Uvex.Web.Endpoints.Config;
 
 public class GetPortEndpoint : EndpointWithoutRequest<string>
 {
-    private readonly ISerialPortSettingsWriter _serialPortSettingsWriter;
+    private readonly ISettingsUpdater _settingsUpdater;
     private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
 
-    public GetPortEndpoint(ISerialPortSettingsWriter serialPortSettingsWriter, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
+    public GetPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
     {
-        _serialPortSettingsWriter = serialPortSettingsWriter;
+        _settingsUpdater = settingsUpdater;
         SerialPortSettingsOptions = serialPortSettingsOptions;
     }
     

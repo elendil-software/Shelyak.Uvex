@@ -15,7 +15,7 @@ public static class ServicesExtension
         builder.Services.AddSingleton<ICommandSender, SerialPortCommandSender>();
         builder.Services.AddSingleton<IResponseParser, ResponseParser>();
         builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
-        builder.Services.AddSingleton<ISerialPortSettingsWriter>(new SerialPortSettingsWriter(UvexSettingsFilePathProvider.UvexSettingsFilePath));
+        builder.Services.AddSingleton<ISettingsUpdater>(new SettingsUpdater(UvexSettingsFilePathProvider.UvexSettingsFilePath));
 
         builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
         {

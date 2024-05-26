@@ -45,7 +45,7 @@
 {
 
     [Inject] protected ToastService ToastService { get; set; } = null!;
-    [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; } = null!;
+    [Inject] private ISettingsUpdater SettingsUpdater { get; set; } = null!;
     [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; } = null!;
     [Inject] private ILogger<ConfigurationPage> Logger { get; set; } = null!;
     [Inject] private IHostApplicationLifetime ApplicationLifetime { get; set; } = null!;
@@ -68,7 +68,7 @@
         {
             var serialPortSettings = SerialPortSettingsOptions.Value;
             serialPortSettings.PortName = Model.SelectedComPort;
-            await SerialPortSettingsWriter.Write(serialPortSettings);
+            await SettingsUpdater.UpdateSerialPort(serialPortSettings);
             ToastService.Notify(new(ToastType.Success, "Paramètres enregistrés"));
             Logger.LogInformation("Serial port settings saved");
         }
