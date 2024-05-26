@@ -46,12 +46,11 @@
 @code 
 {
 
-    [Inject] protected ToastService ToastService { get; set; }
-    [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; }
-    [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
-    [Inject] private ILogger<ConfigurationPage> Logger { get; set; }
-    
-    [Inject] private IHostApplicationLifetime ApplicationLifetime { get; set; }
+    [Inject] protected ToastService ToastService { get; set; } = null!;
+    [Inject] private ISerialPortSettingsWriter SerialPortSettingsWriter { get; set; } = null!;
+    [Inject] private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; } = null!;
+    [Inject] private ILogger<ConfigurationPage> Logger { get; set; } = null!;
+    [Inject] private IHostApplicationLifetime ApplicationLifetime { get; set; } = null!;
 
     private EditConfigurationModel Model { get; set; } = new();
     
