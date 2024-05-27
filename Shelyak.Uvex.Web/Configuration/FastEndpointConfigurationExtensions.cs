@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
 using Shelyak.Uvex.Web.Endpoints.Shared;
+using Shelyak.Uvex.Web.Settings;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
@@ -24,7 +25,7 @@ internal static class FastEndpointsConfigurationExtensions
         return builder;
     }
     
-    public static IApplicationBuilder UseFastEndpoints(this IApplicationBuilder app)
+    public static IApplicationBuilder UseFastEndpoints(this IApplicationBuilder app, IConfiguration configuration)
     {
         app.UseFastEndpoints(config =>
             {
@@ -32,9 +33,19 @@ internal static class FastEndpointsConfigurationExtensions
                 config.Versioning.Prefix = RoutesConst.VersioningPrefix;
                 config.Versioning.PrependToRoute = true;
                 config.Errors.ResponseBuilder = ProblemDetails.ResponseBuilder;
-            })
-            .UseSwaggerGen();
+            });
+        
+        if (IsSwaggerEnabled(configuration))
+        {
+            app.UseSwaggerGen();
+        }
 
         return app;
+    }
+    
+    private static bool IsSwaggerEnabled(IConfiguration configuration)
+    {
+        SwaggerSettings? swaggerSettings = configuration.GetSection(SwaggerSettings.SectionName).Get<SwaggerSettings>();
+        return swaggerSettings?.Enabled ?? false;
     }
 }

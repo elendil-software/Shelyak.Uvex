@@ -53,7 +53,7 @@ try
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode();
     
-    app.UseFastEndpoints();
+    app.UseFastEndpoints(builder.Configuration);
     
     builder.StartBrowser(isStartedFromAscom);
     
