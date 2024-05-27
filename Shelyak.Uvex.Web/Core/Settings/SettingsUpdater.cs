@@ -22,6 +22,15 @@ public class SettingsUpdater : ISettingsUpdater
             settings.SerialPortSettings = serialPortSettings;
             return settings;
         });
+    }    
+    
+    public Task UpdateSwagger(SwaggerSettings swaggerSettings)
+    {
+        return Update(settings => 
+        {
+            settings.Swagger = swaggerSettings;
+            return settings;
+        });
     }
 
     private async Task Update(Func<UvexSettings, UvexSettings> updateFunc)
