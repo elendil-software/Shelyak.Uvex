@@ -7,7 +7,7 @@ namespace Shelyak.Uvex.Web.Core.Settings;
 
 public class SettingsUpdater : ISettingsUpdater
 {
-    private readonly object _lock = new();
+    private static readonly SemaphoreSlim _semaphore = new(1);
     private readonly string _settingsFilePath;
 
     public SettingsUpdater(string settingsFilePath)
@@ -15,40 +15,45 @@ public class SettingsUpdater : ISettingsUpdater
         _settingsFilePath = settingsFilePath;
     }
     
-    public async Task UpdateSerialPort(SerialPortSettings serialPortSettings)
+    public Task UpdateSerialPort(SerialPortSettings serialPortSettings)
     {
-        await Update(settings => 
+        return Update(settings => 
         {
             settings.SerialPortSettings = serialPortSettings;
             return settings;
         });
     }
-    
-    private Task Update(Func<UvexSettings, UvexSettings> updateFunc)
+
+    private async Task Update(Func<UvexSettings, UvexSettings> updateFunc)
     {
-        lock (_lock)
+        await _semaphore.WaitAsync();
+        try
         {
-            var settings = ReadJsonFile().Result;
+            var settings = ReadJsonFile();
             settings = updateFunc(settings);
-            return WriteJsonFile(settings);
+            await WriteJsonFile(settings);
+        }
+        finally
+        {
+            _semaphore.Release();
         }
     }
     
-    private async Task WriteJsonFile(UvexSettings settings)
+    private Task WriteJsonFile(UvexSettings settings)
     {
         CreateFolderIfNotExists();
-        var json = JsonSerializer.Serialize(settings);
-        await File.WriteAllTextAsync(_settingsFilePath, json, Encoding.UTF8);
+        var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+        return File.WriteAllTextAsync(_settingsFilePath, json, Encoding.UTF8);
     }
     
-    private async Task<UvexSettings> ReadJsonFile()
+    private UvexSettings ReadJsonFile()
     {
         if (!File.Exists(_settingsFilePath))
         {
             return new UvexSettings();
         }
 
-        var json = await File.ReadAllTextAsync(_settingsFilePath);
+        var json = File.ReadAllText(_settingsFilePath);
         return JsonSerializer.Deserialize<UvexSettings>(json)!;
     }
 
