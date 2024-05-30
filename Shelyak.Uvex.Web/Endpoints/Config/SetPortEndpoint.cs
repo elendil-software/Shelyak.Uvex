@@ -27,7 +27,7 @@ public class SetPortEndpoint : Endpoint<SetPortRequest>
 
     public override async Task HandleAsync(SetPortRequest req, CancellationToken ct)
     {
-        var port = SerialPortSettingsOptions.Value.PortName; var serialPortSettings = SerialPortSettingsOptions.Value;
+        var serialPortSettings = SerialPortSettingsOptions.Value;
         serialPortSettings.PortName = req.PortName;
         await _settingsUpdater.UpdateSerialPort(serialPortSettings);
         await SendOkAsync(ct);
