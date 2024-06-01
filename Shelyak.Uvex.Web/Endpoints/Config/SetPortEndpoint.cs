@@ -8,6 +8,8 @@ namespace Shelyak.Uvex.Web.Endpoints.Config;
 
 public class SetPortEndpoint : Endpoint<SetPortRequest>
 {
+    internal const string RoutePattern = "/" + ApiRoutes.ConfigPort;
+    
     private readonly ISettingsUpdater _settingsUpdater;
     private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
 
@@ -19,7 +21,7 @@ public class SetPortEndpoint : Endpoint<SetPortRequest>
     
     public override void Configure()
     {
-        Put("/" + ApiRoutes.ConfigPort);
+        Put(RoutePattern);
         Group<ConfigGroup>();
         Version(1);
         AllowAnonymous();

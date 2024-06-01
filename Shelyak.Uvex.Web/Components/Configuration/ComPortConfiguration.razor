@@ -1,4 +1,5 @@
-﻿@rendermode InteractiveServer
+﻿@using Shelyak.Uvex.Web.Components.Shared.Commands
+@rendermode InteractiveServer
 @inject ToastService ToastService;
 @inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
 @inject IStringLocalizer<LocalizationResources> Loc;
@@ -42,16 +43,14 @@
 
     private async Task SubmitForm()
     {
-        try
+        Result<EmptyResult> result = await new UpdateComPortConfigurationCommand(Model.SelectedComPort).ExecuteAsync();
+        if(result.IsSuccess)
         {
-            var serialPortSettings = SerialPortSettingsOptions.Value;
-            serialPortSettings.PortName = Model.SelectedComPort;
-            await SettingsUpdater.UpdateSerialPort(serialPortSettings);
-            ToastService.Notify(new(ToastType.Success, "Paramètres enregistrés"));
+            ToastService.Notify(new ToastMessage(ToastType.Success, result.SuccessMessage));
         }
-        catch (Exception e)
+        else
         {
-            ToastService.Notify(new(ToastType.Danger, "Une erreur est survenue"));
+            ToastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
         }
     }
     
