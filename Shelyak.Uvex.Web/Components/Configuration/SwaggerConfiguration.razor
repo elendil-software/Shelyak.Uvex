@@ -32,14 +32,7 @@
     private async Task SubmitForm()
     {
         Result<EmptyResult> result = await new UpdateSwaggerConfigurationCommand(Model.IsEnabled).ExecuteAsync();
-        if(result.IsSuccess)
-        {
-            ToastService.Notify(new ToastMessage(ToastType.Success, result.SuccessMessage));
-        }
-        else
-        {
-            ToastService.Notify(new ToastMessage(ToastType.Success, string.Join(", ", result.Errors.ToList())));
-        }
+        ToastService.DisplayToast(result);
     }
 
     private class EditSwaggerConfirugationModel

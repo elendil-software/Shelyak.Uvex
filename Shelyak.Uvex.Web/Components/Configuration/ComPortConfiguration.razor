@@ -44,14 +44,7 @@
     private async Task SubmitForm()
     {
         Result<EmptyResult> result = await new UpdateComPortConfigurationCommand(Model.SelectedComPort).ExecuteAsync();
-        if(result.IsSuccess)
-        {
-            ToastService.Notify(new ToastMessage(ToastType.Success, result.SuccessMessage));
-        }
-        else
-        {
-            ToastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
-        }
+        ToastService.DisplayToast(result);
     }
     
     private sealed class EditConfigurationModel
