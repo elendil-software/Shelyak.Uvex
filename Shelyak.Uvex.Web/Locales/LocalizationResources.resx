@@ -150,4 +150,16 @@
     <data name="Button_Cancel" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="Configuration_Swagger_Command_Success" xml:space="preserve">
+        <value>Swagger configuration updated successfully</value>
+    </data>
+    <data name="Configuration_Swagger_Command_Error" xml:space="preserve">
+        <value>An error occurred while updating the Swagger configuration</value>
+    </data>
+    <data name="Configuration_ComPort_Command_Error" xml:space="preserve">
+        <value>An error occurred while updating the COM port configuration</value>
+    </data>
+    <data name="Configuration_ComPort_Command_Success" xml:space="preserve">
+        <value>COM port configuration updated successfully</value>
+    </data>
 </root>
