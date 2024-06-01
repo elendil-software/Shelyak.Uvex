@@ -24,11 +24,11 @@ public class SettingsUpdater : ISettingsUpdater
         });
     }    
     
-    public Task UpdateSwagger(SwaggerSettings swaggerSettings)
+    public Task UpdateSwagger(bool enabled)
     {
         return Update(settings => 
         {
-            settings.Swagger = swaggerSettings;
+            settings.Swagger = new SwaggerSettings { Enabled = enabled };
             return settings;
         });
     }
