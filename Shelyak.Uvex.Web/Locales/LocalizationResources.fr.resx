@@ -134,4 +134,13 @@
     <data name="Configuration_Swagger_Info" xml:space="preserve">
         <value>Swagger est une interface web qui permet d'interagir directement avec l'appareil en utilisant l'API. Un redémarrage du serveur est nécessaire après un changement de configuration</value>
     </data>
+    <data name="Configuration_Shutdown_Confirmation_Title" xml:space="preserve">
+        <value>Arrêt du serveur</value>
+    </data>
+    <data name="Configuration_Shutdown_Confirmation_Info" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir arrêter le serveur ?</value>
+    </data>
+    <data name="Button_Cancel" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>

@@ -7,14 +7,32 @@
         <CardTitle>@Loc["Configuration_CardTitle_Server"]</CardTitle>
         <div>
             <p>@Loc["Configuration_Shutdown server"]</p>
-            <button class="btn btn-secondary" @onclick="ShutdownApp">@Loc["Button_Shutdown"]</button>
+            <button class="btn btn-secondary" @onclick="ShowConfirmationAsync">@Loc["Button_Shutdown"]</button>
         </div>
     </CardBody>
 </Card>
 
+<ConfirmDialog @ref="_dialog" />
+
 @code {
-    private void ShutdownApp()
+    private ConfirmDialog _dialog = default!;
+   
+    private async Task ShowConfirmationAsync()
     {
-        ApplicationLifetime.StopApplication();
+        var confirmation = await _dialog.ShowAsync(
+            title: Loc["Configuration_Shutdown_Confirmation_Title"],
+            message1: Loc["Configuration_Shutdown_Confirmation_Info"],
+            new ConfirmDialogOptions
+            {
+                YesButtonText = Loc["Button_Shutdown"],
+                YesButtonColor = ButtonColor.Danger,
+                NoButtonText = Loc["Button_Cancel"],
+                NoButtonColor = ButtonColor.Secondary
+            });
+        
+        if (confirmation)
+        {
+            ApplicationLifetime.StopApplication();
+        }
     }
 }
