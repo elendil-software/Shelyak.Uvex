@@ -1,0 +1,20 @@
+﻿@rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
+@inject IHostApplicationLifetime ApplicationLifetime;
+
+<Card Class="mb-4">
+    <CardBody>
+        <CardTitle>@Loc["Configuration_CardTitle_Server"]</CardTitle>
+        <div>
+            <p>@Loc["Configuration_Shutdown server"]</p>
+            <button class="btn btn-secondary" @onclick="ShutdownApp">@Loc["Button_Shutdown"]</button>
+        </div>
+    </CardBody>
+</Card>
+
+@code {
+    private void ShutdownApp()
+    {
+        ApplicationLifetime.StopApplication();
+    }
+}
