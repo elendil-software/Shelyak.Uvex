@@ -23,13 +23,13 @@
     <data name="Configuration_Shutdown server" xml:space="preserve">
         <value>Arrêter le serveur</value>
     </data>
-    <data name="Configuration_Label_COM Port" xml:space="preserve">
+    <data name="Configuration_ComPort_Label_COM Port" xml:space="preserve">
         <value>Port COM</value>
     </data>
-    <data name="Configuration_CardTitle_UVEX" xml:space="preserve">
+    <data name="Configuration_ComPort_CardTitle_UVEX" xml:space="preserve">
         <value>UVEX</value>
     </data>
-    <data name="Configuration_CardTitle_Server" xml:space="preserve">
+    <data name="Configuration_Shutdown_CardTitle_Server" xml:space="preserve">
         <value>Serveur</value>
     </data>
     <data name="UvexControl_Title" xml:space="preserve">

@@ -114,20 +114,11 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server.
-        /// </summary>
-        public static string Configuration_CardTitle_Server {
-            get {
-                return ResourceManager.GetString("Configuration_CardTitle_Server", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to UVEX.
         /// </summary>
-        public static string Configuration_CardTitle_UVEX {
+        public static string Configuration_ComPort_CardTitle_UVEX {
             get {
-                return ResourceManager.GetString("Configuration_CardTitle_UVEX", resourceCulture);
+                return ResourceManager.GetString("Configuration_ComPort_CardTitle_UVEX", resourceCulture);
             }
         }
         
@@ -152,9 +143,18 @@ namespace Shelyak.Uvex.Web.Locales {
         /// <summary>
         ///   Looks up a localized string similar to COM port.
         /// </summary>
-        public static string Configuration_Label_COM_Port {
+        public static string Configuration_ComPort_Label_COM_Port {
             get {
-                return ResourceManager.GetString("Configuration_Label_COM Port", resourceCulture);
+                return ResourceManager.GetString("Configuration_ComPort_Label_COM Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server.
+        /// </summary>
+        public static string Configuration_Shutdown_CardTitle_Server {
+            get {
+                return ResourceManager.GetString("Configuration_Shutdown_CardTitle_Server", resourceCulture);
             }
         }
         
