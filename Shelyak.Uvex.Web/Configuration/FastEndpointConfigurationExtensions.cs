@@ -1,12 +1,14 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
-using Shelyak.Uvex.Web.Endpoints.Shared;
 using Shelyak.Uvex.Web.Settings;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
 internal static class FastEndpointsConfigurationExtensions
 {
+    private const string RoutePrefix = "api";
+    private const string VersioningPrefix = "v";
+    
     public static IHostApplicationBuilder AddFastEndpoints(this IHostApplicationBuilder builder)
     {
         builder.Services
@@ -29,8 +31,8 @@ internal static class FastEndpointsConfigurationExtensions
     {
         app.UseFastEndpoints(config =>
             {
-                config.Endpoints.RoutePrefix = RoutesConst.RoutePrefix;
-                config.Versioning.Prefix = RoutesConst.VersioningPrefix;
+                config.Endpoints.RoutePrefix = RoutePrefix;
+                config.Versioning.Prefix = VersioningPrefix;
                 config.Versioning.PrependToRoute = true;
                 config.Errors.ResponseBuilder = ProblemDetails.ResponseBuilder;
             });
@@ -47,5 +49,10 @@ internal static class FastEndpointsConfigurationExtensions
     {
         SwaggerSettings? swaggerSettings = configuration.GetSection(SwaggerSettings.SectionName).Get<SwaggerSettings>();
         return swaggerSettings?.Enabled ?? false;
+    }
+
+    public static string GetApiBasePath(int version = 1)
+    {
+        return $"/{RoutePrefix}/{VersioningPrefix}{version}/";
     }
 }

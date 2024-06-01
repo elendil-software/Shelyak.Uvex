@@ -3,7 +3,6 @@ using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Web.Core.Alpaca;
 using Shelyak.Uvex.Web.Core.HttpClients;
 using Shelyak.Uvex.Web.Core.Settings;
-using Shelyak.Uvex.Web.Endpoints.Shared;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
@@ -17,6 +16,7 @@ public static class ServicesExtension
         builder.Services.AddSingleton<IServerTransactionIdProvider, ServerTransactionIdProvider>();
         builder.Services.AddSingleton<ISettingsUpdater>(new SettingsUpdater(UvexSettingsFilePathProvider.UvexSettingsFilePath));
 
+        //TODO to remove after UvexHttpClient will be refactored
         builder.Services.AddHttpClient<IUvexHttpClient, UvexHttpClient>().ConfigureHttpClient((provider, client) =>
         {
             var config = provider.GetRequiredService<IConfiguration>();
@@ -40,7 +40,7 @@ public static class ServicesExtension
         builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (provider, client) =>
         {
             var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
-            client.BaseAddress = new Uri($"{baseUrl}/{RoutesConst.RoutePrefix}/{RoutesConst.VersioningPrefix}1/");
+            client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}");
         });
 
         return builder;
