@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shelyak.Usis;
+﻿using Shelyak.Usis;
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Web.Core.Alpaca;
 using Shelyak.Uvex.Web.Core.HttpClients;
 using Shelyak.Uvex.Web.Core.Settings;
+using Shelyak.Uvex.Web.Endpoints.Shared;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
@@ -23,6 +23,8 @@ public static class ServicesExtension
             var baseAddress = config.GetSection("Urls:Api").Value;
             client.BaseAddress = new Uri(baseAddress);
         });
+        
+        builder.AddHttpClients();
 
         builder.Services.AddOutputCache(options =>
         {
@@ -30,6 +32,17 @@ public static class ServicesExtension
             options.AddBasePolicy(build => build.Cache());
         });
         
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddHttpClients(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (provider, client) =>
+        {
+            var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
+            client.BaseAddress = new Uri($"{baseUrl}/{RoutesConst.RoutePrefix}/{RoutesConst.VersioningPrefix}1/");
+        });
+
         return builder;
     }
 }
