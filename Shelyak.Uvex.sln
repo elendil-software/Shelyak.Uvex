@@ -25,11 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{
 		InnoSetup\Build.ps1 = InnoSetup\Build.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k6", "k6", "{272B58E1-C9C0-4E29-AD77-AE6180B5D826}"
-	ProjectSection(SolutionItems) = preProject
-		k6\get_focusposition.js = k6\get_focusposition.js
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
