@@ -1,0 +1,63 @@
+﻿@rendermode InteractiveServer
+@inject ToastService ToastService;
+@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
+@inject IStringLocalizer<LocalizationResources> Loc;
+
+<EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator/>
+
+    <Card Class="mb-4">
+        <CardBody>
+            <CardTitle>@Loc["Configuration_CardTitle_UVEX"]</CardTitle>
+            <div class="row mb-4">
+                <label for="comPorts" class="col-sm-2 col-form-label">@Loc["Configuration_Label_COM Port"]</label>
+                <div class="col-sm-4">
+                    <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select" id="comPorts">
+                        <option value=""></option>
+                        @foreach (var port in Model.ComPorts)
+                        {
+                            <option value="@port">@port</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage class="invalid-feedback" For="@(() => Model.SelectedComPort)"></ValidationMessage>
+                </div>
+            </div>
+            <button class="btn btn-primary">@Loc["Button_Save"]</button>
+        </CardBody>
+    </Card>
+</EditForm>
+
+@code {
+    private EditConfigurationModel Model { get; set; } = new();
+    
+    [Inject] private ISettingsUpdater SettingsUpdater { get; set; } = null!;
+    protected override void OnInitialized()
+    {
+        Model = new EditConfigurationModel
+        {
+            SelectedComPort = SerialPortSettingsOptions.Value.PortName,
+            ComPorts = SerialPort.GetPortNames().ToList()
+        };
+    }
+
+    private async Task SubmitForm()
+    {
+        try
+        {
+            var serialPortSettings = SerialPortSettingsOptions.Value;
+            serialPortSettings.PortName = Model.SelectedComPort;
+            await SettingsUpdater.UpdateSerialPort(serialPortSettings);
+            ToastService.Notify(new(ToastType.Success, "Paramètres enregistrés"));
+        }
+        catch (Exception e)
+        {
+            ToastService.Notify(new(ToastType.Danger, "Une erreur est survenue"));
+        }
+    }
+    
+    private sealed class EditConfigurationModel
+    {
+        public List<string> ComPorts { get; set; } = new();
+        [Required] public string SelectedComPort { get; set; } = string.Empty;
+    }
+}
