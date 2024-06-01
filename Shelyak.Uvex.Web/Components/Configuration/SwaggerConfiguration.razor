@@ -1,0 +1,49 @@
+﻿@using EmptyResult = Shelyak.Uvex.Web.Components.Shared.Commands.EmptyResult
+@rendermode InteractiveServer
+@inject ToastService ToastService;
+@inject IOptionsSnapshot<SwaggerSettings> SwaggerSettingsOptions;
+@inject IStringLocalizer<LocalizationResources> Loc;
+
+<EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator/>
+
+    <Card Class="mb-4">
+        <CardBody>
+            <CardTitle>@Loc["Configuration_Swagger_CardTitle"]</CardTitle>
+            <div class="row mb-4">
+                <p>@Loc["Configuration_Swagger_Info"]</p>
+                <div class="form-check form-switch">
+                    <InputCheckbox @bind-Value="@Model.IsEnabled" class="form-check-input" type="checkbox" role="switch" id="enableSwaggerSwitch"/>
+                    <label class="form-check-label" for="enableSwaggerSwitch">@Loc["Configuration_Swagger_Label_Enabled"]</label>
+                </div>
+            </div>
+            <button class="btn btn-primary">@Loc["Button_Save"]</button>
+        </CardBody>
+    </Card>
+</EditForm>
+@code {
+    private EditSwaggerConfirugationModel Model { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        Model.IsEnabled = SwaggerSettingsOptions.Value.Enabled;
+    }
+    
+    private async Task SubmitForm()
+    {
+        Result<EmptyResult> result = await new UpdateSwaggerConfigurationCommand(Model.IsEnabled).ExecuteAsync();
+        if(result.IsSuccess)
+        {
+            ToastService.Notify(new ToastMessage(ToastType.Success, result.SuccessMessage));
+        }
+        else
+        {
+            ToastService.Notify(new ToastMessage(ToastType.Success, string.Join(", ", result.Errors.ToList())));
+        }
+    }
+
+    private class EditSwaggerConfirugationModel
+    {
+        public bool IsEnabled { get; set; }
+    }
+}

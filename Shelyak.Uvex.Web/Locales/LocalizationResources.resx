@@ -132,4 +132,13 @@
     <data name="UvexControl_Informations_Label_COM port" xml:space="preserve">
         <value>COM port</value>
     </data>
+    <data name="Configuration_Swagger_CardTitle" xml:space="preserve">
+        <value>Swagger - Web API</value>
+    </data>
+    <data name="Configuration_Swagger_Label_Enabled" xml:space="preserve">
+        <value>Enabled</value>
+    </data>
+    <data name="Configuration_Swagger_Info" xml:space="preserve">
+        <value>Swagger is a web interface that lets you interact directly with the device using the API. A server restart is required after a configuration change.</value>
+    </data>
 </root>
