@@ -10,13 +10,13 @@ public abstract class CommandHandlerBase<TCommand, TResult> : ICommandHandler<TC
 {
     protected readonly HttpClient HttpClient;
 
-    protected CommandHandlerBase(IHttpClientFactory httpClientFactory)
+    protected CommandHandlerBase(IHttpClientFactory httpClientFactory, string httpClientName = HttpClientConst.ApiConfigHttpClient)
     {
-        HttpClient = httpClientFactory.CreateClient(HttpClientConst.ApiConfigHttpClient);
+        HttpClient = httpClientFactory.CreateClient(httpClientName);
     }
     
     protected abstract Task<HttpResponseMessage> ExecuteHttpRequest(TCommand command, CancellationToken ct);
-    protected abstract Task<Result> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct);
+    protected abstract Task<Result<TResult>> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct);
     protected abstract string GetDefaultErrorMessage();
     
     
@@ -38,7 +38,7 @@ public abstract class CommandHandlerBase<TCommand, TResult> : ICommandHandler<TC
         return Result.Error(GetDefaultErrorMessage());
     }
     
-    private async Task<Result<TResult>> GetMessageFromProblemDetails(HttpResponseMessage response, CancellationToken ct)
+    protected async Task<Result<TResult>> GetMessageFromProblemDetails(HttpResponseMessage response, CancellationToken ct)
     {
         var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>((JsonSerializerOptions)null, ct) ?? new Microsoft.AspNetCore.Mvc.ProblemDetails();
 

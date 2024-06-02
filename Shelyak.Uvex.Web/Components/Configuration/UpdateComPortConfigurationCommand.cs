@@ -24,9 +24,9 @@ public record UpdateComPortConfigurationCommand(string PortName) : ICommand<Resu
             return await HttpClient.PutAsJsonAsync(SetComPortRequest.Route, new SetComPortRequest(command.PortName), ct);
         }
 
-        protected override Task<Result> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct)
+        protected override Task<Result<EmptyResult>> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct)
         {
-            return Task.FromResult(Result.SuccessWithMessage(_localizer["Configuration_ComPort_Command_Success"]));
+            return Task.FromResult(Result.Success(EmptyResult.Instance, _localizer["Configuration_ComPort_Command_Success"]));
         }
 
         protected override string GetDefaultErrorMessage()

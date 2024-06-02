@@ -23,9 +23,9 @@ public record UpdateSwaggerConfigurationCommand(bool Enabled) : ICommand<Result<
             return await HttpClient.PutAsJsonAsync(UpdateSwaggerRequest.Route, new UpdateSwaggerRequest(command.Enabled), ct);
         }
 
-        protected override Task<Result> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct)
+        protected override Task<Result<EmptyResult>> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct)
         {
-            return Task.FromResult(Result.SuccessWithMessage(_localizer["Configuration_Swagger_Command_Success"]));
+            return Task.FromResult(Result.Success(EmptyResult.Instance, _localizer["Configuration_Swagger_Command_Success"]));
         }
 
         protected override string GetDefaultErrorMessage()
