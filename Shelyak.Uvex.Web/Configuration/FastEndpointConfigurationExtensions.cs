@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
+using Shelyak.Uvex.Web.Components.UvexControls.Commands;
 using Shelyak.Uvex.Web.Settings;
 
 namespace Shelyak.Uvex.Web.Configuration;
@@ -27,7 +28,7 @@ internal static class FastEndpointsConfigurationExtensions
         return builder;
     }
     
-    public static IApplicationBuilder UseFastEndpoints(this IApplicationBuilder app, IConfiguration configuration)
+    public static IApplicationBuilder UseFastEndpoints(this WebApplication app, IConfiguration configuration)
     {
         app.UseFastEndpoints(config =>
             {
@@ -36,6 +37,9 @@ internal static class FastEndpointsConfigurationExtensions
                 config.Versioning.PrependToRoute = true;
                 config.Errors.ResponseBuilder = ProblemDetails.ResponseBuilder;
             });
+        
+        app.Services.RegisterGenericCommand(typeof(AlpacaPutCommand<>), typeof(AlpacaPutCommandHandler<>));
+        app.Services.RegisterGenericCommand(typeof(AlpacaGetCommand<>), typeof(AlpacaGetCommandHandler<>));
         
         if (IsSwaggerEnabled(configuration))
         {

@@ -312,6 +312,15 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occured during UVEX command execution.
+        /// </summary>
+        public static string UvexControl_Command_Error {
+            get {
+                return ResourceManager.GetString("UvexControl_Command_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Focus.
         /// </summary>
         public static string UvexControl_Focus_CardTitle {

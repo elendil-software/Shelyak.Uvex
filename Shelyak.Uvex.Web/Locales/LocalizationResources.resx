@@ -162,4 +162,7 @@
     <data name="Configuration_ComPort_Command_Success" xml:space="preserve">
         <value>COM port configuration updated successfully</value>
     </data>
+    <data name="UvexControl_Command_Error" xml:space="preserve">
+        <value>An error occured during UVEX command execution</value>
+    </data>
 </root>

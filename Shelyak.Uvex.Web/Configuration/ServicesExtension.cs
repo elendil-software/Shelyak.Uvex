@@ -1,5 +1,6 @@
 ﻿using Shelyak.Usis;
 using Shelyak.Usis.Responses;
+using Shelyak.Uvex.Web.Components.UvexControls.Commands;
 using Shelyak.Uvex.Web.Core.Alpaca;
 using Shelyak.Uvex.Web.Core.HttpClients;
 using Shelyak.Uvex.Web.Core.Settings;
@@ -41,6 +42,12 @@ public static class ServicesExtension
         {
             var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}");
+        });
+        
+        builder.Services.AddHttpClient(HttpClientConst.ApiSpectrographHttpClient, (provider, client) =>
+        {
+            var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
+            client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}Spectrograph/0/");
         });
 
         return builder;
