@@ -45,9 +45,9 @@
 
     private async Task LoadCurrentLightSource()
     {
-        var currentLightSource = (await UvexHttpClient.GetLightSource());
-        HandleAlpacaError(currentLightSource);
-        SetSwitchesState(currentLightSource.Value.Value);
+        var currentLightSource = await AlpacaCommands.GetLightSource();
+        HandleAlpacaError(currentLightSource.Value);
+        SetSwitchesState(currentLightSource.Value.Value.Value);
     }
 
     private async Task EnableSky()
@@ -55,7 +55,7 @@
         await ExecuteAndHandleException(async () =>
         {
             SetSwitchesState(LightSource.SKY);
-            await UvexHttpClient.SetLightSource(LightSource.SKY);
+            await AlpacaCommands.SetLightSource(LightSource.SKY);
         });
     }
 
@@ -64,7 +64,7 @@
         await ExecuteAndHandleException(async () =>
         {
             SetSwitchesState(LightSource.FLAT);
-            await UvexHttpClient.SetLightSource(LightSource.FLAT);
+            await AlpacaCommands.SetLightSource(LightSource.FLAT);
         });
     }
 
@@ -73,7 +73,7 @@
         await ExecuteAndHandleException(async () =>
         {
             SetSwitchesState(LightSource.CALIB);
-            await UvexHttpClient.SetLightSource(LightSource.CALIB);
+            await AlpacaCommands.SetLightSource(LightSource.CALIB);
         });
     }
 
@@ -82,7 +82,7 @@
         await ExecuteAndHandleException(async () =>
         {
             SetSwitchesState(LightSource.DARK);
-            await UvexHttpClient.SetLightSource(LightSource.DARK);
+            await AlpacaCommands.SetLightSource(LightSource.DARK);
         });
     }
     

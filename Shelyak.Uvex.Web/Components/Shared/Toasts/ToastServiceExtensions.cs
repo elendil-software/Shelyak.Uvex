@@ -16,4 +16,9 @@ public static class ToastServiceExtensions
             toastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
         }
     }
+
+    public static void DisplayErrorsToast<T>(this ToastService toastService, Result<T> result)
+    {
+        toastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
+    }
 }

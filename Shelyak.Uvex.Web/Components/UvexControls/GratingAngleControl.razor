@@ -51,20 +51,20 @@
     
     protected override async Task OnInitializedAsync()
     {
-        var gratingAngleMin = await UvexHttpClient.GetGratingAngleMin();
-        HandleAlpacaError(gratingAngleMin);
-        MinAngle = gratingAngleMin.Value.Value;
+        var gratingAngleMin = await AlpacaCommands.GetGratingAngleMin();
+        HandleAlpacaError(gratingAngleMin.Value);
+        MinAngle = gratingAngleMin.Value.Value.Value;
 
-        var gratingAngleMax = await UvexHttpClient.GetGratingAngleMax();
-        HandleAlpacaError(gratingAngleMax);
-        MaxAngle = gratingAngleMax.Value.Value;
+        var gratingAngleMax = await AlpacaCommands.GetGratingAngleMax();
+        HandleAlpacaError(gratingAngleMax.Value);
+        MaxAngle = gratingAngleMax.Value.Value.Value;
     }
     
     protected override async Task LoadData()
     {
-        var response = await UvexHttpClient.GetGratingAngle();
-        HandleAlpacaError(response);
-        CurrentAngle = response.Value.Value;
+        var response = await AlpacaCommands.GetGratingAngle();
+        HandleAlpacaError(response.Value);
+        CurrentAngle = response.Value.Value.Value;
     }
     
     private Task ExecuteAngleControlAction()
@@ -88,27 +88,27 @@
     
     private async Task Calibrate()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.CalibrateGratingAngle(Model.AbsolutePosition); });
+        await ExecuteAndHandleError(() => AlpacaCommands.CalibrateGratingAngle(Model.AbsolutePosition));
     }
     
     private async Task GoTo()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingAngle(Model.AbsolutePosition); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(Model.AbsolutePosition));
     }
 
     private async Task MoveIn()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingAngle(CurrentAngle - Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle - Model.StepSize));
     }
 
     private async Task MoveOut()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingAngle(CurrentAngle + Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle + Model.StepSize));
     }
     
     private async Task Abort()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.StopGratingAngle(); });
+        await ExecuteAndHandleError(() => AlpacaCommands.StopGratingAngle());
     }
 
 

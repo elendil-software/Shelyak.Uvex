@@ -39,6 +39,7 @@ internal static class FastEndpointsConfigurationExtensions
             });
         
         app.Services.RegisterGenericCommand(typeof(AlpacaPutCommand<>), typeof(AlpacaPutCommandHandler<>));
+        app.Services.RegisterGenericCommand(typeof(AlpacaPutWithoutValueCommand<>), typeof(AlpacaPutWithoutValueCommandHandler<>));
         app.Services.RegisterGenericCommand(typeof(AlpacaGetCommand<>), typeof(AlpacaGetCommandHandler<>));
         
         if (IsSwaggerEnabled(configuration))

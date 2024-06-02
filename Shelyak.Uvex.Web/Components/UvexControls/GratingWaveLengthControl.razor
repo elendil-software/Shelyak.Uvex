@@ -50,9 +50,9 @@
     
     protected override async Task LoadData()
     {
-        var response = await UvexHttpClient.GetGratingWaveLength();
-        HandleAlpacaError(response);
-        CurrentWavelength = response.Value.Value;
+        var response = await AlpacaCommands.GetGratingWaveLength();
+        HandleAlpacaError(response.Value);
+        CurrentWavelength = response.Value.Value.Value;
     }
     
     private Task ExecuteWavelengthControlAction()
@@ -74,22 +74,22 @@
     
     private async Task GoTo()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(Model.AbsolutePosition); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(Model.AbsolutePosition));
     }
 
     private async Task MoveIn()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(CurrentWavelength - Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength - Model.StepSize));
     }
 
     private async Task MoveOut()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetGratingWaveLength(CurrentWavelength + Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength + Model.StepSize));
     }
     
     private async Task Abort()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.StopGratingWaveLength(); });
+        await ExecuteAndHandleError(() => AlpacaCommands.StopGratingWaveLength());
     }
     
     public class WavelengthControlModel

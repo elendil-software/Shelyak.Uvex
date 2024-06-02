@@ -26,7 +26,7 @@
             <div class="row mb-3">
                 <label for="position" class="col-sm-2 col-form-label">@Loc["UvexControl_Focus_Label_Target position"]</label>
                 <div class="col-sm-1">
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="position" class="form-control"/>
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="10" id="position" class="form-control"/>
                 </div>
                 <div class="col-sm-9">
                     <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
@@ -50,24 +50,22 @@
     private float CurrentFocusPosition { get; set; }
     private FocusControlModel Model { get; set; } = new();
     
-    
-
     protected override async Task OnInitializedAsync()
     {
-        var focusPositionMin = await UvexHttpClient.GetFocusPositionMin();
-        HandleAlpacaError(focusPositionMin);
-        MinFocusPosition = focusPositionMin.Value.Value;
+        var focusPositionMin = await AlpacaCommands.GetFocusPositionMin();
+        HandleAlpacaError(focusPositionMin.Value);
+        MinFocusPosition = focusPositionMin.Value.Value.Value;
 
-        var focusPositionMax = await UvexHttpClient.GetFocusPositionMax();
-        HandleAlpacaError(focusPositionMax);
-        MaxFocusPosition = focusPositionMax.Value.Value;
+        var focusPositionMax = await AlpacaCommands.GetFocusPositionMax();
+        HandleAlpacaError(focusPositionMax.Value);
+        MaxFocusPosition = focusPositionMax.Value.Value.Value;
     }
     
     protected override async Task LoadData()
     {
-        var focusPosition = await UvexHttpClient.GetFocusPosition();
-        HandleAlpacaError(focusPosition);
-        CurrentFocusPosition = focusPosition.Value.Value;
+        Result<AlpacaResponse<float>> result = await AlpacaCommands.GetFocusPosition();
+        HandleAlpacaError(result.Value);
+        CurrentFocusPosition = result.Value.Value.Value;
     }
 
 
@@ -92,27 +90,27 @@
     
     private async Task FocusOut()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(CurrentFocusPosition + Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition + Model.StepSize));
     }
 
     private async Task FocusIn()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(CurrentFocusPosition - Model.StepSize); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition - Model.StepSize));
     }
     
     private async Task GoTo()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.SetFocusPosition(Model.AbsolutePosition); });
+        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(Model.AbsolutePosition));
     }
     
     private async Task Abort()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.StopFocusPosition(); });
+        await ExecuteAndHandleError(() => AlpacaCommands.StopFocusPosition());
     }
 
     private async Task Calibrate()
     {
-        await ExecuteAndHandleException(async () => { await UvexHttpClient.CalibrateFocusPosition(Model.AbsolutePosition); });
+        await ExecuteAndHandleError(() => AlpacaCommands.CalibrateFocusPosition(Model.AbsolutePosition));
     }
     
     public enum FocusControlAction

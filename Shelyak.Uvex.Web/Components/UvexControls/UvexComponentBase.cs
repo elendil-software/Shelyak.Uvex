@@ -1,13 +1,15 @@
-﻿using BlazorBootstrap;
+﻿using Ardalis.Result;
+using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.Core.HttpClients;
+using Shelyak.Uvex.Web.Components.Shared.Toasts;
+using Shelyak.Uvex.Web.Components.UvexControls.Commands;
 
 namespace Shelyak.Uvex.Web.Components.UvexControls;
 
 public abstract class UvexComponentBase : ComponentBase
 {
-    [Inject] protected IUvexHttpClient UvexHttpClient { get; set; } = null!;
+    [Inject] protected IAlpacaCommands AlpacaCommands { get; set; } = null!;
     [Inject] protected ToastService ToastService { get; set; } = null!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
 
@@ -25,6 +27,22 @@ public abstract class UvexComponentBase : ComponentBase
     {
         await LoadData();
         StateHasChanged();
+    }
+    
+    protected async Task ExecuteAndHandleError<T>(Func<Task<Result<AlpacaResponse<T>>>> action)
+    {
+        var result = await action();
+        if (result.IsSuccess)
+        {
+            if (result.Value.ErrorNumber != AlpacaError.NoError)
+            {
+                ToastService.Notify(new(ToastType.Danger, $"Error: {result.Value.ErrorMessage}."));
+            }
+        }
+        else
+        {
+            ToastService.DisplayErrorsToast(result);
+        }
     }
     
     protected async Task ExecuteAndHandleException(Func<Task> action)

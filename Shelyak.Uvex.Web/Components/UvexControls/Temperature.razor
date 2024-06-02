@@ -27,8 +27,8 @@
     
     protected override async Task LoadData()
     {
-        var response = await UvexHttpClient.GetTemperature();
-        HandleAlpacaError(response);
-        CurrentTemperature = response.Value.Value;
+        var response = await AlpacaCommands.GetTemperature();
+        HandleAlpacaError(response.Value);
+        CurrentTemperature = response.Value.Value.Value;
     }
 }
