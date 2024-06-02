@@ -2,9 +2,9 @@
 using FastEndpoints;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.Endpoints.Config;
+namespace Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 
-public class GetPortsEndpoint : EndpointWithoutRequest<string[]>
+public class GetComPortsEndpoint : EndpointWithoutRequest<string[]>
 {
     public override void Configure()
     {

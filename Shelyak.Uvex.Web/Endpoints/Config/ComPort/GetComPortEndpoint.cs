@@ -4,14 +4,14 @@ using Shelyak.Usis;
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.Core.Settings;
 
-namespace Shelyak.Uvex.Web.Endpoints.Config;
+namespace Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 
-public class GetPortEndpoint : EndpointWithoutRequest<string>
+public class GetComPortEndpoint : EndpointWithoutRequest<string>
 {
     private readonly ISettingsUpdater _settingsUpdater;
     private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
 
-    public GetPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
+    public GetComPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
     {
         _settingsUpdater = settingsUpdater;
         SerialPortSettingsOptions = serialPortSettingsOptions;

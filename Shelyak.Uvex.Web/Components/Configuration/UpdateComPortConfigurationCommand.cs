@@ -3,6 +3,7 @@ using FastEndpoints;
 using Microsoft.Extensions.Localization;
 using Shelyak.Uvex.Web.Components.Shared.Commands;
 using Shelyak.Uvex.Web.Endpoints.Config;
+using Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 using Shelyak.Uvex.Web.Locales;
 
 namespace Shelyak.Uvex.Web.Components.Configuration;
@@ -20,7 +21,7 @@ public record UpdateComPortConfigurationCommand(string PortName) : ICommand<Resu
         
         protected override async Task<HttpResponseMessage> ExecuteHttpRequest(UpdateComPortConfigurationCommand command, CancellationToken ct)
         {
-            return await HttpClient.PutAsJsonAsync(SetPortRequest.Route, new SetPortRequest(command.PortName), ct);
+            return await HttpClient.PutAsJsonAsync(SetComPortRequest.Route, new SetComPortRequest(command.PortName), ct);
         }
 
         protected override Task<Result> BuildSuccessResponse(HttpResponseMessage response, CancellationToken ct)

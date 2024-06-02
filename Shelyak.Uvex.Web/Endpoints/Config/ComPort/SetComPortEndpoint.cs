@@ -4,16 +4,16 @@ using Shelyak.Usis;
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.Core.Settings;
 
-namespace Shelyak.Uvex.Web.Endpoints.Config;
+namespace Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 
-public class SetPortEndpoint : Endpoint<SetPortRequest>
+public class SetComPortEndpoint : Endpoint<SetComPortRequest>
 {
     internal const string RoutePattern = "/" + ApiRoutes.ConfigPort;
     
     private readonly ISettingsUpdater _settingsUpdater;
     private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
 
-    public SetPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
+    public SetComPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
     {
         _settingsUpdater = settingsUpdater;
         SerialPortSettingsOptions = serialPortSettingsOptions;
@@ -27,7 +27,7 @@ public class SetPortEndpoint : Endpoint<SetPortRequest>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(SetPortRequest req, CancellationToken ct)
+    public override async Task HandleAsync(SetComPortRequest req, CancellationToken ct)
     {
         var serialPortSettings = SerialPortSettingsOptions.Value;
         serialPortSettings.PortName = req.PortName;
