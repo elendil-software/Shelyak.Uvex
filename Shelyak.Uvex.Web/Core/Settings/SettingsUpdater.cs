@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Shelyak.Usis;
+using Shelyak.Uvex.Web.Configuration;
 using Shelyak.Uvex.Web.Settings;
 
 namespace Shelyak.Uvex.Web.Core.Settings;
@@ -29,6 +30,33 @@ public class SettingsUpdater : ISettingsUpdater
         return Update(settings => 
         {
             settings.Swagger = new SwaggerSettings { Enabled = enabled };
+            return settings;
+        });
+    }
+
+    public Task UpdateGratingAngleStepSize(float stepSize)
+    {
+        return Update(settings =>
+        {
+            settings.UvexControls.GratingAngleStepSize = stepSize;
+            return settings;
+        });
+    }
+
+    public Task UpdateGratingWavelengthStepSize(float stepSize)
+    {
+        return Update(settings =>
+        {
+            settings.UvexControls.GratingWavelengthStepSize = stepSize;
+            return settings;
+        });
+    }
+
+    public Task UpdateFocusStepSize(float stepSize)
+    {
+        return Update(settings =>
+        {
+            settings.UvexControls.FocusStepSize = stepSize;
             return settings;
         });
     }
