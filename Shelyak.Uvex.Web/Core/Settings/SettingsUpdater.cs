@@ -7,7 +7,7 @@ namespace Shelyak.Uvex.Web.Core.Settings;
 
 public class SettingsUpdater : ISettingsUpdater
 {
-    private static readonly SemaphoreSlim _semaphore = new(1);
+    private static readonly SemaphoreSlim _semaphore = new(1, 1);
     private readonly string _settingsFilePath;
 
     public SettingsUpdater(string settingsFilePath)
