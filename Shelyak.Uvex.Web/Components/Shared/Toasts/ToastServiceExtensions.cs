@@ -1,4 +1,5 @@
-﻿using Ardalis.Result;
+﻿using System.Runtime.CompilerServices;
+using Ardalis.Result;
 using BlazorBootstrap;
 
 namespace Shelyak.Uvex.Web.Components.Shared.Toasts;
@@ -15,6 +16,11 @@ public static class ToastServiceExtensions
         {
             toastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
         }
+    }
+    
+    public static void DisplayToastIfNotSuccess<T>(this ToastService toastService, Result<T> result)
+    {
+        toastService.DisplayErrorsToast(result);
     }
 
     public static void DisplayErrorsToast<T>(this ToastService toastService, Result<T> result)
