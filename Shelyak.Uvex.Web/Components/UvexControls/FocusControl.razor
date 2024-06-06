@@ -1,6 +1,7 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
-@inject IStringLocalizer<LocalizationResources> Loc;
+@inject IOptionsSnapshot<UvexControlsSettings> Settings
+@inject IStringLocalizer<LocalizationResources> Loc
 
 <Card Class="mb-4">
     <CardBody>
@@ -16,7 +17,12 @@
             <div class="row mb-3">
                 <label for="step-size" class="col-sm-2 col-form-label">@Loc["UvexControl_Focus_Label_Step size"]</label>
                 <div class="col-sm-1">
-                    <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="step-size" class="form-control"/>
+                    <InputNumber TValue="float" 
+                                 Value="Model.StepSize" 
+                                 ValueExpression="() => Model.StepSize" 
+                                 ValueChanged="(value) => StepSizeChanged(value)"
+                                 id="step-size" class="form-control"
+                                    step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" />
                 </div>
                 <div class="col-sm-9">
                     <button @onclick="@(() => Model.Action = FocusControlAction.FocusOut)" class="btn btn-primary">+</button>
@@ -59,6 +65,8 @@
         var focusPositionMax = await AlpacaCommands.GetFocusPositionMax();
         HandleAlpacaError(focusPositionMax.Value);
         MaxFocusPosition = focusPositionMax.Value.Value.Value;
+        
+        Model.StepSize = Settings.Value.FocusStepSize;
     }
     
     protected override async Task LoadData()
@@ -67,8 +75,17 @@
         HandleAlpacaError(result.Value);
         CurrentFocusPosition = result.Value.Value.Value;
     }
-
-
+   
+    private async Task StepSizeChanged(float value)
+    {
+        Model.StepSize = value;
+        var result = await new UpdateFocusStepSizeCommand(value).ExecuteAsync();
+        if (!result.IsSuccess)
+        {
+            ToastService.DisplayErrorsToast(result);
+        }
+    }
+    
     private Task ExecuteFocusControlAction()
     {
         switch (Model.Action)

@@ -1,5 +1,6 @@
 ﻿@inherits UvexComponentBase
 @rendermode InteractiveServer
+@inject IOptionsSnapshot<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="mb-4">
@@ -16,7 +17,14 @@
             <div class="row mb-3">
                 <label for="step-size" class="col-sm-2 col-form-label">@Loc["UvexControl_GratingAngle_Label_Step size"]</label>
                 <div class="col-sm-1">
-                    <InputNumber @bind-Value="@Model.StepSize" step=".01" min="@MinAngle" max="@MaxAngle" id="step-size" class="form-control"/>
+                    <InputNumber TValue="float"
+                                 Value="Model.StepSize"
+                                 ValueExpression="() => Model.StepSize"
+                                 ValueChanged="(value) => StepSizeChanged(value)"
+                                 id="step-size" 
+                                 class="form-control"
+                                 step=".01" 
+                                 min="@MinAngle" max="@MaxAngle" />
                 </div>
                 <div class="col-sm-9">
                     <button @onclick="@(() => Model.Action = AngleControlAction.MoveCw)" class="btn btn-primary">+</button>
@@ -58,6 +66,8 @@
         var gratingAngleMax = await AlpacaCommands.GetGratingAngleMax();
         HandleAlpacaError(gratingAngleMax.Value);
         MaxAngle = gratingAngleMax.Value.Value.Value;
+        
+        Model.StepSize = Settings.Value.GratingAngleStepSize;
     }
     
     protected override async Task LoadData()
@@ -65,6 +75,16 @@
         var response = await AlpacaCommands.GetGratingAngle();
         HandleAlpacaError(response.Value);
         CurrentAngle = response.Value.Value.Value;
+    }
+    
+    private async Task StepSizeChanged(float value)
+    {
+        Model.StepSize = value;
+        var result = await new UpdateGratingAngleStepSizeCommand(value).ExecuteAsync();
+        if (!result.IsSuccess)
+        {
+            ToastService.DisplayErrorsToast(result);
+        }
     }
     
     private Task ExecuteAngleControlAction()
