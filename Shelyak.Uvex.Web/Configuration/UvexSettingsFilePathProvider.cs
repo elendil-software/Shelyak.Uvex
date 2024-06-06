@@ -1,6 +1,8 @@
 ﻿namespace Shelyak.Uvex.Web.Configuration;
 
-public static class UvexSettingsFilePathProvider
+public class UvexSettingsFilePathProvider : IUvexSettingsFilePathProvider
 {
-    public static string UvexSettingsFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
+    public string UvexSettingsFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Shelyak/Uvex/appsettings-uvex.json");
+    
+    public static IUvexSettingsFilePathProvider CreateProductionInstance => new UvexSettingsFilePathProvider();
 }

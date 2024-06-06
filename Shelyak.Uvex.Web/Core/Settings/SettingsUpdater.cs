@@ -11,9 +11,9 @@ public class SettingsUpdater : ISettingsUpdater
     private static readonly SemaphoreSlim _semaphore = new(1, 1);
     private readonly string _settingsFilePath;
 
-    public SettingsUpdater(string settingsFilePath)
+    public SettingsUpdater(IUvexSettingsFilePathProvider settingsFilePathProvider)
     {
-        _settingsFilePath = settingsFilePath;
+        _settingsFilePath = settingsFilePathProvider.UvexSettingsFilePath;
     }
     
     public Task UpdateSerialPort(SerialPortSettings serialPortSettings)
