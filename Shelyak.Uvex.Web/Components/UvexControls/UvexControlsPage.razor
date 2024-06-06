@@ -6,12 +6,26 @@
 <PageTitle>@Loc["UvexControl_Title"]</PageTitle>
 <h3>@Loc["UvexControl_Title"]</h3>
 
-<UvexInfos/>
-<Temperature @ref="TemperatureChildComponent" />
-<CalibrationControl @ref="CalibrationControlChildComponent"/>
-<GratingAngleControl @ref="GratingAngleControlChildComponent" />
-<GratingWaveLengthControl @ref="GratingWaveLengthControlChildComponent"/>
-<FocusControl @ref="FocusControlChildComponent" />
+<div class="row">
+    <CardContainer>
+        <UvexInfos/>
+    </CardContainer>
+    <CardContainer>
+        <Temperature @ref="TemperatureChildComponent"/>
+    </CardContainer>
+    <CardContainer>
+        <CalibrationControl @ref="CalibrationControlChildComponent"/>
+    </CardContainer>
+    <CardContainer>
+        <GratingAngleControl @ref="GratingAngleControlChildComponent"/>
+    </CardContainer>
+    <CardContainer>
+        <GratingWaveLengthControl @ref="GratingWaveLengthControlChildComponent"/>
+    </CardContainer>
+    <CardContainer>
+        <FocusControl @ref="FocusControlChildComponent"/>
+    </CardContainer>
+</div>
 
 @code
 {

@@ -1,0 +1,7 @@
+﻿<div class="col-md-6 col-sm-12 mb-4">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
+}
