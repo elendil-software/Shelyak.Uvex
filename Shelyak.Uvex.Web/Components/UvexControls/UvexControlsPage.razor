@@ -11,7 +11,7 @@
         <UvexInfos/>
     </CardContainer>
     <CardContainer>
-        <Temperature @ref="TemperatureChildComponent"/>
+        <Sensors @ref="SensorsChildComponent"/>
     </CardContainer>
     <CardContainer>
         <CalibrationControl @ref="CalibrationControlChildComponent"/>
@@ -29,7 +29,7 @@
 
 @code
 {
-    private Temperature TemperatureChildComponent { get; set; } = null!;
+    private Sensors SensorsChildComponent { get; set; } = null!;
     private FocusControl FocusControlChildComponent { get; set; } = null!;
     private GratingWaveLengthControl GratingWaveLengthControlChildComponent { get; set; } = null!;
     private GratingAngleControl GratingAngleControlChildComponent { get; set; } = null!;
@@ -55,7 +55,7 @@
     private async Task LoadDataAsync()
     {
         await CalibrationControlChildComponent.Refresh();
-        await TemperatureChildComponent.Refresh();
+        await SensorsChildComponent.Refresh();
         await GratingWaveLengthControlChildComponent.Refresh();
         await GratingAngleControlChildComponent.Refresh();
         await FocusControlChildComponent.Refresh();
