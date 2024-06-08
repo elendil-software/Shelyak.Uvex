@@ -1,0 +1,19 @@
+﻿<div class="row mb-3">
+    <div class="col-12 col-lg-@LabelCols">@Label</div>
+    <div class="col-12 col-lg-@ValueCols">@Value@Unit</div>
+</div>
+
+@code {
+    [Parameter] public int LabelCols { get; set; } = 4;
+    [Parameter, EditorRequired] public string Label { get;set; } = default!;
+    [Parameter, EditorRequired] public string Value { get; set; } = default!;
+    [Parameter, EditorRequired] public string Unit { get; set; } = default!;
+    
+    
+    private int ValueCols { get; set; } = 8;
+
+    protected override void OnInitialized()
+    {
+        ValueCols = 12 - LabelCols;
+    }
+}

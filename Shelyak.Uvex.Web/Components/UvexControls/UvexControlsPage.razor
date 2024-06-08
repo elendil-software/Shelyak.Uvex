@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @implements IDisposable
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
@@ -14,9 +15,6 @@
         <Sensors @ref="SensorsChildComponent"/>
     </CardContainer>
     <CardContainer>
-        <CalibrationControl @ref="CalibrationControlChildComponent"/>
-    </CardContainer>
-    <CardContainer>
         <GratingAngleControl @ref="GratingAngleControlChildComponent"/>
     </CardContainer>
     <CardContainer>
@@ -24,6 +22,9 @@
     </CardContainer>
     <CardContainer>
         <FocusControl @ref="FocusControlChildComponent"/>
+    </CardContainer>
+    <CardContainer>
+        <CalibrationControl @ref="CalibrationControlChildComponent"/>
     </CardContainer>
 </div>
 

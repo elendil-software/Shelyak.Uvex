@@ -10,37 +10,39 @@
         <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <EditForm Model="@Model" FormName="angle-control-form" OnSubmit="@ExecuteAngleControlAction">
-            <div class="row mb-3">
-                <div class="col-sm-2">@Loc["UvexControl_GratingAngle_Label_Current angle"]</div>
-                <div class="col-sm-10">@CurrentAngle°</div>
-            </div>
-            <div class="row mb-3">
-                <label for="step-size" class="col-sm-2 col-form-label">@Loc["UvexControl_GratingAngle_Label_Step size"]</label>
-                <div class="col-sm-1">
+            <CurrentValue Label="@Loc["UvexControl_GratingAngle_Label_Current angle"]" Value="@CurrentAngle.ToString("F2")" Unit="°" />
+
+            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingAngle_Label_Step size"]">
+                <InputTemplate>
                     <InputNumber TValue="float"
                                  Value="Model.StepSize"
                                  ValueExpression="() => Model.StepSize"
                                  ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="step-size" 
+                                 id="step-size"
                                  class="form-control"
-                                 step=".01" 
-                                 min="@MinAngle" max="@MaxAngle" />
-                </div>
-                <div class="col-sm-9">
+                                 step=".01"
+                                 min="@MinAngle" max="@MaxAngle"/>
+                </InputTemplate>
+                <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = AngleControlAction.MoveCw)" class="btn btn-primary">+</button>
+                </ButtonLeftTemplate>
+                <ButtonRightTemplate>
                     <button @onclick="@(() => Model.Action = AngleControlAction.MoveCcw)" class="btn btn-primary">-</button>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="position" class="col-sm-2 col-form-label">@Loc["UvexControl_GratingAngle_Label_Target angle"]</label>
-                <div class="col-sm-1">
+                </ButtonRightTemplate>
+            </InputAndButtonsRow>
+
+            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingAngle_Label_Target angle"]">
+                <InputTemplate>
                     <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="position" class="form-control"/>
-                </div>
-                <div class="col-sm-9">
+                </InputTemplate>
+                <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = AngleControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
+                </ButtonLeftTemplate>
+                <ButtonRightTemplate>
                     <button @onclick="@(() => Model.Action = AngleControlAction.Calibrate)" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
-                </div>
-            </div>
+                </ButtonRightTemplate>
+            </InputAndButtonsRow>
+
             <div class="form-row mb-3">
                 <div class="col-auto">
                     <button @onclick="@(() => Model.Action = AngleControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>

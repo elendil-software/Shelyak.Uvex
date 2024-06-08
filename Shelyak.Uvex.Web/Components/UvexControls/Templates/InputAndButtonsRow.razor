@@ -1,0 +1,33 @@
+﻿<div class="row mb-3">
+    <label for="@LabelFor" class="col-12 col-lg-@LabelCols col-form-label">@LabelText</label>
+    <div class="col-12 col-lg-@InputCols d-flex flex-wrap">
+        <div class="col-5 p-0 mb-2 mb-lg-2">
+            @InputTemplate
+        </div>
+        <div class="col-auto p-0 ms-1">
+            @ButtonLeftTemplate
+        </div>
+        @if (ButtonRightTemplate != null)
+        {
+            <div class="col-auto p-0 ms-1">
+                @ButtonRightTemplate
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public int LabelCols { get; set; } = 4;
+    [Parameter, EditorRequired] public string LabelText { get; set; } = default!;
+    [Parameter, EditorRequired] public string LabelFor { get; set; } = default!; 
+    [Parameter, EditorRequired] public RenderFragment InputTemplate { get; set; } = default!;
+    [Parameter, EditorRequired] public RenderFragment ButtonLeftTemplate { get; set; } = default!;
+    [Parameter] public RenderFragment? ButtonRightTemplate { get; set; }
+
+    private int InputCols { get; set; } = 8;
+
+    protected override void OnInitialized()
+    {
+        InputCols = 12 - LabelCols;
+    }
+}

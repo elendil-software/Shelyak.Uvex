@@ -10,41 +10,42 @@
         <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <EditForm Model="@Model" FormName="focus-control-form" OnSubmit="@ExecuteFocusControlAction">
-            <div class="row mb-3">
-                <div class="col-sm-2">@Loc["UvexControl_Focus_Label_Current position"]</div>
-                <div class="col-sm-10">@CurrentFocusPosition mm</div>
-            </div>
-            <div class="row mb-3">
-                <label for="step-size" class="col-sm-2 col-form-label">@Loc["UvexControl_Focus_Label_Step size"]</label>
-                <div class="col-sm-1">
-                    <InputNumber TValue="float" 
-                                 Value="Model.StepSize" 
-                                 ValueExpression="() => Model.StepSize" 
+            <CurrentValue Label="@Loc["UvexControl_Focus_Label_Current position"]" Value="@CurrentFocusPosition.ToString("F2")" Unit=" mm" />
+            
+            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_Focus_Label_Step size"]">
+                <InputTemplate>
+                    <InputNumber TValue="float"
+                                 Value="Model.StepSize"
+                                 ValueExpression="() => Model.StepSize"
                                  ValueChanged="(value) => StepSizeChanged(value)"
                                  id="step-size" class="form-control"
-                                    step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" />
-                </div>
-                <div class="col-sm-9">
+                                 step=".01" min="@MinFocusPosition" max="@MaxFocusPosition"/>
+                </InputTemplate>
+                <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.FocusOut)" class="btn btn-primary">+</button>
+                </ButtonLeftTemplate>
+                <ButtonRightTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.FocusIn)" class="btn btn-primary">-</button>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="position" class="col-sm-2 col-form-label">@Loc["UvexControl_Focus_Label_Target position"]</label>
-                <div class="col-sm-1">
+                </ButtonRightTemplate>
+            </InputAndButtonsRow>
+            
+            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
+                <InputTemplate>
                     <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="10" id="position" class="form-control"/>
-                </div>
-                <div class="col-sm-9">
+                </InputTemplate>
+                <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
+                </ButtonLeftTemplate>
+                <ButtonRightTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.Calibrate)" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
-                </div>
-            </div>
+                </ButtonRightTemplate>
+            </InputAndButtonsRow>
+            
             <div class="form-row mb-3">
                 <div class="col-auto">
                     <button @onclick="@(() => Model.Action = FocusControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>
                 </div>
             </div>
-
         </EditForm>
     </CardBody>
 </Card>
