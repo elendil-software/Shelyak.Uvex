@@ -11,7 +11,7 @@ public static class ConfigurationExtensions
 
         //Configuration
         builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
-        builder.Services.Configure<UvexControlsSettings>(builder.Configuration.GetSection(SwaggerSettings.SectionName));
+        builder.Services.Configure<SwaggerSettings>(builder.Configuration.GetSection(SwaggerSettings.SectionName));
         builder.Services.Configure<UvexControlsSettings>(builder.Configuration.GetSection(UvexControlsSettings.SectionName));
 
         return builder;
