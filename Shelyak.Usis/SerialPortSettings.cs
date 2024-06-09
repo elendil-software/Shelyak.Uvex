@@ -4,6 +4,8 @@ namespace Shelyak.Usis
 {
     public class SerialPortSettings
     {
+        public const string SectionName = "SerialPort";
+        
         public string PortName { get; set; } = "COM1";
         public int BaudRate { get; set; } = 9600;
         public Parity Parity { get; set; } = Parity.None;

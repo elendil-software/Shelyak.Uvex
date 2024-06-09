@@ -20,7 +20,7 @@ public class SettingsUpdater : ISettingsUpdater
     {
         return Update(settings => 
         {
-            settings.SerialPortSettings = serialPortSettings;
+            settings.SerialPort = serialPortSettings;
             return settings;
         });
     }    

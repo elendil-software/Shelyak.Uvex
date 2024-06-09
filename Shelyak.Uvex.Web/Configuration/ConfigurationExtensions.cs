@@ -10,7 +10,7 @@ public static class ConfigurationExtensions
         builder.Configuration.AddJsonFile(UvexSettingsFilePathProvider.CreateProductionInstance.UvexSettingsFilePath, optional: true, reloadOnChange: true);
 
         //Configuration
-        builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection("SerialPortSettings"));
+        builder.Services.Configure<SerialPortSettings>(builder.Configuration.GetSection(SerialPortSettings.SectionName));
         builder.Services.Configure<SwaggerSettings>(builder.Configuration.GetSection(SwaggerSettings.SectionName));
         builder.Services.Configure<UvexControlsSettings>(builder.Configuration.GetSection(UvexControlsSettings.SectionName));
 
