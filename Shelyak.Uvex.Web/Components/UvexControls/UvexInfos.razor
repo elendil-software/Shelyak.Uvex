@@ -1,4 +1,5 @@
-﻿@inherits UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Extensions
+@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
 @inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
@@ -32,18 +33,24 @@
 
     protected override async Task LoadData()
     {
-        var response = await AlpacaCommands.GetDeviceName();
-        HandleAlpacaError(response.Value);
-        SpectrographName = response.Value.Value.Value;
-
-        var softwareVersion = await AlpacaCommands.GetSoftwareVersion();
-        HandleAlpacaError(softwareVersion.Value);
-        Firmware = softwareVersion.Value.Value.Value;
-
-        var protocolVersion = await AlpacaCommands.GetProtocolVersion();
-        HandleAlpacaError(protocolVersion.Value);
-        UsisProtocolVersion = protocolVersion.Value.Value.Value;
-
+        Result<AlpacaResponse<string>> result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetDeviceName());
+        if (result.IsSuccessAndHasValue())
+        {
+            SpectrographName = result.Value.Value!.Value;
+        }
+        
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetSoftwareVersion());
+        if (result.IsSuccessAndHasValue())
+        {
+            SpectrographName = result.Value.Value!.Value;
+        }
+        
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetProtocolVersion());
+        if (result.IsSuccessAndHasValue())
+        {
+            Firmware = result.Value.Value!.Value;
+        }
+        
         ComPort = SerialPortSettingsOptions.Value.PortName;
     }
 }

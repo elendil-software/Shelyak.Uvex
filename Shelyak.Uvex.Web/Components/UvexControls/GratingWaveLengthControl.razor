@@ -1,4 +1,5 @@
-﻿@inherits UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Extensions
+@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IOptionsSnapshot<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc;
@@ -58,14 +59,22 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLengthMin());
+        MinWavelength = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
+        
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLengthMax());
+        MaxWavelength = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 1000.0f;
+        
         Model.StepSize = Settings.Value.GratingWavelengthStepSize;
     }
 
     protected override async Task LoadData()
     {
-        var response = await AlpacaCommands.GetGratingWaveLength();
-        HandleAlpacaError(response.Value);
-        CurrentWavelength = response.Value.Value.Value;
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLength());
+        if (result.IsSuccessAndHasValue())
+        {
+            CurrentWavelength = result.Value.Value!.Value;
+        }
     }
     
     private async Task StepSizeChanged(float value)

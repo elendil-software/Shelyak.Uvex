@@ -1,4 +1,5 @@
-﻿@inherits UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Extensions
+@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
 
@@ -45,45 +46,47 @@
 
     private async Task LoadCurrentLightSource()
     {
-        var currentLightSource = await AlpacaCommands.GetLightSource();
-        HandleAlpacaError(currentLightSource.Value);
-        SetSwitchesState(currentLightSource.Value.Value.Value);
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetLightSource());
+        if (result.IsSuccessAndHasValue())
+        {
+            SetSwitchesState(result.Value.Value!.Value);
+        }
     }
 
     private async Task EnableSky()
     {
-        await ExecuteAndHandleException(async () =>
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.SKY));
+        if (result.IsSuccess)
         {
             SetSwitchesState(LightSource.SKY);
-            await AlpacaCommands.SetLightSource(LightSource.SKY);
-        });
+        }
     }
 
     private async Task EnableFlat()
     {
-        await ExecuteAndHandleException(async () =>
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.FLAT));
+        if (result.IsSuccess)
         {
             SetSwitchesState(LightSource.FLAT);
-            await AlpacaCommands.SetLightSource(LightSource.FLAT);
-        });
+        }
     }
 
     private async Task EnableCalibration()
     {
-        await ExecuteAndHandleException(async () =>
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.CALIB));
+        if (result.IsSuccess)
         {
-            SetSwitchesState(LightSource.CALIB);
-            await AlpacaCommands.SetLightSource(LightSource.CALIB);
-        });
+            SetSwitchesState(LightSource.FLAT);
+        }
     }
 
     private async Task EnableDark()
     {
-        await ExecuteAndHandleException(async () =>
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.DARK));
+        if (result.IsSuccess)
         {
             SetSwitchesState(LightSource.DARK);
-            await AlpacaCommands.SetLightSource(LightSource.DARK);
-        });
+        }
     }
     
     private void SetSwitchesState(LightSource activeLightSource)

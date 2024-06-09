@@ -1,4 +1,5 @@
-﻿@inherits UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Extensions
+@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
 
@@ -27,8 +28,10 @@
     
     protected override async Task LoadData()
     {
-        var response = await AlpacaCommands.GetTemperature();
-        HandleAlpacaError(response.Value);
-        CurrentTemperature = response.Value.Value.Value;
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetTemperature());
+        if (result.IsSuccessAndHasValue())
+        {
+            CurrentTemperature = result.Value.Value!.Value;
+        }
     }
 }

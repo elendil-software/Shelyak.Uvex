@@ -1,4 +1,5 @@
-﻿@inherits UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Extensions
+@inherits UvexComponentBase
 @rendermode InteractiveServer
 @inject IOptionsSnapshot<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc;
@@ -61,22 +62,22 @@
     
     protected override async Task OnInitializedAsync()
     {
-        var gratingAngleMin = await AlpacaCommands.GetGratingAngleMin();
-        HandleAlpacaError(gratingAngleMin.Value);
-        MinAngle = gratingAngleMin.Value.Value.Value;
-
-        var gratingAngleMax = await AlpacaCommands.GetGratingAngleMax();
-        HandleAlpacaError(gratingAngleMax.Value);
-        MaxAngle = gratingAngleMax.Value.Value.Value;
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngleMin());
+        MinAngle = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
+        
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngleMax());
+        MaxAngle = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
         
         Model.StepSize = Settings.Value.GratingAngleStepSize;
     }
     
     protected override async Task LoadData()
     {
-        var response = await AlpacaCommands.GetGratingAngle();
-        HandleAlpacaError(response.Value);
-        CurrentAngle = response.Value.Value.Value;
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngle());
+        if (result.IsSuccessAndHasValue())
+        {
+            CurrentAngle = result.Value.Value!.Value;
+        }
     }
     
     private async Task StepSizeChanged(float value)

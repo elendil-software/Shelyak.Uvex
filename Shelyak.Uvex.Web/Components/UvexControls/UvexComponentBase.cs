@@ -23,11 +23,13 @@ public abstract class UvexComponentBase : ComponentBase
         StateHasChanged();
     }
     
-    protected async Task ExecuteAndHandleError<T>(Func<Task<Result<AlpacaResponse<T>>>> action)
+    protected async Task<Result<AlpacaResponse<T>>> ExecuteAndHandleError<T>(Func<Task<Result<AlpacaResponse<T>>>> action)
     {
+        //TODO handle exceptions
         var result = await action();
         if (result.IsSuccess)
         {
+            RedirectToConfigurationIfNotConnected(result.Value);
             if (result.Value.ErrorNumber != AlpacaError.NoError)
             {
                 ToastService.Notify(new(ToastType.Danger, $"Error: {result.Value.ErrorMessage}."));
@@ -37,34 +39,11 @@ public abstract class UvexComponentBase : ComponentBase
         {
             ToastService.DisplayErrorsToast(result);
         }
-    }
-    
-    protected async Task ExecuteAndHandleException(Func<Task> action)
-    {
-        try
-        {
-            await action();
-        }
-        catch(Exception ex)
-        {
-            ToastService.Notify(new(ToastType.Danger, $"Error: {ex.Message}."));
-        }
-    }
 
-    protected void HandleAlpacaError<T>(AlpacaResponse<T> response)
-    {
-        RedirectToConfigurationIfNotConnected(response);
-    
-        if (response.ErrorNumber == AlpacaError.NoError)
-        {
-            ErrorMessage = "";
-            return;
-        }
-        
-        ErrorMessage = response.ErrorMessage;
+        return result;
     }
     
-    protected void RedirectToConfigurationIfNotConnected<T>(AlpacaResponse<T> response)
+    private void RedirectToConfigurationIfNotConnected<T>(AlpacaResponse<T> response)
     {
         if (response.ErrorNumber == AlpacaError.NotConnected)
         {
