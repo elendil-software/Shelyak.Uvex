@@ -23,8 +23,12 @@
         /// </summary>
         public string ErrorMessage { get; set; } = "";
 
+#if NET8_0_OR_GREATER
+        public AlpacaResponseValue<T>? Value { get; set; }
+#else
         public AlpacaResponseValue<T> Value { get; set; } = default;
-
+#endif
+        
         public void EnsureSuccess()
         {
             if (ErrorNumber != AlpacaError.NoError)
