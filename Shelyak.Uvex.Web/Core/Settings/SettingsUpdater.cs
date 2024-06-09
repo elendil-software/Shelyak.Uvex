@@ -8,7 +8,7 @@ namespace Shelyak.Uvex.Web.Core.Settings;
 
 public class SettingsUpdater : ISettingsUpdater
 {
-    private static readonly SemaphoreSlim _semaphore = new(1, 1);
+    private static readonly SemaphoreSlim Semaphore = new(1, 1);
     private readonly string _settingsFilePath;
 
     public SettingsUpdater(IUvexSettingsFilePathProvider settingsFilePathProvider)
@@ -63,7 +63,7 @@ public class SettingsUpdater : ISettingsUpdater
 
     private async Task Update(Func<UvexSettings, UvexSettings> updateFunc)
     {
-        await _semaphore.WaitAsync();
+        await Semaphore.WaitAsync();
         try
         {
             var settings = ReadJsonFile();
@@ -72,7 +72,7 @@ public class SettingsUpdater : ISettingsUpdater
         }
         finally
         {
-            _semaphore.Release();
+            Semaphore.Release();
         }
     }
     
