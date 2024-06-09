@@ -31,7 +31,7 @@
             
             <InputAndButtonsRow LabelFor="focus-position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
                 <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="10" id="focus-position" class="form-control"/>
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="focus-position" class="form-control"/>
                 </InputTemplate>
                 <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
