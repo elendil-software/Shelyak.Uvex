@@ -12,13 +12,13 @@
         <EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
             <CurrentValue Label="@Loc["UvexControl_GratingWavelength_Label_Current wavelength"]" Value="@CurrentWavelength.ToString("F2")" Unit=" nm" LabelCols="5"/>
 
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingWavelength_Label_Step size"]" LabelCols="5">
+            <InputAndButtonsRow LabelFor="wavelength-step-size" LabelText="@Loc["UvexControl_GratingWavelength_Label_Step size"]" LabelCols="5">
                 <InputTemplate>
                     <InputNumber TValue="float"
                                  Value="Model.StepSize"
                                  ValueExpression="() => Model.StepSize"
                                  ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="step-size"
+                                 id="wavelength-step-size"
                                  class="form-control"
                                  step=".01"
                                  min="@MinWavelength" max="@MaxWavelength"/>
@@ -31,9 +31,9 @@
                 </ButtonRightTemplate>
             </InputAndButtonsRow>
 
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingWavelength_Label_Target wavelength"]" LabelCols="5">
+            <InputAndButtonsRow LabelFor="wavelength-position" LabelText="@Loc["UvexControl_GratingWavelength_Label_Target wavelength"]" LabelCols="5">
                 <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="position" class="form-control"/>
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="wavelength-position" class="form-control"/>
                 </InputTemplate>
                 <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>

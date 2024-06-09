@@ -12,13 +12,13 @@
         <EditForm Model="@Model" FormName="angle-control-form" OnSubmit="@ExecuteAngleControlAction">
             <CurrentValue Label="@Loc["UvexControl_GratingAngle_Label_Current angle"]" Value="@CurrentAngle.ToString("F2")" Unit="°" />
 
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingAngle_Label_Step size"]">
+            <InputAndButtonsRow LabelFor="grating-angle-step-size" LabelText="@Loc["UvexControl_GratingAngle_Label_Step size"]">
                 <InputTemplate>
                     <InputNumber TValue="float"
                                  Value="Model.StepSize"
                                  ValueExpression="() => Model.StepSize"
                                  ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="step-size"
+                                 id="grating-angle-step-size"
                                  class="form-control"
                                  step=".01"
                                  min="@MinAngle" max="@MaxAngle"/>
@@ -31,9 +31,9 @@
                 </ButtonRightTemplate>
             </InputAndButtonsRow>
 
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_GratingAngle_Label_Target angle"]">
+            <InputAndButtonsRow LabelFor="grating-angle-position" LabelText="@Loc["UvexControl_GratingAngle_Label_Target angle"]">
                 <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="position" class="form-control"/>
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="grating-angle-position" class="form-control"/>
                 </InputTemplate>
                 <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = AngleControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>

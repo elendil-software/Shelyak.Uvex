@@ -12,13 +12,13 @@
         <EditForm Model="@Model" FormName="focus-control-form" OnSubmit="@ExecuteFocusControlAction">
             <CurrentValue Label="@Loc["UvexControl_Focus_Label_Current position"]" Value="@CurrentFocusPosition.ToString("F2")" Unit=" mm" />
             
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_Focus_Label_Step size"]">
+            <InputAndButtonsRow LabelFor="focus-step-size" LabelText="@Loc["UvexControl_Focus_Label_Step size"]">
                 <InputTemplate>
                     <InputNumber TValue="float"
                                  Value="Model.StepSize"
                                  ValueExpression="() => Model.StepSize"
                                  ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="step-size" class="form-control"
+                                 id="focus-step-size" class="form-control"
                                  step=".01" min="@MinFocusPosition" max="@MaxFocusPosition"/>
                 </InputTemplate>
                 <ButtonLeftTemplate>
@@ -29,9 +29,9 @@
                 </ButtonRightTemplate>
             </InputAndButtonsRow>
             
-            <InputAndButtonsRow LabelFor="position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
+            <InputAndButtonsRow LabelFor="focus-position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
                 <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="10" id="position" class="form-control"/>
+                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="10" id="focus-position" class="form-control"/>
                 </InputTemplate>
                 <ButtonLeftTemplate>
                     <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
