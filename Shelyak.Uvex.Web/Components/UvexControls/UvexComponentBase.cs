@@ -12,8 +12,6 @@ public abstract class UvexComponentBase : ComponentBase
     [Inject] protected IAlpacaCommands AlpacaCommands { get; set; } = null!;
     [Inject] protected ToastService ToastService { get; set; } = null!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
-
-    protected string ErrorMessage { get; set; } = "";
     
     protected abstract Task LoadData();
     

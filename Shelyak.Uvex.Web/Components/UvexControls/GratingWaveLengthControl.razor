@@ -7,8 +7,6 @@
 <Card Class="h-100">
     <CardBody>
         <CardTitle>@Loc["UvexControl_GratingWavelength_CardTitle"]</CardTitle>
-
-        <ErrorCallout ErrorMessage="@ErrorMessage" />
         
         <EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
             <CurrentValue Label="@Loc["UvexControl_GratingWavelength_Label_Current wavelength"]" Value="@CurrentWavelength.ToString("F2")" Unit=" nm" LabelCols="5"/>
