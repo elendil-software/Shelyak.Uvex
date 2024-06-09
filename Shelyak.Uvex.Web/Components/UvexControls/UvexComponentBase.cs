@@ -15,13 +15,7 @@ public abstract class UvexComponentBase : ComponentBase
 
     protected string ErrorMessage { get; set; } = "";
     
-    
     protected abstract Task LoadData();
-  
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-    }
     
     public async Task Refresh()
     {
