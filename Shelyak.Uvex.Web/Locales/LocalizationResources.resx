@@ -165,4 +165,10 @@
     <data name="UvexControl_Command_Error" xml:space="preserve">
         <value>An error occured during UVEX command execution</value>
     </data>
+    <data name="Configuration_GratingDensity_CardTitle" xml:space="preserve">
+        <value>Grating density</value>
+    </data>
+    <data name="Configuration_GratingDensity_Command_Success" xml:space="preserve">
+        <value>The grating density has been updated successfully</value>
+    </data>
 </root>

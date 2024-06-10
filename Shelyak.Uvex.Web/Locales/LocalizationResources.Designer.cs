@@ -150,6 +150,24 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grating density.
+        /// </summary>
+        public static string Configuration_GratingDensity_CardTitle {
+            get {
+                return ResourceManager.GetString("Configuration_GratingDensity_CardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The grating density has been updated successfully.
+        /// </summary>
+        public static string Configuration_GratingDensity_Command_Success {
+            get {
+                return ResourceManager.GetString("Configuration_GratingDensity_Command_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server.
         /// </summary>
         public static string Configuration_Shutdown_CardTitle_Server {

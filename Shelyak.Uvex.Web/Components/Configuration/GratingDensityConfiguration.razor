@@ -1,0 +1,52 @@
+﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
+@rendermode InteractiveServer
+@inject IStringLocalizer<LocalizationResources> Loc;
+
+<EditForm Model="@Model" FormName="EditGratingDensity" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator/>
+
+    <Card Class="mb-4">
+        <CardBody>
+            <CardTitle>@Loc["Configuration_GratingDensity_CardTitle"]</CardTitle>
+            <div class="row">
+                <div class="col-12 col-lg-4 mb-4">
+                    <NumberInput TValue="float" @bind-Value="@Model.Density" Min="0" Step="100" id="grating-density"/>
+                </div>
+            </div>
+            <button class="btn btn-primary">@Loc["Button_Save"]</button>
+        </CardBody>
+    </Card>
+</EditForm>
+@code {
+    private EditGratingDensityConfigurationModel Model { get; set; } = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        return LoadData();
+    }
+    
+    protected override async Task LoadData()
+    {
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingDensity());
+        Model.Density = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0;
+    }
+
+    private async Task SubmitForm()
+    {
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetGratingDensity(Model.Density));
+        if(result.IsSuccess)
+        {
+            ToastService.DisplaySuccessToast(Loc["Configuration_GratingDensity_Command_Success"]);
+        }
+        else
+        {
+            ToastService.DisplayErrorsToast(result);
+        }
+        
+    }
+
+    private class EditGratingDensityConfigurationModel
+    {
+        public float Density { get; set; }
+    }
+}

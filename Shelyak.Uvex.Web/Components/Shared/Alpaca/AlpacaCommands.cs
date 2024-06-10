@@ -58,7 +58,7 @@ public class AlpacaCommands : IAlpacaCommands
     
     public Task<Result<AlpacaResponse<float>>> GetGratingDensity() => new AlpacaGetCommand<float>(ApiRoutes.GratingDensity).ExecuteAsync();
     
-    public Task<Result<AlpacaResponse<float>>> SetGratingDensity(float gratingDensity) => new AlpacaPutCommand<float>(gratingDensity, ApiRoutes.SlitAngle).ExecuteAsync();
+    public Task<Result<AlpacaResponse<float>>> SetGratingDensity(float gratingDensity) => new AlpacaPutCommand<float>(gratingDensity, ApiRoutes.GratingDensity).ExecuteAsync();
     
     #endregion
     

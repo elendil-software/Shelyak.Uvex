@@ -158,4 +158,10 @@
     <data name="UvexControl_Command_Error" xml:space="preserve">
         <value>Une erreur s'est produite pendant l'exécution d'une commande UVEX</value>
     </data>
+    <data name="Configuration_GratingDensity_CardTitle" xml:space="preserve">
+        <value>Densité du réseau</value>
+    </data>
+    <data name="Configuration_GratingDensity_Command_Success" xml:space="preserve">
+        <value>La densité du réseau a été mise à jour</value>
+    </data>
 </root>

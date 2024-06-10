@@ -17,6 +17,11 @@ public static class ToastServiceExtensions
         }
     }
     
+    public static void DisplaySuccessToast(this ToastService toastService, string message)
+    {
+        toastService.Notify(new ToastMessage(ToastType.Success, message));
+    }
+    
     public static void DisplayToastIfNotSuccess<T>(this ToastService toastService, Result<T> result)
     {
         toastService.DisplayErrorsToast(result);
