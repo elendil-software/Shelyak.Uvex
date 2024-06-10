@@ -2,7 +2,6 @@
 using FastEndpoints;
 using Microsoft.Extensions.Localization;
 using Shelyak.Uvex.Web.Components.Shared.Commands;
-using Shelyak.Uvex.Web.Endpoints.Config;
 using Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 using Shelyak.Uvex.Web.Locales;
 

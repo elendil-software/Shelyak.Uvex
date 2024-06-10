@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using BlazorBootstrap;
 
 namespace Shelyak.Uvex.Web.Components.Shared.Toasts;
