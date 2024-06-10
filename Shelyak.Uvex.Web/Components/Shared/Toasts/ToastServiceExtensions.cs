@@ -9,11 +9,11 @@ public static class ToastServiceExtensions
     {
         if(result.IsSuccess)
         {
-            toastService.Notify(new ToastMessage(ToastType.Success, result.SuccessMessage));
+            toastService.DisplaySuccessToast(result.SuccessMessage);
         }
         else
         {
-            toastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
+            toastService.DisplayErrorsToast(result);
         }
     }
     
@@ -22,13 +22,13 @@ public static class ToastServiceExtensions
         toastService.Notify(new ToastMessage(ToastType.Success, message));
     }
     
-    public static void DisplayToastIfNotSuccess<T>(this ToastService toastService, Result<T> result)
+    public static void DisplayErrorToast(this ToastService toastService, string message)
     {
-        toastService.DisplayErrorsToast(result);
+        toastService.Notify(new ToastMessage(ToastType.Danger, message));
     }
 
     public static void DisplayErrorsToast<T>(this ToastService toastService, Result<T> result)
     {
-        toastService.Notify(new ToastMessage(ToastType.Danger, string.Join(", ", result.Errors.ToList())));
+        toastService.DisplayErrorToast(string.Join(", ", result.Errors.ToList()));
     }
 }
