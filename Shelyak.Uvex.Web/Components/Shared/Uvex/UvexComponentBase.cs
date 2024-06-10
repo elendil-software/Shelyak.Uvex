@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Components;
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.Components.Shared.Alpaca;
 using Shelyak.Uvex.Web.Components.Shared.Toasts;
-using Shelyak.Uvex.Web.Components.UvexControls.Commands;
 
-namespace Shelyak.Uvex.Web.Components.UvexControls;
+namespace Shelyak.Uvex.Web.Components.Shared.Uvex;
 
 public abstract class UvexComponentBase : ComponentBase
 {
