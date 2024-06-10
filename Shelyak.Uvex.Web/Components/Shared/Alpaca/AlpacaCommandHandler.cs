@@ -6,7 +6,7 @@ using Shelyak.Uvex.Web.Components.Shared.Commands;
 using Shelyak.Uvex.Web.Configuration;
 using Shelyak.Uvex.Web.Locales;
 
-namespace Shelyak.Uvex.Web.Components.UvexControls.Commands;
+namespace Shelyak.Uvex.Web.Components.Shared.Alpaca;
 
 public abstract class AlpacaCommandHandler<TCommand, T> : CommandHandlerBase<TCommand, AlpacaResponse<T>> where TCommand : ICommand<Result<AlpacaResponse<T>>>
 {

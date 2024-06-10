@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
 using Shelyak.Uvex.Web.Locales;
 
-namespace Shelyak.Uvex.Web.Components.UvexControls.Commands;
+namespace Shelyak.Uvex.Web.Components.Shared.Alpaca;
 
 public class AlpacaGetCommandHandler<T> : AlpacaCommandHandler<AlpacaGetCommand<T>, T>
 {

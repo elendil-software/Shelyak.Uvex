@@ -2,7 +2,7 @@
 using Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 using Shelyak.Uvex.Web.Locales;
 
-namespace Shelyak.Uvex.Web.Components.UvexControls.Commands;
+namespace Shelyak.Uvex.Web.Components.Shared.Alpaca;
 
 public class AlpacaPutCommandHandler<T> : AlpacaCommandHandler<AlpacaPutCommand<T>, T>
 {

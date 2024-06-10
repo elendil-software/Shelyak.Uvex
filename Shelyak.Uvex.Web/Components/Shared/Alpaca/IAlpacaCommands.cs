@@ -2,7 +2,7 @@
 using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.Components.UvexControls.Commands;
+namespace Shelyak.Uvex.Web.Components.Shared.Alpaca;
 
 
 public interface IAlpacaCommands

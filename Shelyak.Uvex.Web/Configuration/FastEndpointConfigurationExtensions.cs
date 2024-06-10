@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
+using Shelyak.Uvex.Web.Components.Shared.Alpaca;
 using Shelyak.Uvex.Web.Components.UvexControls.Commands;
 using Shelyak.Uvex.Web.Settings;
 
