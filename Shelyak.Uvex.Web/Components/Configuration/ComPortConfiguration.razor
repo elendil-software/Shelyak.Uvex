@@ -8,10 +8,9 @@
 
     <Card Class="mb-4">
         <CardBody>
-            <CardTitle>@Loc["Configuration_ComPort_CardTitle_UVEX"]</CardTitle>
-            <div class="row mb-4">
-                <label for="comPorts" class="col-sm-2 col-form-label">@Loc["Configuration_ComPort_Label_COM Port"]</label>
-                <div class="col-sm-4">
+            <CardTitle>@Loc["Configuration_ComPort_CardTitle"]</CardTitle>
+            <div class="row">
+                <div class="col-12 col-lg-4 mb-4">
                     <InputSelect @bind-Value="@Model.SelectedComPort" class="form-select" id="comPorts">
                         <option value=""></option>
                         @foreach (var port in Model.ComPorts)

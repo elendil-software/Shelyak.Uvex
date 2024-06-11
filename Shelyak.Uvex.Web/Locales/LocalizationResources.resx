@@ -30,11 +30,8 @@
     <data name="Configuration_Shutdown server" xml:space="preserve">
         <value>Shutdown the server</value>
     </data>
-    <data name="Configuration_ComPort_Label_COM Port" xml:space="preserve">
-        <value>COM port</value>
-    </data>
-    <data name="Configuration_ComPort_CardTitle_UVEX" xml:space="preserve">
-        <value>UVEX</value>
+    <data name="Configuration_ComPort_CardTitle" xml:space="preserve">
+        <value>COM Port</value>
     </data>
     <data name="Configuration_Shutdown_CardTitle_Server" xml:space="preserve">
         <value>Server</value>

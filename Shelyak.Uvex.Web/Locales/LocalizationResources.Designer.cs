@@ -114,11 +114,11 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UVEX.
+        ///   Looks up a localized string similar to COM Port.
         /// </summary>
-        public static string Configuration_ComPort_CardTitle_UVEX {
+        public static string Configuration_ComPort_CardTitle {
             get {
-                return ResourceManager.GetString("Configuration_ComPort_CardTitle_UVEX", resourceCulture);
+                return ResourceManager.GetString("Configuration_ComPort_CardTitle", resourceCulture);
             }
         }
         
@@ -137,15 +137,6 @@ namespace Shelyak.Uvex.Web.Locales {
         public static string Configuration_ComPort_Command_Success {
             get {
                 return ResourceManager.GetString("Configuration_ComPort_Command_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to COM port.
-        /// </summary>
-        public static string Configuration_ComPort_Label_COM_Port {
-            get {
-                return ResourceManager.GetString("Configuration_ComPort_Label_COM Port", resourceCulture);
             }
         }
         
