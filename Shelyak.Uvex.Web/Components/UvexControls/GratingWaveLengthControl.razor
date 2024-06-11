@@ -54,14 +54,8 @@
     private float MaxWavelength { get; set; } = 1000.0f;
     private WavelengthControlModel Model { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLengthMin());
-        MinWavelength = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
-        
-        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLengthMax());
-        MaxWavelength = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 1000.0f;
-        
         Model.StepSize = Settings.Value.GratingWavelengthStepSize;
     }
 
