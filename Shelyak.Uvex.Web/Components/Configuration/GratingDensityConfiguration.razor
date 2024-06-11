@@ -1,6 +1,7 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
-@inject IStringLocalizer<LocalizationResources> Loc;
+@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions
+@inject IStringLocalizer<LocalizationResources> Loc
 
 <EditForm Model="@Model" FormName="EditGratingDensity" OnValidSubmit="SubmitForm">
     <DataAnnotationsValidator/>
@@ -22,7 +23,12 @@
 
     protected override Task OnInitializedAsync()
     {
-        return LoadData();
+        if (!string.IsNullOrWhiteSpace(SerialPortSettingsOptions.Value.PortName))
+        {
+            return LoadData();
+        }
+
+        return Task.CompletedTask;
     }
     
     protected override async Task LoadData()

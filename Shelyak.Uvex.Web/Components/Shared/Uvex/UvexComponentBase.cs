@@ -1,6 +1,8 @@
 ﻿using Ardalis.Result;
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
+using Shelyak.Usis;
 using Shelyak.Uvex.Alpaca;
 using Shelyak.Uvex.Web.Components.Shared.Alpaca;
 using Shelyak.Uvex.Web.Components.Shared.Toasts;
@@ -12,6 +14,7 @@ public abstract class UvexComponentBase : ComponentBase
     [Inject] protected IAlpacaCommands AlpacaCommands { get; set; } = null!;
     [Inject] protected ToastService ToastService { get; set; } = null!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] protected IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; } = null!;
     
     protected abstract Task LoadData();
     
@@ -23,11 +26,12 @@ public abstract class UvexComponentBase : ComponentBase
     
     protected async Task<Result<AlpacaResponse<T>>> ExecuteAndHandleError<T>(Func<Task<Result<AlpacaResponse<T>>>> action)
     {
+        RedirectToConfigurationIfNotConfigured();
+        
         //TODO handle exceptions
         var result = await action();
         if (result.IsSuccess)
         {
-            RedirectToConfigurationIfNotConnected(result.Value);
             if (result.Value.ErrorNumber != AlpacaError.NoError)
             {
                 ToastService.Notify(new(ToastType.Danger, $"Error: {result.Value.ErrorMessage}."));
@@ -40,10 +44,10 @@ public abstract class UvexComponentBase : ComponentBase
 
         return result;
     }
-    
-    private void RedirectToConfigurationIfNotConnected<T>(AlpacaResponse<T> response)
+
+    private void RedirectToConfigurationIfNotConfigured()
     {
-        if (response.ErrorNumber == AlpacaError.NotConnected)
+        if (SerialPortSettingsOptions.Value.PortName == "")
         {
             NavigationManager.NavigateTo("/configuration");
         }
