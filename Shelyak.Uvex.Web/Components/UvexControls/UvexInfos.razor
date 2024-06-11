@@ -1,4 +1,5 @@
-﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
+﻿@using Shelyak.Uvex.Web.Endpoints.Spectrograph.Device
+@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
 @inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
@@ -41,13 +42,13 @@
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetSoftwareVersion());
         if (result.IsSuccessAndHasValue())
         {
-            SpectrographName = result.Value.Value!.Value;
+            Firmware = result.Value.Value!.Value;
         }
         
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetProtocolVersion());
         if (result.IsSuccessAndHasValue())
         {
-            Firmware = result.Value.Value!.Value;
+            UsisProtocolVersion = result.Value.Value!.Value;
         }
         
         ComPort = SerialPortSettingsOptions.Value.PortName;
