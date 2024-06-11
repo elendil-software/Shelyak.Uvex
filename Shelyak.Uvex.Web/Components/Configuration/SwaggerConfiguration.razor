@@ -12,8 +12,7 @@
             <div class="row mb-4">
                 <p>@Loc["Configuration_Swagger_Info"]</p>
                 <div class="form-check form-switch">
-                    <InputCheckbox @bind-Value="@Model.IsEnabled" class="form-check-input" type="checkbox" role="switch" id="enableSwaggerSwitch"/>
-                    <label class="form-check-label" for="enableSwaggerSwitch">@Loc["Configuration_Swagger_Label_Enabled"]</label>
+                    <Switch @bind-Value="@Model.IsEnabled" id="enableSwaggerSwitch" Label="@Loc["Configuration_Swagger_Label_Enabled"]" />
                 </div>
             </div>
             <button class="btn btn-primary">@Loc["Button_Save"]</button>

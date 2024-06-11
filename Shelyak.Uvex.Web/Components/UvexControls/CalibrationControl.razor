@@ -8,20 +8,16 @@
         
         <div class="row">
             <div class="form-check form-switch">
-                <InputCheckbox @bind-Value="@Model.Sky" class="form-check-input" type="checkbox" role="switch" id="skySwitch" @onclick="EnableSky"/>
-                <label class="form-check-label" for="skySwitch">@Loc["UvexControl_Calibration_Switch_Sky"]</label>
+                <Switch @bind-Value="@Model.Sky" id="skySwitch" @onclick="EnableSky" Label="@Loc["UvexControl_Calibration_Switch_Sky"]" />
             </div>
             <div class="form-check form-switch">
-                <InputCheckbox @bind-Value="@Model.Flat" class="form-check-input" type="checkbox" role="switch" id="flatSwitch" @onclick="EnableFlat"/>
-                <label class="form-check-label" for="flatSwitch">@Loc["UvexControl_Calibration_Switch_Flat"]</label>
+                <Switch @bind-Value="@Model.Flat" id="flatSwitch" @onclick="EnableFlat" Label="@Loc["UvexControl_Calibration_Switch_Flat"]" />
             </div>
             <div class="form-check form-switch">
-                <InputCheckbox @bind-Value="@Model.Calibration" class="form-check-input" type="checkbox" role="switch" id="calibrationSwitch" @onclick="EnableCalibration"/>
-                <label class="form-check-label" for="calibrationSwitch">@Loc["UvexControl_Calibration_Switch_Calibration"]</label>
+                <Switch @bind-Value="@Model.Calibration" id="calibrationSwitch" @onclick="EnableCalibration" Label="@Loc["UvexControl_Calibration_Switch_Calibration"]" />
             </div>
             <div class="form-check form-switch">
-                <InputCheckbox @bind-Value="@Model.Dark" class="form-check-input" type="checkbox" role="switch" id="darkSwitch" @onclick="EnableDark"/>
-                <label class="form-check-label" for="darkSwitch">@Loc["UvexControl_Calibration_Switch_Dark"]</label>
+                <Switch @bind-Value="@Model.Dark" id="darkSwitch" @onclick="EnableDark" Label="@Loc["UvexControl_Calibration_Switch_Dark"]" />
             </div>
         </div>
     </CardBody>
