@@ -65,6 +65,15 @@
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngleMax());
         MaxAngle = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
         
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngle());
+        if (result.IsSuccessAndHasValue())
+        {
+            Model.AbsolutePosition = result.Value.Value!.Value;
+            CurrentAngle = result.Value.Value!.Value;
+        }
+
+        await LoadData();
+        
         Model.StepSize = Settings.Value.GratingAngleStepSize;
     }
     

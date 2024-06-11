@@ -63,6 +63,13 @@
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPositionMax());
         MaxFocusPosition = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
         
+        result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPosition());
+        if (result.IsSuccessAndHasValue())
+        {
+            Model.AbsolutePosition = result.Value.Value!.Value;
+            CurrentFocusPosition = result.Value.Value!.Value;
+        }
+        
         Model.StepSize = Settings.Value.FocusStepSize;
     }
     
