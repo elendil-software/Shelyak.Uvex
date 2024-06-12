@@ -1,6 +1,5 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
-@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions
 @inject IStringLocalizer<LocalizationResources> Loc
 
 <EditForm Model="@Model" FormName="EditGratingDensity" OnValidSubmit="SubmitForm">
@@ -11,7 +10,7 @@
             <CardTitle>@Loc["Configuration_GratingDensity_CardTitle"]</CardTitle>
             <div class="row">
                 <div class="col-12 col-lg-4 mb-4">
-                    <NumberInput TValue="float" @bind-Value="@Model.Density" Min="0" Step="100" id="grating-density"/>
+                    <InputNumber TValue="float" @bind-Value="@Model.Density" Min="0" Step="100" id="grating-density" class="form-control"/>
                 </div>
             </div>
             <button class="btn btn-primary">@Loc["Button_Save"]</button>
