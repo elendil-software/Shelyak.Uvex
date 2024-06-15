@@ -1,0 +1,23 @@
+﻿name: "Pull Request"
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  init:
+    uses: ./.github/workflows/sw_init-workflow.yml
+  
+  gitversion:
+    needs: init
+    uses: ./.github/workflows/sw_gitversion.yml
+    with:
+      config: './.github/GitVersion.yml'
+  
+  build:
+    needs: gitversion
+    uses: ./.github/workflows/sw_build.yml
+    with:
+      add_github_nuget_source: true
+    secrets:
+      NUGET_GITHUB_TOKEN: ${{ secrets.NUGET_GITHUB_TOKEN }}

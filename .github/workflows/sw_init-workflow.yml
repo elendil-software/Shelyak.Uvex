@@ -1,0 +1,34 @@
+name: 'Init Workflow'
+on:
+  workflow_call:
+    inputs:
+      artifact_name_out:
+        description: 'Name of the artifact to save the result of this workflow'
+        default: 'workflow-share'
+        required: false
+        type: string
+      artifact_retention_days:
+        description: 'retention days for the artifact'
+        default: 5
+        required: false
+        type: number
+        
+jobs:
+  init:
+    name: 'Init workflow'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: Zip artifact archive
+      run: 7z a ${{ inputs.artifact_name_out }}.7z
+
+    - name: Upload source directory
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: ${{ inputs.artifact_name_out }}
+        path: ${{ inputs.artifact_name_out }}.7z
+        retention-days: ${{ inputs.artifact_retention_days }}

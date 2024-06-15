@@ -1,0 +1,163 @@
+name: 'GitVersion'
+on:
+  workflow_call:
+    inputs:
+      config:
+        description: 'Path to GitVersion configuration file'
+        required: true
+        type: string
+      artifact_name_in:
+        description: 'Name of an artifact saved by a previous workflow'
+        default: 'workflow-share'
+        required: false
+        type: string
+      artifact_name_out:
+        description: 'Name of the artifact to save the result of this workflow'
+        default: 'workflow-share'
+        required: false
+        type: string
+      artifact_retention_days:
+        description: 'retention days for the artifact'
+        default: 5
+        required: false
+        type: number
+    outputs:
+      Major:
+        value: ${{ jobs.gitversion.outputs.Major }}
+      Minor:
+        value: ${{ jobs.gitversion.outputs.Minor }}
+      Patch:
+        value: ${{ jobs.gitversion.outputs.Patch }}
+      PreReleaseTag:
+        value: ${{ jobs.gitversion.outputs.PreReleaseTag }}
+      PreReleaseTagWithDash:
+        value: ${{ jobs.gitversion.outputs.PreReleaseTagWithDash }}
+      PreReleaseLabel:
+        value: ${{ jobs.gitversion.outputs.PreReleaseLabel }}
+      PreReleaseLabelWithDash:
+        value: ${{ jobs.gitversion.outputs.PreReleaseLabelWithDash }}
+      PreReleaseNumber:
+        value: ${{ jobs.gitversion.outputs.PreReleaseNumber }}
+      WeightedPreReleaseNumber:
+        value: ${{ jobs.gitversion.outputs.WeightedPreReleaseNumber }}
+      BuildMetaData:
+        value: ${{ jobs.gitversion.outputs.BuildMetaData }}
+      BuildMetaDataPadded:
+        value: ${{ jobs.gitversion.outputs.BuildMetaDataPadded }}
+      FullBuildMetaData:
+        value: ${{ jobs.gitversion.outputs.FullBuildMetaData }}
+      MajorMinorPatch:
+        value: ${{ jobs.gitversion.outputs.MajorMinorPatch }}
+      SemVer:
+        value: ${{ jobs.gitversion.outputs.SemVer }}
+      LegacySemVer:
+        value: ${{ jobs.gitversion.outputs.LegacySemVer }}
+      LegacySemVerPadded:
+        value: ${{ jobs.gitversion.outputs.LegacySemVerPadded }}
+      AssemblySemVer:
+        value: ${{ jobs.gitversion.outputs.AssemblySemVer }}
+      AssemblySemFileVer:
+        value: ${{ jobs.gitversion.outputs.AssemblySemFileVer }}
+      FullSemVer:
+        value: ${{ jobs.gitversion.outputs.FullSemVer }}
+      InformationalVersion:
+        value: ${{ jobs.gitversion.outputs.InformationalVersion }}
+      BranchName:
+        value: ${{ jobs.gitversion.outputs.BranchName }}
+      EscapedBranchName:
+        value: ${{ jobs.gitversion.outputs.EscapedBranchName }}
+      Sha:
+        value: ${{ jobs.gitversion.outputs.Sha }}
+      ShortSha:
+        value: ${{ jobs.gitversion.outputs.ShortSha }}
+      NuGetVersionV2:
+        value: ${{ jobs.gitversion.outputs.NuGetVersionV2 }}
+      NuGetVersion:
+        value: ${{ jobs.gitversion.outputs.NuGetVersion }}
+      NuGetPreReleaseTagV2:
+        value: ${{ jobs.gitversion.outputs.NuGetPreReleaseTagV2 }}
+      NuGetPreReleaseTag:
+        value: ${{ jobs.gitversion.outputs.NuGetPreReleaseTag }}
+      VersionSourceSha:
+        value: ${{ jobs.gitversion.outputs.VersionSourceSha }}
+      CommitsSinceVersionSource:
+        value: ${{ jobs.gitversion.outputs.CommitsSinceVersionSource }}
+      CommitsSinceVersionSourcePadded:
+        value: ${{ jobs.gitversion.outputs.CommitsSinceVersionSourcePadded }}
+      UncommittedChanges:
+        value: ${{ jobs.gitversion.outputs.UncommittedChanges }}
+      CommitDate:
+        value: ${{ jobs.gitversion.outputs.CommitDate }}
+
+jobs:
+  gitversion:
+    name: GitVersion
+    runs-on: ubuntu-latest
+    outputs:
+      Major: ${{ steps.gitversion.outputs.Major }}
+      Minor: ${{ steps.gitversion.outputs.Minor }}
+      Patch: ${{ steps.gitversion.outputs.Patch }}
+      PreReleaseTag: ${{ steps.gitversion.outputs.PreReleaseTag }}
+      PreReleaseTagWithDash: ${{ steps.gitversion.outputs.PreReleaseTagWithDash }}
+      PreReleaseLabel: ${{ steps.gitversion.outputs.PreReleaseLabel }}
+      PreReleaseLabelWithDash: ${{ steps.gitversion.outputs.PreReleaseLabelWithDash }}
+      PreReleaseNumber: ${{ steps.gitversion.outputs.PreReleaseNumber }}
+      WeightedPreReleaseNumber: ${{ steps.gitversion.outputs.WeightedPreReleaseNumber }}
+      BuildMetaData: ${{ steps.gitversion.outputs.BuildMetaData }}
+      BuildMetaDataPadded: ${{ steps.gitversion.outputs.BuildMetaDataPadded }}
+      FullBuildMetaData: ${{ steps.gitversion.outputs.FullBuildMetaData }}
+      MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+      SemVer: ${{ steps.gitversion.outputs.SemVer }}
+      LegacySemVer: ${{ steps.gitversion.outputs.LegacySemVer }}
+      LegacySemVerPadded: ${{ steps.gitversion.outputs.LegacySemVerPadded }}
+      AssemblySemVer: ${{ steps.gitversion.outputs.AssemblySemVer }}
+      AssemblySemFileVer: ${{ steps.gitversion.outputs.AssemblySemFileVer }}
+      FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}
+      InformationalVersion: ${{ steps.gitversion.outputs.InformationalVersion }}
+      BranchName: ${{ steps.gitversion.outputs.BranchName }}
+      EscapedBranchName: ${{ steps.gitversion.outputs.EscapedBranchName }}
+      Sha: ${{ steps.gitversion.outputs.Sha }}
+      ShortSha: ${{ steps.gitversion.outputs.ShortSha }}
+      NuGetVersionV2: ${{ steps.gitversion.outputs.NuGetVersionV2 }}
+      NuGetVersion: ${{ steps.gitversion.outputs.NuGetVersion }}
+      NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.NuGetPreReleaseTagV2 }}
+      NuGetPreReleaseTag: ${{ steps.gitversion.outputs.NuGetPreReleaseTag }}
+      VersionSourceSha: ${{ steps.gitversion.outputs.VersionSourceSha }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
+      CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}
+      UncommittedChanges: ${{ steps.gitversion.outputs.UncommittedChanges }}
+      CommitDate: ${{ steps.gitversion.outputs.CommitDate }}
+    
+    steps:
+      - name: Download source artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: ${{ inputs.artifact_name_in }}
+
+      - name: Unzip artifact archive
+        run: |
+          7z x ${{ inputs.artifact_name_in }}.7z
+          rm -f ${{ inputs.artifact_name_in }}.7z
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.15
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id:   gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.15
+        with:
+          useConfigFile: true
+          configFilePath: ${{ inputs.config }}
+          additionalArguments: '/updateprojectfiles'
+
+      - name: Zip artifact archive
+        run: 7z a ${{ inputs.artifact_name_out }}.7z
+
+      - name: Upload source artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: ${{ inputs.artifact_name_out }}
+          path: ${{ inputs.artifact_name_out }}.7z
+          retention-days: ${{ inputs.artifact_retention_days }}

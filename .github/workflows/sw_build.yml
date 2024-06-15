@@ -1,0 +1,76 @@
+name: 'Build'
+on:
+  workflow_call:
+    inputs:
+      artifact_name_in:
+        description: 'Name of an artifact saved by a previous workflow'
+        default: 'workflow-share'
+        required: false
+        type: string
+      artifact_name_out:
+        description: 'Name of the artifact to save the result of this workflow'
+        default: 'workflow-share'
+        required: false
+        type: string
+      artifact_retention_days:
+        description: 'retention days for the artifact'
+        default: 5
+        required: false
+        type: number
+        
+jobs:
+  build:
+    name: 'Build UVEX'
+    runs-on: windows-latest
+    steps:
+      - name: Download source artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: ${{ inputs.artifact_name_in }}
+
+      - name: Unzip artifact archive
+        run: |
+          7z x ${{ inputs.artifact_name_in }}.7z
+          rm -Force ${{ inputs.artifact_name_in }}.7z
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+    
+      - name: Restore Shelyak.Uvex.Ascom
+        run: nuget restore Shelyak.Uvex.Ascom.sln
+        
+      - name: Build Shelyak.Uvex.Ascom
+        run: msbuild Shelyak.Uvex.Ascom.sln /p:Configuration=Release /p:RestorePackages=false
+    
+      - name: Restore Shelyak.Uvex.Web
+        run: dotnet restore Shelyak.Uvex.sln
+        
+      - name: Publish Shelyak.Uvex.Web
+        run: dotnet publish Shelyak.Uvex.Web.sln --configuration Release --arch x64 --self-contained true --framework net8.0
+
+      - name: Test Shelyak.Uvex.Web
+        run: dotnet test Shelyak.Uvex.Web.sln --configuration Release --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+
+      - name: ReportGenerator
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.13
+        with:
+          reports: './**/TestResults/**/coverage.cobertura.xml'
+          targetdir: 'coveragereport' 
+          reporttypes: 'HtmlSummary' 
+
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: CoverageReport
+          path: coveragereport
+          retention-days: ${{ inputs.artifact_retention_days }}
+
+      - name: Zip artifact archive
+        run: 7z a ${{ inputs.artifact_name_out }}.7z
+
+      - name: Upload source artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: ${{ inputs.artifact_name_out }}
+          path: ${{ inputs.artifact_name_out }}.7z
+          retention-days: ${{ inputs.artifact_retention_days }}

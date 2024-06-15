@@ -1,0 +1,34 @@
+﻿name: 'Release'
+on:
+  workflow_dispatch:
+
+jobs:
+  init:
+    uses: ./.github/workflows/sw_init-workflow.yml
+  
+  gitversion:
+    needs: init
+    uses: ./.github/workflows/sw_gitversion.yml
+    with:
+      config: './.github/GitVersion-Release.yml'
+  
+  build:
+    needs: gitversion
+    uses: ./.github/workflows/sw_build.yml
+  
+  build_installer:
+    uses: ./.github/workflows/sw_build-inno-setup.yml
+    with:
+      version: ${{needs.gitversion.outputs.MajorMinorPatch}}
+  
+  release:
+    needs: [gitversion, build, build_installer]
+    uses: ./.github/workflows/sw_tag-release.yml
+    with:
+      git_config_user_email: 'git@elendil.software'
+      git_config_user_name: ${{ github.repository_owner }}
+      git_tag: ${{needs.gitversion.outputs.SemVer}}
+      changelog_builder_configuration: './.github/release-changelog-builder-configuration.json'
+      release_artifacts: '**/InnoSetup/*.exe'
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

@@ -1,5 +1,7 @@
-﻿#define AppName "Shelyak Uvex"
-#define AppVersion "0.1.0"
+﻿#ifndef version
+  #define version "0.1.0"
+#endif
+#define AppName "Shelyak Uvex Web"
 #define AppPublisher "Shelyak"
 #define AppURL "https://www.shelyak.com"
 #define AppExeName "Shelyak.Uvex.Web.exe"
@@ -7,8 +9,7 @@
 [Setup]
 AppId={{020118E7-FD44-46C9-9566-EE1D8DD84D0B}
 AppName={#AppName}
-AppVersion={#AppVersion}
-AppVerName={#AppName} {#AppVersion}
+AppVerName={#AppName} {#version}
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
@@ -19,7 +20,7 @@ DisableDirPage=yes
 DisableProgramGroupPage=yes
 LicenseFile=..\Documentation\License.txt
 OutputDir=.\
-OutputBaseFilename=Shelyak Uvex Web Setup v{#AppVersion}
+OutputBaseFilename=Shelyak Uvex Web Setup v{#version}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
