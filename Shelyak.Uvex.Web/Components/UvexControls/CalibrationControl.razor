@@ -8,16 +8,16 @@
         
         <div class="row">
             <div class="form-check form-switch">
-                <Switch @bind-Value="@Model.Sky" id="skySwitch" @onclick="EnableSky" Label="@Loc["UvexControl_Calibration_Switch_Sky"]" />
+                <Switch @bind-Value="@Sky" id="skySwitch" @onclick="EnableSky" Label="@Loc["UvexControl_Calibration_Switch_Sky"]" />
             </div>
             <div class="form-check form-switch">
-                <Switch @bind-Value="@Model.Flat" id="flatSwitch" @onclick="EnableFlat" Label="@Loc["UvexControl_Calibration_Switch_Flat"]" />
+                <Switch @bind-Value="@Flat" id="flatSwitch" @onclick="EnableFlat" Label="@Loc["UvexControl_Calibration_Switch_Flat"]" />
             </div>
             <div class="form-check form-switch">
-                <Switch @bind-Value="@Model.Calibration" id="calibrationSwitch" @onclick="EnableCalibration" Label="@Loc["UvexControl_Calibration_Switch_Calibration"]" />
+                <Switch @bind-Value="@Calibration" id="calibrationSwitch" @onclick="EnableCalibration" Label="@Loc["UvexControl_Calibration_Switch_Calibration"]" />
             </div>
             <div class="form-check form-switch">
-                <Switch @bind-Value="@Model.Dark" id="darkSwitch" @onclick="EnableDark" Label="@Loc["UvexControl_Calibration_Switch_Dark"]" />
+                <Switch @bind-Value="@Dark" id="darkSwitch" @onclick="EnableDark" Label="@Loc["UvexControl_Calibration_Switch_Dark"]" />
             </div>
         </div>
     </CardBody>
@@ -25,7 +25,10 @@
 
 @code
 {
-    private CalibrationControlModel Model { get; set; } = new();
+    private bool Sky { get; set; }
+    private bool Flat { get; set; }
+    private bool Calibration { get; set; }
+    private bool Dark { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -36,7 +39,12 @@
     {
         await LoadCurrentLightSource();
     }
-
+    
+    private async Task EnableSky() => await SetLightSource(LightSource.SKY);
+    private async Task EnableFlat() => await SetLightSource(LightSource.FLAT);
+    private async Task EnableCalibration() => await SetLightSource(LightSource.CALIB);
+    private async Task EnableDark() => await SetLightSource(LightSource.DARK);
+    
     private async Task LoadCurrentLightSource()
     {
         var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetLightSource());
@@ -45,56 +53,21 @@
             SetSwitchesState(result.Value.Value!.Value);
         }
     }
-
-    private async Task EnableSky()
+    
+    private async Task SetLightSource(LightSource lightSource)
     {
-        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.SKY));
+        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(lightSource));
         if (result.IsSuccess)
         {
-            SetSwitchesState(LightSource.SKY);
-        }
-    }
-
-    private async Task EnableFlat()
-    {
-        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.FLAT));
-        if (result.IsSuccess)
-        {
-            SetSwitchesState(LightSource.FLAT);
-        }
-    }
-
-    private async Task EnableCalibration()
-    {
-        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.CALIB));
-        if (result.IsSuccess)
-        {
-            SetSwitchesState(LightSource.FLAT);
-        }
-    }
-
-    private async Task EnableDark()
-    {
-        var result = await ExecuteAndHandleError(async () => await AlpacaCommands.SetLightSource(LightSource.DARK));
-        if (result.IsSuccess)
-        {
-            SetSwitchesState(LightSource.DARK);
+            SetSwitchesState(lightSource);
         }
     }
     
     private void SetSwitchesState(LightSource activeLightSource)
     {
-        Model.Sky = activeLightSource == LightSource.SKY;
-        Model.Flat = activeLightSource == LightSource.FLAT;
-        Model.Calibration = activeLightSource == LightSource.CALIB;
-        Model.Dark = activeLightSource == LightSource.DARK;
-    }
-
-    public class CalibrationControlModel
-    {
-        public bool Sky { get; set; }
-        public bool Flat { get; set; }
-        public bool Calibration { get; set; }
-        public bool Dark { get; set; }
+        Sky = activeLightSource == LightSource.SKY;
+        Flat = activeLightSource == LightSource.FLAT;
+        Calibration = activeLightSource == LightSource.CALIB;
+        Dark = activeLightSource == LightSource.DARK;
     }
 }
