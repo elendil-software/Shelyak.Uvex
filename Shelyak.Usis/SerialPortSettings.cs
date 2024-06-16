@@ -6,7 +6,7 @@ namespace Shelyak.Usis
     {
         public const string SectionName = "SerialPort";
         
-        public string PortName { get; set; } = "COM1";
+        public string PortName { get; set; } = "";
         public int BaudRate { get; set; } = 9600;
         public Parity Parity { get; set; } = Parity.None;
         public int DataBits { get; set; } = 8;
