@@ -6,55 +6,54 @@
 <Card Class="h-100">
     <CardBody>
         <CardTitle>@Loc["UvexControl_Focus_CardTitle"]</CardTitle>
-        
-        <EditForm Model="@Model" FormName="focus-control-form" OnSubmit="@ExecuteFocusControlAction">
-            <CurrentValue Label="@Loc["UvexControl_Focus_Label_Current position"]" Value="@CurrentFocusPosition.ToString("F2")" Unit=" mm" />
-            
-            <InputAndButtonsRow LabelFor="focus-step-size" LabelText="@Loc["UvexControl_Focus_Label_Step size"]">
-                <InputTemplate>
-                    <InputNumber TValue="float"
-                                 Value="Model.StepSize"
-                                 ValueExpression="() => Model.StepSize"
-                                 ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="focus-step-size" class="form-control"
-                                 step=".01" min="@MinFocusPosition" max="@MaxFocusPosition"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = FocusControlAction.FocusOut)" class="btn btn-primary">+</button>
-                </ButtonLeftTemplate>
-                <ButtonRightTemplate>
-                    <button @onclick="@(() => Model.Action = FocusControlAction.FocusIn)" class="btn btn-primary">-</button>
-                </ButtonRightTemplate>
-            </InputAndButtonsRow>
-            
-            <InputAndButtonsRow LabelFor="focus-position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
-                <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="focus-position" class="form-control"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = FocusControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
-                </ButtonLeftTemplate>
-                <ButtonRightTemplate>
-                    <button @onclick="@(() => Model.Action = FocusControlAction.Calibrate)" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
-                </ButtonRightTemplate>
-            </InputAndButtonsRow>
-            
-            <div class="form-row mb-3">
-                <div class="col-auto">
-                    <button @onclick="@(() => Model.Action = FocusControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>
-                </div>
+
+        <CurrentValue Label="@Loc["UvexControl_Focus_Label_Current position"]" Value="@CurrentFocusPosition.ToString("F2")" Unit=" mm"/>
+
+        <InputAndButtonsRow LabelFor="focus-step-size" LabelText="@Loc["UvexControl_Focus_Label_Step size"]">
+            <InputTemplate>
+                <InputNumber TValue="float"
+                             Value="StepSize"
+                             ValueExpression="() => StepSize"
+                             ValueChanged="(value) => StepSizeChanged(value)"
+                             id="focus-step-size" class="form-control"
+                             step=".01" min="@MinFocusPosition" max="@MaxFocusPosition"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@FocusOut" class="btn btn-primary">+</button>
+            </ButtonLeftTemplate>
+            <ButtonRightTemplate>
+                <button @onclick="@FocusIn" class="btn btn-primary">-</button>
+            </ButtonRightTemplate>
+        </InputAndButtonsRow>
+
+        <InputAndButtonsRow LabelFor="focus-position" LabelText="@Loc["UvexControl_Focus_Label_Target position"]">
+            <InputTemplate>
+                <InputNumber @bind-Value="@AbsolutePosition" step=".01" min="@MinFocusPosition" max="@MaxFocusPosition" id="focus-position" class="form-control"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@GoTo" class="btn btn-primary">@Loc["Button_Go to"]</button>
+            </ButtonLeftTemplate>
+            <ButtonRightTemplate>
+                <button @onclick="@Calibrate" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
+            </ButtonRightTemplate>
+        </InputAndButtonsRow>
+
+        <div class="form-row mb-3">
+            <div class="col-auto">
+                <button @onclick="@Abort" class="btn btn-danger">@Loc["Button_Halt"]</button>
             </div>
-        </EditForm>
+        </div>
     </CardBody>
 </Card>
 
-@code 
+@code
 {
     private float MinFocusPosition { get; set; }
     private float MaxFocusPosition { get; set; }
+    private float StepSize { get; set; }
+    private float AbsolutePosition { get; set; }
     private float CurrentFocusPosition { get; set; }
-    private FocusControlModel Model { get; set; } = new();
-    
+
     protected override async Task OnInitializedAsync()
     {
         var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPositionMin());
@@ -62,17 +61,17 @@
 
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPositionMax());
         MaxFocusPosition = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 0.0f;
-        
+
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPosition());
         if (result.IsSuccessAndHasValue())
         {
-            Model.AbsolutePosition = result.Value.Value!.Value;
+            AbsolutePosition = result.Value.Value!.Value;
             CurrentFocusPosition = result.Value.Value!.Value;
         }
-        
-        Model.StepSize = Settings.Value.FocusStepSize;
+
+        StepSize = Settings.Value.FocusStepSize;
     }
-    
+
     protected override async Task LoadData()
     {
         var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetFocusPosition());
@@ -81,10 +80,10 @@
             CurrentFocusPosition = result.Value.Value!.Value;
         }
     }
-   
+
     private async Task StepSizeChanged(float value)
     {
-        Model.StepSize = value;
+        StepSize = value;
         var result = await new UpdateFocusStepSizeCommand(value).ExecuteAsync();
         if (!result.IsSuccess)
         {
@@ -92,63 +91,9 @@
         }
     }
     
-    private Task ExecuteFocusControlAction()
-    {
-        switch (Model.Action)
-        {
-            case FocusControlAction.Calibrate:
-                return Calibrate();
-            case FocusControlAction.GoTo:
-                return GoTo();
-            case FocusControlAction.FocusIn:
-                return FocusIn();
-            case FocusControlAction.FocusOut:
-                return FocusOut();
-            case FocusControlAction.Abort:
-                return Abort();
-            default:
-                throw new InvalidOperationException($"{Model.Action} is not a supported action");
-        }
-    }
-    
-    private async Task FocusOut()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition + Model.StepSize));
-    }
-
-    private async Task FocusIn()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition - Model.StepSize));
-    }
-    
-    private async Task GoTo()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(Model.AbsolutePosition));
-    }
-    
-    private async Task Abort()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.StopFocusPosition());
-    }
-
-    private async Task Calibrate()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.CalibrateFocusPosition(Model.AbsolutePosition));
-    }
-    
-    public enum FocusControlAction
-    {
-        Calibrate,
-        GoTo,
-        FocusIn,
-        FocusOut,
-        Abort
-    }
-
-    public class FocusControlModel
-    {
-        public FocusControlAction Action { get; set; }
-        public float StepSize { get; set; } = 0.05f;
-        public float AbsolutePosition { get; set; }
-    }
+    private async Task FocusOut() => await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition + StepSize));
+    private async Task FocusIn() => await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(CurrentFocusPosition - StepSize));
+    private async Task GoTo() => await ExecuteAndHandleError(() => AlpacaCommands.SetFocusPosition(AbsolutePosition));
+    private async Task Abort() => await ExecuteAndHandleError(() => AlpacaCommands.StopFocusPosition());
+    private async Task Calibrate() => await ExecuteAndHandleError(() => AlpacaCommands.CalibrateFocusPosition(AbsolutePosition));
 }
