@@ -7,55 +7,54 @@
     <CardBody>
         <CardTitle>@Loc["UvexControl_GratingAngle_CardTitle"]</CardTitle>
         
-        <EditForm Model="@Model" FormName="angle-control-form" OnSubmit="@ExecuteAngleControlAction">
-            <CurrentValue Label="@Loc["UvexControl_GratingAngle_Label_Current angle"]" Value="@CurrentAngle.ToString("F2")" Unit="°" />
+        <CurrentValue Label="@Loc["UvexControl_GratingAngle_Label_Current angle"]" Value="@CurrentAngle.ToString("F2")" Unit="°" />
 
-            <InputAndButtonsRow LabelFor="grating-angle-step-size" LabelText="@Loc["UvexControl_GratingAngle_Label_Step size"]">
-                <InputTemplate>
-                    <InputNumber TValue="float"
-                                 Value="Model.StepSize"
-                                 ValueExpression="() => Model.StepSize"
-                                 ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="grating-angle-step-size"
-                                 class="form-control"
-                                 step=".01"
-                                 min="@MinAngle" max="@MaxAngle"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = AngleControlAction.MoveCw)" class="btn btn-primary">+</button>
-                </ButtonLeftTemplate>
-                <ButtonRightTemplate>
-                    <button @onclick="@(() => Model.Action = AngleControlAction.MoveCcw)" class="btn btn-primary">-</button>
-                </ButtonRightTemplate>
-            </InputAndButtonsRow>
+        <InputAndButtonsRow LabelFor="grating-angle-step-size" LabelText="@Loc["UvexControl_GratingAngle_Label_Step size"]">
+            <InputTemplate>
+                <InputNumber TValue="float"
+                             Value="StepSize"
+                             ValueExpression="() => StepSize"
+                             ValueChanged="(value) => StepSizeChanged(value)"
+                             id="grating-angle-step-size"
+                             class="form-control"
+                             step=".01"
+                             min="@MinAngle" max="@MaxAngle"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@MoveCw" class="btn btn-primary">+</button>
+            </ButtonLeftTemplate>
+            <ButtonRightTemplate>
+                <button @onclick="@MoveCcw" class="btn btn-primary">-</button>
+            </ButtonRightTemplate>
+        </InputAndButtonsRow>
 
-            <InputAndButtonsRow LabelFor="grating-angle-position" LabelText="@Loc["UvexControl_GratingAngle_Label_Target angle"]">
-                <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="grating-angle-position" class="form-control"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = AngleControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
-                </ButtonLeftTemplate>
-                <ButtonRightTemplate>
-                    <button @onclick="@(() => Model.Action = AngleControlAction.Calibrate)" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
-                </ButtonRightTemplate>
-            </InputAndButtonsRow>
+        <InputAndButtonsRow LabelFor="grating-angle-position" LabelText="@Loc["UvexControl_GratingAngle_Label_Target angle"]">
+            <InputTemplate>
+                <InputNumber @bind-Value="@AbsolutePosition" step=".01" min="@MinAngle" max="@MaxAngle" id="grating-angle-position" class="form-control"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@GoTo" class="btn btn-primary">@Loc["Button_Go to"]</button>
+            </ButtonLeftTemplate>
+            <ButtonRightTemplate>
+                <button @onclick="@Calibrate" class="btn btn-secondary">@Loc["Button_Calibrate"]</button>
+            </ButtonRightTemplate>
+        </InputAndButtonsRow>
 
-            <div class="form-row mb-3">
-                <div class="col-auto">
-                    <button @onclick="@(() => Model.Action = AngleControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>
-                </div>
+        <div class="form-row mb-3">
+            <div class="col-auto">
+                <button @onclick="@Abort" class="btn btn-danger">@Loc["Button_Halt"]</button>
             </div>
-        </EditForm>
+        </div>
     </CardBody>
 </Card>
 
 @code
 {
+    private float MinAngle { get; set; }
+    private float MaxAngle { get; set; }
+    private float StepSize { get; set; }
+    private float AbsolutePosition { get; set; }
     private float CurrentAngle { get; set; }
-    private float MinAngle { get; set; } = 0.0f;
-    private float MaxAngle { get; set; } = 1000.0f;
-    private AngleControlModel Model { get; set; } = new();
     
     protected override async Task OnInitializedAsync()
     {
@@ -68,13 +67,13 @@
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingAngle());
         if (result.IsSuccessAndHasValue())
         {
-            Model.AbsolutePosition = result.Value.Value!.Value;
+            AbsolutePosition = result.Value.Value!.Value;
             CurrentAngle = result.Value.Value!.Value;
         }
 
         await LoadData();
         
-        Model.StepSize = Settings.Value.GratingAngleStepSize;
+        StepSize = Settings.Value.GratingAngleStepSize;
     }
     
     protected override async Task LoadData()
@@ -88,7 +87,7 @@
     
     private async Task StepSizeChanged(float value)
     {
-        Model.StepSize = value;
+        StepSize = value;
         var result = await new UpdateGratingAngleStepSizeCommand(value).ExecuteAsync();
         if (!result.IsSuccess)
         {
@@ -96,64 +95,9 @@
         }
     }
     
-    private Task ExecuteAngleControlAction()
-    {
-        switch (Model.Action)
-        {
-            case AngleControlAction.Calibrate:
-                return Calibrate();
-            case AngleControlAction.GoTo:
-                return GoTo();
-            case AngleControlAction.MoveCcw:
-                return MoveIn();
-            case AngleControlAction.MoveCw:
-                return MoveOut();
-            case AngleControlAction.Abort:
-                return Abort();
-            default:
-                throw new InvalidOperationException($"{Model.Action} is not a supported action");
-        }
-    }
-    
-    private async Task Calibrate()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.CalibrateGratingAngle(Model.AbsolutePosition));
-    }
-    
-    private async Task GoTo()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(Model.AbsolutePosition));
-    }
-
-    private async Task MoveIn()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle - Model.StepSize));
-    }
-
-    private async Task MoveOut()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle + Model.StepSize));
-    }
-    
-    private async Task Abort()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.StopGratingAngle());
-    }
-
-
-    public class AngleControlModel
-    {
-        public AngleControlAction Action { get; set; }
-        public float StepSize { get; set; } = 0.05f;
-        public float AbsolutePosition { get; set; }
-    }
-
-    public enum AngleControlAction
-    {
-        Calibrate,
-        GoTo,
-        MoveCcw,
-        MoveCw,
-        Abort
-    }
+    private async Task Calibrate() => await ExecuteAndHandleError(() => AlpacaCommands.CalibrateGratingAngle(AbsolutePosition));
+    private async Task GoTo() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(AbsolutePosition));
+    private async Task MoveCcw() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle - StepSize));
+    private async Task MoveCw() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle + StepSize));
+    private async Task Abort() => await ExecuteAndHandleError(() => AlpacaCommands.StopGratingAngle());
 }
