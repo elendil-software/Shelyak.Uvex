@@ -6,64 +6,62 @@
 <Card Class="h-100">
     <CardBody>
         <CardTitle>@Loc["UvexControl_GratingWavelength_CardTitle"]</CardTitle>
+    
+        <CurrentValue Label="@Loc["UvexControl_GratingWavelength_Label_Current wavelength"]" Value="@CurrentWavelength.ToString("F2")" Unit=" nm" LabelCols="5"/>
+
+        <InputAndButtonsRow LabelFor="wavelength-step-size" LabelText="@Loc["UvexControl_GratingWavelength_Label_Step size"]" LabelCols="5">
+            <InputTemplate>
+                <InputNumber TValue="float"
+                             Value="StepSize"
+                             ValueExpression="() => StepSize"
+                             ValueChanged="(value) => StepSizeChanged(value)"
+                             id="wavelength-step-size"
+                             class="form-control"
+                             step=".01"
+                             min="@MinWavelength" max="@MaxWavelength"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@MoveOut" class="btn btn-primary">+</button>
+            </ButtonLeftTemplate>
+            <ButtonRightTemplate>
+                <button @onclick="@MoveIn" class="btn btn-primary">-</button>
+            </ButtonRightTemplate>
+        </InputAndButtonsRow>
+
+        <InputAndButtonsRow LabelFor="wavelength-position" LabelText="@Loc["UvexControl_GratingWavelength_Label_Target wavelength"]" LabelCols="5">
+            <InputTemplate>
+                <InputNumber @bind-Value="@AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="wavelength-position" class="form-control"/>
+            </InputTemplate>
+            <ButtonLeftTemplate>
+                <button @onclick="@GoTo" class="btn btn-primary">@Loc["Button_Go to"]</button>
+            </ButtonLeftTemplate>
+        </InputAndButtonsRow>
         
-        <EditForm Model="@Model" FormName="wavelength-control-form" OnSubmit="@ExecuteWavelengthControlAction">
-            <CurrentValue Label="@Loc["UvexControl_GratingWavelength_Label_Current wavelength"]" Value="@CurrentWavelength.ToString("F2")" Unit=" nm" LabelCols="5"/>
-
-            <InputAndButtonsRow LabelFor="wavelength-step-size" LabelText="@Loc["UvexControl_GratingWavelength_Label_Step size"]" LabelCols="5">
-                <InputTemplate>
-                    <InputNumber TValue="float"
-                                 Value="Model.StepSize"
-                                 ValueExpression="() => Model.StepSize"
-                                 ValueChanged="(value) => StepSizeChanged(value)"
-                                 id="wavelength-step-size"
-                                 class="form-control"
-                                 step=".01"
-                                 min="@MinWavelength" max="@MaxWavelength"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveOut)" class="btn btn-primary">+</button>
-                </ButtonLeftTemplate>
-                <ButtonRightTemplate>
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.MoveIn)" class="btn btn-primary">-</button>
-                </ButtonRightTemplate>
-            </InputAndButtonsRow>
-
-            <InputAndButtonsRow LabelFor="wavelength-position" LabelText="@Loc["UvexControl_GratingWavelength_Label_Target wavelength"]" LabelCols="5">
-                <InputTemplate>
-                    <InputNumber @bind-Value="@Model.AbsolutePosition" step=".01" min="@MinWavelength" max="@MaxWavelength" id="wavelength-position" class="form-control"/>
-                </InputTemplate>
-                <ButtonLeftTemplate>
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.GoTo)" class="btn btn-primary">@Loc["Button_Go to"]</button>
-                </ButtonLeftTemplate>
-            </InputAndButtonsRow>
-            
-            <div class="form-row mb-3">
-                <div class="col-auto">
-                    <button @onclick="@(() => Model.Action = WavelengthControlAction.Abort)" class="btn btn-danger">@Loc["Button_Halt"]</button>
-                </div>
+        <div class="form-row mb-3">
+            <div class="col-auto">
+                <button @onclick="@Abort" class="btn btn-danger">@Loc["Button_Halt"]</button>
             </div>
-        </EditForm>
+        </div>
     </CardBody>
 </Card>
 
 @code
 {
+    private float MinWavelength { get; set; }
+    private float MaxWavelength { get; set; }
+    private float StepSize { get; set; }
+    private float AbsolutePosition { get; set; }
     private float CurrentWavelength { get; set; }
-    private float MinWavelength { get; set; } = 0.0f;
-    private float MaxWavelength { get; set; } = 1000.0f;
-    private WavelengthControlModel Model { get; set; } = new();
-
     protected override async Task OnInitializedAsync()
     {
         var result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLength());
         if (result.IsSuccessAndHasValue())
         {
-            Model.AbsolutePosition = result.Value.Value!.Value;
+            AbsolutePosition = result.Value.Value!.Value;
             CurrentWavelength = result.Value.Value!.Value;
         }
         
-        Model.StepSize = Settings.Value.GratingWavelengthStepSize;
+        StepSize = Settings.Value.GratingWavelengthStepSize;
     }
 
     protected override async Task LoadData()
@@ -77,7 +75,7 @@
     
     private async Task StepSizeChanged(float value)
     {
-        Model.StepSize = value;
+        StepSize = value;
         var result = await new UpdateGratingWavelengthStepSizeCommand(value).ExecuteAsync();
         if (!result.IsSuccess)
         {
@@ -85,55 +83,8 @@
         }
     }
     
-    private Task ExecuteWavelengthControlAction()
-    {
-        switch (Model.Action)
-        {
-            case WavelengthControlAction.GoTo:
-                return GoTo();
-            case WavelengthControlAction.MoveIn:
-                return MoveIn();
-            case WavelengthControlAction.MoveOut:
-                return MoveOut();
-            case WavelengthControlAction.Abort:
-                return Abort();
-            default:
-                throw new InvalidOperationException($"{Model.Action} is not a supported action");
-        }
-    }
-    
-    private async Task GoTo()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(Model.AbsolutePosition));
-    }
-
-    private async Task MoveIn()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength - Model.StepSize));
-    }
-
-    private async Task MoveOut()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength + Model.StepSize));
-    }
-    
-    private async Task Abort()
-    {
-        await ExecuteAndHandleError(() => AlpacaCommands.StopGratingWaveLength());
-    }
-    
-    public class WavelengthControlModel
-    {
-        public WavelengthControlAction Action { get; set; }
-        public float StepSize { get; set; } = 0.05f;
-        public float AbsolutePosition { get; set; }
-    }
-
-    public enum WavelengthControlAction
-    {
-        GoTo,
-        MoveIn,
-        MoveOut,
-        Abort
-    }
+    private async Task GoTo() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(AbsolutePosition));
+    private async Task MoveIn() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength - StepSize));
+    private async Task MoveOut() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingWaveLength(CurrentWavelength + StepSize));
+    private async Task Abort() => await ExecuteAndHandleError(() => AlpacaCommands.StopGratingWaveLength());
 }
