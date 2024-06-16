@@ -313,11 +313,6 @@ namespace Shelyak.Usis
             return _responseParser.Parse<LightSource>(response);
         }
 
-        public IResponse<string> StopAll()
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
     }
 }

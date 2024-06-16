@@ -53,7 +53,5 @@ namespace Shelyak.Usis
 
         IResponse<LightSource> GetLightSource();
         IResponse<LightSource> SetLightSource(LightSource lightSource);
-        
-        IResponse<string> StopAll();
     }
 }
