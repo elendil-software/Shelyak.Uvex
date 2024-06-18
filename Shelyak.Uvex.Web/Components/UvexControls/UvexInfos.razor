@@ -1,7 +1,6 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
 @inject IStringLocalizer<LocalizationResources> Loc;
-@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
 
 <Card Class="h-100">
     <CardBody>
@@ -13,8 +12,6 @@
             <dd class="col-12 col-lg-6">@Firmware</dd>
             <dt class="col-12 col-lg-6">@Loc["UvexControl_Informations_Label_Protocol version"]</dt>
             <dd class="col-12 col-lg-6">@UsisProtocolVersion</dd>
-            <dt class="col-12 col-lg-6">@Loc["UvexControl_Informations_Label_COM port"]</dt>
-            <dd class="col-12 col-lg-6">@ComPort</dd>
         </dl>
     </CardBody>
 </Card>
