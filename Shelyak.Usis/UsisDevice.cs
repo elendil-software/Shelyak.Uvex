@@ -1,5 +1,4 @@
-﻿using System;
-using Shelyak.Usis.Commands;
+﻿using Shelyak.Usis.Commands;
 using Shelyak.Usis.Enums;
 using Shelyak.Usis.Responses;
 
