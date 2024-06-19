@@ -33,13 +33,13 @@ public static class ServicesExtension
     {
         builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (provider, client) =>
         {
-            var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
+            var baseUrl = builder.Configuration.GetApplicationUrl();
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}");
         });
         
         builder.Services.AddHttpClient(HttpClientConst.ApiSpectrographHttpClient, (provider, client) =>
         {
-            var baseUrl = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey);
+            var baseUrl = builder.Configuration.GetApplicationUrl();
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}Spectrograph/0/");
         });
 

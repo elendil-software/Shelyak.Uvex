@@ -14,7 +14,7 @@ public static class BrowserStarter
 
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey),
+                    FileName = builder.Configuration.GetApplicationUrl(),
                     UseShellExecute = true
                 });
             });
