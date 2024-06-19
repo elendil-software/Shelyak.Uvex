@@ -222,13 +222,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\LICENSE.md">
+      <Link>Documentation\LICENSE.md</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ASCOM.ico" />
     <Content Include="ASCOM.png" />
-    <Content Include="Documentation\License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Documentation\Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Documentation\README.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InnoSetup\Setup.iss">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

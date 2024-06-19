@@ -25,7 +25,7 @@ Compression=lzma
 SolidCompression=yes
 ; Put there by Platform if Driver Installer Support selected
 WizardImageFile="WizardImage.bmp"
-LicenseFile="../Documentation/License.txt"
+LicenseFile="../Documentation/LICENSE.md"
 ; {cf}\ASCOM\Uninstall\Focuser folder created by Platform, always
 UninstallFilesDir="{app}\Uninstall"
 
@@ -52,7 +52,7 @@ Source: "../System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: rep
 Source: "../System.ValueTuple.dll"; DestDir: "{app}"; Flags: replacesameversion 
 
 Source: "../Documentation/README.txt"; DestDir: "{app}"; Flags: replacesameversion
-Source: "../Documentation/LICENSE.txt"; DestDir: "{app}"; Flags: replacesameversion
+Source: "../Documentation/LICENSE.md"; DestDir: "{app}"; Flags: replacesameversion
 
 ; Only if driver is .NET
 [Run]

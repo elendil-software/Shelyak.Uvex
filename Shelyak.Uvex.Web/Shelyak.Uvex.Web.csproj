@@ -37,12 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Documentation\Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Documentation\License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="InnoSetup\Setup.iss">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -54,6 +48,10 @@
   <ItemGroup>
     <Content Update="appsettings.Development.json">
       <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Include="..\LICENSE.md">
+      <Link>Documentation\LICENSE.md</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
