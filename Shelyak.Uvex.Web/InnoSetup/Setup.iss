@@ -34,18 +34,18 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "..\*.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\*.json"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Excludes: appsettings-uvex.json,*.Development.json,http-client.env.json,libman.json
-Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Permissions: users-modify; Flags: ignoreversion onlyifdoesntexist 
-Source: "..\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\*.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: ignoreversion  
-Source: "..\wwwroot\img\*"; DestDir: "{app}\wwwroot\img"; Flags: ignoreversion  
-Source: "..\wwwroot\_content\*"; DestDir: "{app}\wwwroot\_content\"; Flags: ignoreversion recursesubdirs  
-Source: "..\wwwroot\lib\*.min.js"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
-Source: "..\wwwroot\lib\*.min.css"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
-Source: "..\wwwroot\lib\*.woff"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
-Source: "..\wwwroot\lib\*.woff2"; DestDir: "{app}\wwwroot\lib\"; Flags: ignoreversion recursesubdirs;
-Source: "..\Documentation\*"; DestDir: "{app}\Documentation\"; Flags: ignoreversion;
+Source: "..\*.json"; DestDir: "{app}"; Flags: replacesameversion onlyifdoesntexist; Excludes: appsettings-uvex.json,*.Development.json,http-client.env.json,libman.json
+Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Permissions: users-modify; Flags: replacesameversion onlyifdoesntexist 
+Source: "..\*.dll"; DestDir: "{app}"; Flags: replacesameversion
+Source: "..\*.xml"; DestDir: "{app}"; Flags: replacesameversion
+Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: replacesameversion  
+Source: "..\wwwroot\img\*"; DestDir: "{app}\wwwroot\img"; Flags: replacesameversion  
+Source: "..\wwwroot\_content\*"; DestDir: "{app}\wwwroot\_content\"; Flags: replacesameversion recursesubdirs  
+Source: "..\wwwroot\lib\*.min.js"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesameversion recursesubdirs;
+Source: "..\wwwroot\lib\*.min.css"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesameversion recursesubdirs;
+Source: "..\wwwroot\lib\*.woff"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesameversion recursesubdirs;
+Source: "..\wwwroot\lib\*.woff2"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesameversion recursesubdirs;
+Source: "..\Documentation\*"; DestDir: "{app}\Documentation\"; Flags: replacesameversion;
 
 ;recursesubdirs createallsubdirs 
 
