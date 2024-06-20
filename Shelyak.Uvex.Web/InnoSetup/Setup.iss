@@ -37,6 +37,7 @@ Source: "..\*.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\*.json"; DestDir: "{app}"; Flags: replacesameversion onlyifdoesntexist; Excludes: appsettings-uvex.json,*.Development.json,http-client.env.json,libman.json
 Source: "..\appsettings-uvex.json"; DestDir: "{autoappdata}\Shelyak\Uvex"; Permissions: users-modify; Flags: replacesameversion onlyifdoesntexist 
 Source: "..\*.dll"; DestDir: "{app}"; Flags: replacesameversion
+Source: "..\fr\*.dll"; DestDir: "{app}\fr\"; Flags: replacesameversion
 Source: "..\*.xml"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\wwwroot\*"; DestDir: "{app}\wwwroot"; Flags: replacesameversion  
 Source: "..\wwwroot\img\*"; DestDir: "{app}\wwwroot\img"; Flags: replacesameversion  
