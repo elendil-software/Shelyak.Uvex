@@ -35,7 +35,7 @@ internal static class FastEndpointsConfigurationExtensions
                 config.Endpoints.RoutePrefix = RoutePrefix;
                 config.Versioning.Prefix = VersioningPrefix;
                 config.Versioning.PrependToRoute = true;
-                config.Errors.ResponseBuilder = ProblemDetails.ResponseBuilder;
+                config.Errors.UseProblemDetails();
             });
         
         app.Services.RegisterGenericCommand(typeof(AlpacaPutCommand<>), typeof(AlpacaPutCommandHandler<>));
