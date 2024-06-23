@@ -60,6 +60,87 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Three ASCOM drivers are also available. This allows you to use your usual software to control your UVEX..
+        /// </summary>
+        public static string About_Paragraph_ASCOM {
+            get {
+                return ResourceManager.GetString("About_Paragraph_ASCOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shelyak UVEX is an application that lets you control your UVEX spectroscope..
+        /// </summary>
+        public static string About_Paragraph_Intro {
+            get {
+                return ResourceManager.GetString("About_Paragraph_Intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shelyak UVEX is free software under.
+        /// </summary>
+        public static string About_Paragraph_License {
+            get {
+                return ResourceManager.GetString("About_Paragraph_License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIT license.
+        /// </summary>
+        public static string About_Paragraph_License_Name {
+            get {
+                return ResourceManager.GetString("About_Paragraph_License_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library.
+        /// </summary>
+        public static string About_Table_Head_Library {
+            get {
+                return ResourceManager.GetString("About_Table_Head_Library", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        public static string About_Table_Head_License {
+            get {
+                return ResourceManager.GetString("About_Table_Head_License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shelyak UVEX uses the following libraries.
+        /// </summary>
+        public static string About_ThirdParty_Component_Paragraph {
+            get {
+                return ResourceManager.GetString("About_ThirdParty_Component_Paragraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Shelyak UVEX.
+        /// </summary>
+        public static string About_Title {
+            get {
+                return ResourceManager.GetString("About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third-party component licences.
+        /// </summary>
+        public static string About_Title_ThirdParty_Component {
+            get {
+                return ResourceManager.GetString("About_Title_ThirdParty_Component", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calibrate.
         /// </summary>
         public static string Button_Calibrate {
@@ -245,6 +326,15 @@ namespace Shelyak.Uvex.Web.Locales {
         public static string Configuration_Title {
             get {
                 return ResourceManager.GetString("Configuration_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string NavMenu_About {
+            get {
+                return ResourceManager.GetString("NavMenu_About", resourceCulture);
             }
         }
         

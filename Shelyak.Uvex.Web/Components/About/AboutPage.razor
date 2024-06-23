@@ -1,0 +1,49 @@
+﻿@page "/about"
+@inject IStringLocalizer<LocalizationResources> Loc;
+
+<PageTitle>@Loc["About_Title"]</PageTitle>
+<h2>@Loc["About_Title"]</h2>
+
+<p>@Loc["About_Paragraph_Intro"]</p>
+<p class="mb-4">@Loc["About_Paragraph_ASCOM"]</p>
+
+<p>Copyright &copy; 2024 Shelyak Instruments, Julien Tschäppät</p>
+<p>@Loc["About_Paragraph_License"] <a href="https://github.com/elendil-software/Shelyak.Uvex.WebApi/blob/main/LICENSE.md">@Loc["About_Paragraph_License_Name"]</a>.</p>
+
+<h3>@Loc["About_Title_ThirdParty_Component"]</h3>
+<p>@Loc["About_ThirdParty_Component_Paragraph"]</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Loc["About_Table_Head_Library"]</th>
+            <th>@Loc["About_Table_Head_License"]</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><a href="https://github.com/ardalis/Result" target="_blank">Ardalis.Result</a></td>
+        <td><a href="https://github.com/ardalis/Result/blob/main/LICENSE" target="_blank">MIT</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a></td>
+        <td><a href="https://github.com/twbs/bootstrap/blob/main/LICENSE" target="_blank">MIT</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a></td>
+        <td><a href="https://github.com/twbs/icons/blob/main/LICENSE.md" target="_blank">MIT</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://docs.blazorbootstrap.com">Blazor.Bootstrap</a></td>
+        <td><a href="https://github.com/vikramlearning/blazorbootstrap/blob/main/LICENSE.txt" target="_blank">MIT</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://fast-endpoints.com/" target="_blank">FastEndpoints</a></td>
+        <td><a href="https://github.com/FastEndpoints/FastEndpoints/blob/main/LICENSE.md" target="_blank">MIT</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://serilog.net/" target="_blank">Serilog</a></td>
+        <td><a href="https://github.com/serilog/serilog/blob/dev/LICENSE" target="_blank">Apache License 2.0</a></td>
+    </tr>
+    </tbody>
+</table>

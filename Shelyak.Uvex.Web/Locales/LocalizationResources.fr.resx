@@ -161,4 +161,34 @@
     <data name="Configuration_GratingDensity_Command_Success" xml:space="preserve">
         <value>La densité du réseau a été mise à jour</value>
     </data>
+    <data name="About_Title" xml:space="preserve">
+        <value>A propos de Shelyak UVEX</value>
+    </data>
+    <data name="NavMenu_About" xml:space="preserve">
+        <value>A propos de</value>
+    </data>
+    <data name="About_Table_Head_Library" xml:space="preserve">
+        <value>Bibliothèque</value>
+    </data>
+    <data name="About_Table_Head_License" xml:space="preserve">
+        <value>Licence</value>
+    </data>
+    <data name="About_Paragraph_Intro" xml:space="preserve">
+        <value>Shelyak UVEX est une application qui vous permet de contrôler votre spectroscope UVEX.</value>
+    </data>
+    <data name="About_Paragraph_ASCOM" xml:space="preserve">
+        <value>Trois drivers ASCOM sont également disponibles. Cela vous permet d'utiliser vos logiciels habituels pour contrôler votre UVEX.</value>
+    </data>
+    <data name="About_Paragraph_License" xml:space="preserve">
+        <value>Shelyak UVEX est un logiciel libre sous</value>
+    </data>
+    <data name="About_Title_ThirdParty_Component" xml:space="preserve">
+        <value>Licences de composants tiers</value>
+    </data>
+    <data name="About_ThirdParty_Component_Paragraph" xml:space="preserve">
+        <value>Shelyak UVEX utilise les bibliothèques suivantes</value>
+    </data>
+    <data name="About_Paragraph_License_Name" xml:space="preserve">
+        <value>licence MIT</value>
+    </data>
 </root>
