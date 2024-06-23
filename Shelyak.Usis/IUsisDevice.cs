@@ -42,6 +42,8 @@ namespace Shelyak.Usis
 
         IResponse<float> GetSlitAngle();
         IResponse<float> SetSlitAngle(float slitAngle);
+        IResponse<float> StopSlitAngle();
+        IResponse<float> CalibrateSlitAngle(float slitAngle);
 
         IResponse<float> GetFocusPosition();
         IResponse<float> SetFocusPosition(float focusPosition);
