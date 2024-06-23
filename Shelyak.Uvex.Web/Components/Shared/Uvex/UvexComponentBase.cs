@@ -34,7 +34,7 @@ public abstract class UvexComponentBase : ComponentBase
         {
             if (result.Value.ErrorNumber != AlpacaError.NoError)
             {
-                ToastService.Notify(new(ToastType.Danger, $"Error: {result.Value.ErrorMessage}."));
+                ToastService.Notify(new(ToastType.Danger, result.Value.ErrorMessage));
             }
         }
         else
