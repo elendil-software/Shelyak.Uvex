@@ -155,14 +155,14 @@ namespace Shelyak.Usis
         
         public IResponse<float> GetGratingWaveLengthMin()
         {
-            ICommand command = new GetCommand(DeviceProperty.GRAITNG_WAVELENGTH_MIN, PropertyAttributeType.MIN);
+            ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH_MIN, PropertyAttributeType.MIN);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
         
         public IResponse<float> GetGratingWaveLengthPrec()
         {
-            ICommand command = new GetCommand(DeviceProperty.GRATIGN_WAVELENGTH_PREC, PropertyAttributeType.PREC);
+            ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH_PREC, PropertyAttributeType.PREC);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
