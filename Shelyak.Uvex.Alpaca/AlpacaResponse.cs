@@ -24,7 +24,9 @@
         public string ErrorMessage { get; set; } = "";
 
 #if NET8_0_OR_GREATER
+#nullable enable
         public AlpacaResponseValue<T>? Value { get; set; }
+#nullable disable
 #else
         public AlpacaResponseValue<T> Value { get; set; } = default;
 #endif

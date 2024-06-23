@@ -22,9 +22,9 @@
         Culture = CultureInfo.CurrentCulture;
     }
     
-    private void OnCultureChanged(CultureInfo selectedCulture)
+    private void OnCultureChanged(CultureInfo? selectedCulture)
     {
-        if (CultureInfo.CurrentCulture != selectedCulture)
+        if (selectedCulture != null && !Equals(CultureInfo.CurrentCulture, selectedCulture))
         {
             var uri = new Uri(Navigation.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
             var cultureEscaped = Uri.EscapeDataString(selectedCulture.Name);

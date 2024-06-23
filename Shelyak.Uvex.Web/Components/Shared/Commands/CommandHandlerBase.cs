@@ -40,7 +40,7 @@ public abstract class CommandHandlerBase<TCommand, TResult> : ICommandHandler<TC
     
     protected async Task<Result<TResult>> GetMessageFromProblemDetails(HttpResponseMessage response, CancellationToken ct)
     {
-        var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>((JsonSerializerOptions)null, ct) ?? new Microsoft.AspNetCore.Mvc.ProblemDetails();
+        var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>((JsonSerializerOptions)null!, ct) ?? new Microsoft.AspNetCore.Mvc.ProblemDetails();
 
         var error = new StringBuilder();
         if (!string.IsNullOrEmpty(problemDetails.Title))
