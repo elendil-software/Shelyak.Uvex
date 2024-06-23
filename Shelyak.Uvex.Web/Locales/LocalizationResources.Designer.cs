@@ -330,6 +330,15 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Help_Title {
+            get {
+                return ResourceManager.GetString("Help_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string NavMenu_About {
@@ -362,6 +371,15 @@ namespace Shelyak.Uvex.Web.Locales {
         public static string NavMenu_Controls {
             get {
                 return ResourceManager.GetString("NavMenu_Controls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string NavMenu_Help {
+            get {
+                return ResourceManager.GetString("NavMenu_Help", resourceCulture);
             }
         }
         

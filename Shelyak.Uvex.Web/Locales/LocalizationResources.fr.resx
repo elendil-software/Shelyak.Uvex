@@ -191,4 +191,10 @@
     <data name="About_Paragraph_License_Name" xml:space="preserve">
         <value>licence MIT</value>
     </data>
+    <data name="Help_Title" xml:space="preserve">
+        <value>Aide</value>
+    </data>
+    <data name="NavMenu_Help" xml:space="preserve">
+        <value>Aide</value>
+    </data>
 </root>
