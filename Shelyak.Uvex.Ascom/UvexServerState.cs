@@ -62,10 +62,9 @@ namespace ASCOM.LocalServer
             try
             {
                 _logger.LogMessage(nameof(UvexServerState), "Starting Uvex server");
-                var shelyakUvexPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Shelyak", "Uvex", UvexConst.UvexProcess + ".exe");
+                var shelyakUvexPath = Path.Combine(UvexConst.UvexInstallPath, UvexConst.UvexProcess + ".exe");
+                _logger.LogMessage(nameof(UvexServerState), "Uvex server path: " + shelyakUvexPath);
                 Process.Start(shelyakUvexPath, "--ascom");
-                
-                
             }
             catch (Exception ex)
             {
