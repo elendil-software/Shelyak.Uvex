@@ -8,7 +8,9 @@ $uvexWebOutputPath = $uvexWebPath + "/bin/Release/net8.0/win-x64/publish/"
 $msbuildPath = "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\msbuild.exe"
 $innoSetupPath = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 
-$version = "0.9.5"
+$version = "0.11.0"
+
+Get-ChildItem -Path "../" -Include "obj","bin" -Recurse -Force | ForEach-Object {Remove-Item $_ -Recurse -Force}
 
 # Build Shelyak.Uvex.Ascom
 Write-Host "Building Shelyak.Uvex.Ascom..."
