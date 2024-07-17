@@ -2,75 +2,108 @@ name: 'Build'
 on:
   workflow_call:
     inputs:
-      artifact_name_in:
-        description: 'Name of an artifact saved by a previous workflow'
-        default: 'workflow-share'
-        required: false
+      gitversion-config:
+        description: 'Path to GitVersion configuration file'
+        required: true
         type: string
-      artifact_name_out:
-        description: 'Name of the artifact to save the result of this workflow'
-        default: 'workflow-share'
+      build_installer:
+        description: 'Push the generated installer in artifact'
+        default: false
         required: false
-        type: string
-      artifact_retention_days:
-        description: 'retention days for the artifact'
-        default: 5
-        required: false
-        type: number
+        type: boolean
         
+    outputs:
+      MajorMinorPatch:
+        value: ${{ jobs.build.outputs.MajorMinorPatch }}
+      SemVer:
+        value: ${{ jobs.build.outputs.SemVer }}
+        
+env:
+  dotnet_version: 'net8.0'
+  installer_artifact_name: 'installers.7z'
+  artifacts_retention_days: 5
+
 jobs:
   build:
-    name: 'Build UVEX'
+    name: 'Build (Sub-Workflow)'
     runs-on: windows-latest
+    outputs:
+      MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+      SemVer: ${{ steps.gitversion.outputs.SemVer }}
+      
     steps:
-      - name: Download source artifact
-        uses: actions/download-artifact@v3.0.1
+      - name: 'Checkout'
+        uses: actions/checkout@v4.1.7
         with:
-          name: ${{ inputs.artifact_name_in }}
+          fetch-depth: 0
 
-      - name: Unzip artifact archive
-        run: |
-          7z x ${{ inputs.artifact_name_in }}.7z
-          rm -Force ${{ inputs.artifact_name_in }}.7z
+      - name: 'Setup MSBuild'
+        uses: microsoft/setup-msbuild@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-    
-      - name: Restore Shelyak.Uvex.Ascom
+      - name: 'Setup GitVersion'
+        uses: gittools/actions/gitversion/setup@v1.2.0
+        with:
+          versionSpec: '5.x'
+
+      - name: 'GitVersion updateassemblyinfo'
+        uses: gittools/actions/gitversion/execute@v1.2.0
+        with:
+          useConfigFile: true
+          configFilePath: ${{ inputs.gitversion-config }}
+          additionalArguments: '/updateassemblyinfo'
+
+      - name: 'GitVersion updateprojectfiles'
+        id:   gitversion
+        uses: gittools/actions/gitversion/execute@v1.2.0
+        with:
+          useConfigFile: true
+          configFilePath: ${{ inputs.gitversion-config }}
+          additionalArguments: '/updateprojectfiles'
+
+      - name: 'Restore Shelyak.Uvex.Ascom'
         run: nuget restore Shelyak.Uvex.Ascom.sln
-        
-      - name: Build Shelyak.Uvex.Ascom
-        run: msbuild Shelyak.Uvex.Ascom.sln /p:Configuration=Release /p:RestorePackages=false
-    
-      - name: Restore Shelyak.Uvex.Web
-        run: dotnet restore Shelyak.Uvex.sln
-        
-      - name: Publish Shelyak.Uvex.Web
-        run: dotnet publish Shelyak.Uvex.Web.sln --configuration Release --arch x64 --self-contained true --framework net8.0
 
-      - name: Test Shelyak.Uvex.Web
+      - name: 'Build Shelyak.Uvex.Ascom'
+        run: msbuild Shelyak.Uvex.Ascom.sln /p:Configuration=Release /p:RestorePackages=false
+
+      - name: 'Restore Shelyak.Uvex.Web'
+        run: dotnet restore Shelyak.Uvex.sln
+
+      - name: 'Publish Shelyak.Uvex.Web'
+        run: dotnet publish Shelyak.Uvex.Web.sln --configuration Release --arch x64 --self-contained true --framework ${{ env.dotnet_version }}
+        
+      - name: 'Test Shelyak.Uvex.Web'
         run: dotnet test Shelyak.Uvex.Web.sln --configuration Release --no-restore --verbosity normal --collect:"XPlat Code Coverage"
 
-      - name: ReportGenerator
+      - name: 'Report Generator'
         uses: danielpalme/ReportGenerator-GitHub-Action@5.1.13
         with:
           reports: './**/TestResults/**/coverage.cobertura.xml'
-          targetdir: 'coveragereport' 
-          reporttypes: 'HtmlSummary' 
+          targetdir: 'coveragereport'
+          reporttypes: 'HtmlSummary'
 
-      - name: Upload coverage report artifact
-        uses: actions/upload-artifact@v3.1.1
+      - name: 'Upload coverage report artifact'
+        uses: actions/upload-artifact@v4.3.4
         with:
           name: CoverageReport
           path: coveragereport
-          retention-days: ${{ inputs.artifact_retention_days }}
+          retention-days: ${{ inputs.artifacts_retention_days }}
 
-      - name: Zip artifact archive
-        run: 7z a ${{ inputs.artifact_name_out }}.7z
+      - name: 'Build Inno Setup Packages'
+        if: ${{ inputs.build_installer == true }}
+        run: | 
+          ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/Setup.iss
+          ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/Setup.iss
+          ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./InnoSetup/Setup.iss
 
-      - name: Upload source artifact
-        uses: actions/upload-artifact@v3.1.1
+      - name: 'Zip artifact archive'
+        if: ${{ inputs.build_installer == true }}
+        run: 7z a -t7z -mx=1 ${{ env.installer_artifact_name }} ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/*.exe ./InnoSetup/*.exe
+      
+      - name: 'Upload source artifact'
+        if: ${{ inputs.build_installer == true }}
+        uses: actions/upload-artifact@v4.3.4
         with:
-          name: ${{ inputs.artifact_name_out }}
-          path: ${{ inputs.artifact_name_out }}.7z
-          retention-days: ${{ inputs.artifact_retention_days }}
+          name: ${{ env.installer_artifact_name }}
+          path: ${{ env.installer_artifact_name }}
+          retention-days: ${{ env.artifacts_retention_days }}

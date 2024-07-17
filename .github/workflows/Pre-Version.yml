@@ -3,27 +3,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  init:
-    uses: ./.github/workflows/sw_init-workflow.yml
-
-  gitversion-updateassemblyinfo:
-    needs: init
-    uses: ./.github/workflows/sw_gitversion-updateassemblyinfo.yml
-    with:
-      config: './.github/GitVersion.yml'
-      
-  gitversion:
-    needs: gitversion-updateassemblyinfo
-    uses: ./.github/workflows/sw_gitversion.yml
-    with:
-      config: './.github/GitVersion.yml'
-  
   build:
-    needs: gitversion
     uses: ./.github/workflows/sw_build.yml
-
-  build_installer:
-    needs: [gitversion, build]
-    uses: ./.github/workflows/sw_build-inno-setup.yml
     with:
-      version: ${{needs.gitversion.outputs.MajorMinorPatch}}
+        gitversion-config: './.github/GitVersion.yml'
+        build_installer: true
+        
