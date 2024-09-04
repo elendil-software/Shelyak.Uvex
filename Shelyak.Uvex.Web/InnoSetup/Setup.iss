@@ -48,7 +48,16 @@ Source: "..\wwwroot\lib\*.woff"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesa
 Source: "..\wwwroot\lib\*.woff2"; DestDir: "{app}\wwwroot\lib\"; Flags: replacesameversion recursesubdirs;
 Source: "..\Documentation\*"; DestDir: "{app}\Documentation\"; Flags: replacesameversion;
 
-;recursesubdirs createallsubdirs 
+[InstallDelete]
+Type: files; Name: "{app}\Shelyak.Uvex.Web.exe"
+Type: files; Name: "{app}\createdump.exe"
+Type: files; Name: "{app}\*.json"
+Type: files; Name: "{app}\*.dll"
+Type: files; Name: "{app}\*.xml"
+Type: filesandordirs; Name: "{app}\fr"
+Type: filesandordirs; Name: "{app}\wwwroot"
+Type: filesandordirs; Name: "{app}\Documentation"
+
 
 [Icons]
 ;Name: "{autoprograms}\{#AppPublisher}\{#AppName}"; Filename: "{app}\{#AppExeName}"
