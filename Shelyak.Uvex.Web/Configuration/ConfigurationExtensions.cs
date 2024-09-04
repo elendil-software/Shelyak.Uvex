@@ -1,12 +1,12 @@
-﻿using System.Text.RegularExpressions;
-using Shelyak.Usis;
+﻿using Shelyak.Usis;
+using Shelyak.Uvex.Shared;
 using Shelyak.Uvex.Web.Settings;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
 public static class ConfigurationExtensions
 {
-    private const string DefaultUrl = "http://localhost:6562";
+    
     private const string KestrelUrlKey = "Kestrel:EndPoints:Http:Url";
     
     public static WebApplicationBuilder AddConfiguration(this WebApplicationBuilder builder)
@@ -23,17 +23,7 @@ public static class ConfigurationExtensions
     
     public static string GetApplicationUrl(this IConfiguration configuration)
     {
-        var kestrelUrl = configuration.GetValue<string>(KestrelUrlKey) ?? DefaultUrl;
-        var urlPattern = @"^(?<scheme>http[s]?)://(?<domain>[^:/]+)(:(?<port>\d+))?$";
-
-        var regex = new Regex(urlPattern);
-        var match = regex.Match(kestrelUrl);
-
-        if (match.Success && match.Groups["domain"].Value == "*")
-        {
-            return kestrelUrl.Replace("*", "localhost");
-        }
-
-        return kestrelUrl;
+        var kestrelUrl = configuration.GetValue<string>(KestrelUrlKey) ?? UvexConst.DefaultUrl;
+        return ApplicationUrlHelper.GetApplicationUrl(kestrelUrl);
     }
 }

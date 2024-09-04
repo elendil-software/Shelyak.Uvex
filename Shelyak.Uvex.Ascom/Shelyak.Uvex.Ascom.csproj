@@ -185,7 +185,6 @@
     <Compile Include="Shared\UvexApiParameter.cs" />
     <Compile Include="Shared\UvexHttpClient.cs" />
     <Compile Include="Shared\UvexHttpClientHelper.cs" />
-    <Compile Include="UvexConst.cs" />
     <Compile Include="UvexServerState.cs" />
     <EmbeddedResource Include="FilterWheelDriver\SetupDialogForm.resx">
       <DependentUpon>SetupDialogForm.cs</DependentUpon>
@@ -268,6 +267,10 @@
     <ProjectReference Include="..\Shelyak.Uvex.Alpaca\Shelyak.Uvex.Alpaca.csproj">
       <Project>{0825250b-b7ef-4f6f-a858-e53488dca50a}</Project>
       <Name>Shelyak.Uvex.Alpaca</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shelyak.Uvex.Shared\Shelyak.Uvex.Shared.csproj">
+      <Project>{9f06fbe5-3d02-4953-8b7f-89c319c1f6da}</Project>
+      <Name>Shelyak.Uvex.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
