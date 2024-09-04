@@ -24,6 +24,6 @@ public static class ConfigurationExtensions
     public static string GetApplicationUrl(this IConfiguration configuration)
     {
         var kestrelUrl = configuration.GetValue<string>(KestrelUrlKey) ?? UvexConst.DefaultUrl;
-        return ApplicationUrlHelper.GetApplicationUrl(kestrelUrl);
+        return ApplicationUrlHelper.ParseApplicationUrl(kestrelUrl);
     }
 }

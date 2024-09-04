@@ -4,7 +4,7 @@ namespace Shelyak.Uvex.Shared
 {
     public static class ApplicationUrlHelper
     {
-        public static string GetApplicationUrl(string configUrl)
+        public static string ParseApplicationUrl(string configUrl)
         {
             configUrl = configUrl ?? UvexConst.DefaultUrl;
             var urlPattern = @"^(?<scheme>http[s]?)://(?<domain>[^:/]+)(:(?<port>\d+))?$";
