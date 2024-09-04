@@ -30,7 +30,7 @@ public class SwitchCultureEndpoint : EndpointWithoutRequest
                 {
                     Expires = DateTimeOffset.UtcNow.AddYears(1),
                     SameSite = SameSiteMode.None,
-                
+                    Secure = true
                 });
         }
         
