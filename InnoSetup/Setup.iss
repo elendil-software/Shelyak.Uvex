@@ -10,6 +10,7 @@
 AppId={{020118E7-FD44-46C9-9566-EE1D8DD84D0B}
 AppName={#AppName}
 AppVerName={#AppName} {#version}
+LicenseFile=../Shelyak.Uvex.Web/bin/Release/net8.0/win-x64/Documentation/LICENSE.md
 OutputDir=.\
 OutputBaseFilename={#AppName} Setup v{#version}
 DefaultDirName={tmp}
