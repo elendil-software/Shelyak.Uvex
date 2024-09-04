@@ -126,7 +126,7 @@ begin
       // Check whether an extry exists
       if RegQueryStringValue(HKLM, UninstallRegistry, 'UninstallString', UninstallExe) then
         begin // Entry exists and previous version is installed so run its uninstaller quietly after informing the user
-          MsgBox('Setup will now remove the previous version.', mbInformation, MB_OK);
+          MsgBox('Setup will now remove the previous Shelyak UVEX ASCOM driver version.', mbInformation, MB_OK);
           Exec(RemoveQuotes(UninstallExe), ' /SILENT', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode);
           sleep(1000);    //Give enough time for the install screen to be repainted before continuing
         end
