@@ -23,7 +23,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         internal static string DriverProgId;
         internal static string DriverDescription;
 
-        internal bool connectedState;
         internal TraceLogger tl; 
         private bool disposedValue;
 
@@ -49,8 +48,6 @@ namespace ASCOM.ShelyakUvex.Rotator
 
                 LogMessage(nameof(Rotator), "Starting driver initialisation");
                 LogMessage(nameof(Rotator), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
-
-                connectedState = false;
                 
                 LogMessage(nameof(Rotator), "Completed initialisation");
             }
@@ -143,7 +140,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             try
             {
-                if (connectedState)
+                if (RotatorHardware.Connected)
                 {
                     MessageBox.Show("Already connected, just press OK");
                 }
@@ -300,9 +297,8 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    // Returns the driver's connection state rather than the local server's connected state, which could be different because there may be other client connections still active.
-                    LogMessage(nameof(Connected) + " Get", connectedState.ToString());
-                    return connectedState;
+                    LogMessage(nameof(Connected) + " Get", RotatorHardware.Connected.ToString());
+                    return RotatorHardware.Connected;
                 }
                 catch (Exception ex)
                 {
@@ -314,29 +310,19 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 try
                 {
-                    if (value == connectedState)
+                    if (value == RotatorHardware.Connected)
                     {
                         LogMessage(nameof(Connected) + " Set", "Device already connected, ignoring Connected Set = true");
                         return;
                     }
-                    
-                    using (ComPortChecker comPortChecker = new ComPortChecker(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort))
-                    {
-                        if (!comPortChecker.CheckConnection())
-                        {
-                            throw new NotConnectedException("The focuser is not connected to the hardware");
-                        }
-                    }
 
                     if (value)
                     {
-                        connectedState = true;
                         LogMessage(nameof(Connected) + " Set", "Connecting to device");
                         RotatorHardware.Connected = true;
                     }
                     else
                     {
-                        connectedState = false;
                         LogMessage(nameof(Connected) + " Set", "Disconnecting from device");
                         RotatorHardware.Connected = false;
                     }
@@ -744,7 +730,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="message"></param>
         private void CheckConnected(string message)
         {
-            if (!connectedState)
+            if (!RotatorHardware.Connected)
             {
                 throw new NotConnectedException($"{DriverDescription} ({DriverProgId}) is not connected: {message}");
             }

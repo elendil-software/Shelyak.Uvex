@@ -236,10 +236,19 @@ namespace ASCOM.ShelyakUvex.Rotator
             }
             set
             {
-                //TODO Add ComPortChecker like in FocuserHardware
                 LogMessage(nameof(Connected), $"Set {value}");
                 if (value == IsConnected)
+                {
                     return;
+                }
+                
+                using (ComPortChecker comPortChecker = new ComPortChecker(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort))
+                {
+                    if (!comPortChecker.CheckConnection())
+                    {
+                        throw new NotConnectedException("Unable to connect to the device. Check that the UVEX is connected to the PC and the UVEX service is started");
+                    }
+                }
 
                 if (value)
                 {

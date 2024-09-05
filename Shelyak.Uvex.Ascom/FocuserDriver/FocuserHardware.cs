@@ -68,8 +68,6 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 LogMessage(nameof(InitialiseHardware), "Completed basic initialisation");
                 
-                //TODO vérifier existance port COM ?
-
                 LogMessage(nameof(InitialiseHardware), "One-off initialisation complete.");
                 runOnce = true;
             }
@@ -235,7 +233,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 {
                     if (!comPortChecker.CheckConnection())
                     {
-                        throw new NotConnectedException("The focuser is not connected to the hardware");
+                        throw new NotConnectedException("Unable to connect to the device. Check that the UVEX is connected to the PC and the UVEX service is started");
                     }
                 }
                 

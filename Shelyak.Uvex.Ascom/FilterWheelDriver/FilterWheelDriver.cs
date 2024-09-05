@@ -21,7 +21,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
     {
         internal static string DriverProgId;
         internal static string DriverDescription;
-        internal bool connectedState;
+        
         internal TraceLogger tl;
         private bool disposedValue;
 
@@ -48,8 +48,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
                 LogMessage(nameof(FilterWheel), "Starting driver initialisation");
                 LogMessage(nameof(FilterWheel), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
-
-                connectedState = false;
                 
                 LogMessage(nameof(FilterWheel), "Completed initialisation");
             }
@@ -142,7 +140,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         {
             try
             {
-                if (connectedState)
+                if (FilterWheelHardware.Connected)
                 {
                     MessageBox.Show("Already connected, just press OK");
                 }
@@ -299,8 +297,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    LogMessage(nameof(Connected) + " Get", connectedState.ToString());
-                    return connectedState;
+                    LogMessage(nameof(Connected) + " Get", FilterWheelHardware.Connected.ToString());
+                    return FilterWheelHardware.Connected;
                 }
                 catch (Exception ex)
                 {
@@ -312,29 +310,19 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 try
                 {
-                    if (value == connectedState)
+                    if (value == FilterWheelHardware.Connected)
                     {
                         LogMessage(nameof(Connected) + " Set", "Device already connected, ignoring Connected Set = true");
                         return;
                     }
-                    
-                    using (ComPortChecker comPortChecker = new ComPortChecker(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort))
-                    {
-                        if (!comPortChecker.CheckConnection())
-                        {
-                            throw new NotConnectedException("The focuser is not connected to the hardware");
-                        }
-                    }
 
                     if (value)
                     {
-                        connectedState = true;
                         LogMessage(nameof(Connected) + " Set", "Connecting to device");
                         FilterWheelHardware.Connected = true;
                     }
                     else
                     {
-                        connectedState = false;
                         LogMessage(nameof(Connected) + " Set", "Disconnecting from device");
                         FilterWheelHardware.Connected = false;
                     }
@@ -548,7 +536,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         /// <param name="message"></param>
         private void CheckConnected(string message)
         {
-            if (!connectedState)
+            if (!FilterWheelHardware.Connected)
             {
                 throw new NotConnectedException($"{DriverDescription} ({DriverProgId}) is not connected: {message}");
             }

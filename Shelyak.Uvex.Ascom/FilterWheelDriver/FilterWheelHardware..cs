@@ -69,9 +69,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
 
 
                 LogMessage(nameof(InitialiseHardware), "Completed basic initialisation");
-
-                //TODO vérifier existance port COM ?
-
+                
                 LogMessage(nameof(InitialiseHardware), "One-off initialisation complete.");
                 runOnce = true;
             }
@@ -231,8 +229,18 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 LogMessage(nameof(Connected), $"Set {value}");
                 if (value == IsConnected)
+                {
                     return;
-                //TODO Add ComPortChecker like in FocuserHardware
+                }
+
+                using (ComPortChecker comPortChecker = new ComPortChecker(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort))
+                {
+                    if (!comPortChecker.CheckConnection())
+                    {
+                        throw new NotConnectedException("Unable to connect to the device. Check that the UVEX is connected to the PC and the UVEX service is started");
+                    }
+                }
+                
                 if (value)
                 {
                     LogMessage(nameof(Connected) + " Set", $"Connecting to {FilterWheelHardwareSettings.uvexApiUrl}");
