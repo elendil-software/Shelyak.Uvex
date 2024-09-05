@@ -22,7 +22,11 @@ namespace ASCOM.LocalServer
         public void CheckAndStartUvexServer()
         {
             _logger.LogMessage(nameof(UvexServerState), "Checking if Uvex server is running");
-            if (!IsUvexServerRunning())
+            if (IsUvexServerRunning())
+            {
+                _logger.LogMessage(nameof(UvexServerState), "Uvex server is already running");
+            }
+            else 
             {
                 _logger.LogMessage(nameof(UvexServerState), "Uvex server is not running, starting it");
                 StartUvexServer();

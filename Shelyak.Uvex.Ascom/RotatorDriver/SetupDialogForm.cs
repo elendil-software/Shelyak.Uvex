@@ -16,8 +16,8 @@ namespace ASCOM.ShelyakUvex.Rotator
             InitializeComponent();
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApi, numericUpPort);
-            InitHttpClient(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort);
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient(/*RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort*/);
             
             InitUI();
         }
@@ -25,8 +25,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            RotatorHardwareSettings.uvexApiUrl = textBoxUvexWebApi.Text;
-            RotatorHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
             UpdateApiPort();
         }
 
@@ -38,9 +36,6 @@ namespace ASCOM.ShelyakUvex.Rotator
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = RotatorHardwareSettings.uvexApiUrl;
-            numericUpPort.Value = RotatorHardwareSettings.uvexApiPort;
-            
             ReloadComPorts();
         }
 

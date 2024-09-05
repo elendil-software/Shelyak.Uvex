@@ -7,10 +7,9 @@ namespace ASCOM.ShelyakUvex.Shared
     {
         readonly ConfigHttpClient _httpClient;
         
-        public ComPortChecker(string uvexApiUrl, int uvexApiPort)
+        public ComPortChecker()
         {
-            _httpClient = UvexHttpClientHelper.CreateConfigHttpClient(
-                UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl, uvexApiPort, UvexApiParameter.defaultApiConfigPath));;
+            _httpClient = UvexHttpClientHelper.CreateConfigHttpClient(UvexHttpClientHelper.BuildUvexUrl(UvexApiParameter.defaultApiConfigPath));
         }
         
         public bool CheckConnection()

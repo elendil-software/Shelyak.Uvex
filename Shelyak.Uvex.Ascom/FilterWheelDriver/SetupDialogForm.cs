@@ -16,8 +16,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             InitializeComponent(); 
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApi, numericUpPort);
-            InitHttpClient(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort);
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient();
             
             InitUI();
         }
@@ -25,8 +25,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            FilterWheelHardwareSettings.uvexApiUrl = textBoxUvexWebApi.Text;
-            FilterWheelHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
             UpdateApiPort();
         }
 
@@ -38,8 +36,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApi.Text = FilterWheelHardwareSettings.uvexApiUrl;
-            numericUpPort.Value = FilterWheelHardwareSettings.uvexApiPort;
             
             ReloadComPorts();
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
 
 namespace ASCOM.ShelyakUvex.Shared
@@ -16,17 +15,15 @@ namespace ASCOM.ShelyakUvex.Shared
             
         }
         
-        protected void SetComPortComboBox(ComboBox comboBoxComPort, TextBox textBoxUvexWebApiUrl, NumericUpDown numericUpPort)
+        protected void SetComPortComboBox(ComboBox comboBoxComPort)
         {
             _comboBoxComPort = comboBoxComPort;
-            _textBoxUvexWebApiUrl = textBoxUvexWebApiUrl;
-            _numericUpPort = numericUpPort;
         }
 
-        protected void InitHttpClient(string uvexApiUrl, int uvexApiPort)
+        protected void InitHttpClient()
         {
             _httpClient = UvexHttpClientHelper.CreateConfigHttpClient(
-                UvexHttpClientHelper.BuildUvexUrl(uvexApiUrl, uvexApiPort, UvexApiParameter.defaultApiConfigPath));
+                UvexHttpClientHelper.BuildUvexUrl(UvexApiParameter.defaultApiConfigPath));
         }
         
         protected void UpdateApiPort()
@@ -50,28 +47,28 @@ namespace ASCOM.ShelyakUvex.Shared
         
         protected void OnUvexWebApiUrlChange()
         {
-            if (!_textBoxUvexWebApiUrl.Text.StartsWith("http"))
-            {
-                _textBoxUvexWebApiUrl.Text = "http://" + _textBoxUvexWebApiUrl.Text;
-            }
-            
-            //check if the URL is valid
-            if (!Uri.IsWellFormedUriString(_textBoxUvexWebApiUrl.Text, UriKind.Absolute))
-            {
-                MessageBox.Show("Invalid URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                _textBoxUvexWebApiUrl.Focus();
-            }
-            
-            InitHttpClient(_textBoxUvexWebApiUrl.Text, (int)_numericUpPort.Value);
-
-            try
-            {   
-                ReloadComPorts();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // if (!_textBoxUvexWebApiUrl.Text.StartsWith("http"))
+            // {
+            //     _textBoxUvexWebApiUrl.Text = "http://" + _textBoxUvexWebApiUrl.Text;
+            // }
+            //
+            // //check if the URL is valid
+            // if (!Uri.IsWellFormedUriString(_textBoxUvexWebApiUrl.Text, UriKind.Absolute))
+            // {
+            //     MessageBox.Show("Invalid URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //     _textBoxUvexWebApiUrl.Focus();
+            // }
+            //
+            // InitHttpClient(_textBoxUvexWebApiUrl.Text, (int)_numericUpPort.Value);
+            //
+            // try
+            // {   
+            //     ReloadComPorts();
+            // }
+            // catch (Exception e)
+            // {
+            //     MessageBox.Show("Error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // }
         }
     }
 }

@@ -16,8 +16,8 @@ namespace ASCOM.ShelyakUvex.Focuser
             InitializeComponent();
             tl = tlDriver;
             
-            SetComPortComboBox(comboBoxComPort, textBoxUvexWebApiUrl, numericUpPort);
-            InitHttpClient(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort);
+            SetComPortComboBox(comboBoxComPort);
+            InitHttpClient();
             
             InitUI();
        }
@@ -25,8 +25,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         private void CmdOK_Click(object sender, EventArgs e)
         {
             tl.Enabled = chkTrace.Checked;
-            FocuserHardwareSettings.uvexApiUrl = textBoxUvexWebApiUrl.Text;
-            FocuserHardwareSettings.uvexApiPort = (int)numericUpPort.Value;
             UpdateApiPort();
         }
         
@@ -38,9 +36,6 @@ namespace ASCOM.ShelyakUvex.Focuser
         private void InitUI()
         {
             chkTrace.Checked = tl.Enabled;
-            textBoxUvexWebApiUrl.Text = FocuserHardwareSettings.uvexApiUrl;
-            numericUpPort.Value = FocuserHardwareSettings.uvexApiPort;
-            
             ReloadComPorts();
         }
 

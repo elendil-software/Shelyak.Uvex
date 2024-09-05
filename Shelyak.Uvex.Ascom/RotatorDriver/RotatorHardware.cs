@@ -59,7 +59,7 @@ namespace ASCOM.ShelyakUvex.Rotator
 
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(UvexApiParameter.defaultApiPath));
                 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
@@ -242,7 +242,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                     return;
                 }
                 
-                using (ComPortChecker comPortChecker = new ComPortChecker(RotatorHardwareSettings.uvexApiUrl, RotatorHardwareSettings.uvexApiPort))
+                using (ComPortChecker comPortChecker = new ComPortChecker())
                 {
                     if (!comPortChecker.CheckConnection())
                     {
@@ -252,12 +252,12 @@ namespace ASCOM.ShelyakUvex.Rotator
 
                 if (value)
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Connecting to port {RotatorHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", "Connected");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {RotatorHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", "Disconnected");
                     connectedState = false;
                 }
             }
@@ -533,8 +533,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 driverProfile.DeviceType = "Rotator";
                 tl.Enabled = Convert.ToBoolean(driverProfile.GetValue(DriverProgId, traceStateProfileName, string.Empty, traceStateDefault));
-                RotatorHardwareSettings.uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.defaultBaseUrl);
-                RotatorHardwareSettings.uvexApiPort = Convert.ToInt32(driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, string.Empty, UvexApiParameter.defaultPort));
             }
         }
 
@@ -547,8 +545,6 @@ namespace ASCOM.ShelyakUvex.Rotator
             {
                 driverProfile.DeviceType = "Rotator";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, RotatorHardwareSettings.uvexApiUrl);
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, RotatorHardwareSettings.uvexApiPort.ToString());
             }
         }
 

@@ -56,7 +56,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(UvexApiParameter.defaultApiPath));
 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
@@ -229,7 +229,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 if (value == IsConnected)
                     return;
 
-                using (ComPortChecker comPortChecker = new ComPortChecker(FocuserHardwareSettings.uvexApiUrl, FocuserHardwareSettings.uvexApiPort))
+                using (ComPortChecker comPortChecker = new ComPortChecker())
                 {
                     if (!comPortChecker.CheckConnection())
                     {
@@ -239,12 +239,12 @@ namespace ASCOM.ShelyakUvex.Focuser
                 
                 if (value)
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Connecting to port {FocuserHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", "Connected");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {FocuserHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", "Disconnected");
                     connectedState = false;
                 }
             }
@@ -532,9 +532,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 driverProfile.DeviceType = "Focuser";
                 tl.Enabled = Convert.ToBoolean(driverProfile.GetValue(DriverProgId, traceStateProfileName, string.Empty, traceStateDefault));
-                
-                FocuserHardwareSettings.uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.defaultBaseUrl);
-                FocuserHardwareSettings.uvexApiPort = Convert.ToInt32(driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, string.Empty, UvexApiParameter.defaultPort));
             }
         }
 
@@ -547,8 +544,6 @@ namespace ASCOM.ShelyakUvex.Focuser
             {
                 driverProfile.DeviceType = "Focuser";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, FocuserHardwareSettings.uvexApiUrl);
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, FocuserHardwareSettings.uvexApiPort.ToString());
             }
         }
 

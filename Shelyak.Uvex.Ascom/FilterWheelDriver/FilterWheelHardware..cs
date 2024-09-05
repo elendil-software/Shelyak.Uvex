@@ -57,7 +57,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             // Make sure that "one off" activities are only undertaken once
             if (runOnce == false)
             {
-                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort, UvexApiParameter.defaultApiPath));
+                _uvexHttpClient = UvexHttpClientHelper.CreateUvexHttpClient(UvexHttpClientHelper.BuildUvexUrl(UvexApiParameter.defaultApiPath));
                 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
@@ -233,7 +233,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                     return;
                 }
 
-                using (ComPortChecker comPortChecker = new ComPortChecker(FilterWheelHardwareSettings.uvexApiUrl, FilterWheelHardwareSettings.uvexApiPort))
+                using (ComPortChecker comPortChecker = new ComPortChecker())
                 {
                     if (!comPortChecker.CheckConnection())
                     {
@@ -243,12 +243,12 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 
                 if (value)
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Connecting to {FilterWheelHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Connected");
                     connectedState = true;
                 }
                 else
                 {
-                    LogMessage(nameof(Connected) + " Set", $"Disconnecting from port {FilterWheelHardwareSettings.uvexApiUrl}");
+                    LogMessage(nameof(Connected) + " Set", $"Disconnected");
                     connectedState = false;
                 }
             }
@@ -423,8 +423,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 driverProfile.DeviceType = "FilterWheel";
                 tl.Enabled = Convert.ToBoolean(driverProfile.GetValue(DriverProgId, traceStateProfileName, string.Empty, traceStateDefault));
-                FilterWheelHardwareSettings.uvexApiUrl = driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, string.Empty, UvexApiParameter.defaultBaseUrl);
-                FilterWheelHardwareSettings.uvexApiPort = Convert.ToInt32(driverProfile.GetValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, string.Empty, UvexApiParameter.defaultPort));
             }
         }
 
@@ -437,8 +435,6 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             {
                 driverProfile.DeviceType = "FilterWheel";
                 driverProfile.WriteValue(DriverProgId, traceStateProfileName, tl.Enabled.ToString());
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiUrlProfileName, FilterWheelHardwareSettings.uvexApiUrl);
-                driverProfile.WriteValue(DriverProgId, UvexApiParameter.UvexApiPortProfileName, FilterWheelHardwareSettings.uvexApiPort.ToString());
             }
         }
 
