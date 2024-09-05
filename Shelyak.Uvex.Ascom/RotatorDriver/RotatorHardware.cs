@@ -242,11 +242,11 @@ namespace ASCOM.ShelyakUvex.Rotator
                     return;
                 }
                 
-                using (ComPortChecker comPortChecker = new ComPortChecker())
+                using (ComPortChecker comPortChecker = new ComPortChecker(tl))
                 {
                     if (!comPortChecker.CheckConnection())
                     {
-                        throw new NotConnectedException("Unable to connect to the device. Check that the UVEX is connected to the PC and the UVEX service is started");
+                        throw new NotConnectedException("Unable to connect to the device. Check that the configured COM port is correct");
                     }
                 }
 
