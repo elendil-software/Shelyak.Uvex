@@ -154,7 +154,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(SetupDialog), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -174,7 +174,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(SupportedActions), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(Action), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -224,7 +224,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandBlind), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -253,7 +253,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandBool), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -282,7 +282,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandString), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -303,7 +303,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Connected) + " Get", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
             set
@@ -330,7 +330,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Connected) + " Set", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -353,7 +353,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Description), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -374,7 +374,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(DriverInfo), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -395,7 +395,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(DriverVersion), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -416,7 +416,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(InterfaceVersion), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -437,7 +437,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Name), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -466,7 +466,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(CanReverse), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -486,7 +486,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(Halt), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -508,7 +508,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(IsMoving), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -529,7 +529,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(Move), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -550,7 +550,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(MoveAbsolute), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -571,7 +571,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Position), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -593,7 +593,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Reverse) + " Get", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
             set
@@ -607,7 +607,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Reverse) + " Set", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -629,7 +629,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(StepSize), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -651,7 +651,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(TargetPosition), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -675,7 +675,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 catch (Exception ex)
                 {
                     LogMessage(nameof(MechanicalPosition), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -696,7 +696,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(MoveMechanical), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -716,7 +716,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             catch (Exception ex)
             {
                 LogMessage(nameof(Sync), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 

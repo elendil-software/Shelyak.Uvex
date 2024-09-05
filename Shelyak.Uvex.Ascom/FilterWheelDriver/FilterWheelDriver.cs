@@ -153,8 +153,8 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             }
             catch (Exception ex)
             {
-                LogMessage(nameof(SetupDialog), $"Threw an exception: \r\n{ex}");
-                throw;
+                LogMessage(nameof(SetupDialog), $"Threw an exception: {ex}");
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -174,7 +174,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(SupportedActions), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             catch (Exception ex)
             {
                 LogMessage(nameof(Action), $"Threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -224,7 +224,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandBlind), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -253,7 +253,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandBool), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -282,7 +282,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
             catch (Exception ex)
             {
                 LogMessage(nameof(CommandString), $"Command: {command}, Raw: {raw} threw an exception: \r\n{ex}");
-                throw;
+                throw new DriverException(ex.Message, ex);
             }
         }
 
@@ -303,7 +303,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Connected) + " Get", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
             set
@@ -330,7 +330,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Connected) + " Set", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -353,7 +353,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Description), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -374,7 +374,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(DriverInfo), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -395,7 +395,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(DriverVersion), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -416,7 +416,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(InterfaceVersion), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -437,7 +437,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Name), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -463,7 +463,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(FocusOffsets), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -485,7 +485,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Names), $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
@@ -507,7 +507,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Position) + " Get", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
             set
@@ -521,7 +521,7 @@ namespace ASCOM.ShelyakUvex.FilterWheel
                 catch (Exception ex)
                 {
                     LogMessage(nameof(Position) + " Set", $"Threw an exception: \r\n{ex}");
-                    throw;
+                    throw new DriverException(ex.Message, ex);
                 }
             }
         }
