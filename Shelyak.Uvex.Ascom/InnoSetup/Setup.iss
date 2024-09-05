@@ -39,9 +39,8 @@ Name: "{app}\Uninstall"
 [Files]
 Source: "../ASCOM.ShelyakUvex.exe"; DestDir: "{app}"; Flags: replacesameversion 
 Source: "../ASCOM.ShelyakUvex.exe.config"; DestDir: "{app}"; Flags: replacesameversion 
+Source: "../Shelyak.*.dll"; DestDir: "{app}"; Flags: replacesameversion
 Source: "../Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: replacesameversion 
-Source: "../Shelyak.Usis.dll"; DestDir: "{app}"; Flags: replacesameversion 
-Source: "../Shelyak.Uvex.Alpaca.dll"; DestDir: "{app}"; Flags: replacesameversion 
 Source: "../System.Buffers.dll"; DestDir: "{app}"; Flags: replacesameversion 
 Source: "../System.Memory.dll"; DestDir: "{app}"; Flags: replacesameversion 
 Source: "../System.Net.Http.Json.dll"; DestDir: "{app}"; Flags: replacesameversion 
