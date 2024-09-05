@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelyak.Uvex.Ascom", "Shely
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shelyak.Uvex.Alpaca", "Shelyak.Uvex.Alpaca\Shelyak.Uvex.Alpaca.csproj", "{0825250B-B7EF-4F6F-A858-E53488DCA50A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shelyak.Uvex.Shared", "Shelyak.Uvex.Shared\Shelyak.Uvex.Shared.csproj", "{C0EAD6F0-AC22-49D8-87EA-33AB3E780E92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0825250B-B7EF-4F6F-A858-E53488DCA50A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0825250B-B7EF-4F6F-A858-E53488DCA50A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0825250B-B7EF-4F6F-A858-E53488DCA50A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EAD6F0-AC22-49D8-87EA-33AB3E780E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EAD6F0-AC22-49D8-87EA-33AB3E780E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EAD6F0-AC22-49D8-87EA-33AB3E780E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EAD6F0-AC22-49D8-87EA-33AB3E780E92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
