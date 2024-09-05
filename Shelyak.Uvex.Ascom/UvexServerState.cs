@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using ASCOM.ShelyakUvex;
 using ASCOM.Utilities;
 using Shelyak.Uvex.Shared;
 

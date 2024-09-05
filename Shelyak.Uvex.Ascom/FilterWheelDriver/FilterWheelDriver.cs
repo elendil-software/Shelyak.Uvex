@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
 using ASCOM.LocalServer;
-using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
 namespace ASCOM.ShelyakUvex.FilterWheel

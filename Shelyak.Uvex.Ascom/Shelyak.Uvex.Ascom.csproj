@@ -207,7 +207,6 @@
     <Compile Include="RotatorDriver\SetupDialogForm.designer.cs">
       <DependentUpon>SetupDialogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SharedResources.cs" />
     <EmbeddedResource Include="FocuserDriver\SetupDialogForm.resx">
       <DependentUpon>SetupDialogForm.cs</DependentUpon>
       <SubType>Designer</SubType>
