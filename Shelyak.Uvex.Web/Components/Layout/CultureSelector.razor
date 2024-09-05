@@ -2,8 +2,8 @@
 @using System.Globalization
 
 @rendermode InteractiveServer
-<div>
-    <select class="form-select" @bind:get="Culture" @bind:set="OnCultureChanged">
+<div class="container-fluid">
+    <select class="form-select culture-selector" @bind:get="Culture" @bind:set="OnCultureChanged">
         @foreach (var culture in SupportedCultures)
         {
         <option value="@culture">@culture.DisplayName</option>
