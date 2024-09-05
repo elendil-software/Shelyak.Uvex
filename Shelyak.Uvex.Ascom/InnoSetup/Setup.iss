@@ -28,6 +28,7 @@ WizardImageFile="WizardImage.bmp"
 LicenseFile="../Documentation/LICENSE.md"
 ; {cf}\ASCOM\Uninstall\Focuser folder created by Platform, always
 UninstallFilesDir="{app}\Uninstall"
+CloseApplications=force
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

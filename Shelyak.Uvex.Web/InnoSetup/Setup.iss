@@ -24,6 +24,7 @@ OutputBaseFilename=Shelyak Uvex Web Setup v{#version}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+CloseApplications=force
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
