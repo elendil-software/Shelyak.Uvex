@@ -9,6 +9,10 @@ public class ServerTransactionIdProvider : IServerTransactionIdProvider
     {
         lock (_lock)
         {
+            if(_currentServerTransactionId == uint.MaxValue)
+            {
+                _currentServerTransactionId = 0;
+            }
             _currentServerTransactionId++;
             return _currentServerTransactionId;
         }
