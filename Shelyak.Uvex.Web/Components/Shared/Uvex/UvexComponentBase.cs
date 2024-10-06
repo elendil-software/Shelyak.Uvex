@@ -28,21 +28,27 @@ public abstract class UvexComponentBase : ComponentBase
     {
         RedirectToConfigurationIfNotConfigured();
         
-        //TODO handle exceptions
-        var result = await action();
-        if (result.IsSuccess)
+        try
         {
-            if (result.Value.ErrorNumber != AlpacaError.NoError)
+            var result = await action();
+            if (result.IsSuccess)
             {
-                ToastService.Notify(new(ToastType.Danger, result.Value.ErrorMessage));
+                if (result.Value.ErrorNumber != AlpacaError.NoError)
+                {
+                    ToastService.Notify(new(ToastType.Danger, result.Value.ErrorMessage));
+                }
             }
+            else
+            {
+                ToastService.DisplayErrorsToast(result);
+            }
+            return result;
         }
-        else
+        catch (Exception ex)
         {
-            ToastService.DisplayErrorsToast(result);
+            ToastService.Notify(new(ToastType.Danger, "An error occurred while executing the command."));
+            return Result<AlpacaResponse<T>>.Error(ex.Message);
         }
-
-        return result;
     }
 
     private void RedirectToConfigurationIfNotConfigured()
