@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Shelyak.Uvex.Web.Components;
 using Serilog;
+using Shelyak.Uvex.Shared;
 using Shelyak.Uvex.Web.Configuration;
 using Shelyak.Uvex.Web.Middleware;
 using LoggerConfiguration = Serilog.LoggerConfiguration;
@@ -11,7 +12,7 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    bool isStartedFromAscom = args.Contains("--ascom");
+    bool isStartedFromAscom = args.Contains(UvexConst.StartFromAscomArgument);
     
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +58,7 @@ try
     
     builder.StartBrowser(isStartedFromAscom);
     
-    if (Process.GetProcesses().Count(p => p.ProcessName.Contains("Shelyak.Uvex.Web")) == 1)
+    if (Process.GetProcesses().Count(p => p.ProcessName.Contains(UvexConst.UvexProcess)) == 1)
     {
         app.Run();
     }

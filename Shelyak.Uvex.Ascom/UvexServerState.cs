@@ -47,7 +47,7 @@ namespace ASCOM.LocalServer
         {
             try
             {
-                var uvexServerProcess = Process.GetProcesses().FirstOrDefault(p => p.ProcessName.Contains("Shelyak.Uvex.Web"));
+                var uvexServerProcess = Process.GetProcesses().FirstOrDefault(p => p.ProcessName.Contains(UvexConst.UvexProcess));
                 uvexServerProcess?.Kill();
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace ASCOM.LocalServer
                 _logger.LogMessage(nameof(UvexServerState), "Starting Uvex server");
                 var shelyakUvexPath = Path.Combine(UvexConst.UvexInstallPath, UvexConst.UvexProcess + ".exe");
                 _logger.LogMessage(nameof(UvexServerState), "Uvex server path: " + shelyakUvexPath);
-                Process.Start(shelyakUvexPath, "--ascom");
+                Process.Start(shelyakUvexPath, UvexConst.StartFromAscomArgument);
             }
             catch (Exception ex)
             {
