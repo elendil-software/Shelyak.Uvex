@@ -19,15 +19,16 @@ public static class BrowserStarter
         }
         else 
         {
-            Log.Information("Starting browser");
+            var applicationUrl = builder.Configuration.GetApplicationUrl();
+            Log.Information("Starting browser and open {ApplicationUrl}", applicationUrl);
+            
             Task.Run(async () =>
             {
                 //Delay to allow the server to start and avoid the browser to open too early
                 await Task.Delay(TimeSpan.FromSeconds(3));
-
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = builder.Configuration.GetApplicationUrl(),
+                    FileName = applicationUrl,
                     UseShellExecute = true
                 });
             });
