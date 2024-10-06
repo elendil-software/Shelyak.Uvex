@@ -204,4 +204,7 @@
     <data name="NavMenu_Help" xml:space="preserve">
         <value>Help</value>
     </data>
+    <data name="UvexControl_Calibration_Success" xml:space="preserve">
+        <value>Calibration executed with success</value>
+    </data>
 </root>

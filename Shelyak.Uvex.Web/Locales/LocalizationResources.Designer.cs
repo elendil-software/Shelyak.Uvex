@@ -393,6 +393,15 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calibration executed with success.
+        /// </summary>
+        public static string UvexControl_Calibration_Success {
+            get {
+                return ResourceManager.GetString("UvexControl_Calibration_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calibration.
         /// </summary>
         public static string UvexControl_Calibration_Switch_Calibration {

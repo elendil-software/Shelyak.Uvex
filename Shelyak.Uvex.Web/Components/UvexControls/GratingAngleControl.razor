@@ -95,7 +95,15 @@
         }
     }
     
-    private async Task Calibrate() => await ExecuteAndHandleError(() => AlpacaCommands.CalibrateGratingAngle(AbsolutePosition));
+    private async Task Calibrate()
+    {
+        var result = await ExecuteAndHandleError(() => AlpacaCommands.CalibrateGratingAngle(AbsolutePosition));
+        if (result.IsSuccess)
+        {
+            ToastService.DisplaySuccessToast(Loc["UvexControl_Calibration_Success"]);
+        }
+    }
+
     private async Task GoTo() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(AbsolutePosition));
     private async Task MoveCcw() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle - StepSize));
     private async Task MoveCw() => await ExecuteAndHandleError(() => AlpacaCommands.SetGratingAngle(CurrentAngle + StepSize));
