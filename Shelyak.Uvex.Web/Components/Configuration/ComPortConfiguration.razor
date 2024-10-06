@@ -1,6 +1,6 @@
 ﻿@rendermode InteractiveServer
 @inject ToastService ToastService;
-@inject IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions;
+@inject IOptionsMonitor<SerialPortSettings> SerialPortSettingsOptions;
 @inject IStringLocalizer<LocalizationResources> Loc;
 
 <EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
@@ -34,7 +34,7 @@
     {
         Model = new EditConfigurationModel
         {
-            SelectedComPort = SerialPortSettingsOptions.Value.PortName,
+            SelectedComPort = SerialPortSettingsOptions.CurrentValue.PortName,
             ComPorts = SerialPort.GetPortNames().ToList()
         };
     }

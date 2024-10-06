@@ -1,6 +1,6 @@
 ﻿@rendermode InteractiveServer
 @inject ToastService ToastService;
-@inject IOptionsSnapshot<SwaggerSettings> SwaggerSettingsOptions;
+@inject IOptionsMonitor<SwaggerSettings> SwaggerSettingsOptions;
 @inject IStringLocalizer<LocalizationResources> Loc;
 
 <EditForm Model="@Model" FormName="EditParameters" OnValidSubmit="SubmitForm">
@@ -24,7 +24,7 @@
 
     protected override void OnInitialized()
     {
-        Model.IsEnabled = SwaggerSettingsOptions.Value.Enabled;
+        Model.IsEnabled = SwaggerSettingsOptions.CurrentValue.Enabled;
     }
     
     private async Task SubmitForm()

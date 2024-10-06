@@ -1,6 +1,6 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
-@inject IOptionsSnapshot<UvexControlsSettings> Settings
+@inject IOptionsMonitor<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="h-100">
@@ -67,7 +67,7 @@
         result = await ExecuteAndHandleError(async () => await AlpacaCommands.GetGratingWaveLengthMax());
         MaxWavelength = result.IsSuccessAndHasValue() ? result.Value.Value!.Value : 1000.0f;
         
-        StepSize = Settings.Value.GratingWavelengthStepSize;
+        StepSize = Settings.CurrentValue.GratingWavelengthStepSize;
     }
 
     protected override async Task LoadData()

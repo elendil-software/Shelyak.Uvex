@@ -14,7 +14,7 @@ public abstract class UvexComponentBase : ComponentBase
     [Inject] protected IAlpacaCommands AlpacaCommands { get; set; } = null!;
     [Inject] protected ToastService ToastService { get; set; } = null!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] protected IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; } = null!;
+    [Inject] protected IOptionsMonitor<SerialPortSettings> SerialPortSettingsOptions { get; set; } = null!;
     
     protected abstract Task LoadData();
     
@@ -47,7 +47,7 @@ public abstract class UvexComponentBase : ComponentBase
 
     private void RedirectToConfigurationIfNotConfigured()
     {
-        if (SerialPortSettingsOptions.Value.PortName == "")
+        if (SerialPortSettingsOptions.CurrentValue.PortName == "")
         {
             NavigationManager.NavigateTo("/configuration");
         }

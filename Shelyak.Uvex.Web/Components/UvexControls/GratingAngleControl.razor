@@ -1,6 +1,6 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
-@inject IOptionsSnapshot<UvexControlsSettings> Settings
+@inject IOptionsMonitor<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc;
 
 <Card Class="h-100">
@@ -73,7 +73,7 @@
 
         await LoadData();
         
-        StepSize = Settings.Value.GratingAngleStepSize;
+        StepSize = Settings.CurrentValue.GratingAngleStepSize;
     }
     
     protected override async Task LoadData()

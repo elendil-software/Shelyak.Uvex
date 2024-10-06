@@ -22,7 +22,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        if (!string.IsNullOrWhiteSpace(SerialPortSettingsOptions.Value.PortName))
+        if (!string.IsNullOrWhiteSpace(SerialPortSettingsOptions.CurrentValue.PortName))
         {
             return LoadData();
         }

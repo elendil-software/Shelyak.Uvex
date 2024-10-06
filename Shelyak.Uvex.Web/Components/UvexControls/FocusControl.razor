@@ -1,6 +1,6 @@
 ﻿@inherits Shelyak.Uvex.Web.Components.Shared.Uvex.UvexComponentBase
 @rendermode InteractiveServer
-@inject IOptionsSnapshot<UvexControlsSettings> Settings
+@inject IOptionsMonitor<UvexControlsSettings> Settings
 @inject IStringLocalizer<LocalizationResources> Loc
 
 <Card Class="h-100">
@@ -69,7 +69,7 @@
             CurrentFocusPosition = result.Value.Value!.Value;
         }
 
-        StepSize = Settings.Value.FocusStepSize;
+        StepSize = Settings.CurrentValue.FocusStepSize;
     }
 
     protected override async Task LoadData()
