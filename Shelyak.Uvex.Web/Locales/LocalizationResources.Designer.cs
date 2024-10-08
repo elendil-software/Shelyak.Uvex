@@ -330,6 +330,23 @@ namespace Shelyak.Uvex.Web.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;h2&gt;Introduction&lt;/h2&gt;
+        ///&lt;p&gt;Le logiciel Selyak UVEX permet le contrôle d&apos;un spectrographe UVEX munit d&apos;un motorisation.&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Il se compose de deux partie distinctes. D&apos;une part un service Web, partie où vous vous trouvez actuellement, qui permet la configuration et le contrôle manuel au travers d&apos;un navigateur. 
+        ///Et d&apos;autre part de trois drivers ASCOM permettant le contrôle depuis votre logiciel de contrôle habituel (PRISM, N.I.N.A, ...).&lt;/p&gt;
+        ///
+        ///&lt;h2&gt;Configuration&lt;/h2&gt;
+        ///
+        ///&lt;p&gt;Lors de la première utilisatio [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Help_Content {
+            get {
+                return ResourceManager.GetString("Help_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help_Title {

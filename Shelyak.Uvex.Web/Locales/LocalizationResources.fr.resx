@@ -200,4 +200,71 @@
     <data name="UvexControl_Calibration_Success" xml:space="preserve">
         <value>Calibration exécutée avec succès</value>
     </data>
+    <data name="Help_Content" xml:space="preserve">
+        <value>&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Le logiciel Selyak UVEX permet le contrôle d'un spectrographe UVEX munit d'un motorisation.&lt;/p&gt;
+
+&lt;p&gt;Il se compose de deux partie distinctes. D'une part un service Web, partie où vous vous trouvez actuellement, qui permet la configuration et le contrôle manuel au travers d'un navigateur. 
+Et d'autre part de trois drivers ASCOM permettant le contrôle depuis votre logiciel de contrôle habituel (PRISM, N.I.N.A, ...).&lt;/p&gt;
+
+&lt;h2&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;Lors de la première utilisation, vous serez dirigé vers la page de configuration où vous devrez sélectionner le port COM correspondant à votre UVEX. Eventuellement, vous pouvez également configurer la densité du réseau.&lt;/p&gt;
+
+&lt;h3&gt;Port COM&lt;/h3&gt;
+
+&lt;p&gt;Affiche la liste des ports COM détectés sur votre ordinateur. Sélectionnez celui correspondant à votre UVEX. Si l'UVEX n'était pas connecté au moment de l'affichage de la page de configuration, vous devrez la recharger (touche F5 ou bouton de rechargement dans la barre d'outils de votre navigateur).&lt;/p&gt;
+
+&lt;h3&gt;Densité du réseau&lt;/h3&gt;
+
+&lt;p&gt;Spécifiez ici la densité du réseau installé dans votre UVEX&lt;/p&gt;
+
+&lt;h3&gt;Swagger&lt;/h3&gt;
+
+&lt;p&gt;Swagger est une interface web qui permet d'interagir directement avec l'appareil en utilisant l'API. Un redémarrage du serveur est nécessaire après un changement de configuration&lt;/p&gt;
+
+&lt;h3&gt;Arrêt du serveur&lt;/h3&gt;
+
+&lt;p&gt;Cette fonction permet d'arrêter le service web. N'exécutez pas cette action si l'UVEX est en cours d'utilisation via les drivers ASCOM.&lt;/p&gt;
+
+
+&lt;h2&gt;Contrôle de l'UVEX&lt;/h2&gt;
+
+&lt;p&gt;La page de contrôle permet l'affichage de diverses informations et le contrôle des fonctions de l'UVEX.&lt;/p&gt;
+
+&lt;h3&gt;Informations et sondes&lt;/h3&gt;
+
+&lt;p&gt;Ces deux zones affiches diverses information liée à votre UVEX ainsi que la température actuelle mesurée par l'appareil.&lt;/p&gt;
+
+&lt;h3&gt;Contrôles&lt;/h3&gt;
+
+&lt;p&gt;Les autres composants de cette page permettent de contrôler l'UVEX.&lt;/p&gt;
+&lt;p&gt;Les trois premières zones comportent les éléments suivants :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;La position actuelle de l'élément concerné&lt;/li&gt;
+&lt;li&gt;La taille de pas ainsi que deux boutons + et - permetant d'incrémenter/décrémenter la position actuelle&lt;/li&gt;
+&lt;li&gt;Valeur cible suivi de deux boutons. "Aller à" déplacera l'élément à la valeur indiquée. "Calibrer" redéfinira la position actuelle avec la valeur cible.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Drivers ASCOM&lt;/h2&gt;
+
+&lt;p&gt;La plateforme ASCOM ne fournissant pas de driver spécifique permettant le contrôle d'un spectrographe, il a été nécessaire d'utiliser les interfaces disponibles.&lt;/p&gt;
+
+&lt;h3&gt;Driver Focuser&lt;/h3&gt;
+
+&lt;p&gt;Il permet le contrôle de la mise au point.&lt;/p&gt;
+
+&lt;h3&gt;Driver Rotator&lt;/h3&gt;
+
+&lt;p&gt;Il permet le contrôle de la rotation du réseau.&lt;/p&gt;
+
+&lt;h3&gt;Driver Filter wheel&lt;/h3&gt;
+
+&lt;p&gt;Il permet l'activation des fonctions de calibration (Dark, ...)&lt;/p&gt;
+
+&lt;h3&gt;Connexion&lt;/h3&gt;
+
+&lt;p&gt;Lors de la connexion d'un driver, le service UVEX sera automatiquement démarré s'il n'a pas été exécuté préalablement, soit manuellement, soit par l'un des autre drivers ASCOM.&lt;/p&gt;
+
+</value>
+    </data>
 </root>

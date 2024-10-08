@@ -3,17 +3,13 @@
 
 <PageTitle>@Loc["Help_Title"]</PageTitle>
 <h1>@Loc["Help_Title"]</h1>
-<h2>Introduction</h2>
-<p>...</p>
-<h2>Configuration</h2>
-<p>...</p>
-<h2>Contrôle</h2>
-<p>...</p>
-<h2>Driver ASCOM</h2>
-<p>...</p>
-<h3>Driver Focuser</h3>
-<p>...</p>
-<h3>Driver Roue à filtres</h3>
-<p>...</p>
-<h3>Driver rotateur</h3>
-<p>...</p>
+@((MarkupString)_content)
+
+@code {
+
+    private string _content = string.Empty;
+    protected override void OnInitialized()
+    {
+        _content = Loc["Help_Content"];
+    }
+} 
