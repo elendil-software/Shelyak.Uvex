@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Shelyak.Usis;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.Core.Settings;
 
 namespace Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 

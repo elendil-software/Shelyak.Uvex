@@ -1,6 +1,5 @@
 ﻿using Shelyak.Usis;
 using Shelyak.Uvex.Alpaca;
-using Shelyak.Uvex.Web.Core.Alpaca;
 using Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.LightSource;

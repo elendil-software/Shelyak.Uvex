@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.Extensions;
+namespace Shelyak.Uvex.Web.Components.Shared.Commands;
 
 public static class ResultExtensions
 {
