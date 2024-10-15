@@ -2,7 +2,7 @@
 
 public class ServerTransactionIdProvider : IServerTransactionIdProvider
 {
-    private uint _currentServerTransactionId = 0;
+    private uint _currentServerTransactionId;
     private readonly object _lock = new();
 
     public uint GetServerTransactionId()
