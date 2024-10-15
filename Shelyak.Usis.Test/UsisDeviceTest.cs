@@ -139,7 +139,7 @@ public class UsisDeviceTest
     public void StopGratingAngle_SendsCorrectCommand()
     {
         // Arrange
-        var expectedCommand = new StopCommand<float>(DeviceProperty.GRATING_ANGLE);
+        var expectedCommand = new StopCommand(DeviceProperty.GRATING_ANGLE);
 
         // Act
         _ = _usisDevice.StopGratingAngle();
@@ -230,7 +230,7 @@ public class UsisDeviceTest
     public void StopGratingWaveLength_SendsCorrectCommand()
     {
         // Arrange
-        var expectedCommand = new StopCommand<float>(DeviceProperty.GRATING_WAVELENGTH);
+        var expectedCommand = new StopCommand(DeviceProperty.GRATING_WAVELENGTH);
 
         // Act
         _ = _usisDevice.StopGratingWaveLength();
@@ -399,7 +399,7 @@ public class UsisDeviceTest
     public void StopSlitAngle_SendsCorrectCommand()
     {
         // Arrange
-        var expectedCommand = new StopCommand<float>(DeviceProperty.SLIT_ANGLE);
+        var expectedCommand = new StopCommand(DeviceProperty.SLIT_ANGLE);
 
         // Act
         _ = _usisDevice.StopSlitAngle();
@@ -451,7 +451,7 @@ public class UsisDeviceTest
     public void StopFocusPosition_SendsCorrectCommand()
     {
         // Arrange
-        var expectedCommand = new StopCommand<float>(DeviceProperty.FOCUS_POSITION);
+        var expectedCommand = new StopCommand(DeviceProperty.FOCUS_POSITION);
         
         // Act
         _ = _usisDevice.StopFocusPosition();

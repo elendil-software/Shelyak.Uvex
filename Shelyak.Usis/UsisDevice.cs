@@ -85,7 +85,7 @@ namespace Shelyak.Usis
     
         public IResponse StopGratingAngle()
         {
-            ICommand command = new StopCommand<float>(DeviceProperty.GRATING_ANGLE);
+            ICommand command = new StopCommand(DeviceProperty.GRATING_ANGLE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
@@ -134,7 +134,7 @@ namespace Shelyak.Usis
     
         public IResponse StopGratingWaveLength()
         {
-            ICommand command = new StopCommand<float>(DeviceProperty.GRATING_WAVELENGTH);
+            ICommand command = new StopCommand(DeviceProperty.GRATING_WAVELENGTH);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
@@ -229,7 +229,7 @@ namespace Shelyak.Usis
     
         public IResponse StopSlitAngle()
         {
-            ICommand command = new StopCommand<float>(DeviceProperty.SLIT_ANGLE);
+            ICommand command = new StopCommand(DeviceProperty.SLIT_ANGLE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
@@ -261,7 +261,7 @@ namespace Shelyak.Usis
     
         public IResponse StopFocusPosition()
         {
-            ICommand command = new StopCommand<float>(DeviceProperty.FOCUS_POSITION);
+            ICommand command = new StopCommand(DeviceProperty.FOCUS_POSITION);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }

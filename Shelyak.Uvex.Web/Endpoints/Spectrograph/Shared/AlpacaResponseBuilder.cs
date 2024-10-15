@@ -44,12 +44,12 @@ public static class AlpacaResponseBuilder
             alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertMessageCode(successResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = successResponse.MessageErrorCode.ToString();
         }
-        else if(response is ErrorResponse<T> errorResponse)
+        else if(response is ErrorResponse errorResponse)
         {
             alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertMessageCode(errorResponse.MessageErrorCode);
             alpacaResponse.ErrorMessage = errorResponse.Message;
         }
-        else if (response is CommunicationErrorResponse<T> communicationErrorResponse)
+        else if (response is CommunicationErrorResponse communicationErrorResponse)
         {
             alpacaResponse.ErrorNumber = AlpacaErrorCodeConverter.ConvertErrorCode(communicationErrorResponse.ErrorCode);
             alpacaResponse.ErrorMessage = communicationErrorResponse.Message;

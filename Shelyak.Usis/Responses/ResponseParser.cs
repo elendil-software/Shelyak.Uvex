@@ -27,13 +27,13 @@ namespace Shelyak.Usis.Responses
             if (responseString.StartsWith("C"))
             {
                 _logger.LogDebug("Response is communication error response");
-                return ParseCommunicationErrorResponse<T>(responseString);
+                return ParseCommunicationErrorResponse(responseString);
             }
 
             throw new ArgumentException("Unknown response type");
         }
 
-        private IResponse ParseCommunicationErrorResponse<T>(string responseString)
+        private IResponse ParseCommunicationErrorResponse(string responseString)
         {
             string[] parts = responseString.TrimEnd('\n').Split(';');
             
@@ -42,7 +42,7 @@ namespace Shelyak.Usis.Responses
                 throw new ArgumentException("Invalid response format");
             }
             
-            var response = new CommunicationErrorResponse<T>
+            var response = new CommunicationErrorResponse
             {
                 ErrorCode = (CommunicationErrorCode)int.Parse(parts[0].Substring(1)),
                 Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"
@@ -76,7 +76,7 @@ namespace Shelyak.Usis.Responses
             else
             {
                 _logger.LogDebug("Response is error response");
-                var response = new ErrorResponse<T>
+                var response = new ErrorResponse
                 {
                     MessageErrorCode = (MessageErrorCode)int.Parse(parts[0].Substring(1)),
                     Message = $"{parts[0]} - {parts[1].Split('*')[0].TrimEnd('\n')}"

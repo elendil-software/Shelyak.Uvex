@@ -15,9 +15,9 @@ public class ResponseParserShould
     public void ParseCommunicationErrorResponse(string errorString, CommunicationErrorCode errorCode, string message)
     {
         IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(errorString);
-        Assert.IsType<CommunicationErrorResponse<int>>(response);
-        Assert.Equal(errorCode, ((CommunicationErrorResponse<int>)response).ErrorCode);
-        Assert.Equal(message, ((CommunicationErrorResponse<int>)response).Message);
+        Assert.IsType<CommunicationErrorResponse>(response);
+        Assert.Equal(errorCode, ((CommunicationErrorResponse)response).ErrorCode);
+        Assert.Equal(message, ((CommunicationErrorResponse)response).Message);
     }
         
     [Theory]
@@ -45,8 +45,8 @@ public class ResponseParserShould
     {
         IResponse response = new ResponseParser(NullLogger<ResponseParser>.Instance).Parse<int>(responseString);
                 
-        Assert.IsType<ErrorResponse<int>>(response);
-        Assert.Equal(messageErrorCode, ((ErrorResponse<int>)response).MessageErrorCode);
-        Assert.Equal(expectedMessage, ((ErrorResponse<int>)response).Message);
+        Assert.IsType<ErrorResponse>(response);
+        Assert.Equal(messageErrorCode, ((ErrorResponse)response).MessageErrorCode);
+        Assert.Equal(expectedMessage, ((ErrorResponse)response).Message);
     }
 }
