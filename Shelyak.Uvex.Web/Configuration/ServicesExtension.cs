@@ -30,7 +30,7 @@ public static class ServicesExtension
         return builder;
     }
 
-    private static WebApplicationBuilder AddHttpClients(this WebApplicationBuilder builder)
+    private static void AddHttpClients(this WebApplicationBuilder builder)
     {
         builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (_, client) =>
         {
@@ -43,7 +43,5 @@ public static class ServicesExtension
             var baseUrl = builder.Configuration.GetApplicationUrl();
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}Spectrograph/0/");
         });
-
-        return builder;
     }
 }
