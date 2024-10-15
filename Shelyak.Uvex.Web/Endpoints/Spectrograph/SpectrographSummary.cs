@@ -6,7 +6,7 @@ public abstract class SpectrographSummary<TEndpoint> : Summary<TEndpoint> where 
 {
     protected SpectrographSummary()
     {
-        Response(200);
+        Response();
         Response(400);
         Response(500);
     }
