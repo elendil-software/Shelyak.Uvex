@@ -1,4 +1,4 @@
-﻿namespace Shelyak.Uvex.Web.Core.Alpaca;
+﻿namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 public class ServerTransactionIdProvider : IServerTransactionIdProvider
 {

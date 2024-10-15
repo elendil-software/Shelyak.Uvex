@@ -2,10 +2,9 @@
 using System.Text.Json;
 using Shelyak.Usis;
 using Shelyak.Uvex.Shared;
-using Shelyak.Uvex.Web.Configuration;
 using Shelyak.Uvex.Web.Settings;
 
-namespace Shelyak.Uvex.Web.Core.Settings;
+namespace Shelyak.Uvex.Web.Endpoints.Config;
 
 public class SettingsUpdater : ISettingsUpdater
 {

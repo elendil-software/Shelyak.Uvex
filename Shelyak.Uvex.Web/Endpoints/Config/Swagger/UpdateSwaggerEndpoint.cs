@@ -1,5 +1,4 @@
 ﻿using FastEndpoints;
-using Shelyak.Uvex.Web.Core.Settings;
 
 namespace Shelyak.Uvex.Web.Endpoints.Config.Swagger;
 

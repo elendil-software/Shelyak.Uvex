@@ -1,7 +1,7 @@
 ﻿using Shelyak.Usis.Enums;
 using Shelyak.Uvex.Alpaca;
 
-namespace Shelyak.Uvex.Web.Core.Alpaca;
+namespace Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 public static class AlpacaErrorCodeConverter
 {

@@ -2,8 +2,8 @@
 using Shelyak.Usis.Responses;
 using Shelyak.Uvex.Shared;
 using Shelyak.Uvex.Web.Components.Shared.Alpaca;
-using Shelyak.Uvex.Web.Core.Alpaca;
-using Shelyak.Uvex.Web.Core.Settings;
+using Shelyak.Uvex.Web.Endpoints.Config;
+using Shelyak.Uvex.Web.Endpoints.Spectrograph.Shared;
 
 namespace Shelyak.Uvex.Web.Configuration;
 
