@@ -324,7 +324,7 @@ namespace ASCOM.ShelyakUvex.FilterWheelDriver
 
         #region IFilerWheel Implementation
         
-        private static string[] fwNames = new string[4] { LightSource.SKY.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString(), LightSource.DARK.ToString() };
+        private static string[] fwNames = new string[] { LightSource.SKY.ToString(), LightSource.FLAT.ToString(), LightSource.CALIB.ToString(), LightSource.DARK.ToString() };
         private static short fwPosition;
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace ASCOM.ShelyakUvex.FilterWheelDriver
             get
             {
                 LogMessage(nameof(FocusOffsets) + " Get", "This device doesn't support FocusOffsets, returning 0 for all filters");
-                return new int[4] { 0, 0, 0, 0 };
+                return new int[] { 0, 0, 0, 0 };
             }
         }
 
