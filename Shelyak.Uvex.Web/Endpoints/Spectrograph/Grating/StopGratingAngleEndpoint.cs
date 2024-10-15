@@ -21,5 +21,5 @@ public class StopGratingAngleEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.StopGratingAngle;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.StopGratingAngle;
 }

@@ -21,5 +21,5 @@ public class GratingAngleMinEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetGratingAngleMin;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetGratingAngleMin;
 }

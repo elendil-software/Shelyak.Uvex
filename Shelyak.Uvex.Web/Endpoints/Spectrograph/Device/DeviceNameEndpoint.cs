@@ -20,5 +20,5 @@ public class DeviceNameEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetDeviceName;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetDeviceName;
 }

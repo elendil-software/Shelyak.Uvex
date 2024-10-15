@@ -20,5 +20,5 @@ public class HumidityEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetHumidity;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetHumidity;
 }

@@ -21,5 +21,5 @@ public class FocusPositionMaxEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
     
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetFocusPositionMax;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetFocusPositionMax;
 }

@@ -21,5 +21,5 @@ public class LightSourceEndpoint : SpectrographEndpoint<Usis.Enums.LightSource>
         base.Configure();
     }
     
-    protected override Func<IResponse<Usis.Enums.LightSource>> UsisFunc() => _usisDevice.GetLightSource;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetLightSource;
 }

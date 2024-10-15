@@ -5,55 +5,55 @@ namespace Shelyak.Usis
 {
     public interface IUsisDevice
     {
-        IResponse<string> GetDeviceName();
-        IResponse<string> GetSoftwareVersion();
-        IResponse<string> GetProtocolVersion();
-        IResponse<string> GetTemperature();
-        IResponse<string> GetHumidity();
+        IResponse GetDeviceName();
+        IResponse GetSoftwareVersion();
+        IResponse GetProtocolVersion();
+        IResponse GetTemperature();
+        IResponse GetHumidity();
 
-        IResponse<string> GetGratingId();
-        IResponse<string> SetGratingId(string gratingId);
+        IResponse GetGratingId();
+        IResponse SetGratingId(string gratingId);
 
-        IResponse<float> GetGratingAngle();
-        IResponse<float> SetGratingAngle(float gratingAngle);
-        IResponse<float> StopGratingAngle();
-        IResponse<float> CalibrateGratingAngle(float gratingAngle);
-        IResponse<float> GetGratingAngleMax();
-        IResponse<float> GetGratingAngleMin();
-        IResponse<float> GetGratingAnglePrec();
+        IResponse GetGratingAngle();
+        IResponse SetGratingAngle(float gratingAngle);
+        IResponse StopGratingAngle();
+        IResponse CalibrateGratingAngle(float gratingAngle);
+        IResponse GetGratingAngleMax();
+        IResponse GetGratingAngleMin();
+        IResponse GetGratingAnglePrec();
 
-        IResponse<float> GetGratingWaveLength();
-        IResponse<float> SetGratingWaveLength(float gratingWaveLength);
-        IResponse<float> StopGratingWaveLength();
-        IResponse<float> CalibrateGratingWaveLength(float gratingWaveLength);
-        IResponse<float> GetGratingWaveLengthMax();
-        IResponse<float> GetGratingWaveLengthMin();
-        IResponse<float> GetGratingWaveLengthPrec();
+        IResponse GetGratingWaveLength();
+        IResponse SetGratingWaveLength(float gratingWaveLength);
+        IResponse StopGratingWaveLength();
+        IResponse CalibrateGratingWaveLength(float gratingWaveLength);
+        IResponse GetGratingWaveLengthMax();
+        IResponse GetGratingWaveLengthMin();
+        IResponse GetGratingWaveLengthPrec();
 
-        IResponse<float> GetGratingDensity();
-        IResponse<float> SetGratingDensity(float gratingDensity);
+        IResponse GetGratingDensity();
+        IResponse SetGratingDensity(float gratingDensity);
     
     
-        IResponse<string> GetSlitId();
-        IResponse<string> SetSlitId(string slitId);
+        IResponse GetSlitId();
+        IResponse SetSlitId(string slitId);
 
-        IResponse<float> GetSlitWidth();
-        IResponse<float> SetSlitWidth(float slitWidth);
+        IResponse GetSlitWidth();
+        IResponse SetSlitWidth(float slitWidth);
 
-        IResponse<float> GetSlitAngle();
-        IResponse<float> SetSlitAngle(float slitAngle);
-        IResponse<float> StopSlitAngle();
-        IResponse<float> CalibrateSlitAngle(float slitAngle);
+        IResponse GetSlitAngle();
+        IResponse SetSlitAngle(float slitAngle);
+        IResponse StopSlitAngle();
+        IResponse CalibrateSlitAngle(float slitAngle);
 
-        IResponse<float> GetFocusPosition();
-        IResponse<float> SetFocusPosition(float focusPosition);
-        IResponse<float> StopFocusPosition();
-        IResponse<float> CalibrateFocusPosition(float focusPosition);
-        IResponse<float> GetFocusPositionMax();
-        IResponse<float> GetFocusPositionMin();
-        IResponse<float> GetFocusPositionPrec();
+        IResponse GetFocusPosition();
+        IResponse SetFocusPosition(float focusPosition);
+        IResponse StopFocusPosition();
+        IResponse CalibrateFocusPosition(float focusPosition);
+        IResponse GetFocusPositionMax();
+        IResponse GetFocusPositionMin();
+        IResponse GetFocusPositionPrec();
 
-        IResponse<LightSource> GetLightSource();
-        IResponse<LightSource> SetLightSource(LightSource lightSource);
+        IResponse GetLightSource();
+        IResponse SetLightSource(LightSource lightSource);
     }
 }

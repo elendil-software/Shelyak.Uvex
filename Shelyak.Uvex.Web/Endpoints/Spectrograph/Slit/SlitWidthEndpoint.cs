@@ -21,5 +21,5 @@ public class SlitWidthEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetSlitWidth;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetSlitWidth;
 }

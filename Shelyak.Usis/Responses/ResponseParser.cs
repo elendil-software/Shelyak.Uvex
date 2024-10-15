@@ -14,7 +14,7 @@ namespace Shelyak.Usis.Responses
             _logger = logger;
         }
 
-        public IResponse<T> Parse<T>(string responseString)
+        public IResponse Parse<T>(string responseString)
         {
             _logger.LogDebug("Parsing response: {Response}", responseString);
         
@@ -33,7 +33,7 @@ namespace Shelyak.Usis.Responses
             throw new ArgumentException("Unknown response type");
         }
 
-        private IResponse<T> ParseCommunicationErrorResponse<T>(string responseString)
+        private IResponse ParseCommunicationErrorResponse<T>(string responseString)
         {
             string[] parts = responseString.TrimEnd('\n').Split(';');
             
@@ -53,7 +53,7 @@ namespace Shelyak.Usis.Responses
             return response;
         }
         
-        private IResponse<T> ParseUsisResponse<T>(string responseString)
+        private IResponse ParseUsisResponse<T>(string responseString)
         {
             string[] parts = responseString.TrimEnd('\n').Split(';');
 

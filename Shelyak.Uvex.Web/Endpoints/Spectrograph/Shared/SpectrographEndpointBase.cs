@@ -23,15 +23,15 @@ public abstract class SpectrographEndpointBase<TRequest, TResponse> : Endpoint<T
         AllowAnonymous();
     }
 
-    protected AlpacaResponse<T> Execute<T>(Func<IResponse<T>> usisCommand, IAlpacaRequest request/*int deviceNumber, uint? clientId, uint? clientTransactionId*/)
+    protected AlpacaResponse<T> Execute<T>(Func<IResponse> usisCommand, IAlpacaRequest request/*int deviceNumber, uint? clientId, uint? clientTransactionId*/)
     {
         uint serverTransactionId = _serverTransactionIdProvider.GetServerTransactionId();
         using IDisposable? scope = _logger.BeginScope(request.DeviceNumber, request.ClientId, request.ClientTransactionId, serverTransactionId);
         
         try
         {
-            IResponse<T> response = usisCommand();
-            AlpacaResponse<T> alpacaResponse = AlpacaResponseBuilder.BuildAlpacaResponse(request.ClientTransactionId, serverTransactionId, response);
+            IResponse response = usisCommand();
+            AlpacaResponse<T> alpacaResponse = AlpacaResponseBuilder.BuildAlpacaResponse<T>(request.ClientTransactionId, serverTransactionId, response);
             return alpacaResponse;
         }
         catch (Exception e)

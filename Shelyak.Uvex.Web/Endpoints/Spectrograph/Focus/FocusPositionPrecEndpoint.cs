@@ -21,5 +21,5 @@ public class FocusPositionPrecEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetFocusPositionPrec;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetFocusPositionPrec;
 }

@@ -21,5 +21,5 @@ public class GratingWaveLengthEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetGratingWaveLength;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetGratingWaveLength;
 }

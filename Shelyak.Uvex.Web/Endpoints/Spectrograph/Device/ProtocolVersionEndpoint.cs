@@ -20,5 +20,5 @@ public class ProtocolVersionEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetProtocolVersion;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetProtocolVersion;
 }

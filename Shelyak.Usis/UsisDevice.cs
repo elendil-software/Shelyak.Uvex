@@ -17,35 +17,35 @@ namespace Shelyak.Usis
     
         #region Device
     
-        public IResponse<string> GetDeviceName()
+        public IResponse GetDeviceName()
         {
             ICommand command = new GetCommand(DeviceProperty.DEVICE_NAME, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> GetSoftwareVersion()
+        public IResponse GetSoftwareVersion()
         {
             ICommand command = new GetCommand(DeviceProperty.SOFTWARE_VERSION, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> GetProtocolVersion()
+        public IResponse GetProtocolVersion()
         {
             ICommand command = new GetCommand(DeviceProperty.PROTOCOL_VERSION, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> GetTemperature()
+        public IResponse GetTemperature()
         {
             ICommand command = new GetCommand(DeviceProperty.TEMPERATURE, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> GetHumidity()
+        public IResponse GetHumidity()
         {
             ICommand command = new GetCommand(DeviceProperty.HUMIDITY, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
@@ -55,126 +55,126 @@ namespace Shelyak.Usis
         #endregion
 
         #region Grating
-        public IResponse<string> GetGratingId()
+        public IResponse GetGratingId()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_ID, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> SetGratingId(string gratingId)
+        public IResponse SetGratingId(string gratingId)
         {
             ICommand command = new SetCommand<string>(DeviceProperty.GRATING_ID, PropertyAttributeType.VALUE, gratingId);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<float> GetGratingAngle()
+        public IResponse GetGratingAngle()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetGratingAngle(float gratingAngle)
+        public IResponse SetGratingAngle(float gratingAngle)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.GRATING_ANGLE, PropertyAttributeType.VALUE, gratingAngle);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> StopGratingAngle()
+        public IResponse StopGratingAngle()
         {
             ICommand command = new StopCommand<float>(DeviceProperty.GRATING_ANGLE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> CalibrateGratingAngle(float gratingAngle)
+        public IResponse CalibrateGratingAngle(float gratingAngle)
         {
             ICommand command = new CalibrateCommand<float>(DeviceProperty.GRATING_ANGLE, gratingAngle);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetGratingAngleMax()
+        public IResponse GetGratingAngleMax()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MAX, PropertyAttributeType.MAX);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetGratingAngleMin()
+        public IResponse GetGratingAngleMin()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_MIN, PropertyAttributeType.MIN);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetGratingAnglePrec()
+        public IResponse GetGratingAnglePrec()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_ANGLE_PREC, PropertyAttributeType.PREC);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetGratingWaveLength()
+        public IResponse GetGratingWaveLength()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetGratingWaveLength(float gratingWaveLength)
+        public IResponse SetGratingWaveLength(float gratingWaveLength)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.GRATING_WAVELENGTH, PropertyAttributeType.VALUE, gratingWaveLength);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> StopGratingWaveLength()
+        public IResponse StopGratingWaveLength()
         {
             ICommand command = new StopCommand<float>(DeviceProperty.GRATING_WAVELENGTH);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> CalibrateGratingWaveLength(float gratingWaveLength)
+        public IResponse CalibrateGratingWaveLength(float gratingWaveLength)
         {
             ICommand command = new CalibrateCommand<float>(DeviceProperty.GRATING_WAVELENGTH, gratingWaveLength);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
         
-        public IResponse<float> GetGratingWaveLengthMax()
+        public IResponse GetGratingWaveLengthMax()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH_MAX, PropertyAttributeType.MAX);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
         
-        public IResponse<float> GetGratingWaveLengthMin()
+        public IResponse GetGratingWaveLengthMin()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH_MIN, PropertyAttributeType.MIN);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
         
-        public IResponse<float> GetGratingWaveLengthPrec()
+        public IResponse GetGratingWaveLengthPrec()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_WAVELENGTH_PREC, PropertyAttributeType.PREC);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> GetGratingDensity()
+        public IResponse GetGratingDensity()
         {
             ICommand command = new GetCommand(DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetGratingDensity(float gratingDensity)
+        public IResponse SetGratingDensity(float gratingDensity)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.GRATING_DENSITY, PropertyAttributeType.VALUE, gratingDensity);
             string response = _commandSender.SendCommand(command);
@@ -185,56 +185,56 @@ namespace Shelyak.Usis
 
         #region Slit
     
-        public IResponse<string> GetSlitId()
+        public IResponse GetSlitId()
         {
             ICommand command = new GetCommand(DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<string> SetSlitId(string slitId)
+        public IResponse SetSlitId(string slitId)
         {
             ICommand command = new SetCommand<string>(DeviceProperty.SLIT_ID, PropertyAttributeType.VALUE, slitId);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<string>(response);
         }
 
-        public IResponse<float> GetSlitWidth()
+        public IResponse GetSlitWidth()
         {
             ICommand command = new GetCommand(DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetSlitWidth(float slitWidth)
+        public IResponse SetSlitWidth(float slitWidth)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.SLIT_WIDTH, PropertyAttributeType.VALUE, slitWidth);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> GetSlitAngle()
+        public IResponse GetSlitAngle()
         {
             ICommand command = new GetCommand(DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetSlitAngle(float slitAngle)
+        public IResponse SetSlitAngle(float slitAngle)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.SLIT_ANGLE, PropertyAttributeType.VALUE, slitAngle);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> StopSlitAngle()
+        public IResponse StopSlitAngle()
         {
             ICommand command = new StopCommand<float>(DeviceProperty.SLIT_ANGLE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> CalibrateSlitAngle(float slitAngle)
+        public IResponse CalibrateSlitAngle(float slitAngle)
         {
             ICommand command = new CalibrateCommand<float>(DeviceProperty.SLIT_ANGLE, slitAngle);
             string response = _commandSender.SendCommand(command);
@@ -245,49 +245,49 @@ namespace Shelyak.Usis
 
         #region Focus
 
-        public IResponse<float> GetFocusPosition()
+        public IResponse GetFocusPosition()
         {
             ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
 
-        public IResponse<float> SetFocusPosition(float focusPosition)
+        public IResponse SetFocusPosition(float focusPosition)
         {
             ICommand command = new SetCommand<float>(DeviceProperty.FOCUS_POSITION, PropertyAttributeType.VALUE, focusPosition);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> StopFocusPosition()
+        public IResponse StopFocusPosition()
         {
             ICommand command = new StopCommand<float>(DeviceProperty.FOCUS_POSITION);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> CalibrateFocusPosition(float focusPosition)
+        public IResponse CalibrateFocusPosition(float focusPosition)
         {
             ICommand command = new CalibrateCommand<float>(DeviceProperty.FOCUS_POSITION, focusPosition);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetFocusPositionMax()
+        public IResponse GetFocusPositionMax()
         {
             ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MAX, PropertyAttributeType.MAX);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetFocusPositionMin()
+        public IResponse GetFocusPositionMin()
         {
             ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_MIN, PropertyAttributeType.MIN);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<float>(response);
         }
     
-        public IResponse<float> GetFocusPositionPrec()
+        public IResponse GetFocusPositionPrec()
         {
             ICommand command = new GetCommand(DeviceProperty.FOCUS_POSITION_PREC, PropertyAttributeType.PREC);
             string response = _commandSender.SendCommand(command);
@@ -298,14 +298,14 @@ namespace Shelyak.Usis
 
         #region LightSource
 
-        public IResponse<LightSource> GetLightSource()
+        public IResponse GetLightSource()
         {
             ICommand command = new GetCommand(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE);
             string response = _commandSender.SendCommand(command);
             return _responseParser.Parse<LightSource>(response);
         }
 
-        public IResponse<LightSource> SetLightSource(LightSource lightSource)
+        public IResponse SetLightSource(LightSource lightSource)
         {
             ICommand command = new SetCommandEnum<LightSource>(DeviceProperty.LIGHT_SOURCE, PropertyAttributeType.VALUE, lightSource);
             string response = _commandSender.SendCommand(command);

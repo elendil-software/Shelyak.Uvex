@@ -20,5 +20,5 @@ public class SoftwareVersionEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetSoftwareVersion;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetSoftwareVersion;
 }

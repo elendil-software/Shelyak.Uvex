@@ -10,11 +10,11 @@ public abstract class SpectrographWithValueEndpoint<T> : SpectrographEndpointBas
     {
     }
     
-    protected Func<IResponse<T>> UsisFunc { get; set; } = () => throw new InvalidOperationException("USIS function not set.");
+    protected Func<IResponse> UsisFunc { get; set; } = () => throw new InvalidOperationException("USIS function not set.");
     
     public override async Task HandleAsync(AlpacaRequestWithValue<T> request, CancellationToken ct)
     {
-        var result = Execute(UsisFunc, request);
+        var result = Execute<T>(UsisFunc, request);
         await SendAsync(result, cancellation: ct);
     }
 }

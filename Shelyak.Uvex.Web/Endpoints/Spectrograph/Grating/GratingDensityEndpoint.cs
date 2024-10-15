@@ -21,5 +21,5 @@ public class GratingDensityEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetGratingDensity;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetGratingDensity;
 }

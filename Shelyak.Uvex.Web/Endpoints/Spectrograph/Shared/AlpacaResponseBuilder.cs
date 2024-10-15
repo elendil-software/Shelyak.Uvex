@@ -26,7 +26,7 @@ public static class AlpacaResponseBuilder
         };
     }
 
-    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint? clientTransactionId, uint serverTransactionId, IResponse<T> response)
+    public static AlpacaResponse<T> BuildAlpacaResponse<T>(uint? clientTransactionId, uint serverTransactionId, IResponse response)
     {
         var alpacaResponse = new AlpacaResponse<T>
         {

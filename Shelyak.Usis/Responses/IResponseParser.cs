@@ -2,6 +2,6 @@
 {
     public interface IResponseParser
     {
-        IResponse<T> Parse<T>(string responseString);
+        IResponse Parse<T>(string responseString);
     }
 }

@@ -21,5 +21,5 @@ public class SlitIdEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetSlitId;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetSlitId;
 }

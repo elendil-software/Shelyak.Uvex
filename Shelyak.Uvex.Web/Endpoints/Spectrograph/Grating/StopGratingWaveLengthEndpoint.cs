@@ -21,5 +21,5 @@ public class StopGratingWaveLengthEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
     
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.StopGratingWaveLength;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.StopGratingWaveLength;
 }

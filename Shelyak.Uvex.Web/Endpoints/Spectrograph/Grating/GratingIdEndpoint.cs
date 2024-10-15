@@ -21,5 +21,5 @@ public class GratingIdEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
 
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetGratingId;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetGratingId;
 }

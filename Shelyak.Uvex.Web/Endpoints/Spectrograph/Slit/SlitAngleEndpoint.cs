@@ -21,5 +21,5 @@ public class SlitAngleEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetSlitAngle;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetSlitAngle;
 }

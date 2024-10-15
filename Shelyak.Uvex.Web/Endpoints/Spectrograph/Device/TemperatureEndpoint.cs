@@ -20,5 +20,5 @@ public class TemperatureEndpoint : SpectrographEndpoint<string>
         base.Configure();
     }
     
-    protected override Func<IResponse<string>> UsisFunc() => _usisDevice.GetTemperature;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetTemperature;
 }

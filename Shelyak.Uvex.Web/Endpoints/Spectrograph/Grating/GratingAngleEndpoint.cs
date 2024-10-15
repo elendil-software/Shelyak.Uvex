@@ -21,5 +21,5 @@ public class GratingAngleEndpoint : SpectrographEndpoint<float>
         base.Configure();
     }
 
-    protected override Func<IResponse<float>> UsisFunc() => _usisDevice.GetGratingAngle;
+    protected override Func<IResponse> UsisFunc() => _usisDevice.GetGratingAngle;
 }
