@@ -2,7 +2,7 @@
 
 namespace Shelyak.Usis.Commands
 {
-    public class StopCommand<T> : ICommand
+    public class StopCommand : ICommand
     {
         private readonly DeviceProperty _deviceProperty;
 
