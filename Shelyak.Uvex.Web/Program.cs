@@ -3,7 +3,6 @@ using Shelyak.Uvex.Web.Components;
 using Serilog;
 using Shelyak.Uvex.Shared;
 using Shelyak.Uvex.Web.Configuration;
-using Shelyak.Uvex.Web.Middleware;
 using LoggerConfiguration = Serilog.LoggerConfiguration;
 
 Log.Logger = new LoggerConfiguration()
@@ -41,10 +40,6 @@ try
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    }
-    else
-    {
-        app.UseMiddleware<RequestLoggingMiddleware>();
     }
     
     app.UseStaticFiles();
