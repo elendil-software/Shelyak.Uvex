@@ -32,13 +32,13 @@ public static class ServicesExtension
 
     private static WebApplicationBuilder AddHttpClients(this WebApplicationBuilder builder)
     {
-        builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (provider, client) =>
+        builder.Services.AddHttpClient(HttpClientConst.ApiConfigHttpClient, (_, client) =>
         {
             var baseUrl = builder.Configuration.GetApplicationUrl();
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}");
         });
         
-        builder.Services.AddHttpClient(HttpClientConst.ApiSpectrographHttpClient, (provider, client) =>
+        builder.Services.AddHttpClient(HttpClientConst.ApiSpectrographHttpClient, (_, client) =>
         {
             var baseUrl = builder.Configuration.GetApplicationUrl();
             client.BaseAddress = new Uri($"{baseUrl}{FastEndpointsConfigurationExtensions.GetApiBasePath()}Spectrograph/0/");
