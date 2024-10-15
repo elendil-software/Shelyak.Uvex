@@ -34,7 +34,7 @@ namespace ASCOM.ShelyakUvex.FilterWheelDriver
             try
             {
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
-                DriverProgId = FilterWheelDriver.FilterWheel.DriverProgId;
+                DriverProgId = FilterWheel.DriverProgId;
                 ReadProfile();
                 LogMessage(nameof(FilterWheelHardware), "Static initialiser completed.");
             }
@@ -61,7 +61,7 @@ namespace ASCOM.ShelyakUvex.FilterWheelDriver
                 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
-                DriverDescription = FilterWheelDriver.FilterWheel.DriverDescription;
+                DriverDescription = FilterWheel.DriverDescription;
 
                 LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 

@@ -32,7 +32,7 @@ namespace ASCOM.ShelyakUvex.FocuserDriver
             try
             {
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
-                DriverProgId = FocuserDriver.Focuser.DriverProgId;
+                DriverProgId = Focuser.DriverProgId;
                 ReadProfile();
                 LogMessage(nameof(FocuserHardware), "Static initialiser completed.");
             }
@@ -59,7 +59,7 @@ namespace ASCOM.ShelyakUvex.FocuserDriver
 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
-                DriverDescription = FocuserDriver.Focuser.DriverDescription;
+                DriverDescription = Focuser.DriverDescription;
 
                 LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 
