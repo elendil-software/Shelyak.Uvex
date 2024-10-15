@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     /// <summary>
     /// Class to keep track of COM object instanciations and destructions

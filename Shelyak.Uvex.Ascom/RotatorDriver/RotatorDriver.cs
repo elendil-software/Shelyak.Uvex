@@ -4,10 +4,9 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
 using ASCOM.Utilities;
 
-namespace ASCOM.ShelyakUvex.Rotator
+namespace ASCOM.ShelyakUvex.RotatorDriver
 {
     /// <summary>
     /// ASCOM Rotator Driver for ShelyakUvex.

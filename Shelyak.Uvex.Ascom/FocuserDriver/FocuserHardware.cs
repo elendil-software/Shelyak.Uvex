@@ -3,12 +3,11 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
-using ASCOM.ShelyakUvex.FocuserDriver;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 
-namespace ASCOM.ShelyakUvex.Focuser
+namespace ASCOM.ShelyakUvex.FocuserDriver
 {
     /// <summary>
     /// ASCOM Focuser hardware class for ShelyakUvex.
@@ -33,7 +32,7 @@ namespace ASCOM.ShelyakUvex.Focuser
             try
             {
                 tl = new TraceLogger("", "ShelyakUvex.Hardware");
-                DriverProgId = Focuser.DriverProgId;
+                DriverProgId = FocuserDriver.Focuser.DriverProgId;
                 ReadProfile();
                 LogMessage(nameof(FocuserHardware), "Static initialiser completed.");
             }
@@ -60,7 +59,7 @@ namespace ASCOM.ShelyakUvex.Focuser
 
                 LogMessage(nameof(InitialiseHardware), "Starting one-off initialisation.");
 
-                DriverDescription = Focuser.DriverDescription;
+                DriverDescription = FocuserDriver.Focuser.DriverDescription;
 
                 LogMessage(nameof(InitialiseHardware), $"ProgID: {DriverProgId}, Description: {DriverDescription}");
 

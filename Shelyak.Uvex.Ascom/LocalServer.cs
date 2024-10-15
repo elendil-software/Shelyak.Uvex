@@ -27,7 +27,7 @@ using System.Windows.Forms;
 using ASCOM.Utilities;
 using Microsoft.Win32;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     public static class Server
     {

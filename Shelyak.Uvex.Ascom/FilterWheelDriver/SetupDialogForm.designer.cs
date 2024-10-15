@@ -1,7 +1,6 @@
 using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace ASCOM.ShelyakUvex.FilterWheel
+namespace ASCOM.ShelyakUvex.FilterWheelDriver
 {
     partial class SetupDialogForm
     {

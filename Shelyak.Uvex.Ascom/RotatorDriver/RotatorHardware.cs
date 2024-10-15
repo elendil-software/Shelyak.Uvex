@@ -8,7 +8,7 @@ using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 
-namespace ASCOM.ShelyakUvex.Rotator
+namespace ASCOM.ShelyakUvex.RotatorDriver
 {
     /// <summary>
     /// ASCOM Rotator hardware class for ShelyakUvex.

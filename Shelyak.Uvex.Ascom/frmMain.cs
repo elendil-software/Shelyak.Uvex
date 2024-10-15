@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     public partial class FrmMain : Form
     {

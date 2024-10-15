@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 
-namespace ASCOM.ShelyakUvex.Focuser
+namespace ASCOM.ShelyakUvex.FocuserDriver
 {
     [ComVisible(false)] // Form not registered for COM!
     public partial class SetupDialogForm : SetupDialogFormBase
