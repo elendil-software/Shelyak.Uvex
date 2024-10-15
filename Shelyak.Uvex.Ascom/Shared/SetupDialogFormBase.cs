@@ -7,9 +7,7 @@ namespace ASCOM.ShelyakUvex.Shared
     {
         private ConfigHttpClient _httpClient;
         private ComboBox _comboBoxComPort;
-        private TextBox _textBoxUvexWebApiUrl;
-        private NumericUpDown _numericUpPort;
-        
+
         protected SetupDialogFormBase()
         {
             

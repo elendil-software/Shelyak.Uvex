@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     #region C# Definition of IClassFactory
 

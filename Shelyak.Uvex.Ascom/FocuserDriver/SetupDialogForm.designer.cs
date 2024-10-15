@@ -1,7 +1,6 @@
 using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace ASCOM.ShelyakUvex.Focuser
+namespace ASCOM.ShelyakUvex.FocuserDriver
 {
     partial class SetupDialogForm
     {

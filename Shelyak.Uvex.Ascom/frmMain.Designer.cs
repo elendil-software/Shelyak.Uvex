@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     partial class FrmMain
     {

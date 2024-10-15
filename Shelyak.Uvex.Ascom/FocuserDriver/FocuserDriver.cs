@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
 using ASCOM.Utilities;
 
-namespace ASCOM.ShelyakUvex.Focuser
+namespace ASCOM.ShelyakUvex.FocuserDriver
 {
     /// <summary>
     /// ASCOM Focuser Driver for ShelyakUvex.
@@ -640,7 +640,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 {
                     CheckConnected(nameof(StepSize));
                     double stepSize = FocuserHardware.StepSize;
-                    LogMessage(nameof(StepSize), stepSize.ToString());
+                    LogMessage(nameof(StepSize), stepSize.ToString(CultureInfo.InvariantCulture));
                     return stepSize;
                 }
                 catch (Exception ex)
@@ -720,7 +720,7 @@ namespace ASCOM.ShelyakUvex.Focuser
                 {
                     CheckConnected(nameof(Temperature));
                     double temperature = FocuserHardware.Temperature;
-                    LogMessage(nameof(Temperature), temperature.ToString());
+                    LogMessage(nameof(Temperature), temperature.ToString(CultureInfo.InvariantCulture));
                     return temperature;
                 }
                 catch (Exception ex)

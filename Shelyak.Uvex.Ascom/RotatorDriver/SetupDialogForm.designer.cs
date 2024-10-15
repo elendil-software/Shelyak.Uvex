@@ -1,7 +1,6 @@
 using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace ASCOM.ShelyakUvex.Rotator
+namespace ASCOM.ShelyakUvex.RotatorDriver
 {
     partial class SetupDialogForm
     {

@@ -7,7 +7,7 @@ using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 
-namespace ASCOM.ShelyakUvex.FilterWheel
+namespace ASCOM.ShelyakUvex.FilterWheelDriver
 {
     /// <summary>
     /// ASCOM FilterWheel hardware class for ShelyakUvex.

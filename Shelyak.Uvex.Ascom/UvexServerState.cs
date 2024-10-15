@@ -5,7 +5,7 @@ using System.Linq;
 using ASCOM.Utilities;
 using Shelyak.Uvex.Shared;
 
-namespace ASCOM.LocalServer
+namespace ASCOM.ShelyakUvex
 {
     public class UvexServerState
     {

@@ -3,12 +3,11 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
-using ASCOM.ShelyakUvex.FocuserDriver;
 using ASCOM.ShelyakUvex.Shared;
 using ASCOM.Utilities;
 using Shelyak.Usis.Enums;
 
-namespace ASCOM.ShelyakUvex.Focuser
+namespace ASCOM.ShelyakUvex.FocuserDriver
 {
     /// <summary>
     /// ASCOM Focuser hardware class for ShelyakUvex.

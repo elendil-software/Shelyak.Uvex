@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ASCOM
+namespace ASCOM.ShelyakUvex
 {
     /// <summary>
     /// This attribute can be applied to any static local server class to mark it as a hardware class whose Dispose() method must be called prior to the local server shutting down.

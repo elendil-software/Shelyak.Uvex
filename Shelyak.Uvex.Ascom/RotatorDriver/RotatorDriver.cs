@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ASCOM.DeviceInterface;
-using ASCOM.LocalServer;
 using ASCOM.Utilities;
 
-namespace ASCOM.ShelyakUvex.Rotator
+namespace ASCOM.ShelyakUvex.RotatorDriver
 {
     /// <summary>
     /// ASCOM Rotator Driver for ShelyakUvex.
@@ -564,7 +564,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     CheckConnected(nameof(Position));
                     float position = RotatorHardware.Position;
-                    LogMessage(nameof(Position), position.ToString());
+                    LogMessage(nameof(Position), position.ToString(CultureInfo.InvariantCulture));
                     return position;
                 }
                 catch (Exception ex)
@@ -622,7 +622,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     CheckConnected(nameof(StepSize));
                     float stepSize = RotatorHardware.StepSize;
-                    LogMessage(nameof(StepSize), stepSize.ToString());
+                    LogMessage(nameof(StepSize), stepSize.ToString(CultureInfo.InvariantCulture));
                     return stepSize;
                 }
                 catch (Exception ex)
@@ -644,7 +644,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     CheckConnected(nameof(TargetPosition));
                     float targetPosition = RotatorHardware.TargetPosition;
-                    LogMessage(nameof(TargetPosition), targetPosition.ToString());
+                    LogMessage(nameof(TargetPosition), targetPosition.ToString(CultureInfo.InvariantCulture));
                     return targetPosition;
                 }
                 catch (Exception ex)
@@ -668,7 +668,7 @@ namespace ASCOM.ShelyakUvex.Rotator
                 {
                     CheckConnected(nameof(MechanicalPosition));
                     float mechanicalPosition = RotatorHardware.MechanicalPosition;
-                    LogMessage(nameof(MechanicalPosition), mechanicalPosition.ToString());
+                    LogMessage(nameof(MechanicalPosition), mechanicalPosition.ToString(CultureInfo.InvariantCulture));
                     return mechanicalPosition;
                 }
                 catch (Exception ex)
