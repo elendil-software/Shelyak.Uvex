@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 using ASCOM.Astrometry.AstroUtils;
@@ -389,7 +390,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
             float newPosition = (float)astroUtilities.Range(gratingAngle + Position, 0.0, true, 360.0, false);
-            LogMessage(nameof(Move), $"Move by {Position.ToString()}, new position {newPosition}");
+            LogMessage(nameof(Move), $"Move by {Position.ToString(CultureInfo.InvariantCulture)}, new position {newPosition}");
             _uvexHttpClient.SetGratingAngle(newPosition);
         }
 
@@ -400,7 +401,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Absolute position in degrees.</param>
         internal static void MoveAbsolute(float Position)
         {
-            LogMessage(nameof(MoveAbsolute), $"Move to position {Position.ToString()}");
+            LogMessage(nameof(MoveAbsolute), $"Move to position {Position.ToString(CultureInfo.InvariantCulture)}");
             
             float newPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
             _uvexHttpClient.SetGratingAngle(newPosition);
@@ -414,7 +415,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float gratingAngle = _uvexHttpClient.GetGratingAngle().Value.Value;
-                LogMessage(nameof(Position) + " Get", gratingAngle.ToString());
+                LogMessage(nameof(Position) + " Get", gratingAngle.ToString(CultureInfo.InvariantCulture));
                 return gratingAngle;
             }
         }
@@ -444,7 +445,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float stepSize = _uvexHttpClient.GetGratingAnglePrecision().Value.Value;
-                LogMessage(nameof(StepSize) + " Get", stepSize.ToString());
+                LogMessage(nameof(StepSize) + " Get", stepSize.ToString(CultureInfo.InvariantCulture));
                 return stepSize;
             }
         }
@@ -456,7 +457,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         {
             get
             {
-                LogMessage(nameof(TargetPosition) + " Get", rotatorPosition.ToString());
+                LogMessage(nameof(TargetPosition) + " Get", rotatorPosition.ToString(CultureInfo.InvariantCulture));
                 return rotatorPosition;
             }
         }
@@ -471,7 +472,7 @@ namespace ASCOM.ShelyakUvex.Rotator
             get
             {
                 float position = Position;
-                LogMessage(nameof(MechanicalPosition) + " Get", position.ToString());
+                LogMessage(nameof(MechanicalPosition) + " Get", position.ToString(CultureInfo.InvariantCulture));
                 return position;
             }
         }
@@ -482,7 +483,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Mechanical rotator position angle.</param>
         internal static void MoveMechanical(float Position)
         {
-            LogMessage(nameof(MoveMechanical), Position.ToString());
+            LogMessage(nameof(MoveMechanical), Position.ToString(CultureInfo.InvariantCulture));
             MoveAbsolute(Position); 
         }
 
@@ -492,7 +493,7 @@ namespace ASCOM.ShelyakUvex.Rotator
         /// <param name="Position">Synchronised rotator position angle.</param>
         internal static void Sync(float Position)
         {
-            LogMessage(nameof(Sync), Position.ToString());
+            LogMessage(nameof(Sync), Position.ToString(CultureInfo.InvariantCulture));
             Position = rotatorPosition = (float)astroUtilities.Range(Position, 0.0, true, 360.0, false);
             _uvexHttpClient.CalibrateGratingAngle(Position); 
         }
