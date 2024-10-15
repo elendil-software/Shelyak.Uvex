@@ -9,14 +9,12 @@ namespace Shelyak.Usis
     public class SerialPortCommandSender : ICommandSender
     {
         private SerialPortSettings _settings;
-        private readonly IOptionsMonitor<SerialPortSettings> _optionsMonitor;
         private readonly ILogger<SerialPortCommandSender> _logger;
         private readonly object _lock = new object();
 
         public SerialPortCommandSender(IOptionsMonitor<SerialPortSettings> settings, ILogger<SerialPortCommandSender> logger)
         {
             _settings = settings.CurrentValue;
-            _optionsMonitor = settings;
             settings.OnChange(option =>
             {
                 _settings = option;

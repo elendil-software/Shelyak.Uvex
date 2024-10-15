@@ -7,12 +7,10 @@ namespace Shelyak.Uvex.Web.Endpoints.Config.ComPort;
 
 public class GetComPortEndpoint : EndpointWithoutRequest<string>
 {
-    private readonly ISettingsUpdater _settingsUpdater;
     private IOptionsSnapshot<SerialPortSettings> SerialPortSettingsOptions { get; set; }
 
     public GetComPortEndpoint(ISettingsUpdater settingsUpdater, IOptionsSnapshot<SerialPortSettings> serialPortSettingsOptions)
     {
-        _settingsUpdater = settingsUpdater;
         SerialPortSettingsOptions = serialPortSettingsOptions;
     }
     
