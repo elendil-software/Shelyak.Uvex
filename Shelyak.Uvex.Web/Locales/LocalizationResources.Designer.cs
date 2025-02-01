@@ -331,14 +331,14 @@ namespace Shelyak.Uvex.Web.Locales {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;h2&gt;Introduction&lt;/h2&gt;
-        ///&lt;p&gt;Le logiciel Selyak UVEX permet le contrôle d&apos;un spectrographe UVEX munit d&apos;un motorisation.&lt;/p&gt;
+        ///&lt;p&gt;The Selyak UVEX software allows the control of an UVEX spectrograph equipped with a motor.&lt;/p&gt;
         ///
-        ///&lt;p&gt;Il se compose de deux partie distinctes. D&apos;une part un service Web, partie où vous vous trouvez actuellement, qui permet la configuration et le contrôle manuel au travers d&apos;un navigateur. 
-        ///Et d&apos;autre part de trois drivers ASCOM permettant le contrôle depuis votre logiciel de contrôle habituel (PRISM, N.I.N.A, ...).&lt;/p&gt;
+        ///&lt;p&gt;It consists of two distinct parts. On the one hand, a Web application, the part you are currently in, which allows configuration and manual control through a browser.
+        ///And on the other hand, three ASCOM drivers allowing control from your usual control software (PRISM, N.I.N.A, ...).&lt;/p&gt;
         ///
         ///&lt;h2&gt;Configuration&lt;/h2&gt;
         ///
-        ///&lt;p&gt;Lors de la première utilisatio [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;When using it for the first time, you will be directed to the con [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Help_Content {
             get {
