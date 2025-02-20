@@ -96,14 +96,13 @@ jobs:
           ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/Setup.iss
           ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./InnoSetup/Setup.iss
 
-      - name: 'Zip artifact archive'
-        if: ${{ inputs.build_installer == true }}
-        run: 7z a -t7z -mx=1 ${{ env.installer_artifact_name }} ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/*.exe ./InnoSetup/*.exe
-      
       - name: 'Upload source artifact'
         if: ${{ inputs.build_installer == true }}
         uses: actions/upload-artifact@v4.3.4
         with:
           name: ${{ env.installer_artifact_name }}
-          path: ${{ env.installer_artifact_name }}
+          path: |
+            ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe 
+            ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/*.exe 
+            ./InnoSetup/*.exe
           retention-days: ${{ env.artifacts_retention_days }}
