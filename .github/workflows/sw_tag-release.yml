@@ -12,7 +12,7 @@ on:
         type: string
     
 env:
-  installer_artifact_name: 'installers.7z'
+  installer_artifact_name: 'installers'
 
 jobs:
   release:
@@ -29,11 +29,6 @@ jobs:
         with:
           name: ${{ env.installer_artifact_name }}
           path: ${{ inputs.installer_artifact_name }}
-
-      #- name: 'Unzip artifact archive'
-      #  run: |
-      #    7z x ${{ env.installer_artifact_name }}
-      #    rm -f ${{ env.installer_artifact_name }}
           
       - name: 'Create Tag'
         id: tag_version

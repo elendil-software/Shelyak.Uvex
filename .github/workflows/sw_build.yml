@@ -20,7 +20,7 @@ on:
         
 env:
   dotnet_version: 'net8.0'
-  installer_artifact_name: 'installers.7z'
+  installer_artifact_name: 'installers'
   artifacts_retention_days: 5
 
 jobs:
@@ -95,14 +95,13 @@ jobs:
           ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/Setup.iss
           ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/Setup.iss
           ISCC /Dversion=${{ steps.gitversion.outputs.MajorMinorPatch }} /DVersionInfoVersion=${{ steps.gitversion.outputs.MajorMinorPatch }} ./InnoSetup/Setup.iss
-
+          mv ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe ./installers
+          mv ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/*.exe ./installers
+          mv ./InnoSetup/*.exe ./installers
       - name: 'Upload source artifact'
         if: ${{ inputs.build_installer == true }}
         uses: actions/upload-artifact@v4.3.4
         with:
           name: ${{ env.installer_artifact_name }}
-          path: |
-            ./Shelyak.Uvex.Ascom/bin/Release/InnoSetup/*.exe 
-            ./Shelyak.Uvex.Web/bin/Release/${{ env.dotnet_version }}/win-x64/publish/InnoSetup/*.exe 
-            ./InnoSetup/*.exe
+          path: ./installers/*.exe
           retention-days: ${{ env.artifacts_retention_days }}
