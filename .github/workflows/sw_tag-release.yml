@@ -28,11 +28,12 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: ${{ env.installer_artifact_name }}
+          path: ${{ inputs.installer_artifact_name }}
 
-      - name: 'Unzip artifact archive'
-        run: |
-          7z x ${{ env.installer_artifact_name }}
-          rm -f ${{ env.installer_artifact_name }}
+      #- name: 'Unzip artifact archive'
+      #  run: |
+      #    7z x ${{ env.installer_artifact_name }}
+      #    rm -f ${{ env.installer_artifact_name }}
           
       - name: 'Create Tag'
         id: tag_version
@@ -58,5 +59,5 @@ jobs:
           draft: false
           body: "${{steps.build_changelog.outputs.changelog}}"
           tag: "${{ inputs.git_tag }}"
-          artifacts: "*.exe"
+          artifacts: "${{ env.installer_artifact_name }}/*"
           token: ${{ secrets.GITHUB_TOKEN }}
